@@ -14,6 +14,9 @@ const routes: Routes = [{
 },
 {
   path: 'customer', loadChildren: () => import('./customer/customer.module').then(mod => mod.CustomerModule)
+},
+{
+  path: 'flight', loadChildren: () => import('./flight/flight.module').then(mod => mod.FlightModule)
 },];
 
 @NgModule({
