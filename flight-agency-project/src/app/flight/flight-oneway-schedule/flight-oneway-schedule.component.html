@@ -1,0 +1,179 @@
+      <div class="row bg-color-custom">
+        <div class="col-xs-2 border rounded-circle  m-md-2">
+          <div class="text-center align-middle p-md-2">
+            <em class="fas fa-plane fa-2x" style="color: white;"></em>
+          </div>
+        </div>
+        <div class="col-xs-10">
+          <h5 class="text-light">Hồ Chí Minh, Việt Nam (SGN)
+            <em class="fas fa-long-arrow-alt-right" style="color: white;"></em>
+            Hà Nội, Việt Nam (HAN)
+          </h5>
+          <h6 class="text-light">Thứ 5, 27-08-2020</h6>
+        </div>
+      </div>
+      <div class="row list-group list-group-horizontal-md text-center" id="departure-date" role="tablist">
+        <a class="col list-group-item active"></a>
+        <a class="col list-group-item"></a>
+        <a class="col list-group-item"></a>
+        <a class="col list-group-item"></a>
+        <a class="col list-group-item"></a>
+      </div>
+      <div class="row text-center">
+        <table class="table">
+          <thead class="no-border">
+            <tr>
+              <th scope="col">Hãng</th>
+              <th scope="col">Mã chuyến bay</th>
+              <th scope="col">Giờ khởi hành</th>
+              <th scope="col">Giờ đến nơi</th>
+              <th scope="col">Giá (VNĐ)</th>
+              <th scope="col">Chi tiết</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id="dep-row-0">
+              <td>
+                <img class="img-icon" width="80" height="50" src="assets/branches-image/vietjet.png" alt="">
+              </td>
+              <td>VJ251</td>
+              <td>14:30</td>
+              <td>16:30</td>
+              <td>1.590.000</td>
+              <td>
+                <a id="btn-dep-detail-0" (click)="test()">Xem chi tiết</a>
+              </td>
+              <td>
+                <button id="dep-sel-0" type="button" class="btn btn-sel-fn">Chọn</button>
+              </td>
+            </tr>
+            <tr id="dep-row-1">
+              <td>
+                <img class="img-icon" width="80" height="50" src="assets/branches-image/jetstar.png" alt="">
+              </td>
+              <td>JS250</td>
+              <td>07:45</td>
+              <td>09:55</td>
+              <td>990.000</td>
+              <td>
+                <a id="btn-dep-detail-1" href="/">Xem chi tiết</a>
+              </td>
+              <td>
+                <button id="dep-sel-1" type="button" class="btn btn-sel-fn">Chọn</button>
+              </td>
+            </tr>
+            <tr id="dep-detail-1">
+              <td colspan="7">
+                <p>
+                  <i class="fas fa-info-circle"></i>
+                  Chi tiết chuyến bay
+                </p>
+                <hr>
+                <div class="row text-left">
+                  <div class="col-md">
+                    <img class="img-icon" width="80" height="50" src="assets/branches-image/jetstar.png" alt="">
+                  </div>
+                  <div class="col-md">
+                    <small>Hồ Chí Minh - SGN</small>
+                    <small>Tân sơn nhất</small>
+                    <small>Cất cánh: <span>07:45</span></small>
+                    <small>Ngày: <span>27/08/2020</span></small>
+                  </div>
+                  <div class="col-md">
+                    <small>Hà Nội - HAN</small>
+                    <small>Nội Bài</small>
+                    <small>Hạ cánh: <span>09:55</span></small>
+                    <small>Ngày: <span>27/08/2020</span></small>
+                  </div>
+                  <div class="col-md">
+                    <small>Chyến bay: <span>JS250</span></small>
+                    <small>Thời gian bay: <span>02h 10p</span></small>
+                    <small>Máy bay: <span>A321</span></small>
+                    <small>Hành lý xách tay: <span>7kg</span></small>
+                    <small>Hành lý ký gửi: <span>20kg</span></small>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr id="dep-row-2">
+              <td>
+                <img class="img-icon" width="80" height="50" src="assets/branches-image/bamboo.png" alt="">
+              </td>
+              <td>QH345</td>
+              <td>11:00</td>
+              <td>13:00</td>
+              <td>1.250.000</td>
+              <td>
+                <a id="btn-dep-detail-2" href="/">Xem chi tiết</a>
+              </td>
+              <td>
+                <button id="dep-sel-2" type="button" class="btn btn-sel-fn">Chọn</button>
+              </td>
+            </tr>
+            <tr id="dep-detail-2">
+              <td colspan="7">
+                <p>
+                  <i class="fas fa-info-circle"></i>
+                  Chi tiết chuyến bay
+                </p>
+                <hr>
+                <div class="row text-left">
+                  <div class="col-md">
+                    <img class="img-icon" width="80" height="50" src="assets/branches-image/bamboo.png" alt="">
+                  </div>
+                  <div class="col-md">
+                    <small>Hồ Chí Minh - SGN</small>
+                    <small>Tân sơn nhất</small>
+                    <small>Cất cánh: <span>14:30</span></small>
+                    <small>Ngày: <span>27/08/2020</span></small>
+                  </div>
+                  <div class="col-md">
+                    <small>Hà Nội - HAN</small>
+                    <small>Nội Bài</small>
+                    <small>Hạ cánh: <span>16:30</span></small>
+                    <small>Ngày: <span>27/08/2020</span></small>
+                  </div>
+                  <div class="col-md">
+                    <small>Chyến bay: <span>VJ251</span></small>
+                    <small>Thời gian bay: <span>02h 10p</span></small>
+                    <small>Máy bay: <span>A321</span></small>
+                    <small>Hành lý xách tay: <span>7kg</span></small>
+                    <small>Hành lý ký gửi: <span>20kg</span></small>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr id="dep-row-3">
+              <td>
+                <img class="img-icon" width="80" height="50" src="assets/branches-image/bamboo.png" alt="">
+              </td>
+              <td>QH111</td>
+              <td>20:00</td>
+              <td>22:10</td>
+              <td>1.100.000</td>
+              <td>
+                <a href="/">Xem chi tiết</a>
+              </td>
+              <td>
+                <button id="dep-sel-3" type="button" class="btn btn-sel-fn">Chọn</button>
+              </td>
+            </tr>
+            <tr id="dep-row-4">
+              <td>
+                <img class="img-icon" width="80" height="50" src="assets/branches-image/vnairline.gif" alt="">
+              </td>
+              <td>VN518</td>
+              <td>10:00</td>
+              <td>12:00</td>
+              <td>1.690.000</td>
+              <td>
+                <a href="/">Xem chi tiết</a>
+              </td>
+              <td>
+                <button id="dep-sel-4" type="button" class="btn btn-sel-fn">Chọn</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>

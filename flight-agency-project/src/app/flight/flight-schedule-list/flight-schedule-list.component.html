@@ -1,0 +1,126 @@
+<div class="container-fluid">
+  <div class="row ml-md-4 mt-md-3">
+    <div class="col-md-8">
+      <app-flight-oneway-schedule></app-flight-oneway-schedule>
+      <app-flight-oneway-schedule></app-flight-oneway-schedule>
+    </div>
+    <!-- search form -->
+    <div class="col-md-4">
+      <div class="row mx-md-2">
+        <form class="content-menu">
+          <fieldset>
+            <legend>Sắp xếp</legend>
+            <div class="border border-white rounded p-md-2">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="search" value="option1" checked>
+                <label class="form-check-label">
+                  Đề Xuất
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="search" value="option2">
+                <label class="form-check-label">
+                  Giá (Thấp Đến Cao)
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="search" value="option3">
+                <label class="form-check-label">
+                  Thời gian khởi hành
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="search" value="option3">
+                <label class="form-check-label">
+                  Hãng hàng không
+                </label>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Tìm chuyến bay</legend>
+            <div class="border border-white rounded p-md-2">
+              <p>Điểm đi</p>
+              <select class="form-control custom-select">
+                <option>Hà Nội</option>
+                <option>Đà Nẵng</option>
+                <option>Hồ Chí Minh</option>
+                <option>Vinh</option>
+                <option>Đà Lạt</option>
+              </select>
+
+              <p>Điểm đến</p>
+              <select class="form-control custom-select">
+                <option>Hà Nội</option>
+                <option>Đà Nẵng</option>
+                <option>Hồ Chí Minh</option>
+                <option>Vinh</option>
+                <option>Đà Lạt</option>
+              </select>
+
+              <p>Ngày Đi</p>
+              <input type="date" class="form-control" id="dateNow1">
+
+              <p>Ngày về</p>
+              <input type="date" class="form-control" id="dateNow2">
+
+              <table style="width: 100%">
+                <tr>
+                  <TH width="33%">Em bé</TH>
+                  <TH width="33%">Trẻ em</TH>
+                  <TH width="33%">Người lớn</TH>
+                </tr>
+                <tr>
+                  <td>
+                    <select class="form-control custom-select">
+                      <option selected disabled>Chọn</option>
+                      <option>0</option>
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select class="form-control custom-select">
+                      <option selected disabled>Chọn</option>
+                      <option>0</option>
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select class="form-control custom-select">
+                      <option selected disabled>Chọn</option>
+                      <option>0</option>
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                      <option>5</option>
+                    </select>
+                  </td>
+                </tr>
+              </table>
+              <input type="submit" class="form-control btn btn-search-fn" style="margin-top :5px"
+                value="Tìm chuyến bay" />
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- confirm button -->
+  <div class="row mb-md-4">
+    <div class="col-md-5 offset-md-5">
+      <button type="submit" (click)="open()" class="btn btn-confirm-fn" data-toggle="modal"
+        data-target="#exampleModal">Xác
+        nhận</button>
+    </div>
+  </div>
+</div>
