@@ -17,7 +17,7 @@ const routes: Routes = [{
 },
 {
   path: 'flight', loadChildren: () => import('./flight/flight.module').then(mod => mod.FlightModule)
-},];
+}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
