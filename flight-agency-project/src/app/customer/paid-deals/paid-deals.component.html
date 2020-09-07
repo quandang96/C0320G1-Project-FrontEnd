@@ -1,0 +1,86 @@
+<h3>Danh sách vé đã thanh toán</h3>
+
+    <div class="search">
+    <div class="search1">
+        <input type="text" required class="form-control-sm" placeholder="Mã số thuế" >
+        <p class= "pt-2" *ngIf="newBid.errors?.required && newBid.touched"><small class="text-danger">Mã số thuế không hợp lệ</small></p>
+    </div>
+    <div class="search2">
+        <input type="text" class="form-control-sm" placeholder="Đơn vị" >
+        <p class= "pt-2" *ngIf="newBid.errors?.required && newBid.touched"><small class="text-danger">Đơn vị không hợp lệ</small></p>
+    </div>
+    <div class="search3">
+        <input type="text" class="form-control-sm" placeholder="Email" >
+        <p class= "pt-2" *ngIf="newBid.errors?.required && newBid.touched"><small class="text-danger">Email không hợp lệ</small></p>
+    </div>
+    <div class="search4"> 
+        <input type="text" class="form-control-sm" placeholder="Địa chỉ" >
+        <p class= "pt-2" *ngIf="newBid.errors?.required && newBid.touched"><small class="text-danger">Địa chỉ không hợp lệ</small></p>
+    </div>    
+    
+        <button class="btn btn-outline-dark">Tìm kiếm</button>
+    </div>   
+  
+    <table class="table table-bordered table-striped text-center">
+      <thead class="bg-warning">
+      <tr>
+          <th scope="col">STT</th>
+          <th scope="col">Thành tiền</th>              
+          <th scope="col">Ngày thanh toán</th>        
+          <th scope="col">Người thanh toán</th> 
+          <th scope="col">Chi tiết</th>         
+      </tr>
+      </thead>
+      <tbody class= "bg-white">
+      <tr>
+          <td>1</td>
+          <td>2200000</td>
+          <td>13/08/2020</td>
+          <td>Nancy Nguyen</td>
+          <td><i class="fas fa-eye fa-1x"></i></td>
+         
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>2200000</td>
+        <td>13/08/2020</td>
+        <td>Nancy Nguyen</td>
+        <td><i class="fas fa-eye"></i></td>       
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>2200000</td>
+        <td>13/08/2020</td>
+        <td>Nancy Nguyen</td>
+        <td><i class="fas fa-eye"></i></td>       
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>2200000</td>
+        <td>13/08/2020</td>
+        <td>Nancy Nguyen</td>
+        <td><i class="fas fa-eye"></i></td>       
+      </tr>
+     
+      </tbody>
+  </table>
+  
+  <button class="btn btn-dark" id="createBills" data-toggle = "modal" data-target="#bills">Tạo hóa đơn</button>
+
+  <div class="modal fade" id="bills" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Bạn có muốn lập hóa đơn?</h4>
+            </div>
+            <div class="modal-body">
+                <p class="text-danger"><b>Lưu ý: Các tiền dịch vụ khác không kèm theo hóa đơn này</b></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Bỏ qua</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click) = "openBillList()" >Xác nhận</button>              
+            </div>
+        </div>
+    </div>
+  </div>
+  

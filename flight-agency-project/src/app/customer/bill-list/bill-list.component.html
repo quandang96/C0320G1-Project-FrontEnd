@@ -1,0 +1,88 @@
+<h3>Danh sách hóa đơn</h3>
+
+<table class="table table-bordered table-striped text-center">
+  <thead class="bg-warning">
+  <tr>
+      <th scope="col">STT</th>
+      <th scope="col">Ký hiệu hóa đơn</th>              
+      <th scope="col">Mẫu số</th>        
+      <th scope="col">Số hóa đơn</th> 
+      <th scope="col"><input type="checkbox" id="checkAll" />&nbsp;</th>         
+  </tr>
+  </thead>
+  <tbody class= "bg-white">
+  <tr>  
+      <td>1</td>
+      <td>2200000</td>
+      <td>13/08/2020</td>
+      <td>Nancy Nguyen</td>
+      <td><input type="checkbox" name="name2" id="checkItem" /></td>
+     
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>2200000</td>
+    <td>13/08/2020</td>
+    <td>Nancy Nguyen</td>
+    <td><input type="checkbox" name="name2"  id="checkItem" /></td>       
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>2200000</td>
+    <td>13/08/2020</td>
+    <td>Nancy Nguyen</td>
+    <td><input type="checkbox" name="name2" /></td>       
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>2200000</td>
+    <td>13/08/2020</td>
+    <td>Nancy Nguyen</td>
+    <td><input type="checkbox" name="name2" /></td>       
+  </tr>
+ 
+  </tbody>
+</table>
+
+<button class="btn btn-dark" id="downloadBills" data-toggle = "modal" data-target="#download">Tải hóa đơn</button>
+
+<div class="pagination">   
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+          <span class="sr-only">Previous</span>
+        </a>
+      </li>
+      <li class="page-item"><a class="page-link" href="#">1</a></li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item">
+        <a class="page-link" href="#" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+          <span class="sr-only">Next</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+
+<div class="modal fade" id="download" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Bạn có muốn tải hóa đơn đã chọn?</h4>
+            </div>
+            <div class="modal-body">
+                <p class="text-danger"><b>Lưu ý: Các tiền dịch vụ khác không kèm theo hóa đơn này</b></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="downloadBills()">Xác nhận</button>              
+            </div>
+        </div>
+    </div>
+  </div>
+
