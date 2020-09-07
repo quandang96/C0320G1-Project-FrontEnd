@@ -13,11 +13,11 @@ const routes: Routes = [{
   path: 'employee', loadChildren: () => import('./employee/employee.module').then(mod => mod.EmployeeModule)
 },
 {
-  path: 'customer', loadChildren: () => import('./customer/customer.module').then(mod => mod.CustomerModule)
+  path: 'customer.ts', loadChildren: () => import('./customer/customer.module').then(mod => mod.CustomerModule)
 },
 {
   path: 'flight', loadChildren: () => import('./flight/flight.module').then(mod => mod.FlightModule)
-},];
+}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

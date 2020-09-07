@@ -1,6 +1,5 @@
-export interface Customer {
-  [prop: string]: any;
-
+// tslint:disable-next-line:class-name
+export  class listCustomerDto {
   id: number;
   fullName: string;
   birthDate: string;
@@ -9,8 +8,5 @@ export interface Customer {
   phoneNumber: string;
   address: string;
   idCard: string;
-  role: bigint;
-  passwords: string;
   avatarUrl: string;
-  status: boolean;
 }
