@@ -8,10 +8,9 @@ export interface FlightSchedule{
     departureDateTime: string,
     arrivalAirport: Airport,
     arrivalDateTime: string,
-    brand: Branch,
+    branch: number,
     flightCode: string,
     flightCapacity: number,
     price: number,
-    status: string,
     // transactions: Transaction[]
 }
