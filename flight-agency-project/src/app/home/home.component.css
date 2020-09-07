@@ -353,13 +353,13 @@ hr {
   width: 158px;
 }
 .ghichu {
-  margin-top: -10px;
-  margin-left: 25px;
+  margin-top: -20px;
+  margin-left: 10px;
 }
 .buttontimkiem {
   width: 350px;
 }
-#buttontimkiem {
+.buttontimkiem1, .buttontimkiem2 {
   justify-content: center;
   display: flex;
   padding-bottom: 10px;

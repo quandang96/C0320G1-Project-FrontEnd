@@ -51,7 +51,7 @@
                     <div class="buttonradio">
                       <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                               value="option1" checked>
+                               value="option1" checked (change)="twoWayPicked()">
                         <label class="form-check-label" for="inlineRadio1">
                           Khứ hồi
                         </label>
@@ -62,7 +62,7 @@
                     <div class="buttonradio">
                       <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                               value="option2">
+                               value="option2" (change)="oneWayPicked()">
                         <label class="form-check-label" for="inlineRadio2">
                           Một chiều
                         </label>
@@ -128,7 +128,7 @@
                     </div>
                   </div>
                   <div class="col-md-6 col-lg-6 col-xl-6">
-                    <div class="inputimkiem">
+                    <div class="inputimkiem" *ngIf="!oneWay">
                       <div class="form-group" id="returnDate">
                         <div class="input-group mb-3 input1">
                           <div class="input-group-prepend">
@@ -228,10 +228,17 @@
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-12">
-                    <div id="buttontimkiem">
+                  <div class="col-md-6 col-lg-6 col-xl-6">
+                    <div class="buttontimkiem1">
                       <button type="button" class="btn btn-warning btn-lg buttontimkiem">
-                        Tìm chuyến bay
+                        Tìm kiếm nhanh
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-6 col-xl-6">
+                    <div class="buttontimkiem2">
+                      <button type="button" class="btn btn-warning btn-lg buttontimkiem">
+                        Tìm kiếm nâng cao
                       </button>
                     </div>
                   </div>
