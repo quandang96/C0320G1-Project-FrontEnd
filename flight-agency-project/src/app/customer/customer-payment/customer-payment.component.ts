@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+/**
+ *  Created by: Toàn
+ */
+import {Component, OnInit} from '@angular/core';
+import {IPayPalConfig} from 'ngx-paypal';
 
 @Component({
   selector: 'app-customer-payment',
@@ -7,9 +11,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomerPaymentComponent implements OnInit {
 
-  constructor() { }
+  public payPalConfig ?: IPayPalConfig;
 
-  ngOnInit() {
+  constructor() {
   }
 
+  ngOnInit() {
+    this.initConfig();
+  }
+
+  private initConfig(): void {
+    this.payPalConfig = {
+      clientId: 'sb',
+      style: {
+        label: 'paypal',
+        layout: 'vertical'
+      }
+    };
+  }
 }
