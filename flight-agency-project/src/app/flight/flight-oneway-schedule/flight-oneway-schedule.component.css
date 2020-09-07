@@ -1,10 +1,10 @@
-small {
-  display: block;
-  font-size: 90% !important;
+tr td p:hover {
+  color: #0056b3;
 }
 
-tr td div small span {
-  font-weight: bold;
+tr td p {
+  cursor: pointer;
+  color: #007bff;
 }
 
 .img-icon {
