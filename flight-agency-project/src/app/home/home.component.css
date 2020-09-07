@@ -85,14 +85,13 @@ hr {
   background-color: white;
   display: flex;
   justify-content: center;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 .detail3 {
   width: 100%;
   height: 100%;
-  padding: 25px;
-  background-color: #eaeaea;
+  background-color: #FFFFFF;
 }
 .imgslide {
   height: 600px;
@@ -169,6 +168,14 @@ hr {
   display: inline-block;
   margin-left: 2px;
   margin-top: 5px;
+}
+.hr1 {
+  height:1px;
+  border-width:0;
+  color:#adadad;
+  background-color:#adadad;
+  margin-top: 10px;
+  margin-bottom: 30px;
 }
 .hr2 {
   height:1px;
@@ -371,10 +378,10 @@ hr {
 .buttonradio label {
   font-size: 18px;
 }
-.gioithieu {
+.gioithieu, .thongtinvebay {
   text-align: center;
 }
-.gioithieu h1 {
+.gioithieu h1, .thongtinvebay h1 {
   font-family: VnArial;
 }
 #footer {
@@ -411,4 +418,10 @@ hr {
 .logomaybay2 {
   display: flex;
   justify-content: center;
+}
+table thead {
+  background-color: #ffc93c;
+}
+table td {
+  vertical-align: middle;
 }
