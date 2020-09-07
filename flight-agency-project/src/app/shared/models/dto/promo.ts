@@ -4,13 +4,10 @@ export interface Promo{
     id: number;
     namePromo: string;
     discount: number;
-    dateRunPromoStart: string;
-    dateRunPromoEnd: string;
-    flightDepartureTimeStart: string;
-    flightDepartureTimeEnd: string;
-    //customerRanking: CustomerRanking;
-    //airlineCompanyList: AirlineCompanyList;
-    //serviceClass: ServiceClass;
-    //airlineRouter: AirlineRouter;
+    // flightSchedule: FlightSchedule;
+    promoDateStart: string;
+    promoDateEnd: string;
+    flightDepartureDateStart: string;
+    flightDepartureDateEnd: string;
     isDelete: boolean;
 }
