@@ -1,6 +1,6 @@
-export interface Airport{
-    id: number,
-    city: string,
-    code: string,
-    name: string
+export interface Airport {
+    id: number;
+    code: string;
+    name: string;
+    city: string;
 }

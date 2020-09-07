@@ -1,0 +1,59 @@
+      <div class="row bg-color-custom">
+        <div class="col-xs-2 border rounded-circle  m-md-2">
+          <div class="text-center align-middle p-md-2">
+            <em class="fas fa-plane fa-2x" style="color: white;"></em>
+          </div>
+        </div>
+        <div class="col-xs-10">
+          <h5 class="text-light">{{from}}
+            <em class="fas fa-long-arrow-alt-right" style="color: white;"></em>
+            {{to}}
+          </h5>
+          <h6 class="text-light">Thứ 5, 27-08-2020</h6>
+        </div>
+      </div>
+      <div class="row list-group list-group-horizontal-md text-center" id="departure-date" role="tablist">
+        <a class="col list-group-item active"></a>
+        <a class="col list-group-item"></a>
+        <a class="col list-group-item"></a>
+        <a class="col list-group-item"></a>
+        <a class="col list-group-item"></a>
+      </div>
+      <div class="row text-center">
+        <table class="table">
+          <thead class="no-border">
+            <tr>
+              <th scope="col">Hãng</th>
+              <th scope="col">Mã chuyến bay</th>
+              <th scope="col">Giờ khởi hành</th>
+              <th scope="col">Giờ đến nơi</th>
+              <th scope="col">Giá (VNĐ)</th>
+              <th scope="col">Chi tiết</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let flight of flightSchedules; index as i">
+              <tr [id]="'dep-row-' + i" *ngIf="isHidden[i]">
+                <td>
+                  <img class="img-icon" width="80" height="50" src="assets/branches-image/vietjet.png" alt="">
+                </td>
+                <td>{{flight.flightCode}}</td>
+                <td>{{flight.departureDateTime}}</td>
+                <td>{{flight.arrivalDateTime}}</td>
+                <td>{{flight.price | currency: 'VND': 'symbol'}}</td>
+                <td>
+                  <p [id]="'btn-dep-detail-' + i" (click)="detail()">Xem chi tiết</p>
+                </td>
+                <td>
+                  <button (click)="select(i)" type="button" class="btn btn-sel-fn"
+                    [style.background-color]="changeStyle ? '#00aeef' : '#ffa801'"
+                    [style.border-color]="changeStyle ? '#00aeef' : '#ffa801'">
+                    {{buttonChange[i]}}
+                  </button>
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </div>
