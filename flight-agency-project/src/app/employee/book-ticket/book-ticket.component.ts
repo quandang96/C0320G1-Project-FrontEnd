@@ -10,8 +10,7 @@ import {Router, NavigationStart } from '@angular/router';
 export class BookTicketComponent implements OnInit {
   flight: object = null;
   constructor(private router: Router) {
-    this.flight = this.router.getCurrentNavigation().extras.state;
-    console.log(this.flight);
+   
    }
 
   ngOnInit() {
