@@ -8,6 +8,7 @@ import {CustomerPaymentComponent} from './customer-payment/customer-payment.comp
 import { CustomerPasswordComponent } from './customer-password/customer-password.component';
 
 
+
 @NgModule({
   declarations: [CustomerInfoComponent, CustomerHomeComponent , CustomerPaymentComponent, CustomerPasswordComponent ],
   imports: [

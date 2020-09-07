@@ -7,12 +7,14 @@ import {CustomerPasswordComponent} from './customer-password/customer-password.c
 
 
 
+
+
 const routes: Routes = [
   {
     path: '', component: CustomerHomeComponent, children: [
       {path: 'payment', component: CustomerPaymentComponent},
       {path: 'info', component: CustomerInfoComponent },
-      {path: 'change-password', component: CustomerPasswordComponent }
+      {path: 'change-password', component: CustomerPasswordComponent },
     ]
   }];
 
