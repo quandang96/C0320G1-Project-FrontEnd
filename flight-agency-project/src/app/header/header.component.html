@@ -1,1 +1,17 @@
-<p>header works!</p>
+<div class="navbar ">
+    Flight agency
+    <button *ngIf="!isLogged" type="button" class="btn btn1 text-white float-right mr-3 " (click)="openDialog()">Đăng
+        nhập</button>
+
+    <div *ngIf="isLogged" class="dropdown float-right mr-3">
+        <img *ngIf="isLogged" src="{{userLogged?.photoURL}}" class="rounded-circle" style="width: 40px">
+        <button class="btn btn1 text-white dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false" value=" {{userLogged?.accountName}}">
+
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#">Xem hồ sơ</a>
+            <button type="button" (click)="logOut()" class="dropdown-item">Đăng xuất</button>
+        </div>
+    </div>
+</div>
