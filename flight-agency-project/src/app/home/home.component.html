@@ -274,51 +274,28 @@
         <table class="table border">
           <thead class="bg-warning">
           <tr>
+            <th class="text-center">STT</th>
             <th class="text-center">Mã vé</th>
             <th class="text-center">Nơi đi</th>
             <th class="text-center">Nơi đến</th>
             <th class="text-center">Ngày bay</th>
             <th class="text-center">Giá</th>
+            <th class="text-center">Tình trạng</th>
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td class="text-center">VJ125-001</td>
-            <td class="text-center">Hà Nội (HAN)</td>
-            <td class="text-center">Hồ Chí Minh (SGN)</td>
-            <td class="text-center">28/08/2020</td>
-            <td class="text-center">790.000 ₫</td>
-          </tr>
-          <tr>
-            <td class="text-center">VN6013-001</td>
-            <td class="text-center">Hà Nội (HAN)</td>
-            <td class="text-center">Hồ Chí Minh (SGN)</td>
-            <td class="text-center">29/08/2020</td>
-            <td class="text-center">902.900 ₫</td>
-          </tr>
-          <tr>
-            <td class="text-center">VN1372-002</td>
-            <td class="text-center">Hồ Chí Minh (SGN)</td>
-            <td class="text-center">HUẾ (HUI)</td>
-            <td class="text-center">01/09/2020</td>
-            <td class="text-center">1.243.900 ₫</td>
-          </tr>
-          <tr>
-            <td class="text-center">QH1415-022</td>
-            <td class="text-center">HÀ NỘI (HAN)</td>
-            <td class="text-center">NHA TRANG (CXR)</td>
-            <td class="text-center">05/09/2020</td>
-            <td class="text-center">1.339.900 ₫</td>
-          </tr>
-          <tr>
-            <td class="text-center">VJ771-006</td>
-            <td class="text-center">HÀ NỘI (HAN)</td>
-            <td class="text-center">NHA TRANG (CXR)</td>
-            <td class="text-center">05/09/2020</td>
-            <td class="text-center">998.900 ₫</td>
+          <tr *ngFor="let flight of flightSchedule | async | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalElements}; index as i">
+            <td class="text-center">{{arr[i]}}</td>
+            <td class="text-center">{{flight?.flightCode}}</td>
+            <td class="text-center">{{flight?.departureAirport?.city}}</td>
+            <td class="text-center">{{flight?.arrivalAirport?.city}}</td>
+            <td class="text-center">{{flight?.departureDateTime | date : 'dd-MM-yyyy , HH:mm:ss'}}</td>
+            <td class="text-center">{{flight?.price}}</td>
+            <td class="text-center">{{flight?.status}}</td>
           </tr>
           </tbody>
         </table>
+        <pagination-controls (pageChange)="getPage($event)" maxSize="5"></pagination-controls>
       </div>
     </div>
   </div>

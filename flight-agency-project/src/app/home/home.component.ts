@@ -1,4 +1,8 @@
 import {Component, OnInit} from '@angular/core';
+import { FlightScheduleService } from '../shared/services/flight-schedule.service';
+import { FlightSchedules } from '../shared/models/FlightSchedules';
+import { Observable } from 'rxjs';
+import {map, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -6,19 +10,52 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  // D-Bach
+  oneWay = false;
+  flightSchedule: Observable<FlightSchedules[]>;
+  pageSize: number;
+  currentPage: number;
+  totalElements: number;
+  arr: number[];
+  isEmpty = false;
 
-  private oneWay = false;
+  constructor(
+    private flightScheduleService: FlightScheduleService
+  ) {
+  }
 
-  constructor() {
+  // D-Bach
+  getPage(pageNumber: number) {
+    this.flightSchedule = this.flightScheduleService.getAllFlightSchedule(pageNumber - 1).pipe(tap(page => {
+      this.totalElements = page.totalElements;
+      this.pageSize = page.size;
+      this.currentPage = pageNumber;
+      this.arr = [];
+      const firstIndex = this.pageSize * (this.currentPage - 1) + 1;
+      const lastIndeex = this.pageSize * this.currentPage;
+      for (let i = firstIndex; i <= lastIndeex; i++) {
+        this.arr.push(i);
+      }
+
+      this.isEmpty = page.content.length === 0;
+        // tslint:disable-next-line:no-shadowed-variable
+    }, error => {
+      console.log(error);
+    }),
+      map(page => page), map(page => page.content)
+    );
   }
 
   ngOnInit() {
+    this.getPage(1);
   }
 
+  // D-Bach
   oneWayPicked() {
     this.oneWay = true;
   }
 
+  // D-Bach
   twoWayPicked() {
     this.oneWay = false;
   }
