@@ -1,1 +1,116 @@
-<p>customer-payment works!</p>
+<table class="table border">
+  <thead class="bg-warning">
+  <tr>
+    <th class="text-center">
+      <input class="largerCheckbox" type="checkbox">
+    </th>
+    <th class="text-left">Mã vé</th>
+    <th class="text-left">Nơi đi</th>
+    <th class="text-left">Nơi đến</th>
+    <th class="text-center">Ngày đặt vé</th>
+    <th class="text-center">Ngày bay</th>
+    <th class="text-center">Giá</th>
+    <th class="text-center">Hủy</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td class="text-center">
+      <input class="largerCheckbox" type="checkbox">
+    </td>
+    <td class="text-left">VJ125-001</td>
+    <td class="text-left">Hà Nội (HAN)</td>
+    <td class="text-left">Hồ Chí Minh (SGN)</td>
+    <td class="text-center">26/08/2020</td>
+    <td class="text-center">28/08/2020</td>
+    <td class="text-right">790.000 ₫</td>
+    <td class="text-center">
+      <button class="btn btn-warning btn-sm" data-target="#confirmDeleteModal" data-toggle="modal">
+        <i class="fas fa-plane-slash"></i>
+      </button>
+    </td>
+  </tr>
+  <tr>
+    <td class="text-center">
+      <input class="largerCheckbox" type="checkbox">
+    </td>
+    <td class="text-left">VN6013-001</td>
+    <td class="text-left">Hà Nội (HAN)</td>
+    <td class="text-left">Hồ Chí Minh (SGN)</td>
+    <td class="text-center">27/08/2020</td>
+    <td class="text-center">29/08/2020</td>
+    <td class="text-right">902.900 ₫</td>
+    <td class="text-center">
+      <button class="btn btn-warning btn-sm" data-target="#confirmDeleteModal" data-toggle="modal">
+        <i class="fas fa-plane-slash"></i>
+      </button>
+    </td>
+  </tr>
+  <tr>
+    <td class="text-center">
+      <input class="largerCheckbox" type="checkbox">
+    </td>
+    <td class="text-left">VN1372-002</td>
+    <td class="text-left">Hồ Chí Minh (SGN)</td>
+    <td class="text-left">HUẾ (HUI)</td>
+    <td class="text-center">27/08/2020</td>
+    <td class="text-center">01/09/2020</td>
+    <td class="text-right">1.243.900 ₫</td>
+    <td class="text-center">
+      <button class="btn btn-warning btn-sm" data-target="#confirmDeleteModal" data-toggle="modal">
+        <i class="fas fa-plane-slash"></i>
+      </button>
+    </td>
+  </tr>
+  <tr>
+    <td class="text-center">
+      <input class="largerCheckbox" type="checkbox">
+    </td>
+    <td class="text-left">QH1415-022</td>
+    <td class="text-left">HÀ NỘI (HAN)</td>
+    <td class="text-left">NHA TRANG (CXR)</td>
+    <td class="text-center">27/08/2020</td>
+    <td class="text-center">05/09/2020</td>
+    <td class="text-right">1.339.900 ₫</td>
+    <td class="text-center">
+      <button class="btn btn-warning btn-sm" data-target="#confirmDeleteModal" data-toggle="modal">
+        <i class="fas fa-plane-slash"></i>
+      </button>
+    </td>
+  </tr>
+  <tr>
+    <td class="text-center">
+      <input class="largerCheckbox" id="check" type="checkbox">
+    </td>
+    <td class="text-left">VJ771-006</td>
+    <td class="text-left">HÀ NỘI (HAN)</td>
+    <td class="text-left">NHA TRANG (CXR)</td>
+    <td class="text-center">27/08/2020</td>
+    <td class="text-center">05/09/2020</td>
+    <td class="text-right">998.900 ₫</td>
+    <td class="text-center">
+      <button class="btn btn-warning btn-sm" data-target="#confirmDeleteModal" data-toggle="modal">
+        <i class="fas fa-plane-slash"></i>
+      </button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<div class="d-flex justify-content-end mb-3">
+  <div class="card">
+    <div class="card-body">
+      <div class="row mx-0" style="font-size: large;">
+        <div class="col-auto px-0">Tổng tiền</div>
+        <div class="col text-right pr-0" style="font-weight: 600;color:#4469b0;">2.088.000 VND
+        </div>
+      </div>
+      <div class="text-right" style="font-size: small;">
+        Bao gồm thuế, phí và phụ phí
+      </div>
+    </div>
+  </div>
+</div>
+<div class="d-flex justify-content-end">
+  <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+</div>
+
