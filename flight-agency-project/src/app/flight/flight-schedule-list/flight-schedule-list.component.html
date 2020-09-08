@@ -3,6 +3,7 @@
     <div class="col-md-8">
       <ng-template oneWay></ng-template>
       <ng-template oneWay></ng-template>
+      <button type="submit" (click)="open()" class="btn btn-confirm-fn">Xác nhận</button>
     </div>
     <!-- search form -->
     <div class="col-md-4">
@@ -60,11 +61,13 @@
               <div class="text-center">
 
                 <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" id="oneway" class="custom-control-input" value="0" formControlName="isRoundTrip">
+                  <input type="radio" id="oneway" class="custom-control-input" value="0" formControlName="isRoundTrip"
+                    (change)="changeWay($event)">
                   <label class="custom-control-label" for="oneway">Một chiều </label>
                 </div>
                 <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" id="twoway" class="custom-control-input" value="1" formControlName="isRoundTrip">
+                  <input type="radio" id="twoway" class="custom-control-input" value="1" formControlName="isRoundTrip"
+                    (change)="changeWay($event)">
                   <label class="custom-control-label" for="twoway">Khứ hồi</label>
                 </div>
               </div>
@@ -121,14 +124,6 @@
             value="Tìm chuyến bay" />
         </form>
       </div>
-    </div>
-  </div>
-  <!-- confirm button -->
-  <div class="row mb-md-4">
-    <div class="col-md-5 offset-md-5">
-      <button type="submit" (click)="open()" class="btn btn-confirm-fn" data-toggle="modal"
-        data-target="#exampleModal">Xác
-        nhận</button>
     </div>
   </div>
 </div>

@@ -12,7 +12,7 @@
           <h6 class="text-light">Thứ 5, 27-08-2020</h6>
         </div>
       </div>
-      <div class="row list-group list-group-horizontal-md text-center" id="departure-date" role="tablist">
+      <div class="row list-group list-group-horizontal-md text-center">
         <a class="col list-group-item active"></a>
         <a class="col list-group-item"></a>
         <a class="col list-group-item"></a>
@@ -34,16 +34,16 @@
           </thead>
           <tbody>
             <ng-container *ngFor="let flight of flightSchedules; index as i">
-              <tr [id]="'dep-row-' + i" *ngIf="isHidden[i]">
+              <tr *ngIf="isHidden[i]">
                 <td>
-                  <img class="img-icon" width="80" height="50" src="assets/branches-image/vietjet.png" alt="">
+                  <img class="img-icon" width="50" height="50" [src]="branchImages[flight.branch]" alt="">
                 </td>
                 <td>{{flight.flightCode}}</td>
                 <td>{{flight.departureDateTime}}</td>
                 <td>{{flight.arrivalDateTime}}</td>
                 <td>{{flight.price | currency: 'VND': 'symbol'}}</td>
                 <td>
-                  <p [id]="'btn-dep-detail-' + i" (click)="detail()">Xem chi tiết</p>
+                  <p (click)="detail(i)">Xem chi tiết</p>
                 </td>
                 <td>
                   <button (click)="select(i)" type="button" class="btn btn-sel-fn"

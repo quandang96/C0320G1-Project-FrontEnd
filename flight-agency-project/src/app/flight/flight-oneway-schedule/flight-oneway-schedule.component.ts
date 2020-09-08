@@ -2,7 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angu
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FlightDetailComponent } from '../flight-detail/flight-detail.component';
 import { FlightSchedule } from 'src/app/shared/models/flight-schedule';
-
+import { add } from 'date-fns'
+import { FlightScheduleService } from 'src/app/shared/services/flight-schedule.service';
 @Component({
   selector: 'app-flight-oneway-schedule',
   templateUrl: './flight-oneway-schedule.component.html',
@@ -12,8 +13,9 @@ export class FlightOnewayScheduleComponent implements OnInit, OnChanges {
 
   @Input() from: string;
   @Input() to: string;
-  @Output() sel = new EventEmitter<string>();
+  @Output() sel = new EventEmitter<any>();
   flightSchedules: FlightSchedule[] = [];
+  branchImages: string[];
   isHidden = [];
   buttonChange = [];
   changeStyle = false;
@@ -25,14 +27,14 @@ export class FlightOnewayScheduleComponent implements OnInit, OnChanges {
       name: 'Tan San Nhat',
       city: 'Tp Ho Chi Minh'
     },
-    departureDateTime: '14:00',
+    departureDateTime: '2020-09-07 14:00',
     arrivalAirport: {
       id: 2,
       code: 'HAN',
       name: 'Noi Bai',
       city: 'Ha Noi'
     },
-    arrivalDateTime: '16:00',
+    arrivalDateTime: '2020-09-07 16:00',
     branch: 1,
     flightCode: 'VJ123',
     flightCapacity: 100,
@@ -46,15 +48,15 @@ export class FlightOnewayScheduleComponent implements OnInit, OnChanges {
       name: 'Tan San Nhat',
       city: 'Tp Ho Chi Minh'
     },
-    departureDateTime: '12:00',
+    departureDateTime: '2020-09-07 12:00',
     arrivalAirport: {
       id: 2,
       code: 'HAN',
       name: 'Noi Bai',
       city: 'Ha Noi'
     },
-    arrivalDateTime: '14:00',
-    branch: 1,
+    arrivalDateTime: '2020-09-07 14:00',
+    branch: 3,
     flightCode: 'VJ412',
     flightCapacity: 100,
     price: 870000
@@ -67,24 +69,26 @@ export class FlightOnewayScheduleComponent implements OnInit, OnChanges {
       name: 'Tan San Nhat',
       city: 'Tp Ho Chi Minh'
     },
-    departureDateTime: '20:00',
+    departureDateTime: '2020-09-07 20:00',
     arrivalAirport: {
       id: 2,
       code: 'HAN',
       name: 'Noi Bai',
       city: 'Ha Noi'
     },
-    arrivalDateTime: '22:00',
-    branch: 1,
+    arrivalDateTime: '2020-09-07 22:00',
+    branch: 2,
     flightCode: 'VJ412',
     flightCapacity: 100,
     price: 870000
   }
   constructor(
+    private flightScheduleService: FlightScheduleService,
     private modalService: NgbModal
   ) { }
 
   ngOnInit() {
+    this.branchImages = this.flightScheduleService.branchImages;
     this.flightSchedules.push(this.data1);
     this.flightSchedules.push(this.data2);
     this.flightSchedules.push(this.data3);
@@ -116,7 +120,8 @@ export class FlightOnewayScheduleComponent implements OnInit, OnChanges {
     }
   }
 
-  detail() {
-    this.modalService.open(FlightDetailComponent, { size: 'lg' });
+  detail(i) {
+    const modalRef = this.modalService.open(FlightDetailComponent, { size: 'lg' });
+    modalRef.componentInstance.flightDetail = this.flightSchedules[i];
   }
 }

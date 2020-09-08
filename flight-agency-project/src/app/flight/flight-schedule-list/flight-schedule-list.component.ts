@@ -29,7 +29,7 @@ export class FlightScheduleListComponent implements OnInit, AfterViewInit {
       departure: [''],
       arrival: [''],
       fromDate: [new Date()],
-      toDate: [new Date()],
+      toDate: [{ value: new Date(), disabled: true }],
       babies: [0],
       children: [0],
       adults: [1]
@@ -48,6 +48,7 @@ export class FlightScheduleListComponent implements OnInit, AfterViewInit {
   changeFlight() {
 
   }
+
   loadComponent() {
     // Hồ Chí Minh, Việt Nam (SGN)
     const resolver = this.resolver.resolveComponentFactory(FlightOnewayScheduleComponent);
@@ -59,11 +60,23 @@ export class FlightScheduleListComponent implements OnInit, AfterViewInit {
     // const viewContainerRef1 = this.entry.toArray()[1].viewContainer.createComponent(resolver);
   }
 
+  changeWay($event) {
+    if ($event.target.value == '0') {
+      this.toDate.disable();
+    } else {
+      this.toDate.enable();
+    }
+  }
+
   get fromDate() {
     return this.searchForm.get('fromDate');
   }
 
   get toDate() {
     return this.searchForm.get('toDate');
+  }
+
+  get isRoundTrip() {
+    return this.searchForm.get('isRoundTrip');
   }
 }
