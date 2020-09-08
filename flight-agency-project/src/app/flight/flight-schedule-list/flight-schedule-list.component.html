@@ -3,23 +3,18 @@
     <div class="col-md-8">
       <ng-template oneWay></ng-template>
       <ng-template oneWay></ng-template>
-      <button type="submit" (click)="open()" class="btn btn-confirm-fn">Xác nhận</button>
+      <button (click)="confirmBooking()" class="btn btn-confirm-fn" [disabled]="!selectedDep || !selectedRet">Xác
+        nhận</button>
     </div>
     <!-- search form -->
     <div class="col-md-4">
       <div class="row mx-md-2">
         <form class="content-menu" [formGroup]="searchForm" (ngSubmit)="onSubmit()">
-          <!-- <div>
-            <pre>
-              {{searchForm.value | json}}
-            </pre>
-          </div> -->
           <fieldset class="form-group">
             <legend>Sắp xếp</legend>
             <div class="border border-white rounded p-md-2">
               <div class="custom-control custom-radio">
-                <input type="radio" id="customRadio1" class="custom-control-input" value="default"
-                  formControlName="sortBy">
+                <input type="radio" id="customRadio1" class="custom-control-input" value="" formControlName="sortBy">
                 <label class="custom-control-label" for="customRadio1">
                   Đề Xuất
                 </label>
@@ -73,21 +68,25 @@
               </div>
 
               <label>Điểm đi</label>
-              <select class="form-control custom-select" formControlName="departure">
-                <option>Hà Nội</option>
-                <option>Đà Nẵng</option>
-                <option>Hồ Chí Minh</option>
-                <option>Vinh</option>
-                <option>Đà Lạt</option>
+              <select class="form-control custom-select" formControlName="departure"
+                (change)="depId = $event.target.value">
+                <option selected disabled value="">Chọn địa điểm...</option>
+                <ng-container *ngFor="let airport of airportList">
+                  <ng-container *ngIf="airport.id != arrId">
+                    <option [value]="airport.id">{{airport.city}} ({{airport.code}})</option>
+                  </ng-container>
+                </ng-container>
               </select>
 
               <label>Điểm đến</label>
-              <select class="form-control custom-select" formControlName="arrival">
-                <option>Hà Nội</option>
-                <option>Đà Nẵng</option>
-                <option>Hồ Chí Minh</option>
-                <option>Vinh</option>
-                <option>Đà Lạt</option>
+              <select class="form-control custom-select" formControlName="arrival"
+                (change)="arrId = $event.target.value">
+                <option selected disabled value="">Chọn địa điểm...</option>
+                <ng-container *ngFor="let airport of airportList">
+                  <ng-container *ngIf="airport.id != depId">
+                    <option [value]="airport.id">{{airport.city}} ({{airport.code}})</option>
+                  </ng-container>
+                </ng-container>
               </select>
 
               <label>Ngày Đi</label>

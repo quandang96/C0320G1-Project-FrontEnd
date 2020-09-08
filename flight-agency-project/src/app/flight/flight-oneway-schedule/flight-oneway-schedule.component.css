@@ -28,6 +28,7 @@ div>p.col {
   color: #4469B0 !important;
   background-color: #c1c9d2;
   border-color: #c1c9d2;
+  cursor: pointer;
 }
 
 .list-group-item.active {
@@ -44,7 +45,6 @@ thead.no-border>tr>th {
 div.row p:hover {
   background-color: #fff;
   border-color: #fff;
-  text-decoration: none;
 }
 
 .btn-sel-fn {

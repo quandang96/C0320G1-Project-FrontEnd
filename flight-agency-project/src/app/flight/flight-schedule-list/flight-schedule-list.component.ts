@@ -3,9 +3,12 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FlightBookingDetailComponent } from '../flight-booking-detail/flight-booking-detail.component';
 import { OnewayDirective } from '../oneway.directive';
 import { FlightOnewayScheduleComponent } from '../flight-oneway-schedule/flight-oneway-schedule.component';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FlightSearchDTO } from './../../shared/models/dto/flight-search-dto';
 import { FlightSchedule } from 'src/app/shared/models/flight-schedule';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Airport } from './../../shared/models/airport';
+
 @Component({
   selector: 'app-flight-schedule-list',
   templateUrl: './flight-schedule-list.component.html',
@@ -15,47 +18,55 @@ export class FlightScheduleListComponent implements OnInit, AfterViewInit {
 
   @ViewChildren(OnewayDirective) entry: QueryList<OnewayDirective>
 
-  searchForm: FormGroup;
   readonly MAX_PEOPLE = new Array(6);
+  searchForm: FormGroup;
+  airportList: Airport[];
+  depId = -1;
+  arrId = -1;
   // selected flight
-  private departureFlight: FlightSchedule;
+  private departureFlight: FlightSchedule = null;
   private departureComponent: ComponentRef<FlightOnewayScheduleComponent>;
-  private arrivalFlight: FlightSchedule;
-  private arrivalComponent: ComponentRef<FlightOnewayScheduleComponent>;
+  private returnFlight: FlightSchedule = null;
+  private returnComponent: ComponentRef<FlightOnewayScheduleComponent>;
   private noOfWay: number;
 
   constructor(
+    private route: ActivatedRoute,
+    private router: Router,
     private resolver: ComponentFactoryResolver,
     private modalService: NgbModal,
     private fb: FormBuilder
   ) { }
 
   ngOnInit() {
+    this.route.data.subscribe((data: { airports: Airport[] }) => {
+      this.airportList = data.airports;
+    })
     this.noOfWay = 1;
     this.searchForm = this.fb.group({
-      sortBy: ['default'],
+      sortBy: ['', [Validators.required]],
       isRoundTrip: [''],
-      departure: [''],
-      arrival: [''],
-      depDate: [new Date()],
+      departure: [0, [Validators.required]],
+      arrival: [0, [Validators.required]],
+      depDate: [new Date(), [Validators.required]],
       retDate: [{ value: new Date(), disabled: true }],
-      babies: [0],
-      children: [0],
-      adults: [1]
+      babies: [0, [Validators.required]],
+      children: [0, [Validators.required]],
+      adults: [1, [Validators.required]]
     })
   }
 
   ngAfterViewInit() {
     // this.loadComponent()
-    console.log(this.entry.toArray());
   }
 
   open() {
     this.modalService.open(FlightBookingDetailComponent, { size: 'lg' });
   }
 
-  changeFlight() {
-
+  confirmBooking() {
+    console.log(this.departureFlight);
+    console.log(this.returnFlight);
   }
 
   onSubmit() {
@@ -69,7 +80,10 @@ export class FlightScheduleListComponent implements OnInit, AfterViewInit {
       adults: this.searchForm.get('adults').value
     }
     this.noOfWay = 1;
-    this.loadComponent(this.departureComponent, 0, depSchedule, this.departureFlight);
+    this.departureComponent = this.loadComponent(0, depSchedule);
+    this.departureComponent.instance.sel.subscribe(data => {
+      this.departureFlight = data;
+    })
     if (this.isRoundTrip.value == '1') {
       const retSchedule: FlightSearchDTO = {
         sortBy: this.searchForm.get('sortBy').value,
@@ -81,22 +95,22 @@ export class FlightScheduleListComponent implements OnInit, AfterViewInit {
         adults: this.searchForm.get('adults').value
       }
       this.noOfWay = 2;
-      this.loadComponent(this.arrivalComponent, 1, retSchedule, this.arrivalFlight);
+      this.returnComponent = this.loadComponent(1, retSchedule);
+      this.returnComponent.instance.sel.subscribe(data => {
+        this.returnFlight = data;
+      })
     }
   }
 
-  loadComponent(componentRef: ComponentRef<FlightOnewayScheduleComponent>, index: number, flightSearch: FlightSearchDTO, selectedFlight: FlightSchedule) {
+  loadComponent(index: number, flightSearch: FlightSearchDTO): ComponentRef<FlightOnewayScheduleComponent> {
     // clear component
     this.entry.toArray()[index].viewContainer.clear();
     const resolver = this.resolver.resolveComponentFactory(FlightOnewayScheduleComponent);
 
-    componentRef = this.entry.toArray()[index].viewContainer.createComponent(resolver);
+    const componentRef = this.entry.toArray()[index].viewContainer.createComponent(resolver);
     componentRef.instance.flightSearch = flightSearch;
     componentRef.changeDetectorRef.detectChanges();
-    componentRef.instance.sel.subscribe((data: FlightSchedule) => {
-      selectedFlight = data;
-      console.log(selectedFlight);
-    })
+    return componentRef;
   }
 
   changeWay($event) {
@@ -107,6 +121,20 @@ export class FlightScheduleListComponent implements OnInit, AfterViewInit {
     }
   }
 
+  checkLocation() {
+    this.depId = this.departure.value;
+    this.arrId = this.arrival.value;
+    console.log(this.depId);
+    console.log(this.arrId);
+  }
+
+  get departure() {
+    return this.searchForm.get('departure');
+  }
+
+  get arrival() {
+    return this.searchForm.get('arrival');
+  }
   get depDate() {
     return this.searchForm.get('depDate');
   }
@@ -119,5 +147,16 @@ export class FlightScheduleListComponent implements OnInit, AfterViewInit {
     return this.searchForm.get('isRoundTrip');
   }
 
+  get selectedDep() {
+    if (this.departureFlight == null)
+      return false;
+    return true;
+  }
+
+  get selectedRet() {
+    if (this.returnFlight == null)
+      return false;
+    return true;
+  }
 
 }

@@ -13,7 +13,10 @@
         </div>
       </div>
       <div class="row list-group list-group-horizontal-md text-center">
-        <p *ngFor="let date of dateFlightString; index as i" class="col list-group-item">{{date}}</p>
+        <p *ngFor="let date of dateFlightString; index as i" class="col list-group-item" [class.active]="isActive[i]"
+          (click)="changeFlightDate(i)">
+          {{date}}
+        </p>
       </div>
       <div class="row text-center">
         <table class="table">
@@ -32,12 +35,12 @@
             <ng-container *ngFor="let flight of flightSchedules; index as i">
               <tr *ngIf="isHidden[i]">
                 <td>
-                  <img class="img-icon" width="50" height="50" [src]="branchImages[flight.branch.id]" alt="">
+                  <img class="img-icon" width="50" height="50" [src]="branchImages[flight?.branch?.id]" alt="">
                 </td>
-                <td>{{flight.flightCode}}</td>
-                <td>{{flight.departureDateTime | date: 'HH:mm'}}</td>
-                <td>{{flight.arrivalDateTime | date: 'HH:mm'}}</td>
-                <td>{{flight.price | currency: 'VND': 'symbol'}}</td>
+                <td>{{flight?.flightCode}}</td>
+                <td>{{flight?.departureDateTime | date: 'HH:mm'}}</td>
+                <td>{{flight?.arrivalDateTime | date: 'HH:mm'}}</td>
+                <td>{{flight?.price | currency: 'VND': 'symbol'}}</td>
                 <td>
                   <p (click)="detail(i)">Xem chi tiết</p>
                 </td>

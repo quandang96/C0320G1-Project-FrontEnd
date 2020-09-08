@@ -1,7 +1,7 @@
 export interface FlightSearchDTO {
     sortBy: string;
-    departure: string;
-    arrival: string;
+    departure: number;
+    arrival: number;
     depDate: Date;
     babies: number;
     children: number;

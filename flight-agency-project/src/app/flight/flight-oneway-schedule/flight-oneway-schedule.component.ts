@@ -1,16 +1,18 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, OnDestroy } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FlightDetailComponent } from '../flight-detail/flight-detail.component';
 import { FlightSchedule } from 'src/app/shared/models/flight-schedule';
 import { addDays } from 'date-fns'
 import { FlightScheduleService } from 'src/app/shared/services/flight-schedule.service';
 import { FlightSearchDTO } from 'src/app/shared/models/dto/flight-search-dto';
+import { Subscription } from 'rxjs';
+
 @Component({
   selector: 'app-flight-oneway-schedule',
   templateUrl: './flight-oneway-schedule.component.html',
   styleUrls: ['./flight-oneway-schedule.component.css']
 })
-export class FlightOnewayScheduleComponent implements OnInit, OnChanges {
+export class FlightOnewayScheduleComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() flightSearch: FlightSearchDTO;
   @Output() sel = new EventEmitter<FlightSchedule>();
@@ -23,6 +25,7 @@ export class FlightOnewayScheduleComponent implements OnInit, OnChanges {
   buttonChange = [];
   changeStyle = false;
   dateFlightString = new Array<string>(5);
+  isActive = new Array<boolean>(5);
 
   // binding properties
   flightSchedules: FlightSchedule[] = [];
@@ -31,86 +34,37 @@ export class FlightOnewayScheduleComponent implements OnInit, OnChanges {
   depString: string;
   arrString: string;
 
-  data1: FlightSchedule = {
-    id: 1,
-    departureAirport: {
-      id: 1,
-      code: 'SGN',
-      name: 'Tan San Nhat',
-      city: 'Tp Ho Chi Minh'
-    },
-    departureDateTime: '2020-09-07 14:00',
-    arrivalAirport: {
-      id: 2,
-      code: 'HAN',
-      name: 'Noi Bai',
-      city: 'Ha Noi'
-    },
-    arrivalDateTime: '2020-09-07 16:00',
-    branch: { id: 1, name: 'vietject air' },
-    flightCode: 'VJ123',
-    flightCapacity: 100,
-    price: 900000
-  }
-  data2: FlightSchedule = {
-    id: 1,
-    departureAirport: {
-      id: 1,
-      code: 'SGN',
-      name: 'Tan San Nhat',
-      city: 'Tp Ho Chi Minh'
-    },
-    departureDateTime: '2020-09-07 12:00',
-    arrivalAirport: {
-      id: 2,
-      code: 'HAN',
-      name: 'Noi Bai',
-      city: 'Ha Noi'
-    },
-    arrivalDateTime: '2020-09-07 14:00',
-    branch: { id: 3, name: 'vietject air' },
-    flightCode: 'VJ412',
-    flightCapacity: 100,
-    price: 870000
-  }
-  data3: FlightSchedule = {
-    id: 3,
-    departureAirport: {
-      id: 1,
-      code: 'SGN',
-      name: 'Tan San Nhat',
-      city: 'Tp Ho Chi Minh'
-    },
-    departureDateTime: '2020-09-07 20:00',
-    arrivalAirport: {
-      id: 2,
-      code: 'HAN',
-      name: 'Noi Bai',
-      city: 'Ha Noi'
-    },
-    arrivalDateTime: '2020-09-07 22:00',
-    branch: { id: 2, name: 'vietject air' },
-    flightCode: 'VJ412',
-    flightCapacity: 100,
-    price: 870000
-  }
+
+  //Subcription
+  private sub: Subscription[] = [];
+
   constructor(
     private flightScheduleService: FlightScheduleService,
     private modalService: NgbModal
   ) { }
 
   ngOnInit() {
+    this.searchFlightSchedule();
     this.branchImages = this.flightScheduleService.branchImages;
-    this.flightSchedules.push(this.data1);
-    this.flightSchedules.push(this.data2);
-    this.flightSchedules.push(this.data3);
-    for (let i = 0; i < this.flightSchedules.length; i++) {
-      this.isHidden.push(true);
-      this.buttonChange.push('Chọn')
-    }
-    this.depString = `${this.flightSchedules[0].departureAirport.city}, Việt Nam (${this.flightSchedules[0].departureAirport.code}) `
-    this.arrString = `${this.flightSchedules[0].arrivalAirport.city}, Việt Nam (${this.flightSchedules[0].arrivalAirport.code}) `
     this.setDate(this.flightSearch.depDate);
+    this.changeFlightDate();
+  }
+
+  searchFlightSchedule() {
+    this.sub[0] = this.flightScheduleService.search(this.flightSearch).subscribe(
+      (data: FlightSchedule[]) => {
+        this.flightSchedules = data;
+        for (let i = 0; i < this.flightSchedules.length; i++) {
+          this.isHidden.push(true);
+          this.buttonChange.push('Chọn')
+        }
+        this.depString = `${this.flightSchedules[0].departureAirport.city}, Việt Nam (${this.flightSchedules[0].departureAirport.code}) `
+        this.arrString = `${this.flightSchedules[0].arrivalAirport.city}, Việt Nam (${this.flightSchedules[0].arrivalAirport.code}) `
+      }
+    )
+  }
+  ngOnDestroy() {
+    this.sub.forEach(val => val.unsubscribe());
   }
   ngOnChanges() { }
 
@@ -134,9 +88,20 @@ export class FlightOnewayScheduleComponent implements OnInit, OnChanges {
     }
   }
 
-  detail(i) {
+  detail(i: number) {
     const modalRef = this.modalService.open(FlightDetailComponent, { size: 'lg' });
     modalRef.componentInstance.flightDetail = this.flightSchedules[i];
+  }
+
+  changeFlightDate(i: number = 0) {
+    this.flightSearch.depDate = this.dateFlight[i];
+    this.searchFlightSchedule();
+    for (let j = 0; j < 5; j++) {
+      if (j == i)
+        this.isActive[j] = true;
+      else
+        this.isActive[j] = false;
+    }
   }
 
   setDate(_date: Date) {
