@@ -6,9 +6,6 @@ import {CustomerInfoComponent} from './customer-info/customer-info.component';
 import {CustomerPasswordComponent} from './customer-password/customer-password.component';
 
 
-
-
-
 const routes: Routes = [
   {
     path: '', component: CustomerHomeComponent, children: [
