@@ -1,0 +1,100 @@
+<div class="container">
+  <div class="d-flex justify-content-center align-items-center">
+    <div class="col-md-8">
+      <form [formGroup]="createReportForm" (ngSubmit)="onSubmit()">
+        <div class="d-flex justify-content-center">
+          <h1>Thống kê báo cáo</h1>
+        </div>
+        <hr>
+        <div class="form-group row">
+          <label for="type" class="col-md-3 col-form-label">Chọn kiểu báo cáo: </label>
+          <div class="col-md-3">
+            <select class="form-control" id="type" formControlName="chart">
+              <option value="1">Circle</option>
+              <option value="2">Line</option>
+              <option value="3">Pie</option>
+              <option value="4">Bar</option>
+            </select>
+          </div>
+          <label for="species" class="col-md-3 col-form-label">Chọn loại báo cáo: </label>
+          <div class="col-md-3">
+            <select class="form-control" id="species">
+              <option>Doanh Thu</option>
+              <option>Nhân Viên</option>
+              <option>Đại lý</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <input class="form-check-input position-static col-md-2" type="radio" name="blankRadio"
+                 id="blankRadio1" value="option1" aria-label="...">
+          <label class="col-md-2" for="time1">Thời gian</label>
+          <div class="col-md-3">
+            <select class="form-control" id="time1">
+              <option>Theo tuần</option>
+              <option>Theo tháng</option>
+              <option>Theo quý</option>
+              <option>Theo năm</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <input class="form-check-input position-static col-md-2" type="radio" name="blankRadio"
+                 id="blankRadio2" value="option1" aria-label="...">
+          <div class="input-group input-group col-md-5">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-sm">Từ </span>
+            </div>
+            <input type="date" class="form-control" aria-label="Small"
+                   aria-describedby="inputGroup-sizing-sm">
+          </div>
+          <!--                                <label class="col-md-2" for="from">Từ</label>-->
+          <!--                                <input type="date" class="form-control col-md-3" aria-label="Small" aria-describedby="inputGroup-sizing-sm" id="from">-->
+          <div class="input-group input-group col-md-5">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-sm">Đến</span>
+            </div>
+            <input type="date" class="form-control" aria-label="Small"
+                   aria-describedby="inputGroup-sizing-sm">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-2">So sánh với:</label>
+        </div>
+        <div class="form-group row">
+          <label class="form-check-input position-static col-md-2"></label>
+          <label class="col-md-2" for="time2">Thời gian</label>
+          <div class="col-md-3">
+            <select class="form-control" id="time2">
+              <option>Theo tuần</option>
+              <option>Theo tháng</option>
+              <option>Theo quý</option>
+              <option>Theo năm</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="form-check-input position-static col-md-2"></label>
+          <div class="input-group input-group col-md-5">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-sm">Từ </span>
+            </div>
+            <input type="date" class="form-control" aria-label="Small"
+                   aria-describedby="inputGroup-sizing-sm">
+          </div>
+          <div class="input-group input-group col-md-5">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroup-sizing-sm">Đến</span>
+            </div>
+            <input type="date" class="form-control" aria-label="Small"
+                   aria-describedby="inputGroup-sizing-sm">
+          </div>
+        </div>
+        <div class="d-flex justify-content-center align-items-center">
+          <input type="submit" class="btn btn-primary btn-lg" value="  Xem  " id="myButton">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
