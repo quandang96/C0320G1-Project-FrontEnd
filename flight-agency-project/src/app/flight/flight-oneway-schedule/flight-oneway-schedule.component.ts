@@ -2,8 +2,9 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angu
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FlightDetailComponent } from '../flight-detail/flight-detail.component';
 import { FlightSchedule } from 'src/app/shared/models/flight-schedule';
-import { add } from 'date-fns'
+import { addDays } from 'date-fns'
 import { FlightScheduleService } from 'src/app/shared/services/flight-schedule.service';
+import { FlightSearchDTO } from 'src/app/shared/models/dto/flight-search-dto';
 @Component({
   selector: 'app-flight-oneway-schedule',
   templateUrl: './flight-oneway-schedule.component.html',
@@ -11,14 +12,25 @@ import { FlightScheduleService } from 'src/app/shared/services/flight-schedule.s
 })
 export class FlightOnewayScheduleComponent implements OnInit, OnChanges {
 
-  @Input() from: string;
-  @Input() to: string;
-  @Output() sel = new EventEmitter<any>();
-  flightSchedules: FlightSchedule[] = [];
+  @Input() flightSearch: FlightSearchDTO;
+  @Output() sel = new EventEmitter<FlightSchedule>();
+
+  // Constant
+  readonly DAY_OF_WEEK = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
+  // display support properties
   branchImages: string[];
   isHidden = [];
   buttonChange = [];
   changeStyle = false;
+  dateFlightString = new Array<string>(5);
+
+  // binding properties
+  flightSchedules: FlightSchedule[] = [];
+  dateFlight = new Array<Date>(5);
+  dateString: string;
+  depString: string;
+  arrString: string;
+
   data1: FlightSchedule = {
     id: 1,
     departureAirport: {
@@ -96,8 +108,9 @@ export class FlightOnewayScheduleComponent implements OnInit, OnChanges {
       this.isHidden.push(true);
       this.buttonChange.push('Chọn')
     }
-    console.log(this.from);
-    console.log(this.to);
+    this.depString = `${this.flightSchedules[0].departureAirport.city}, Việt Nam (${this.flightSchedules[0].departureAirport.code}) `
+    this.arrString = `${this.flightSchedules[0].arrivalAirport.city}, Việt Nam (${this.flightSchedules[0].arrivalAirport.code}) `
+    this.setDate(this.flightSearch.depDate);
   }
   ngOnChanges() { }
 
@@ -110,18 +123,27 @@ export class FlightOnewayScheduleComponent implements OnInit, OnChanges {
           this.isHidden[index] = false;
         }
       }
+      this.sel.emit(this.flightSchedules[i]);
     } else {
       this.buttonChange[i] = 'Chọn';
       this.changeStyle = false;
       for (let index = 0; index < this.isHidden.length; index++) {
         this.isHidden[index] = true;
       }
-
+      this.sel.emit(null);
     }
   }
 
   detail(i) {
     const modalRef = this.modalService.open(FlightDetailComponent, { size: 'lg' });
     modalRef.componentInstance.flightDetail = this.flightSchedules[i];
+  }
+
+  setDate(_date: Date) {
+    for (let i = 0; i < this.dateFlight.length; i++) {
+      let temp = addDays(new Date(_date), i);
+      this.dateFlight[i] = temp;
+      this.dateFlightString[i] = `${this.DAY_OF_WEEK[temp.getDay()]}(${temp.getDate()}/${temp.getMonth() + 1})`;
+    }
   }
 }

@@ -8,7 +8,7 @@
     <!-- search form -->
     <div class="col-md-4">
       <div class="row mx-md-2">
-        <form class="content-menu" [formGroup]="searchForm">
+        <form class="content-menu" [formGroup]="searchForm" (ngSubmit)="onSubmit()">
           <!-- <div>
             <pre>
               {{searchForm.value | json}}
@@ -61,7 +61,7 @@
               <div class="text-center">
 
                 <div class="custom-control custom-radio custom-control-inline">
-                  <input type="radio" id="oneway" class="custom-control-input" value="0" formControlName="isRoundTrip"
+                  <input type="radio" id="oneway" class="custom-control-input" value="" formControlName="isRoundTrip"
                     (change)="changeWay($event)">
                   <label class="custom-control-label" for="oneway">Một chiều </label>
                 </div>
@@ -91,37 +91,36 @@
               </select>
 
               <label>Ngày Đi</label>
-              <input type="date" class="form-control" formControlName="fromDate"
-                [value]="fromDate.value | date : 'yyyy-MM-dd'">
+              <input type="date" class="form-control" formControlName="depDate"
+                [value]="depDate.value | date : 'yyyy-MM-dd'">
 
               <label>Ngày về</label>
-              <input type="date" class="form-control" formControlName="toDate"
-                [value]="toDate.value | date : 'yyyy-MM-dd'">
+              <input type="date" class="form-control" formControlName="retDate"
+                [value]="retDate.value | date : 'yyyy-MM-dd'">
 
               <div class="form-row">
                 <div class="col">
                   <label for="inputAddress">Em bé</label>
                   <select class="form-control custom-select" formControlName="babies">
-                    <option *ngFor="let num of MAX_PEOPLE" value="{{num}}">{{num}}</option>
+                    <option *ngFor="let num of MAX_PEOPLE; index as i" value="{{i}}">{{i}}</option>
                   </select>
                 </div>
                 <div class="col">
                   <label for="inputAddress">Trẻ em</label>
                   <select class="form-control custom-select" formControlName="children">
-                    <option *ngFor="let num of MAX_PEOPLE" value="{{num}}">{{num}}</option>
+                    <option *ngFor="let num of MAX_PEOPLE; index as i" value="{{i}}">{{i}}</option>
                   </select>
                 </div>
                 <div class="col">
                   <label for="inputAddress">Người lớn</label>
                   <select class="form-control custom-select" formControlName="adults">
-                    <option *ngFor="let num of MAX_PEOPLE" value="{{num}}">{{num}}</option>
+                    <option *ngFor="let num of MAX_PEOPLE; index as i" value="{{i}}">{{i}}</option>
                   </select>
                 </div>
               </div>
             </div>
           </fieldset>
-          <input (click)="changeFlight()" type="submit" class="form-control btn btn-search-fn" style="margin-top :5px"
-            value="Tìm chuyến bay" />
+          <input type="submit" class="form-control btn btn-search-fn" style="margin-top :5px" value="Tìm chuyến bay" />
         </form>
       </div>
     </div>

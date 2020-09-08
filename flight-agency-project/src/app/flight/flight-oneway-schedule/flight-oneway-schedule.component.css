@@ -24,28 +24,27 @@ tr td p {
   border-top-right-radius: 0 !important;
 }
 
-div>a.col {
+div>p.col {
   color: #4469B0 !important;
   background-color: #c1c9d2;
   border-color: #c1c9d2;
 }
 
 .list-group-item.active {
-  z-index: 2;
-  background-color: #fff;
-  border-color: #fff;
-  font-weight: bold;
+  z-index: 2 !important;
+  background-color: #fff !important;
+  border-color: #fff !important;
+  font-weight: bold !important;
 }
 
 thead.no-border>tr>th {
   border: none !important;
 }
 
-div.row a:hover {
+div.row p:hover {
   background-color: #fff;
   border-color: #fff;
   text-decoration: none;
-  /* font-weight: bold; */
 }
 
 .btn-sel-fn {
