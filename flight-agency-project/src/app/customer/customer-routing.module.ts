@@ -2,6 +2,11 @@ import { BillListComponent } from './bill-list/bill-list.component';
 import { PaidDealsComponent } from './paid-deals/paid-deals.component';
 import { DealRecordComponent } from './deal-record/deal-record.component';
 import { CustomerHomeComponent } from './customer-home/customer-home.component';
+
+import {CustomerPaymentComponent} from './customer-payment/customer-payment.component';
+import {CustomerInfoComponent} from './customer-info/customer-info.component';
+import {CustomerPasswordComponent} from './customer-password/customer-password.component';
+
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
@@ -10,7 +15,10 @@ const routes: Routes = [
   {path: "", component: CustomerHomeComponent, children: [
     {path: "deals", component: DealRecordComponent},
     {path: "paid-deals", component: PaidDealsComponent},
-    {path: "bills", component: BillListComponent}
+    {path: "bills", component: BillListComponent},
+    {path: 'payment', component: CustomerPaymentComponent},
+    {path: 'info', component: CustomerInfoComponent },
+    {path: 'change-password', component: CustomerPasswordComponent }
   ]},
   
 
@@ -20,4 +28,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class CustomerRoutingModule { }
+export class CustomerRoutingModule {
+}
