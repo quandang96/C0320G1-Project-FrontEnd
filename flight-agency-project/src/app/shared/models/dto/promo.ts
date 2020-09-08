@@ -4,7 +4,9 @@ export interface Promo{
     id: number;
     namePromo: string;
     discount: number;
-    // flightSchedule: FlightSchedule;
+    airline: string;
+    departurePlace: string;
+    arrivalPlace: string;
     promoDateStart: string;
     promoDateEnd: string;
     flightDepartureDateStart: string;
