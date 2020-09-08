@@ -35,7 +35,7 @@ export class FlightOnewayScheduleComponent implements OnInit, OnChanges {
       city: 'Ha Noi'
     },
     arrivalDateTime: '2020-09-07 16:00',
-    branch: 1,
+    branch: { id: 1, name: 'vietject air' },
     flightCode: 'VJ123',
     flightCapacity: 100,
     price: 900000
@@ -56,7 +56,7 @@ export class FlightOnewayScheduleComponent implements OnInit, OnChanges {
       city: 'Ha Noi'
     },
     arrivalDateTime: '2020-09-07 14:00',
-    branch: 3,
+    branch: { id: 3, name: 'vietject air' },
     flightCode: 'VJ412',
     flightCapacity: 100,
     price: 870000
@@ -77,7 +77,7 @@ export class FlightOnewayScheduleComponent implements OnInit, OnChanges {
       city: 'Ha Noi'
     },
     arrivalDateTime: '2020-09-07 22:00',
-    branch: 2,
+    branch: { id: 2, name: 'vietject air' },
     flightCode: 'VJ412',
     flightCapacity: 100,
     price: 870000

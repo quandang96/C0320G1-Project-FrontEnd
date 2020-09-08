@@ -36,7 +36,7 @@
             <ng-container *ngFor="let flight of flightSchedules; index as i">
               <tr *ngIf="isHidden[i]">
                 <td>
-                  <img class="img-icon" width="50" height="50" [src]="branchImages[flight.branch]" alt="">
+                  <img class="img-icon" width="50" height="50" [src]="branchImages[flight.branch.id]" alt="">
                 </td>
                 <td>{{flight.flightCode}}</td>
                 <td>{{flight.departureDateTime}}</td>
