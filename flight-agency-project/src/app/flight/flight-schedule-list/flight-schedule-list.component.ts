@@ -53,8 +53,8 @@ export class FlightScheduleListComponent implements OnInit, AfterViewInit {
     const resolver = this.resolver.resolveComponentFactory(FlightOnewayScheduleComponent);
     // Hà Nội, Việt Nam (HAN)
     const way1 = this.entry.toArray()[0].viewContainer.createComponent(resolver);
-    way1.instance.from = "Hồ Chí Minh, Việt Nam (SGN)";
-    way1.instance.to = "Hà Nội, Việt Nam (HAN)";
+    // way1.instance.from = "Hồ Chí Minh, Việt Nam (SGN)";
+    // way1.instance.to = "Hà Nội, Việt Nam (HAN)";
     way1.changeDetectorRef.detectChanges();
     // const viewContainerRef1 = this.entry.toArray()[1].viewContainer.createComponent(resolver);
   }
