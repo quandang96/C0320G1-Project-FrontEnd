@@ -270,13 +270,30 @@
       <div class="col-sm-12 col-xs-12 col-promotion">
         <hr class="hr1">
       </div>
+      <div class="col-sm-12 col-xs-12">
+        <div class="row bg-color-custom">
+          <div class="col-xs-2 border rounded-circle  m-md-2">
+            <div class="text-center align-middle p-md-2">
+              <i class="fas fa-plane fa-2x" style="color: white;"></i>
+            </div>
+          </div>
+          <div class="col-xs-10">
+            <h5 class="text-light">
+              Flight Now-Hơn Cả Một Chuyến Bay!
+            </h5>
+            <h6 class="text-light">Tham gia đăng kí để nhận thêm các ưu đãi</h6>
+          </div>
+        </div>
+      </div>
       <div class="col-sm-12 col-xs-12 col-promotion">
-        <table class="table border">
-          <thead class="bg-warning">
+        <table class="table">
+          <thead class="no-border">
           <tr>
             <th class="text-center">STT</th>
+            <th class="text-center">Hãng bay</th>
             <th class="text-center">Mã vé</th>
             <th class="text-center">Nơi đi</th>
+            <th class="text-center"></th>
             <th class="text-center">Nơi đến</th>
             <th class="text-center">Ngày bay</th>
             <th class="text-center">Giá</th>
@@ -286,8 +303,10 @@
           <tbody>
           <tr *ngFor="let flight of flightSchedule | async | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalElements}; index as i">
             <td class="text-center">{{arr[i]}}</td>
+            <td class="text-center">{{flight?.brand.name}}</td>
             <td class="text-center">{{flight?.flightCode}}</td>
             <td class="text-center">{{flight?.departureAirport?.city}}</td>
+            <td class="text-center"><i class="fas fa-plane"></i></td>
             <td class="text-center">{{flight?.arrivalAirport?.city}}</td>
             <td class="text-center">{{flight?.departureDateTime | date : 'dd-MM-yyyy , HH:mm:ss'}}</td>
             <td class="text-center">{{flight?.price}}</td>
@@ -295,7 +314,9 @@
           </tr>
           </tbody>
         </table>
-        <pagination-controls (pageChange)="getPage($event)" maxSize="5"></pagination-controls>
+        <div class="phantrang">
+          <pagination-controls (pageChange)="getPage($event)" maxSize="5"></pagination-controls>
+        </div>
       </div>
     </div>
   </div>

@@ -308,7 +308,7 @@ hr {
   height: 50px;
   padding: 14px 27px 6px;
   font-size: 23px;
-  color: #dba510;
+  color: #d29328;
 }
 .form_child2 {
   background: #4469B0 none repeat scroll 0 0;
@@ -316,10 +316,10 @@ hr {
   border-radius: 0 10px 10px 10px;
   padding: 14px 27px 6px;
   font-size: 15px;
-  color: #dba510;
+  color: #d29328;
 }
 .form_child h2 {
-  color: #dba510;
+  color: #d29328;
   font-size: 25px;
   margin-top: 0;
   text-align: center;
@@ -420,8 +420,18 @@ hr {
   justify-content: center;
 }
 table thead {
-  background-color: #ffc93c;
+  background-color: #FFFFFF;
 }
 table td {
   vertical-align: middle;
+}
+table th {
+  color: black;
+}
+.phantrang {
+  float: right;
+}
+.bg-color-custom {
+  background-color: #4469B0;
+  border: #e4e4e4 2px solid;
 }
