@@ -5,7 +5,7 @@ import { FlightSchedules } from '../models/FlightSchedules';
 import { Page } from '../models/dto/Page';
 import { FlightSchedule } from '../models/flight-schedule';
 import { FlightSearchDTO } from '../models/dto/flight-search-dto';
-
+import { Airport } from '../models/airport';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +35,11 @@ export class FlightScheduleService {
   // D-Bach
   getAllFlightSchedule(page: number): Observable<Page<FlightSchedules>> {
     return this.http.get<Page<FlightSchedules>>(`${this.API_URL}/flight-schedule`, this.getAllFlightScheduleHttpOption(page));
+  }
+
+  // D-Bach
+  getAllAirportCity(): Observable<Airport[]> {
+    return this.http.get<Airport[]>(`${this.API_URL}/airport`);
   }
 
   // Creator: Duy

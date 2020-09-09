@@ -3,6 +3,7 @@ import { FlightScheduleService } from '../shared/services/flight-schedule.servic
 import { FlightSchedules } from '../shared/models/FlightSchedules';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { Airport } from '../shared/models/airport';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +14,7 @@ export class HomeComponent implements OnInit {
   // D-Bach
   oneWay = false;
   flightSchedule: Observable<FlightSchedules[]>;
+  airportCity: Airport[];
   pageSize: number;
   currentPage: number;
   totalElements: number;
@@ -50,6 +52,9 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.getPage(1);
     this.branchImages = this.flightScheduleService.branchImages;
+    this.flightScheduleService.getAllAirportCity().subscribe(data => {
+      this.airportCity = data;
+    });
   }
 
   // D-Bach

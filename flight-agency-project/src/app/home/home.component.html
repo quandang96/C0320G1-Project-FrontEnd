@@ -85,10 +85,7 @@
                           </div>
                           <select class="custom-select" id="inputGroupSelect01">
                             <option selected>Vui lòng chọn điểm đi....</option>
-                            <option value=""></option>
-                            <option value="1">Đà Nẵng</option>
-                            <option value="2">Sài Gòn</option>
-                            <option value="3">Hà Nội</option>
+                            <option *ngFor="let city of airportCity" [value]="city.city">{{city.city}}</option>
                           </select>
                         </div>
                       </div>
@@ -105,10 +102,7 @@
                           </div>
                           <select class="custom-select" id="inputGroupSelect02">
                             <option selected>Vui lòng chọn điểm đến....</option>
-                            <option value=""></option>
-                            <option value="1">Đà Nẵng</option>
-                            <option value="2">Sài Gòn</option>
-                            <option value="3">Hà Nội</option>
+                            <option *ngFor="let city of airportCity" [value]="city.city">{{city.city}}</option>
                           </select>
                         </div>
                       </div>
@@ -292,9 +286,9 @@
             <th class="text-center">STT</th>
             <th class="text-center">Hãng bay</th>
             <th class="text-center">Mã vé</th>
-            <th class="text-center">Nơi đi</th>
-            <th class="text-center"></th>
-            <th class="text-center">Nơi đến</th>
+            <th class="text-center">Điểm đi (Sân bay)</th>
+            <th class="text-center"><i class="fas fa-angle-double-right"></i></th>
+            <th class="text-center">Điểm đến (Sân bay)</th>
             <th class="text-center">Ngày bay</th>
             <th class="text-center">Giá</th>
             <th class="text-center">Tình trạng</th>
@@ -307,9 +301,9 @@
               <img class="img-icon" width="70" height="70" [src]="branchImages[flight?.branch?.id]" alt="">
             </td>
             <td class="text-center">{{flight?.flightCode}}</td>
-            <td class="text-center">{{flight?.departureAirport?.city}}</td>
+            <td class="text-center">{{flight?.departureAirport?.city}} ({{flight?.departureAirport?.name}})</td>
             <td class="text-center"><i class="fas fa-plane"></i></td>
-            <td class="text-center">{{flight?.arrivalAirport?.city}}</td>
+            <td class="text-center">{{flight?.arrivalAirport?.city}} ({{flight?.arrivalAirport?.name}})</td>
             <td class="text-center">{{flight?.departureDateTime | date : 'dd-MM-yyyy , HH:mm:ss'}}</td>
             <td class="text-center">{{flight?.price}}</td>
             <td class="text-center">{{flight?.status}}</td>
