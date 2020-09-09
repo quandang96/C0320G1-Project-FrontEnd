@@ -8,7 +8,7 @@
         </div>
         <div class="col-md-3">
           <div class="float-right">
-            <a href="6.6.3.2-promo-create.html" target="_blank" class="btn btn-sm btn-success"><i class="fas fa-plus-circle"></i> Thêm mới</a>
+            <a href="/employee/promotion/create" target="_blank" class="btn btn-sm btn-success"><i class="fas fa-plus-circle"></i> Thêm mới</a>
           </div>
         </div>
       </div>
@@ -25,12 +25,9 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="inputGroup-sizing-sm">Điểm khởi hành</span>
                     </div>
-                    <select id="inputState" class="form-control form-control-sm" aria-describedby="inputGroup-sizing-sm">
-                      <option disabled>Choose...</option>
-                      <option>Hà Nội (HAN)</option>
-                      <option>Huế (HUI)</option>
-                      <option>Đà Nẵng (DAD)</option>
-                      <option>Hồ Chí Minh (SGN)</option>
+                    <select class="form-control form-control-sm" aria-describedby="inputGroup-sizing-sm">
+                      <option disabled>Chọn...</option>
+                      <option *ngFor="let airport of airportList">{{airport.city}}</option>
                     </select>
                   </div>
                 </div>
@@ -41,24 +38,21 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="inputGroup-sizing-sm">Điểm đến</span>
                     </div>
-                    <select id="inputState" class="form-control form-control-sm" aria-describedby="inputGroup-sizing-sm">
-                      <option disabled>Choose...</option>
-                      <option>Hà Nội (HAN)</option>
-                      <option>Huế (HUI)</option>
-                      <option>Đà Nẵng (DAD)</option>
-                      <option>Hồ Chí Minh (SGN)</option>
+                    <select class="form-control form-control-sm" aria-describedby="inputGroup-sizing-sm">
+                      <option disabled>Chọn...</option>
+                      <option *ngFor="let airport of airportList">{{airport.city}}</option>
                     </select>
                   </div>
                 </div>
 
                 <div class="col-md">
-                  <label for="nguoiDang">Tên khuyến mãi</label>
+                  <label for="nguoiDang">Chủ đề khuyến mãi</label>
                   <input class="form-control form-control-sm" type="text" placeholder="Search" aria-label="Search">
                 </div>
               </div>
               <div class="row" style="margin: 0 10px 0 10px;">
                 <div class="col-md">
-                  <label for="thanhTien">Thời gian khởi hành bay</label>
+                  <label for="thanhTien">Ngày khởi hành bay</label>
                   <div class="input-group input-group-sm">
                     <div class="input-group-prepend">
                       <span class="input-group-text" id="inputGroup-sizing-sm">Từ </span>
@@ -77,13 +71,10 @@
                   </div>
                 </div>
                 <div class="col-md">
-                  <label for="tenSanPham">Hãng bay</label>
-                  <select id="inputState" class="form-control form-control-sm">
-                    <option disabled>Choose...</option>
-                    <option>Vietnam Airlines</option>
-                    <option>VietJet Air</option>
-                    <option>JetStar Pacific</option>
-                    <option>Bamboo Airways</option>
+                  <label>Hãng hàng không</label>
+                  <select class="form-control form-control-sm" aria-describedby="inputGroup-sizing-sm">
+                    <option disabled>Chọn...</option>
+                    <option *ngFor="let airline of airlineList" >{{airline.name}}</option>
                   </select>
                 </div>
               </div>
@@ -124,9 +115,12 @@
         <div class="col-md-12 ">
           <nav>
             <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-              <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Đang kích hoạt</a>
-              <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Sắp hết hạn</a>
-              <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Hết hiệu lực</a>
+<!--              <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Đang kích hoạt</a>-->
+<!--              <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Chưa kích hoạt</a>-->
+<!--              <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Hết hiệu lực</a>-->
+              <a (click)="showPromoList('active')" class="nav-item nav-link active" href="#" data-toggle="tab" role="tab" aria-selected="true">Đang kích hoạt</a>
+              <a (click)="showPromoList('not-active')" class="nav-item nav-link" href="#" data-toggle="tab" role="tab" aria-selected="false">Chưa kích hoạt</a>
+              <a (click)="showPromoList('expired')" class="nav-item nav-link" href="#" data-toggle="tab" role="tab" aria-selected="false">Hết hiệu lực</a>
             </div>
           </nav>
           <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
@@ -136,68 +130,56 @@
                 <table class="table table-hover shopping-cart-wrap">
                   <thead class="text-muted" style="text-align: center; vertical-align: middle;">
                   <tr style="color: #e74c3c">
-                    <th scope="col">ID</th>
-                    <th scope="col">Tên khuyến mãi</th>
-                    <th scope="col" width="120">Giảm giá (%)</th>
+                    <th scope="col" width=5%>ID</th>
+                    <th scope="col" width=20%>Chủ đề khuyến mãi</th>
+                    <th scope="col" width=10%>Giảm giá</th>
                     <!-- <th scope="col" width="120">Giá bán ra (VND)</th> -->
-                    <th scope="col" width="120">Hãng bay</th>
-                    <th scope="col" width="120">Tuyến bay</th>
-                    <th scope="col" width="120">Thời gian hiển thị khuyến mãi</th>
-                    <th scope="col" width="120">Thời gian khởi hành bay</th>
+                    <th scope="col" width=10%>Hãng hàng không</th>
+                    <th scope="col" width=10%>Tuyến bay</th>
+                    <th scope="col" width=10%>Hiển thị khuyến mãi</th>
+                    <th scope="col" width=10%>Ngày bay</th>
                     <!-- <th scope="col" width="200" class="text-right"></th> -->
                   </tr>
 
                   <tbody>
 
-                  <tr>
+                  <tr *ngFor="let promo of promoList">
                     <td>
                       <div class="price-wrap">
                         <dl class="param param-inline small">
-                          <dt>1</dt>
+                          <dt>{{promo.id}}</dt>
                         </dl>
                       </div> <!-- price-wrap .// -->
                     </td>
 
                     <td>
                       <figure class="media">
-                        <div class="img-wrap"><img src="https://is3-ssl.mzstatic.com/image/thumb/Purple123/v4/2e/72/9a/2e729a66-d117-baa3-b603-5d4c77ec6417/source/256x256bb.jpg" width="20px"></div>
+<!--                        <div class="img-wrap"><img src="https://is3-ssl.mzstatic.com/image/thumb/Purple123/v4/2e/72/9a/2e729a66-d117-baa3-b603-5d4c77ec6417/source/256x256bb.jpg" width="20px"></div>-->
                         <div class="text-left">
-                          <h6 class="title">C03Air đồng hành cùng bạn trong những chuyến bay</h6>
+                          <h6 class="alert alert-success title">{{promo.namePromo}}</h6>
                           <a title="" href="" class="btn-sm btn-outline-success" data-toggle="tooltip" > <i class="far fa-edit"></i> Sửa</a>
                           <a href="" class="btn-sm btn-outline-danger"> <i class="far fa-trash-alt"></i> Xóa</a>
-                          <h2></h2>
-                          <div class="alert alert-success">
-                            <dl class="param param-inline small">
-                              <!--                                                                    <dt>Hạng khách: </dt>-->
-                              <dd><b>Hạng khách:</b> Gold</dd>
-                            </dl>
-                            <dl class="param param-inline small">
-                              <!--                                                                    <dt>Hạng vé: </dt>-->
-                              <dd><b>Hạng vé:</b> Phổ thông</dd>
-                            </dl>
-                          </div>
+<!--                          <div class="alert alert-success">-->
+<!--                            <dl class="param param-inline small">-->
+                              <!--<dt>Hạng khách: </dt>-->
+<!--                              <dd><b>Hạng khách:</b> Gold</dd>-->
+<!--                            </dl>-->
+<!--                          </div>-->
                         </div>
                       </figure>
                     </td>
 
                     <td>
                       <div class="price-wrap">
-                        <var class="price">20</var>
+                        <var class="price">{{promo.discount*100}} %</var>
                         <small class="text-muted">/vé</small>
                       </div> <!-- price-wrap .// -->
                     </td>
 
-                    <!-- <td>
-                        <div class="price-wrap">
-                            <var class="price">699,000</var>
-                            <small class="text-muted">/vé</small>
-                        </div>
-                    </td>
--->
                     <td>
                       <div class="price-wrap">
                         <dl class="param param-inline small">
-                          <dt>Vietnam Airline</dt>
+                          <dt>{{promo.airline.name}}</dt>
                         </dl>
                       </div> <!-- price-wrap .// -->
                     </td>
@@ -205,7 +187,8 @@
                     <td>
                       <div class="price-wrap">
                         <dl class="param param-inline small">
-                          <dt>DAD-SGN</dt>
+                          <dd>{{promo.departurePlace.city}} - {{promo.arrivalPlace.city}}</dd>
+                          <small class="text-muted">{{promo.departurePlace.code}} - {{promo.arrivalPlace.code}}</small>
                         </dl>
                       </div> <!-- price-wrap .// -->
                     </td>
@@ -213,7 +196,7 @@
                     <td>
                       <div class="price-wrap">
                         <dl class="param param-inline small">
-                          <dt>26/08/2020 - 16/09/2020</dt>
+                          <dd>{{promo.promoDateStart | date: 'dd/MM/yyyy'}} - {{promo.promoDateEnd | date: 'dd/MM/yyyy'}}</dd>
                         </dl>
                       </div> <!-- price-wrap .// -->
                     </td>
@@ -221,165 +204,7 @@
                     <td>
                       <div class="price-wrap">
                         <dl class="param param-inline small">
-                          <dt>26/08/2020 - 16/09/2020</dt>
-                        </dl>
-                      </div> <!-- price-wrap .// -->
-                    </td>
-                  </tr>
-
-                  <!-- row 2  -->
-                  <tr>
-                    <td>
-                      <div class="price-wrap">
-                        <dl class="param param-inline small">
-                          <dt>2</dt>
-                        </dl>
-                      </div> <!-- price-wrap .// -->
-                    </td>
-
-                    <td>
-                      <figure class="media">
-                        <div class="img-wrap"><img src="https://is3-ssl.mzstatic.com/image/thumb/Purple123/v4/2e/72/9a/2e729a66-d117-baa3-b603-5d4c77ec6417/source/256x256bb.jpg" width="20px"></div>
-                        <div class="text-left">
-                          <h6 class="title">C03Air đồng hành cùng bạn trong những chuyến bay</h6>
-                          <a title="" href="" class="btn-sm btn-outline-success" data-toggle="tooltip" > <i class="far fa-edit"></i> Sửa</a>
-                          <a href="" class="btn-sm btn-outline-danger"> <i class="far fa-trash-alt"></i> Xóa</a>
-                          <h2></h2>
-                          <div class="alert alert-success">
-                            <dl class="param param-inline small">
-                              <!--                                                                    <dt>Hạng khách: </dt>-->
-                              <dd><b>Hạng khách:</b> Gold</dd>
-                            </dl>
-                            <dl class="param param-inline small">
-                              <!--                                                                    <dt>Hạng vé: </dt>-->
-                              <dd><b>Hạng vé:</b> Phổ thông</dd>
-                            </dl>
-                          </div>
-                        </div>
-                      </figure>
-                    </td>
-
-                    <td>
-                      <div class="price-wrap">
-                        <var class="price">20</var>
-                        <small class="text-muted">/vé</small>
-                      </div> <!-- price-wrap .// -->
-                    </td>
-
-                    <!-- <td>
-                        <div class="price-wrap">
-                            <var class="price">699,000</var>
-                            <small class="text-muted">/vé</small>
-                        </div>
-                    </td> -->
-
-                    <td>
-                      <div class="price-wrap">
-                        <dl class="param param-inline small">
-                          <dt>Vietnam Airline</dt>
-                        </dl>
-                      </div> <!-- price-wrap .// -->
-                    </td>
-
-                    <td>
-                      <div class="price-wrap">
-                        <dl class="param param-inline small">
-                          <dt>DAD-SGN</dt>
-                        </dl>
-                      </div> <!-- price-wrap .// -->
-                    </td>
-
-                    <td>
-                      <div class="price-wrap">
-                        <dl class="param param-inline small">
-                          <dt>26/08/2020 - 16/09/2020</dt>
-                        </dl>
-                      </div> <!-- price-wrap .// -->
-                    </td>
-
-                    <td>
-                      <div class="price-wrap">
-                        <dl class="param param-inline small">
-                          <dt>26/08/2020 - 16/09/2020</dt>
-                        </dl>
-                      </div> <!-- price-wrap .// -->
-                    </td>
-                  </tr>
-
-                  <!-- row 2  -->
-                  <tr>
-                    <td>
-                      <div class="price-wrap">
-                        <dl class="param param-inline small">
-                          <dt>2</dt>
-                        </dl>
-                      </div> <!-- price-wrap .// -->
-                    </td>
-
-                    <td>
-                      <figure class="media">
-                        <div class="img-wrap"><img src="https://is3-ssl.mzstatic.com/image/thumb/Purple123/v4/2e/72/9a/2e729a66-d117-baa3-b603-5d4c77ec6417/source/256x256bb.jpg" width="20px"></div>
-                        <div class="text-left">
-                          <h6 class="title">C03Air đồng hành cùng bạn trong những chuyến bay</h6>
-                          <a title="" href="" class="btn-sm btn-outline-success" data-toggle="tooltip" > <i class="far fa-edit"></i> Sửa</a>
-                          <a href="" class="btn-sm btn-outline-danger"> <i class="far fa-trash-alt"></i> Xóa</a>
-                          <h2></h2>
-                          <div class="alert alert-success">
-                            <dl class="param param-inline small">
-                              <!--                                                                    <dt>Hạng khách: </dt>-->
-                              <dd><b>Hạng khách:</b> Gold</dd>
-                            </dl>
-                            <dl class="param param-inline small">
-                              <!--                                                                    <dt>Hạng vé: </dt>-->
-                              <dd><b>Hạng vé:</b> Phổ thông</dd>
-                            </dl>
-                          </div>
-                        </div>
-                      </figure>
-                    </td>
-
-                    <td>
-                      <div class="price-wrap">
-                        <var class="price">20</var>
-                        <small class="text-muted">/vé</small>
-                      </div> <!-- price-wrap .// -->
-                    </td>
-
-                    <!-- <td>
-                        <div class="price-wrap">
-                            <var class="price">699,000</var>
-                            <small class="text-muted">/vé</small>
-                        </div>
-                    </td> -->
-
-                    <td>
-                      <div class="price-wrap">
-                        <dl class="param param-inline small">
-                          <dt>Vietnam Airline</dt>
-                        </dl>
-                      </div> <!-- price-wrap .// -->
-                    </td>
-
-                    <td>
-                      <div class="price-wrap">
-                        <dl class="param param-inline small">
-                          <dt>DAD-SGN</dt>
-                        </dl>
-                      </div> <!-- price-wrap .// -->
-                    </td>
-
-                    <td>
-                      <div class="price-wrap">
-                        <dl class="param param-inline small">
-                          <dt>26/08/2020 - 16/09/2020</dt>
-                        </dl>
-                      </div> <!-- price-wrap .// -->
-                    </td>
-
-                    <td>
-                      <div class="price-wrap">
-                        <dl class="param param-inline small">
-                          <dt>26/08/2020 - 16/09/2020</dt>
+                          <dd>{{promo.flightDepartureDateStart | date: 'dd/MM/yyyy'}} - {{promo.flightDepartureDateEnd | date: 'dd/MM/yyyy'}}</dd>
                         </dl>
                       </div> <!-- price-wrap .// -->
                     </td>
