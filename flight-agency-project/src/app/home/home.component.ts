@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { FlightScheduleService } from '../shared/services/flight-schedule.service';
 import { FlightSchedules } from '../shared/models/FlightSchedules';
 import { Observable } from 'rxjs';
-import {map, tap} from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
   currentPage: number;
   totalElements: number;
   arr: number[];
+  branchImages: string[];
   isEmpty = false;
 
   constructor(
@@ -48,6 +49,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.getPage(1);
+    this.branchImages = this.flightScheduleService.branchImages;
   }
 
   // D-Bach

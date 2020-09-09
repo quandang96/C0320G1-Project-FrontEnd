@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges, OnDestroy } 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FlightDetailComponent } from '../flight-detail/flight-detail.component';
 import { FlightSchedule } from 'src/app/shared/models/flight-schedule';
-import { addDays } from 'date-fns'
+import { addDays } from 'date-fns';
 import { FlightScheduleService } from 'src/app/shared/services/flight-schedule.service';
 import { FlightSearchDTO } from 'src/app/shared/models/dto/flight-search-dto';
 import { Subscription } from 'rxjs';
@@ -35,7 +35,7 @@ export class FlightOnewayScheduleComponent implements OnInit, OnChanges, OnDestr
   arrString: string;
 
 
-  //Subcription
+  // Subcription
   private sub: Subscription[] = [];
 
   constructor(
@@ -55,15 +55,16 @@ export class FlightOnewayScheduleComponent implements OnInit, OnChanges, OnDestr
       (data: FlightSchedule[]) => {
         this.flightSchedules = data;
         if (this.flightSchedules.length > 0) {
+          // tslint:disable-next-line:prefer-for-of
           for (let i = 0; i < this.flightSchedules.length; i++) {
             this.isHidden.push(true);
-            this.buttonChange.push('Chọn')
+            this.buttonChange.push('Chọn');
           }
-          this.depString = `${this.flightSchedules[0].departureAirport.city}, Việt Nam (${this.flightSchedules[0].departureAirport.code}) `
-          this.arrString = `${this.flightSchedules[0].arrivalAirport.city}, Việt Nam (${this.flightSchedules[0].arrivalAirport.code}) `
+          this.depString = `${this.flightSchedules[0].departureAirport.city}, Việt Nam (${this.flightSchedules[0].departureAirport.code}) `;
+          this.arrString = `${this.flightSchedules[0].arrivalAirport.city}, Việt Nam (${this.flightSchedules[0].arrivalAirport.code}) `;
         }
       }
-    )
+    );
   }
   ngOnDestroy() {
     this.sub.forEach(val => val.unsubscribe());
@@ -71,11 +72,11 @@ export class FlightOnewayScheduleComponent implements OnInit, OnChanges, OnDestr
   ngOnChanges() { }
 
   select(i) {
-    if (this.buttonChange[i] == 'Chọn') {
+    if (this.buttonChange[i] === 'Chọn') {
       this.buttonChange[i] = 'Thay đổi';
       this.changeStyle = true;
       for (let index = 0; index < this.isHidden.length; index++) {
-        if (index != i) {
+        if (index !== i) {
           this.isHidden[index] = false;
         }
       }
@@ -99,16 +100,18 @@ export class FlightOnewayScheduleComponent implements OnInit, OnChanges, OnDestr
     this.flightSearch.depDate = this.dateFlight[i];
     this.searchFlightSchedule();
     for (let j = 0; j < 5; j++) {
-      if (j == i)
+      if (j === i) {
         this.isActive[j] = true;
-      else
+      } else {
         this.isActive[j] = false;
+      }
     }
   }
 
+  // tslint:disable-next-line:variable-name
   setDate(_date: Date) {
     for (let i = 0; i < this.dateFlight.length; i++) {
-      let temp = addDays(new Date(_date), i);
+      const temp = addDays(new Date(_date), i);
       this.dateFlight[i] = temp;
       this.dateFlightString[i] = `${this.DAY_OF_WEEK[temp.getDay()]}(${temp.getDate()}/${temp.getMonth() + 1})`;
     }

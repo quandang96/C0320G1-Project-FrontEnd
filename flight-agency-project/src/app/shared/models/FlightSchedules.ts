@@ -10,6 +10,6 @@ export interface FlightSchedules {
   price: number;
   status: string;
   arrivalAirport: Airports;
-  brand: Branches;
+  branch: Branches;
   departureAirport: Airports;
 }

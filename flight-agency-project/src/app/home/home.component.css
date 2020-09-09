@@ -435,3 +435,7 @@ table th {
   background-color: #4469B0;
   border: #e4e4e4 2px solid;
 }
+.img-icon {
+  padding: .25rem !important;
+  height: auto !important;
+}

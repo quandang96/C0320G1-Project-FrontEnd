@@ -303,7 +303,9 @@
           <tbody>
           <tr *ngFor="let flight of flightSchedule | async | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalElements}; index as i">
             <td class="text-center">{{arr[i]}}</td>
-            <td class="text-center">{{flight?.brand.name}}</td>
+            <td class="text-center">
+              <img class="img-icon" width="70" height="70" [src]="branchImages[flight?.branch?.id]" alt="">
+            </td>
             <td class="text-center">{{flight?.flightCode}}</td>
             <td class="text-center">{{flight?.departureAirport?.city}}</td>
             <td class="text-center"><i class="fas fa-plane"></i></td>
