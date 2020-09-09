@@ -57,7 +57,7 @@
     font-weight: bold;
     color: white;
     border-bottom: 4px solid #FFBF00;
-    padding-top: 15px;
+    padding-top: 10px;
     padding-bottom: 5px;
 
 }
@@ -68,6 +68,7 @@
     padding: 10px 15px;
     vertical-align: top;
     color: white;
+    
 }
 
 .dropdown:hover>.dropdown-menu {
