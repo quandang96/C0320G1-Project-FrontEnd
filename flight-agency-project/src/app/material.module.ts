@@ -1,12 +1,28 @@
 // material.module.ts
 
 import { NgModule } from '@angular/core';
-// @ts-ignore
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDatepickerModule, MatFormFieldModule, MatInputModule, MatStepperModule } from '@angular/material';
+import {MatNativeDateModule} from "@angular/material/core";
+import {MatDialogModule} from "@angular/material/dialog";
+
 
 @NgModule({
-  imports: [MatDialogModule],
-  exports: [MatDialogModule]
+  imports: [
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatDialogModule,
+    MatStepperModule
+  ],
+  exports: [
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatDialogModule,
+    MatStepperModule
+  ]
 })
 
 export class MaterialModule {}

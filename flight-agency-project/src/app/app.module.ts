@@ -7,6 +7,10 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './home/login/login.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+import { SendFeedbackComponent } from './home/send-feedback/send-feedback.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import {FeedbackContentDialogComponent} from './admin/feedback-content-dialog/feedback-content-dialog.component';
 import {FeedbackListComponent} from './admin/feedback-list/feedback-list.component';
@@ -19,16 +23,19 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     HomeComponent,
     LoginComponent,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    SendFeedbackComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule,
-    MaterialModule,
     BrowserAnimationsModule,
+    MaterialModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
