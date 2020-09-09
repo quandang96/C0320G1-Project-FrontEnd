@@ -10,9 +10,10 @@ import { FlightOnewayScheduleComponent } from './flight-oneway-schedule/flight-o
 import { OnewayDirective } from './oneway.directive';
 import { FlightDetailComponent } from './flight-detail/flight-detail.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FlightPassengerInfoComponent } from './flight-passenger-info/flight-passenger-info.component';
 
 @NgModule({
-  declarations: [FlightCenterComponent, FlightScheduleListComponent, FlightBookingDetailComponent, FlightOnewayScheduleComponent, OnewayDirective, FlightDetailComponent],
+  declarations: [FlightCenterComponent, FlightScheduleListComponent, FlightBookingDetailComponent, FlightOnewayScheduleComponent, OnewayDirective, FlightDetailComponent, FlightPassengerInfoComponent],
   imports: [
     CommonModule,
     FlightRoutingModule,

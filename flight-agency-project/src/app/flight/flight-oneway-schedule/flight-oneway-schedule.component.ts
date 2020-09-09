@@ -54,12 +54,14 @@ export class FlightOnewayScheduleComponent implements OnInit, OnChanges, OnDestr
     this.sub[0] = this.flightScheduleService.search(this.flightSearch).subscribe(
       (data: FlightSchedule[]) => {
         this.flightSchedules = data;
-        for (let i = 0; i < this.flightSchedules.length; i++) {
-          this.isHidden.push(true);
-          this.buttonChange.push('Chọn')
+        if (this.flightSchedules.length > 0) {
+          for (let i = 0; i < this.flightSchedules.length; i++) {
+            this.isHidden.push(true);
+            this.buttonChange.push('Chọn')
+          }
+          this.depString = `${this.flightSchedules[0].departureAirport.city}, Việt Nam (${this.flightSchedules[0].departureAirport.code}) `
+          this.arrString = `${this.flightSchedules[0].arrivalAirport.city}, Việt Nam (${this.flightSchedules[0].arrivalAirport.code}) `
         }
-        this.depString = `${this.flightSchedules[0].departureAirport.city}, Việt Nam (${this.flightSchedules[0].departureAirport.code}) `
-        this.arrString = `${this.flightSchedules[0].arrivalAirport.city}, Việt Nam (${this.flightSchedules[0].arrivalAirport.code}) `
       }
     )
   }

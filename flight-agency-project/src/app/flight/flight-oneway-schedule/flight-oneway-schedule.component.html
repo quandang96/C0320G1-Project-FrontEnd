@@ -19,40 +19,47 @@
         </p>
       </div>
       <div class="row text-center">
-        <table class="table">
-          <thead class="no-border">
-            <tr>
-              <th scope="col">Hãng</th>
-              <th scope="col">Mã chuyến bay</th>
-              <th scope="col">Giờ khởi hành</th>
-              <th scope="col">Giờ đến nơi</th>
-              <th scope="col">Giá (VNĐ)</th>
-              <th scope="col">Chi tiết</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <ng-container *ngFor="let flight of flightSchedules; index as i">
-              <tr *ngIf="isHidden[i]">
-                <td>
-                  <img class="img-icon" width="50" height="50" [src]="branchImages[flight?.branch?.id]" alt="">
-                </td>
-                <td>{{flight?.flightCode}}</td>
-                <td>{{flight?.departureDateTime | date: 'HH:mm'}}</td>
-                <td>{{flight?.arrivalDateTime | date: 'HH:mm'}}</td>
-                <td>{{flight?.price | currency: 'VND': 'symbol'}}</td>
-                <td>
-                  <p (click)="detail(i)">Xem chi tiết</p>
-                </td>
-                <td>
-                  <button (click)="select(i)" type="button" class="btn btn-sel-fn"
-                    [style.background-color]="changeStyle ? '#00aeef' : '#ffa801'"
-                    [style.border-color]="changeStyle ? '#00aeef' : '#ffa801'">
-                    {{buttonChange[i]}}
-                  </button>
-                </td>
+        <ng-container *ngIf="flightSchedules.length > 0; else notFound">
+          <table class="table">
+            <thead class="no-border">
+              <tr>
+                <th scope="col">Hãng</th>
+                <th scope="col">Mã chuyến bay</th>
+                <th scope="col">Giờ khởi hành</th>
+                <th scope="col">Giờ đến nơi</th>
+                <th scope="col">Giá (VNĐ)</th>
+                <th scope="col">Chi tiết</th>
+                <th scope="col"></th>
               </tr>
-            </ng-container>
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let flight of flightSchedules; index as i">
+                <tr *ngIf="isHidden[i]">
+                  <td>
+                    <img class="img-icon" width="50" height="50" [src]="branchImages[flight?.branch?.id]" alt="">
+                  </td>
+                  <td>{{flight?.flightCode}}</td>
+                  <td>{{flight?.departureDateTime | date: 'HH:mm'}}</td>
+                  <td>{{flight?.arrivalDateTime | date: 'HH:mm'}}</td>
+                  <td>{{flight?.price | currency: 'VND': 'symbol'}}</td>
+                  <td>
+                    <p (click)="detail(i)">Xem chi tiết</p>
+                  </td>
+                  <td>
+                    <button (click)="select(i)" type="button" class="btn btn-sel-fn"
+                      [style.background-color]="changeStyle ? '#00aeef' : '#ffa801'"
+                      [style.border-color]="changeStyle ? '#00aeef' : '#ffa801'">
+                      {{buttonChange[i]}}
+                    </button>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </ng-container>
+        <ng-template #notFound>
+          <p>
+            Hiện tại không có chuyến bay phù hợp với tìm kiếm của bạn.
+          </p>
+        </ng-template>
       </div>

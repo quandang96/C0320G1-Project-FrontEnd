@@ -5,103 +5,113 @@
     <div class="container">
       <!-- departure -->
       <div class="row bg-color-custom text-center">
-        <h5 class="text-light ml-md-2">Khởi hành từ TP Hồ Chí Minh</h5>
+        <h5 class="text-light ml-md-2">Khởi hành từ {{departureInfo?.departureAirport?.city}}</h5>
       </div>
       <hr>
       <div class="row">
         <!-- đi -->
         <div class="col-md">
-          <p>TP Hồ Chí Minh (SGN)</p>
-          <p>07:00, 27/08/2020</p>
-          <p>Tân sơn nhất</p>
+          <p>{{departureInfo?.departureAirport?.city}} ({{departureInfo?.departureAirport?.code}})</p>
+          <p>{{departureInfo?.departureDateTime | date: 'HH:mm'}},
+            {{departureInfo?.departureDateTime | date: 'dd/MM/yyyy'}}</p>
+          <p>{{departureInfo?.departureAirport?.name}}</p>
         </div>
         <!-- đến -->
         <div class="col-md">
-          <p>Hà Nội (HAN)</p>
-          <p>09:00, 27/08/2020</p>
-          <p>Nội Bài</p>
+          <p>{{departureInfo?.arrivalAirport?.city}} ({{departureInfo?.arrivalAirport?.code}})</p>
+          <p>{{departureInfo?.arrivalDateTime | date: 'HH:mm'}},
+            {{departureInfo?.arrivalDateTime | date: 'dd/MM/yyyy'}}</p>
+          <p>{{departureInfo?.arrivalAirport?.name}}</p>
         </div>
         <!-- hãng bay -->
         <div class="col-md">
-          <p>Vietnam Airline</p>
-          <p>Chyến bay: VN123</p>
+          <p>{{departureInfo?.branch.name}}</p>
+          <p>Chyến bay: {{departureInfo?.flightCode}}</p>
           <p>Loại vé: Phổ thông</p>
         </div>
       </div>
       <hr>
       <div class="row">
-        <div class="col-md">
-          <p class="font-weight-bold">Hành khách</p>
-          <p>Người lớn</p>
-        </div>
-        <div class="col-md">
-          <p class="font-weight-bold">Số lượng</p>
-          <p>1</p>
-        </div>
-        <div class="col-md">
-          <p class="font-weight-bold">Giá vé</p>
-          <p>1.290.000 VND</p>
-        </div>
-        <div class="col-md">
-          <p class="font-weight-bold">Thuế và phí</p>
-          <p>550.000 VND</p>
-        </div>
-        <div class="col-md">
-          <p class="font-weight-bold"> Tổng giá </p>
-          <p>1.840.000 VND</p>
-        </div>
+        <table class="table table-borderless">
+          <thead>
+            <tr>
+              <th scope="col">Hành khách</th>
+              <th scope="col">Số lượng</th>
+              <th scope="col">Giá vé (VND)</th>
+              <th scope="col">Thuế và phí (VND)</th>
+              <th scope="col">Tổng giá (VND)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let info of depPriceInfo">
+              <tr>
+                <td>{{info.passengerType}}</td>
+                <td>{{info.quantity}}</td>
+                <td>{{info.netPrice | currency: 'VND'}}</td>
+                <td>{{info.tax | currency: 'VND'}}</td>
+                <td>{{info.totalPrice | currency: 'VND'}}</td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
       </div>
       <!-- return -->
-      <div class="row bg-color-custom text-center mt-md-4">
-        <h5 class="text-light ml-md-2">Khởi hành từ Hà Nội</h5>
-      </div>
-      <hr>
-      <div class="row">
-        <!-- đi -->
-        <div class="col-md">
-          <p>Hà Nội (HAN)</p>
-          <p>11:30, 29/08/2020</p>
-          <p>Nội Bài</p>
+      <ng-container *ngIf="returnInfo != null">
+        <div class="row bg-color-custom text-center mt-md-4">
+          <h5 class="text-light ml-md-2">Khởi hành từ {{returnInfo?.departureAirport?.city}}</h5>
         </div>
-        <!-- đến -->
-        <div class="col-md">
-          <p>TP Hồ Chí Minh (SGN)</p>
-          <p>13:30, 29/08/2020</p>
-          <p>Tân sơn nhất</p>
+        <hr>
+        <div class="row">
+          <!-- đi -->
+          <div class="col-md">
+            <p>{{returnInfo?.departureAirport?.city}} ({{returnInfo?.departureAirport?.code}})</p>
+            <p>{{returnInfo?.departureDateTime | date: 'HH:mm'}},
+              {{returnInfo?.departureDateTime | date: 'dd/MM/yyyy'}}</p>
+            <p>{{returnInfo?.departureAirport?.name}}</p>
+          </div>
+          <!-- đến -->
+          <div class="col-md">
+            <p>{{returnInfo?.arrivalAirport?.city}} ({{returnInfo?.arrivalAirport?.code}})</p>
+            <p>{{returnInfo?.arrivalDateTime | date: 'HH:mm'}},
+              {{returnInfo?.arrivalDateTime | date: 'dd/MM/yyyy'}}</p>
+            <p>{{returnInfo?.arrivalAirport?.name}}</p>
+          </div>
+          <!-- hãng bay -->
+          <div class="col-md">
+            <p>{{returnInfo?.branch.name}}</p>
+            <p>Chyến bay: {{returnInfo?.flightCode}}</p>
+            <p>Loại vé: Phổ thông</p>
+          </div>
         </div>
-        <!-- hãng bay -->
-        <div class="col-md">
-          <p>Bamboo Airline</p>
-          <p>Chyến bay: QH451</p>
-          <p>Loại vé: Phổ thông</p>
+        <hr>
+        <div class="row">
+          <table class="table table-borderless">
+            <thead>
+              <tr>
+                <th scope="col">Hành khách</th>
+                <th scope="col">Số lượng</th>
+                <th scope="col">Giá vé (VND)</th>
+                <th scope="col">Thuế và phí (VND)</th>
+                <th scope="col">Tổng giá (VND)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let info of retPriceInfo">
+                <tr>
+                  <td>{{info.passengerType}}</td>
+                  <td>{{info.quantity}}</td>
+                  <td>{{info.netPrice | currency: 'VND'}}</td>
+                  <td>{{info.tax | currency: 'VND'}}</td>
+                  <td>{{info.totalPrice | currency: 'VND'}}</td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
         </div>
-      </div>
-      <hr>
-      <div class="row">
-        <div class="col-md">
-          <p class="font-weight-bold">Hành khách</p>
-          <p>Người lớn</p>
-        </div>
-        <div class="col-md">
-          <p class="font-weight-bold">Số lượng</p>
-          <p>1</p>
-        </div>
-        <div class="col-md">
-          <p class="font-weight-bold">Giá vé</p>
-          <p>1.190.000đ</p>
-        </div>
-        <div class="col-md">
-          <p class="font-weight-bold">Thuế và phí</p>
-          <p>550.000đ</p>
-        </div>
-        <div class="col-md">
-          <p class="font-weight-bold"> Tổng giá </p>
-          <p>1.740.000đ</p>
-        </div>
-      </div>
+      </ng-container>
     </div>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+    <button class="btn btn-secondary" (click)="modal.close()">Đóng</button>
     <a class="btn btn-confirm-fn" href="confirm.html">Đặt vé</a>
   </div>

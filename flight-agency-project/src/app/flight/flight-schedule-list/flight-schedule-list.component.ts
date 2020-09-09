@@ -8,6 +8,8 @@ import { FlightSearchDTO } from './../../shared/models/dto/flight-search-dto';
 import { FlightSchedule } from 'src/app/shared/models/flight-schedule';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Airport } from './../../shared/models/airport';
+import { TransactionService } from './../../shared/services/transaction.service';
+import { checkInterval } from 'src/app/shared/validations/validation';
 
 @Component({
   selector: 'app-flight-schedule-list',
@@ -35,7 +37,8 @@ export class FlightScheduleListComponent implements OnInit, AfterViewInit {
     private router: Router,
     private resolver: ComponentFactoryResolver,
     private modalService: NgbModal,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private bookingService: TransactionService
   ) { }
 
   ngOnInit() {
@@ -57,14 +60,22 @@ export class FlightScheduleListComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // this.loadComponent()
   }
 
-  open() {
-    this.modalService.open(FlightBookingDetailComponent, { size: 'lg' });
-  }
 
   confirmBooking() {
+    // check time betwwen 2 flight
+    this.bookingService.departureFlight = this.departureFlight;
+    this.bookingService.bookingInfo = this.searchForm.value;
+    if (this.noOfWay == 2) {
+      const isValid = checkInterval(this.returnFlight.departureDateTime, this.departureFlight.departureDateTime, 240);
+      if (isValid) {
+        this.bookingService.returnFlight = this.returnFlight;
+      } else {
+        return;
+      }
+    }
+    this.modalService.open(FlightBookingDetailComponent, { size: 'lg' });
     console.log(this.departureFlight);
     console.log(this.returnFlight);
   }
@@ -121,12 +132,6 @@ export class FlightScheduleListComponent implements OnInit, AfterViewInit {
     }
   }
 
-  checkLocation() {
-    this.depId = this.departure.value;
-    this.arrId = this.arrival.value;
-    console.log(this.depId);
-    console.log(this.arrId);
-  }
 
   get departure() {
     return this.searchForm.get('departure');
@@ -154,6 +159,8 @@ export class FlightScheduleListComponent implements OnInit, AfterViewInit {
   }
 
   get selectedRet() {
+    if (this.noOfWay == 1)
+      return true;
     if (this.returnFlight == null)
       return false;
     return true;
