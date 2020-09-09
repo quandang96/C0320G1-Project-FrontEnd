@@ -158,9 +158,10 @@ export class LoginComponent implements OnInit {
   }
 
   logOut(): void {
+    this.authService.signOut()
     this.tokenStorage.logOut();
     this.isLogged = false;
-    this.authService.signOut()
+
   }
 
   onNoClick(): void {

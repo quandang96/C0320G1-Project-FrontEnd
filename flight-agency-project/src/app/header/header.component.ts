@@ -6,11 +6,13 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from 'node_modules/@angular/material';
 import { SocialUser } from 'angularx-social-login';
 
+declare let $: any;
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
+
 export class HeaderComponent implements OnInit {
 
   userLogged: JwtResponse;
@@ -24,15 +26,15 @@ export class HeaderComponent implements OnInit {
     } else {
       this.isLogged = false;
     }
+
   }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(LoginComponent, {
-      width: '450px',
+      width: '440px',
       height: '600px',
-      panelClass: 'my-dialog',
       data: {},
-      backdropClass: 'backdropBackground'
+
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -44,8 +46,13 @@ export class HeaderComponent implements OnInit {
   }
 
   logOut(): void {
+
+    this.authService.authState.subscribe((user) => {
+      if (user = null) {
+        this.authService.signOut()
+      }
+    });
     this.tokenStorage.logOut();
     this.isLogged = false;
-    this.authService.signOut()
   }
 }
