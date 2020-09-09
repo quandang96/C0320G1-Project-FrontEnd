@@ -76,8 +76,8 @@ export class FlightScheduleListComponent implements OnInit, AfterViewInit {
       }
     }
     this.modalService.open(FlightBookingDetailComponent, { size: 'lg' });
-    console.log(this.departureFlight);
-    console.log(this.returnFlight);
+    // console.log(this.departureFlight);
+    // console.log(this.returnFlight);
   }
 
   onSubmit() {
