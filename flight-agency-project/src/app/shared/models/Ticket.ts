@@ -1,8 +1,9 @@
-export interface TicketDto {
+export interface Ticket {
   id: number;
-  depature: string;
+  departure: string;
   destination: string;
-  depatureTime: Date;
+  departureTime: Date;
+  arrivalTime: Date;
   bookingCode: string;
   airline: string;
   typeTicket: string;

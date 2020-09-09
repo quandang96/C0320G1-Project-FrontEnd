@@ -9,7 +9,7 @@ const routes: Routes = [
   path: '', component: HomeComponent
 },
 {
-  path: 'send-feedback',component : SendFeedbackComponent
+  path: 'send-feedback', component : SendFeedbackComponent
 },
 {
   path: 'admin', loadChildren: () => import('./admin/admin.module').then(mod => mod.AdminModule)
@@ -22,7 +22,11 @@ const routes: Routes = [
 },
 {
   path: 'flight', loadChildren: () => import('./flight/flight.module').then(mod => mod.FlightModule)
-}];
+},
+{
+  path: 'tickets', loadChildren: () => import('./ticket/ticket.module').then(mod => mod.TicketModule)
+}
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
