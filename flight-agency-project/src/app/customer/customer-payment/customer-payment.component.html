@@ -1,9 +1,7 @@
 <table class="table border">
   <thead class="bg-warning">
   <tr>
-    <th class="text-center">
-      <input class="largerCheckbox" type="checkbox">
-    </th>
+    <th class="text-center"></th>
     <th class="text-left">Mã vé</th>
     <th class="text-left">Nơi đi</th>
     <th class="text-left">Nơi đến</th>
@@ -14,82 +12,19 @@
   </tr>
   </thead>
   <tbody>
-  <tr>
+  <tr *ngFor="let t of transactions">
     <td class="text-center">
-      <input class="largerCheckbox" type="checkbox">
+      <input (click)="toggleCheckbox(t.id)" class="largerCheckbox" name="transaction" type="checkbox">
     </td>
-    <td class="text-left">VJ125-001</td>
-    <td class="text-left">Hà Nội (HAN)</td>
-    <td class="text-left">Hồ Chí Minh (SGN)</td>
-    <td class="text-center">26/08/2020</td>
-    <td class="text-center">28/08/2020</td>
-    <td class="text-right">790.000 ₫</td>
+    <td class="text-left">{{t.id}}</td>
+    <td class="text-left">{{t.flightSchedule.departureAirport.city}}</td>
+    <td class="text-left">{{t.flightSchedule.arrivalAirport.city}}</td>
+    <td class="text-center">{{t.createdTime | date: 'yyyy-MM-dd'}}</td>
+    <td class="text-center">{{t.flightSchedule.departureDateTime | date: 'yyyy-MM-dd'}}</td>
+    <td class="text-right">{{t.price | number}} ₫</td>
     <td class="text-center">
-      <button class="btn btn-warning btn-sm" data-target="#confirmDeleteModal" data-toggle="modal">
-        <i class="fas fa-plane-slash"></i>
-      </button>
-    </td>
-  </tr>
-  <tr>
-    <td class="text-center">
-      <input class="largerCheckbox" type="checkbox">
-    </td>
-    <td class="text-left">VN6013-001</td>
-    <td class="text-left">Hà Nội (HAN)</td>
-    <td class="text-left">Hồ Chí Minh (SGN)</td>
-    <td class="text-center">27/08/2020</td>
-    <td class="text-center">29/08/2020</td>
-    <td class="text-right">902.900 ₫</td>
-    <td class="text-center">
-      <button class="btn btn-warning btn-sm" data-target="#confirmDeleteModal" data-toggle="modal">
-        <i class="fas fa-plane-slash"></i>
-      </button>
-    </td>
-  </tr>
-  <tr>
-    <td class="text-center">
-      <input class="largerCheckbox" type="checkbox">
-    </td>
-    <td class="text-left">VN1372-002</td>
-    <td class="text-left">Hồ Chí Minh (SGN)</td>
-    <td class="text-left">HUẾ (HUI)</td>
-    <td class="text-center">27/08/2020</td>
-    <td class="text-center">01/09/2020</td>
-    <td class="text-right">1.243.900 ₫</td>
-    <td class="text-center">
-      <button class="btn btn-warning btn-sm" data-target="#confirmDeleteModal" data-toggle="modal">
-        <i class="fas fa-plane-slash"></i>
-      </button>
-    </td>
-  </tr>
-  <tr>
-    <td class="text-center">
-      <input class="largerCheckbox" type="checkbox">
-    </td>
-    <td class="text-left">QH1415-022</td>
-    <td class="text-left">HÀ NỘI (HAN)</td>
-    <td class="text-left">NHA TRANG (CXR)</td>
-    <td class="text-center">27/08/2020</td>
-    <td class="text-center">05/09/2020</td>
-    <td class="text-right">1.339.900 ₫</td>
-    <td class="text-center">
-      <button class="btn btn-warning btn-sm" data-target="#confirmDeleteModal" data-toggle="modal">
-        <i class="fas fa-plane-slash"></i>
-      </button>
-    </td>
-  </tr>
-  <tr>
-    <td class="text-center">
-      <input class="largerCheckbox" id="check" type="checkbox">
-    </td>
-    <td class="text-left">VJ771-006</td>
-    <td class="text-left">HÀ NỘI (HAN)</td>
-    <td class="text-left">NHA TRANG (CXR)</td>
-    <td class="text-center">27/08/2020</td>
-    <td class="text-center">05/09/2020</td>
-    <td class="text-right">998.900 ₫</td>
-    <td class="text-center">
-      <button class="btn btn-warning btn-sm" data-target="#confirmDeleteModal" data-toggle="modal">
+      <button (click)="pickToCancel(t.id)" class="btn btn-warning btn-sm" data-target="#confirmDeleteModal"
+              data-toggle="modal">
         <i class="fas fa-plane-slash"></i>
       </button>
     </td>
@@ -101,7 +36,8 @@
     <div class="card-body">
       <div class="row mx-0" style="font-size: large;">
         <div class="col-auto px-0">Tổng tiền</div>
-        <div class="col text-right pr-0" style="font-weight: 600;color:#4469b0;">2.088.000 VND
+        <div class="col text-right pr-0" style="font-weight: 600;color:#4469b0;">
+          {{totalPrice| number}} ₫
         </div>
       </div>
       <div class="text-right" style="font-size: small;">
@@ -114,3 +50,29 @@
   <ngx-paypal [config]="payPalConfig"></ngx-paypal>
 </div>
 
+<!-- The Modal -->
+<div class="modal fade" id="confirmDeleteModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Cảnh báo</h4>
+        <button class="close" data-dismiss="modal" type="button">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <b>Bạn có chắc muốn hủy mã đặt chỗ này?</b>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button class="btn btn-secondary btn-sm" data-dismiss="modal" type="button">Trở về</button>
+        <button (click)="cancelTransaction()" class="btn btn-danger btn-sm" data-dismiss="modal" type="button">Đồng ý
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
