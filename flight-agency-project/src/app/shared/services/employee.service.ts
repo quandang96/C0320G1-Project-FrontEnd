@@ -1,20 +1,28 @@
-import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {employeeDto} from '../models/dto/employeeDto';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AbstractControl} from '@angular/forms';
+import {employeeDto} from '../models/dto/employeeDto';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeService {
   private readonly API_URL_EMPLOYEE = 'http://localhost:8080/api/v1/employee/';
-  constructor(private http: HttpClient) { }
-  httpOptions = {
+  private readonly API_URL = 'http://localhost:8080/api/v1/cart';
+  private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     })
   };
+
+  constructor(private http: HttpClient) {
+  }
+
+  //Hung: Lấy danh sách airport,
+  getAllAirports(): Observable<any> {
+    return this.http.get(this.API_URL, this.httpOptions);
+  }
 
   getEmployeeById(id): Observable<employeeDto> {
     return this.http.get<employeeDto>(this.API_URL_EMPLOYEE + id, this.httpOptions);
