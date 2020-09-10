@@ -9,7 +9,7 @@ import { FlightSchedule } from 'src/app/shared/models/flight-schedule';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Airport } from './../../shared/models/airport';
 import { TransactionService } from './../../shared/services/transaction.service';
-import { checkInterval, compareDate } from 'src/app/shared/validations/validation';
+import { checkInterval, compare } from 'src/app/shared/validations/validation';
 
 @Component({
   selector: 'app-flight-schedule-list',
@@ -26,6 +26,7 @@ export class FlightScheduleListComponent implements OnInit, AfterViewInit {
   depId = -1;
   arrId = -1;
   errors = '';
+  today = new Date();
   // selected flight
   private departureFlight: FlightSchedule = null;
   private departureComponent: ComponentRef<FlightOnewayScheduleComponent>;
@@ -35,7 +36,6 @@ export class FlightScheduleListComponent implements OnInit, AfterViewInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private resolver: ComponentFactoryResolver,
     private modalService: NgbModal,
     private fb: FormBuilder,
@@ -58,7 +58,7 @@ export class FlightScheduleListComponent implements OnInit, AfterViewInit {
       children: [0, [Validators.required]],
       adults: [1, [Validators.required]]
     }, {
-      validators: [compareDate]
+      validators: [compare]
     })
   }
 

@@ -93,11 +93,11 @@
               </select>
 
               <label>Ngày Đi</label>
-              <input type="date" class="form-control" formControlName="depDate"
+              <input type="date" class="form-control" formControlName="depDate" min="{{today | date: 'yyyy-MM-dd'}}"
                 [value]="depDate.value | date : 'yyyy-MM-dd'">
 
               <label>Ngày về</label>
-              <input type="date" class="form-control" formControlName="retDate"
+              <input type="date" class="form-control" formControlName="retDate" min="{{today | date: 'yyyy-MM-dd'}}"
                 [value]="retDate.value | date : 'yyyy-MM-dd'">
 
               <div class="form-row">

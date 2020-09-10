@@ -3,11 +3,11 @@ import { AbstractControl, ValidationErrors, ValidatorFn, FormControl } from '@an
 
 // Creator: Duy
 export function checkInterval(laterDate: string, earlierDate: string, minInterval: number): boolean {
-    let hours = differenceInMinutes(
+    let minutes = differenceInMinutes(
         new Date(laterDate),
         new Date(earlierDate)
     )
-    return hours >= minInterval ? true : false;
+    return minutes >= minInterval ? true : false;
 }
 
 // Creator: Duy
@@ -15,7 +15,6 @@ export function checkEmail(control: AbstractControl): ValidationErrors {
     const regex = /^([-\w.])+[a-zA-Z\d]@(\w+\.)+(\w+)$/;
     const verification = control.value;
     const isValid = regex.test(verification);
-    // console.log(`valid: ${isValid}`);
     return isValid ? null : { format: true };
 }
 
@@ -37,13 +36,16 @@ export const CheckPhoneNumber: ValidatorFn = (control: FormControl): ValidationE
 };
 
 // Creator: Duy
-export const compareDate: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+export const compare: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
     const verification = control.value;
     const roundTrip = verification.isRoundTrip;
     const d1 = new Date(verification.depDate); // ten cua form control.
     const d2 = new Date(verification.retDate);
     if (d1.valueOf() > d2.valueOf() && roundTrip == '1') {
         return { date: true };
+    }
+    if (verification.babies > verification.adults) {
+        return { person: true }
     }
     return null;
 };
