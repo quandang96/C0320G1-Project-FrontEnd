@@ -1,33 +1,31 @@
 <div class="container text-center">
     <button type="button" class="close btn btn-light" (click)="onNoClick()">&times;</button>
+
     <div class="row ">
-        <!-- <div class="col-md-7">
-            <div class="text-center ">
-                <i class="icon icon-register-banner"></i>
-                <p class="cheap">Ưu đãi đến <span>30%</span></p>
-                <p>Khuyến mãi dành riêng cho thành viên C0320G1!</p>
-                <p>Giảm giá ngay sau khi đăng nhập</p>
-            </div>
-        </div> -->
         <div class="col-md-12 justify-content-sm-center">
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" id="form">
                 <div class="content text-center">
                     <p class="title">Đăng nhập</p>
+                    <div class="text-danger" role="alert">
+                        {{message}}
+                    </div>
                     <div>
                         <div id="input1" class="row text-center">
                             <div class="col-md-2"><i class="icon icon-register-name icon-top"></i></div>
                             <div class="col-md-10">
-                                <input class="mt-5 float-left" id="email-field" placeholder="Tên đăng nhập" type="text"
-                                    formControlName="email" /></div>
+                                <input class="input-top float-left" id="email-field" placeholder="Tên đăng nhập"
+                                    type="text" formControlName="email" /></div>
                             <div class="clearfix"></div>
                         </div>
                         <small class="d-block text-danger"
                             *ngIf="loginForm.get('email').invalid && loginForm.get('email').touched">
                             <span
-                                *ngIf="loginForm.get('email').hasError('required')||loginForm.get('email').hasError('validateWhitespace') ">Email
+                                *ngIf="loginForm.get('email').hasError('required')||loginForm.get('email').hasError('whitespace') ">Email
                                 không được để trống </span>
-                            <!-- <span *ngIf="loginForm.get('email').hasError('validateWhitespace')">Email không được để trống</span> -->
-                            <span *ngIf="loginForm.get('email').hasError('pattern')">Email sai định dạng</span>
+
+                            <span
+                                *ngIf="loginForm.get('email').hasError('pattern')&& !loginForm.get('email').hasError('whitespace')">Email
+                                sai định dạng</span>
                         </small>
                     </div>
 
@@ -35,10 +33,12 @@
                         <div id="input2" class="row">
                             <div class="col-md-2"><i class="icon icon-register-pass icon-top"></i></div>
                             <div class="col-md-10" id="div-password">
-                                <input class="mt-5 float-left" id="password-field" formControlName="password"
+                                <input class="input-top float-left" id="password-field" formControlName="password"
                                     placeholder="Mật khẩu" type="password" />
                                 <span toggle="#password-field" id="test"
-                                    class="fa fa-fw fa-eye field-icon toggle-password mt-5"></span></div>
+                                    class="fa fa-fw fa-eye field-icon toggle-password ">
+                                </span>
+                            </div>
                             <div class="clearfix"></div>
                         </div>
                         <small class="d-block text-danger"
@@ -49,9 +49,9 @@
                     </div>
 
                     <label class=" col-xs-8 p-0 text-left float-left mt-3 mb-2 ">
-                        <input type="checkbox" name="RememberMe" value="true" />
-                        <span> Ghi nhớ đăng nhập?</span>
-                        <a class="ml-4" href="/Account/ResetPassword">Quên mật khẩu?</a>
+                        <input type="checkbox" (change)="remember($event)" name="RememberMe" />
+                        <span class="mr-3"> Ghi nhớ đăng nhập?</span>
+                        <a class="ml-5" href="/Account/ResetPassword">Quên mật khẩu?</a>
                     </label>
 
                     <div>

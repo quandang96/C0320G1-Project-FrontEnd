@@ -4,7 +4,6 @@ import { SocialAuthService } from 'node_modules/angularx-social-login';
 import { LoginComponent } from './../home/login/login.component';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from 'node_modules/@angular/material';
-import { SocialUser } from 'angularx-social-login';
 
 declare let $: any;
 @Component({
@@ -19,6 +18,7 @@ export class HeaderComponent implements OnInit {
   isLogged: boolean;
   constructor(public dialog: MatDialog, private authService: SocialAuthService, private tokenStorage: TokenStorageService) { }
 
+  //Created by: Quân
   ngOnInit() {
     if (this.tokenStorage.getJwtResponse() != null) {
       this.userLogged = this.tokenStorage.getJwtResponse();
@@ -29,11 +29,13 @@ export class HeaderComponent implements OnInit {
 
   }
 
+  //Created by: Quân
   openDialog(): void {
     const dialogRef = this.dialog.open(LoginComponent, {
       width: '440px',
       height: '600px',
       data: {},
+      panelClass: 'custom-dialog'
 
     });
 
@@ -45,6 +47,7 @@ export class HeaderComponent implements OnInit {
     });
   }
 
+  //Created by: Quân
   logOut(): void {
 
     this.authService.authState.subscribe((user) => {

@@ -50,9 +50,31 @@
 
                     <button type="button" class="list-item text-center ">Xem hồ sơ</button>
                     <hr class="line">
-                    <button type="button" (click)="logOut()" class="list-item text-center">Đăng xuất</button>
+                    <button type="button" data-toggle="modal" data-target="#exampleModal"
+                        class="list-item text-center">Đăng xuất</button>
 
                 </ng-template>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title font-weight-bold text" id="exampleModalLabel">Đăng xuất</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center ">
+                    <span class="text"> Bạn có muốn đăng xuất không?</span>
+                </div>
+                <div class="modal-footer ">
+                    <button type="button" class="btn btn-warning text-white" data-dismiss="modal">Không</button>
+                    <button type="button" (click)="logOut()" data-dismiss="modal" class="btn btn-2">Có</button>
+                </div>
             </div>
         </div>
     </div>

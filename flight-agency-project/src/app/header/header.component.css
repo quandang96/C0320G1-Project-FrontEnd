@@ -47,7 +47,9 @@
 
 
 .navbar {
-    
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
     height: 12%;
     width: 100%;
     background-color:  #4469B0;
@@ -59,6 +61,7 @@
     border-bottom: 4px solid #FFBF00;
     padding-top: 10px;
     padding-bottom: 5px;
+    z-index: 1000;
 
 }
 ._3unRI {
@@ -102,12 +105,15 @@
   height: 80px !important; 
 }
 
-#logoWord {
+.logoWord {
   color: #4469B0;
   font-size: 14px;
   line-height: 50px;
   font-family: Bebeboo-Regular;
   display: inline-block;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
 }
 #logo {
   float: left;
@@ -139,3 +145,23 @@ hr {
   font-weight: 700;
   margin-top: 12px;
 }
+
+::ng-deep.mat-dialog-container {
+  box-shadow:   0 0 15px;
+  z-index: 2000;
+  }
+
+  .text{
+    color: black;
+    font-size: medium;
+
+  }
+  .btn-2{
+    background-color: #4469B0;
+    color: white;
+    width:70px
+  }
+  .btn-2:hover{
+    background-color:#22478b; 
+
+  }

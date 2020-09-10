@@ -16,6 +16,8 @@ declare let $: any
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
+//Created by: Quân
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
@@ -167,7 +169,6 @@ export class LoginComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
-
 }
 
 function validateWhitespace(c: AbstractControl) {
