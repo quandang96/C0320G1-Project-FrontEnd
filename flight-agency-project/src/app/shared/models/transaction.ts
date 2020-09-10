@@ -1,3 +1,4 @@
+import { Account } from './account';
 import { FlightSchedule } from './flight-schedule';
 import { Passenger } from './passenger';
 export interface Transaction{
@@ -8,5 +9,5 @@ export interface Transaction{
     status: string,
     account: Account,
     flightSchedule: FlightSchedule,
-    passengers: Passenger[]
+    passengers?: Passenger[]
 }

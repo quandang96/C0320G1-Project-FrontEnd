@@ -1,1 +1,17 @@
-
+<div class="container w-75">
+  <form id="regForm" [formGroup]="ticketForm">
+    <mat-horizontal-stepper #stepper>
+      <mat-step formGroupName="flightDetails" 
+        [stepControl]="ticketForm.get('flightDetails')">
+        <ng-template matStepLabel>Enter Personal Details</ng-template>
+        <app-book-ticket-step1 [flight1] = "flight1" [ticketForm]="ticketForm"></app-book-ticket-step1>
+      </mat-step>
+      <mat-step formArrayName="adultPassengers" formGroupName="otherDetails"
+      [stepControl]="ticketForm.get('adultPassengers')" [stepControl]="ticketForm.get('otherDetails')">
+        <ng-template matStepLabel>Enter Contact Details</ng-template>
+        <app-book-ticket-step2 [flight1] = "flight" [ticketForm]="ticketForm"></app-book-ticket-step2>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </form>
+</div>
+{{this.ticketForm.value|json}}

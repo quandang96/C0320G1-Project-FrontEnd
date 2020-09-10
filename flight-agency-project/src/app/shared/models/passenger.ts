@@ -6,5 +6,5 @@ export interface Passenger{
     email: string,
     phoneNumber: string,
     gender: string,
-    // transactions: Transaction[]
+    transactions?: Transaction[]
 }
