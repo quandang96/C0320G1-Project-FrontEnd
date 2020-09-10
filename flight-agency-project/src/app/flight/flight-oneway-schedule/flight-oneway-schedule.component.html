@@ -41,7 +41,7 @@
                   <td>{{flight?.flightCode}}</td>
                   <td>{{flight?.departureDateTime | date: 'HH:mm'}}</td>
                   <td>{{flight?.arrivalDateTime | date: 'HH:mm'}}</td>
-                  <td>{{flight?.price | currency: 'VND': 'symbol'}}</td>
+                  <td>{{flight?.price | number}}₫</td>
                   <td>
                     <p (click)="detail(i)">Xem chi tiết</p>
                   </td>

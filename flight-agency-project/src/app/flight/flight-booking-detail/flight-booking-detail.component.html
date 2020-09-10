@@ -47,9 +47,9 @@
               <tr>
                 <td>{{info.passengerType}}</td>
                 <td>{{info.quantity}}</td>
-                <td>{{info.netPrice | currency: 'VND'}}</td>
-                <td>{{info.tax | currency: 'VND'}}</td>
-                <td>{{info.totalPrice | currency: 'VND'}}</td>
+                <td>{{info.netPrice | number}}₫</td>
+                <td>{{info.tax | number}}₫</td>
+                <td>{{info.totalPrice | number}}₫</td>
               </tr>
             </ng-container>
           </tbody>
@@ -100,9 +100,9 @@
                 <tr>
                   <td>{{info.passengerType}}</td>
                   <td>{{info.quantity}}</td>
-                  <td>{{info.netPrice | currency: 'VND'}}</td>
-                  <td>{{info.tax | currency: 'VND'}}</td>
-                  <td>{{info.totalPrice | currency: 'VND'}}</td>
+                  <td>{{info.netPrice | number}}₫</td>
+                  <td>{{info.tax | number}}₫</td>
+                  <td>{{info.totalPrice | number}}₫</td>
                 </tr>
               </ng-container>
             </tbody>
@@ -112,6 +112,6 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-secondary" (click)="modal.close()">Đóng</button>
-    <a class="btn btn-confirm-fn" href="confirm.html">Đặt vé</a>
+    <button class="btn btn-secondary" (click)="close()">Đóng</button>
+    <button class="btn btn-confirm-fn" (click)="goTo()">Đặt vé</button>
   </div>

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FlightScheduleService } from '../shared/services/flight-schedule.service';
 import { FlightSchedule } from '../shared/models/flight-schedule';
 import { Observable } from 'rxjs';
@@ -7,7 +7,6 @@ import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors }
 import { Router, ActivatedRoute } from '@angular/router';
 import { Airport } from '../shared/models/airport';
 import { FlightSearchForm } from '../shared/models/dto/flight-search-form';
-import { FlightSearchDTO } from '../shared/models/dto/flight-search-dto';
 
 @Component({
   selector: 'app-home',
@@ -48,7 +47,7 @@ export class HomeComponent implements OnInit {
       }
 
       this.isEmpty = page.content.length === 0;
-        // tslint:disable-next-line:no-shadowed-variable
+      // tslint:disable-next-line:no-shadowed-variable
     }, error => {
       console.log(error);
     }),
@@ -87,7 +86,8 @@ export class HomeComponent implements OnInit {
 
   // D-Bach
   sendData() {
-    this.flightScheduleService.flightSearchForm = this.searchForm.value;
+    this.flightScheduleService.flightSearchForm = this.searchForm.value as FlightSearchForm;
+    this.flightScheduleService.flightSearchForm.isRoundTrip = this.oneWay ? '' : '1';
     this.router.navigateByUrl('flight/schedule');
   }
 
