@@ -1,0 +1,679 @@
+<div class="container-fluid">
+  <div class="row ml-md-2 mt-md-3 mb-md-3">
+    <div class="col-md-8 content-promotion">
+      <div>
+      <div class="row bg-color-custom">
+        <div class="col-xs-2 border rounded-circle  m-md-2" style="padding: 0.7rem;">
+          <div class="text-center align-middle p-md-2">
+            <i class="fas fa-plane fa-2x" style="color: white;"></i>
+          </div>
+        </div>
+        <div class="row col-xs-10 mt-md-2 ml-md-3 ">
+          <select class="form-control col-md-5">
+            <option>
+              Hồ Chí Minh, Việt Nam (SGN)
+            </option>
+            <option>
+              Đà Nẵng, Việt Nam (DNN)
+            </option>
+            <option>
+              Hà Nội, Việt Nam (HAN)
+            </option>
+          </select>
+
+          <span class="col-md-1 to-to"><i class="fas fa-long-arrow-alt-right" style="color: white;"></i></span>
+          <select class="form-control col-md-5">
+            <option>
+              Hà Nội, Việt Nam (HAN)
+            </option>
+            <option>
+              Hồ Chí Minh, Việt Nam (SGN)
+            </option>
+            <option>
+              Đà Nẵng, Việt Nam (DNN)
+            </option>
+          </select>
+
+          <h6 class="text-light col-md-12">Thứ 5, 27-08-2020</h6>
+        </div>
+      </div>
+
+      <div class="tab">
+        <button class="tablinks active" onclick="openTabs(event, 'London')" id="set1"></button>
+        <button class="tablinks" onclick="openTabs(event, 'Paris')" id="set2"></button>
+        <button class="tablinks" onclick="openTabs(event, 'Tokyo')" id="set3"></button>
+        <button class="tablinks" onclick="openTabs(event, 'London')" id="set4">
+
+        </button>
+        <button class="tablinks" onclick="openTabs(event, 'London')" id="set5">
+          <!--                    <span id="getday5">27/08/2020</span>-->
+          <!--                    <span class="getday" id="day5">...</span>-->
+        </button>
+        <button class="tablinks" onclick="openTabs(event, 'London')" id="set6">
+          <!--                    <span id="getday6">27/08/2020</span>-->
+          <!--                    <span class="getday" id="day6">...</span>-->
+        </button>
+        <button class="tablinks" onclick="openTabs(event, 'London')" id="set7">
+          <!--                    <span id="getday7">27/08/2020</span>-->
+          <!--                    <span class="getday" id="day7">...</span>-->
+        </button>
+      </div>
+
+      <div id="London" class="tabcontent">
+        <table class="table">
+          <thead class="no-border">
+          <tr>
+            <th>Hãng</th>
+            <th>Mã chuyến bay</th>
+            <th>Giờ khởi hành</th>
+            <th>Giờ đến nơi</th>
+            <th>Giá (VNĐ)</th>
+            <th>Khuyến Mãi</th>
+            <th>Chi tiết</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr id="dep-row-0">
+            <td>
+              <img class="img-icon" width="80" height="50" src="../../../assets/branches-image/vietjet.png" alt="">
+            </td>
+            <td>VJ251</td>
+            <td>14:30</td>
+            <td>16:30</td>
+            <td>999.000</td>
+            <td class="sale">40%</td>
+            <td>
+              <a id="btn-dep-detail-0" href="/">Xem chi tiết</a>
+            </td>
+            <td>
+              <button id="dep-sel-0" type="button" class="btn btn-warning">Chọn</button>
+            </td>
+          </tr>
+
+          <tr id="dep-row-1">
+            <td>
+              <img class="img-icon" width="80" height="50" src="../../../assets/branches-image/jetstar.png" alt="">
+            </td>
+            <td>JS250</td>
+            <td>07:45</td>
+            <td>09:55</td>
+            <td>990.000</td>
+            <td class="sale">40%</td>
+            <td>
+              <a id="btn-dep-detail-1" href="/">Xem chi tiết</a>
+            </td>
+            <td>
+              <button id="dep-sel-1" type="button" class="btn btn-warning">Chọn</button>
+            </td>
+          </tr>
+
+          <tr id="dep-row-2">
+            <td>
+              <img class="img-icon" width="80" height="50" src="../../../assets/branches-image/bamboo.png" alt="">
+            </td>
+            <td>QH345</td>
+            <td>11:00</td>
+            <td>13:00</td>
+            <td>1.250.000</td>
+            <td class="sale">40%</td>
+            <td>
+              <a id="btn-dep-detail-2" href="/">Xem chi tiết</a>
+            </td>
+            <td>
+              <button id="dep-sel-2" type="button" class="btn btn-warning">Chọn</button>
+            </td>
+          </tr>
+          <tr id="dep-row-3">
+            <td>
+              <img class="img-icon" width="80" height="50" src="../../../assets/branches-image/bamboo.png" alt="">
+            </td>
+            <td>QH111</td>
+            <td>20:00</td>
+            <td>22:10</td>
+            <td>1.100.000</td>
+            <td class="sale">40%</td>
+            <td>
+              <a href="/">Xem chi tiết</a>
+            </td>
+            <td>
+              <button id="dep-sel-3" type="button" class="btn btn-warning">Chọn</button>
+            </td>
+          </tr>
+          <tr id="dep-row-4">
+            <td>
+              <img class="img-icon" width="80" height="50" src="../../../assets/branches-image/vnairline.gif" alt="">
+            </td>
+            <td>VN518</td>
+            <td>10:00</td>
+            <td>12:00</td>
+            <td>1.690.000</td>
+            <td class="sale">40%</td>
+            <td>
+              <a href="/">Xem chi tiết</a>
+            </td>
+            <td>
+              <button id="dep-sel-4" type="button" class="btn btn-warning">Chọn</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <img class="img-icon" width="80" height="50" src="../../../assets/branches-image/vnairline.gif" alt="">
+            </td>
+            <td>VN518</td>
+            <td>10:00</td>
+            <td>12:00</td>
+            <td>1.690.000</td>
+            <td class="sale">40%</td>
+            <td>
+              <a href="/">Xem chi tiết</a>
+            </td>
+            <td>
+              <button type="button" class="btn btn-warning">Chọn</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <img class="img-icon" width="80" height="50" src="../../../assets/branches-image/vnairline.gif" alt="">
+            </td>
+            <td>VN518</td>
+            <td>10:00</td>
+            <td>12:00</td>
+            <td>1.690.000</td>
+            <td class="sale">40%</td>
+            <td>
+              <a href="/">Xem chi tiết</a>
+            </td>
+            <td>
+              <button type="button" class="btn btn-warning">Chọn</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <img class="img-icon" width="80" height="50" src="../../../assets/branches-image/vnairline.gif" alt="">
+            </td>
+            <td>VN518</td>
+            <td>10:00</td>
+            <td>12:00</td>
+            <td>1.690.000</td>
+            <td class="sale">40%</td>
+            <td>
+              <a href="/">Xem chi tiết</a>
+            </td>
+            <td>
+              <button type="button" class="btn btn-warning">Chọn</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <img class="img-icon" width="80" height="50" src="../../../assets/branches-image/vnairline.gif" alt="">
+            </td>
+            <td>VN518</td>
+            <td>10:00</td>
+            <td>12:00</td>
+            <td>1.690.000</td>
+            <td class="sale">40%</td>
+            <td>
+              <a href="/">Xem chi tiết</a>
+            </td>
+            <td>
+              <button type="button" class="btn btn-warning">Chọn</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <img class="img-icon" width="80" height="50" src="../../../assets/branches-image/vnairline.gif" alt="">
+            </td>
+            <td>VN518</td>
+            <td>10:00</td>
+            <td>12:00</td>
+            <td>1.690.000</td>
+            <td class="sale">40%</td>
+            <td>
+              <a href="/">Xem chi tiết</a>
+            </td>
+            <td>
+              <button type="button" class="btn btn-warning">Chọn</button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div id="Paris" class="tabcontent">
+        <img src="../../../assets/nodata.gif" style="width: 100%">
+      </div>
+
+      <div id="Tokyo" class="tabcontent">
+        <img src="../../../assets/nodata.gif" style="width: 100%">
+      </div>
+      </div>
+      <div>
+        <div class="row bg-color-custom">
+          <div class="col-xs-2 border rounded-circle  m-md-2" style="padding: 0.7rem;">
+            <div class="text-center align-middle p-md-2">
+              <i class="fas fa-plane fa-2x" style="color: white;"></i>
+            </div>
+          </div>
+          <div class="row col-xs-10 mt-md-2 ml-md-3 ">
+            <select class="form-control col-md-5">
+              <option>
+                Hồ Chí Minh, Việt Nam (SGN)
+              </option>
+              <option>
+                Đà Nẵng, Việt Nam (DNN)
+              </option>
+              <option>
+                Hà Nội, Việt Nam (HAN)
+              </option>
+            </select>
+
+            <span class="col-md-1 to-to"><i class="fas fa-long-arrow-alt-right" style="color: white;"></i></span>
+            <select class="form-control col-md-5">
+              <option>
+                Hà Nội, Việt Nam (HAN)
+              </option>
+              <option>
+                Hồ Chí Minh, Việt Nam (SGN)
+              </option>
+              <option>
+                Đà Nẵng, Việt Nam (DNN)
+              </option>
+            </select>
+
+            <h6 class="text-light col-md-12">Thứ 5, 27-08-2020</h6>
+          </div>
+        </div>
+
+        <div class="tab">
+          <button class="tablinks1 active" onclick="openTabs1(event, 'ttday0')" id="set8"></button>
+          <button class="tablinks1" onclick="openTabs1(event, 'ttday1')" id="set9"></button>
+          <button class="tablinks1" onclick="openTabs1(event, 'ttday2')" id="set10"></button>
+          <button class="tablinks1" onclick="openTabs1(event, 'ttday3')" id="set11">
+            <span id="getday4">27/08/2020</span>
+            <span class="getday" id="day4">...</span>
+          </button>
+          <button class="tablinks1" onclick="openTabs1(event, 'ttday4')" id="set12">
+            <!--                    <span id="getday5">27/08/2020</span>-->
+            <!--                    <span class="getday" id="day5">...</span>-->
+          </button>
+          <button class="tablinks1" onclick="openTabs1(event, 'ttday5')" id="set13">
+            <!--                    <span id="getday6">27/08/2020</span>-->
+            <!--                    <span class="getday" id="day6">...</span>-->
+          </button>
+          <button class="tablinks1" onclick="openTabs1(event, 'ttday6')" id="set14">
+            <!--                    <span id="getday7">27/08/2020</span>-->
+            <!--                    <span class="getday" id="day7">...</span>-->
+          </button>
+        </div>
+
+        <div id="ttday0" class="tabcontent1">
+          <table class="table">
+            <thead class="no-border">
+            <tr>
+              <th>Hãng</th>
+              <th>Mã chuyến bay</th>
+              <th>Giờ khởi hành</th>
+              <th>Giờ đến nơi</th>
+              <th>Giá (VNĐ)</th>
+              <th>Khuyến Mãi</th>
+              <th>Chi tiết</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr >
+              <td>
+                <img class="img-icon" width="80" height="50" src="../../../assets/branches-image/vietjet.png" alt="">
+              </td>
+              <td>VJ251</td>
+              <td>14:30</td>
+              <td>16:30</td>
+              <td>999.000</td>
+              <td class="sale">40%</td>
+              <td>
+                <a  href="/">Xem chi tiết</a>
+              </td>
+              <td>
+                <button  type="button" class="btn btn-warning">Chọn</button>
+              </td>
+            </tr>
+
+            <tr >
+              <td>
+                <img class="img-icon" width="80" height="50" src="../../../assets/branches-image/jetstar.png" alt="">
+              </td>
+              <td>JS250</td>
+              <td>07:45</td>
+              <td>09:55</td>
+              <td>990.000</td>
+              <td class="sale">40%</td>
+              <td>
+                <a  href="/">Xem chi tiết</a>
+              </td>
+              <td>
+                <button  type="button" class="btn btn-warning">Chọn</button>
+              </td>
+            </tr>
+
+            <tr >
+              <td>
+                <img class="img-icon" width="80" height="50" src="../../../assets/branches-image/bamboo.png" alt="">
+              </td>
+              <td>QH345</td>
+              <td>11:00</td>
+              <td>13:00</td>
+              <td>1.250.000</td>
+              <td class="sale">40%</td>
+              <td>
+                <a  href="/">Xem chi tiết</a>
+              </td>
+              <td>
+                <button  type="button" class="btn btn-warning">Chọn</button>
+              </td>
+            </tr>
+            <tr >
+              <td>
+                <img class="img-icon" width="80" height="50" src="../../../assets/branches-image/bamboo.png" alt="">
+              </td>
+              <td>QH111</td>
+              <td>20:00</td>
+              <td>22:10</td>
+              <td>1.100.000</td>
+              <td class="sale">40%</td>
+              <td>
+                <a href="/">Xem chi tiết</a>
+              </td>
+              <td>
+                <button  type="button" class="btn btn-warning">Chọn</button>
+              </td>
+            </tr>
+            <tr >
+              <td>
+                <img class="img-icon" width="80" height="50" src="../../../assets/branches-image/vnairline.gif" alt="">
+              </td>
+              <td>VN518</td>
+              <td>10:00</td>
+              <td>12:00</td>
+              <td>1.690.000</td>
+              <td class="sale">40%</td>
+              <td>
+                <a href="/">Xem chi tiết</a>
+              </td>
+              <td>
+                <button  type="button" class="btn btn-warning">Chọn</button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <img class="img-icon" width="80" height="50" src="../../../assets/branches-image/vnairline.gif" alt="">
+              </td>
+              <td>VN518</td>
+              <td>10:00</td>
+              <td>12:00</td>
+              <td>1.690.000</td>
+              <td class="sale">40%</td>
+              <td>
+                <a href="/">Xem chi tiết</a>
+              </td>
+              <td>
+                <button type="button" class="btn btn-warning">Chọn</button>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <img class="img-icon" width="80" height="50" src="../../../assets/branches-image/vnairline.gif" alt="">
+              </td>
+              <td>VN518</td>
+              <td>10:00</td>
+              <td>12:00</td>
+              <td>1.690.000</td>
+              <td class="sale">40%</td>
+              <td>
+                <a href="/">Xem chi tiết</a>
+              </td>
+              <td>
+                <button type="button" class="btn btn-warning">Chọn</button>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <img class="img-icon" width="80" height="50" src="../../../assets/branches-image/vnairline.gif" alt="">
+              </td>
+              <td>VN518</td>
+              <td>10:00</td>
+              <td>12:00</td>
+              <td>1.690.000</td>
+              <td class="sale">40%</td>
+              <td>
+                <a href="/">Xem chi tiết</a>
+              </td>
+              <td>
+                <button type="button" class="btn btn-warning">Chọn</button>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <img class="img-icon" width="80" height="50" src="../../../assets/branches-image/vnairline.gif" alt="">
+              </td>
+              <td>VN518</td>
+              <td>10:00</td>
+              <td>12:00</td>
+              <td>1.690.000</td>
+              <td class="sale">40%</td>
+              <td>
+                <a href="/">Xem chi tiết</a>
+              </td>
+              <td>
+                <button type="button" class="btn btn-warning">Chọn</button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <img class="img-icon" width="80" height="50" src="../../../assets/branches-image/vnairline.gif" alt="">
+              </td>
+              <td>VN518</td>
+              <td>10:00</td>
+              <td>12:00</td>
+              <td>1.690.000</td>
+              <td class="sale">40%</td>
+              <td>
+                <a href="/">Xem chi tiết</a>
+              </td>
+              <td>
+                <button type="button" class="btn btn-warning">Chọn</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div id="ttday1" class="tabcontent1">
+          <img src="../../../assets/nodata.gif" style="width: 100%">
+        </div>
+
+        <div id="ttday2" class="tabcontent1">
+          <img src="../../../assets/nodata.gif" style="width: 100%">
+        </div>
+      </div>
+
+<!--      table Khứ hồi-->
+
+
+
+    </div>
+
+    <!--        //menu-->
+    <div class="col-md-4 menu-promotion">
+      <div class="menu ml-md-2">
+        <legend>Sắp xếp</legend>
+        <div class="border border-white rounded p-md-2">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="search" value="option1" checked>
+            <label class="form-check-label">
+              Đề Xuất
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="search" value="option2">
+            <label class="form-check-label">
+              Giá (Thấp Đến Cao)
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="search" value="option3">
+            <label class="form-check-label">
+              Thời gian khởi hành
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="search" value="option3">
+            <label class="form-check-label">
+              Hãng hàng không
+            </label>
+          </div>
+        </div>
+
+
+        <legend>Tìm chuyến bay</legend>
+        <div class="border border-white rounded p-md-2">
+
+          <div class="form-check form-check-inline" style="margin-bottom: 10px">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"
+                   onclick="khuhoi()" checked>
+            <label class="form-check-label" for="inlineRadio1">Khứ Hồi</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"
+                   onclick="motchieu()">
+            <label class="form-check-label" for="inlineRadio2">Một chiều</label>
+          </div>
+
+
+          <div class="input-group mb-3 input">
+            <div class="input-group-prepend">
+              <label class="input-group-text label" for="inputGroupSelect01">
+                <strong style="color: #4469B0">Điểm đi: </strong>
+              </label>
+            </div>
+            <select class="custom-select" id="inputGroupSelect01">
+              <option selected="">Vui lòng chọn điểm đi....</option>
+              <option value="1">Đà Nẵng</option>
+              <option value="2">Sài Gòn</option>
+              <option value="3">Hà Nội</option>
+            </select>
+          </div>
+
+
+          <div class="input-group mb-3 input">
+            <div class="input-group-prepend">
+              <label class="input-group-text label" for="inputGroupSelect02">
+                <strong style="color: #4469B0">Điểm đến: </strong>
+              </label>
+            </div>
+            <select class="custom-select" id="inputGroupSelect02">
+              <option selected="">Vui lòng chọn điểm đến....</option>
+              <option value="1">Đà Nẵng</option>
+              <option value="2">Sài Gòn</option>
+              <option value="3">Hà Nội</option>
+            </select>
+          </div>
+
+
+          <div class="input-group mb-3 input">
+            <div class="input-group-prepend">
+                                             <span class="input-group-text label" id="basic-addon1">
+                                                 <strong style="color: #4469B0">Ngày đi: </strong>
+                                             </span>
+            </div>
+            <input type="date" class="form-control" aria-label="Username"
+                   aria-describedby="basic-addon1" id="dateNow1">
+          </div>
+
+          <div id="hidden2">
+            <div class="input-group mb-3 input">
+              <div class="input-group-prepend">
+                                                    <span class="input-group-text label" id="basic-addon2">
+                                                        <strong style="color: #4469B0">Ngày về: </strong>
+                                                    </span>
+              </div>
+              <input type="date" class="form-control" aria-label="Username"
+                     aria-describedby="basic-addon2" id="dateNow2">
+            </div>
+          </div>
+
+          <table style="width: 100%">
+            <tr>
+              <TH width="33%">Em bé</TH>
+              <TH width="33%">Trẻ em</TH>
+              <TH width="33%">Người lớn</TH>
+            </tr>
+            <tr>
+              <td>
+                <select class="form-control custom-select">
+                  <option selected disabled>Chọn</option>
+                  <option>0</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+              </td>
+              <td>
+                <select class="form-control custom-select">
+                  <option selected disabled>Chọn</option>
+                  <option>0</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+              </td>
+              <td>
+                <select class="form-control custom-select">
+                  <option selected disabled>Chọn</option>
+                  <option>0</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+              </td>
+            </tr>
+          </table>
+
+        </div>
+        <input type="submit" class="form-control btn btn-warning" style="margin-top :5px"
+               value="Tìm chuyến bay"/>
+      </div>
+
+      <div class="menu ml-md-2">
+        <div style="text-align: center">
+          <h5>Đăng ký nhận khuyến mãi</h5>
+        </div>
+
+
+        <div class="input-group mb-3 input">
+          <div class="input-group-prepend">
+                                                    <span class="input-group-text label">
+                                                        <strong style="color: #4469B0">Email: </strong>
+                                                    </span>
+          </div>
+          <input type="text" class="form-control" aria-label="Username"
+                 aria-describedby="basic-addon2">
+          <button class="btn btn-danger">Gửi</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
