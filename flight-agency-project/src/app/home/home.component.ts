@@ -3,7 +3,11 @@ import { FlightScheduleService } from '../shared/services/flight-schedule.servic
 import { FlightSchedules } from '../shared/models/FlightSchedules';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Airport } from '../shared/models/airport';
+import { FlightSearchForm } from '../shared/models/dto/flight-search-form';
+import { FlightSearchDTO } from '../shared/models/dto/flight-search-dto';
 
 @Component({
   selector: 'app-home',
@@ -14,6 +18,7 @@ export class HomeComponent implements OnInit {
   // D-Bach
   oneWay = false;
   flightSchedule: Observable<FlightSchedules[]>;
+  searchForm: FormGroup;
   airportCity: Airport[];
   pageSize: number;
   currentPage: number;
@@ -23,7 +28,9 @@ export class HomeComponent implements OnInit {
   isEmpty = false;
 
   constructor(
-    private flightScheduleService: FlightScheduleService
+    private flightScheduleService: FlightScheduleService,
+    private formBuilder: FormBuilder,
+    private router: Router
   ) {
   }
 
@@ -56,6 +63,21 @@ export class HomeComponent implements OnInit {
     this.flightScheduleService.getAllAirportCity().subscribe(data => {
       this.airportCity = data;
     });
+    this.searchForm = this.formBuilder.group({
+      departureAirport: ['', [Validators.required]],
+      arrivalAirport: ['', [Validators.required]],
+      departureDateTime: [new Date(), [Validators.required]],
+      arrivalDateTime: [new Date(), [Validators.required]],
+      babies: [0, [Validators.required]],
+      children: [0, [Validators.required]],
+      adults: [1, [Validators.required]]
+    });
+  }
+
+  // D-Bach
+  sendData() {
+    this.flightScheduleService.flightSearchForm = this.searchForm.value;
+    this.router.navigateByUrl('flight/schedule');
   }
 
   // D-Bach

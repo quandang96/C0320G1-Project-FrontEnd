@@ -337,7 +337,7 @@ hr {
 }
 .input {
   width: 501px;
-  padding-top: 10px;
+  padding-top: 5px;
 }
 .input1 {
   width: 243px;
@@ -362,6 +362,9 @@ hr {
 .ghichu {
   margin-top: -20px;
   margin-left: 10px;
+}
+.ghichu2 {
+  margin-top: -15px;
 }
 .buttontimkiem {
   width: 250px;

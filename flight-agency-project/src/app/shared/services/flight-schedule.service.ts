@@ -6,6 +6,7 @@ import { Page } from '../models/dto/Page';
 import { FlightSchedule } from '../models/flight-schedule';
 import { FlightSearchDTO } from '../models/dto/flight-search-dto';
 import { Airport } from '../models/airport';
+import { FlightSearchForm } from '../models/dto/flight-search-form';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class FlightScheduleService {
   private readonly API_URL = 'http://localhost:8080/api/v1';
   // tslint:disable-next-line:max-line-length
   branchImages: string[] = ['', 'assets/branches-image/vietjet.png', 'assets/branches-image/pacific.png', 'assets/branches-image/bamboo.png', 'assets/branches-image/vnairline.gif'];
+  flightSearchForm: FlightSearchForm;
 
   constructor(
     private http: HttpClient

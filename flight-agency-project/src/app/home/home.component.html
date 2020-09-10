@@ -48,7 +48,7 @@
               </h2>
             </div>
             <div class="form_child2">
-              <form id="search">
+              <form id="search" [formGroup]="searchForm">
                 <div class="row">
                   <div class="col-md-6 col-lg-6 col-xl-6">
                     <div class="buttonradio">
@@ -83,10 +83,14 @@
                               <strong style="color: #4469B0">Điểm đi: </strong>
                             </label>
                           </div>
-                          <select class="custom-select" id="inputGroupSelect01">
-                            <option selected>Vui lòng chọn điểm đi....</option>
+                          <select class="custom-select form-control" id="inputGroupSelect01" formControlName="departureAirport">
                             <option *ngFor="let city of airportCity" [value]="city.id">{{city.city}} ({{city.code}})</option>
                           </select>
+                        </div>
+                        <div class="ghichu2">
+                          <p *ngIf="searchForm.controls.departureAirport.errors?.required && searchForm.controls.departureAirport.touched">
+                            <strong>Vui lòng chọn điểm đi</strong>
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -100,10 +104,14 @@
                               <strong style="color: #4469B0">Điểm đến: </strong>
                             </label>
                           </div>
-                          <select class="custom-select" id="inputGroupSelect02">
-                            <option selected>Vui lòng chọn điểm đến....</option>
+                          <select class="custom-select form-control" id="inputGroupSelect02" formControlName="arrivalAirport">
                             <option *ngFor="let city of airportCity" [value]="city.id">{{city.city}} ({{city.code}})</option>
                           </select>
+                        </div>
+                        <div class="ghichu2">
+                          <p *ngIf="searchForm.controls.arrivalAirport.errors?.required && searchForm.controls.arrivalAirport.touched">
+                            <strong>Vui lòng chọn điểm đến</strong>
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -119,7 +127,8 @@
                           <strong style="color: #4469B0; font-size: 14px; margin-left: -6px">Ngày đi: </strong>
                         </span>
                           </div>
-                          <input type="date" id="date1" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+                          <input type="date" id="date1" class="form-control" aria-label="Username" aria-describedby="basic-addon1"
+                          formControlName="departureDateTime">
                         </div>
                       </div>
                     </div>
@@ -133,7 +142,8 @@
                             <strong style="color: #4469B0; font-size: 14px; margin-left: -6px">Ngày về: </strong>
                           </span>
                           </div>
-                          <input type="date" id="date2" class="form-control" aria-label="Username" aria-describedby="basic-addon2">
+                          <input type="date" id="date2" class="form-control" aria-label="Username" aria-describedby="basic-addon2"
+                          formControlName="arrivalDateTime">
                         </div>
                       </div>
                     </div>
@@ -149,7 +159,7 @@
                               <strong style="color: #4469B0; font-size: 14px; margin-left: -6px">Người lớn: </strong>
                             </label>
                           </div>
-                          <select class="custom-select" id="inputGroupSelect03">
+                          <select class="custom-select form-control" id="inputGroupSelect03" formControlName="adults">
                             <option value="1">01</option>
                             <option value="2">02</option>
                             <option value="3">03</option>
@@ -172,7 +182,7 @@
                               <strong style="color: #4469B0; font-size: 14px; margin-left: -6px">Trẻ em: </strong>
                             </label>
                           </div>
-                          <select class="custom-select" id="inputGroupSelect04">
+                          <select class="custom-select" id="inputGroupSelect04" formControlName="children">
                             <option value="0">00</option>
                             <option value="1">01</option>
                             <option value="2">02</option>
@@ -196,7 +206,7 @@
                               <strong style="color: #4469B0; font-size: 14px; margin-left: -6px">Em bé: </strong>
                             </label>
                           </div>
-                          <select class="custom-select" id="inputGroupSelect05">
+                          <select class="custom-select" id="inputGroupSelect05" formControlName="babies">
                             <option value="0">00</option>
                             <option value="1">01</option>
                             <option value="2">02</option>
@@ -225,7 +235,8 @@
                   <div class="col-md-6 col-lg-6 col-xl-6">
                     <div class="buttontimkiem2">
                       <div class="form-group">
-                        <button type="button" class="btn btn-warning btn-lg buttontimkiem">
+                        <button type="button" class="btn btn-warning btn-lg buttontimkiem"
+                        (click)="sendData()" [disabled]="searchForm.invalid">
                           Tìm kiếm nâng cao
                         </button>
                       </div>
@@ -277,7 +288,7 @@
             <th class="text-center">Điểm đi (Sân bay)</th>
             <th class="text-center"><i class="fas fa-angle-double-right"></i></th>
             <th class="text-center">Điểm đến (Sân bay)</th>
-            <th class="text-center">Ngày bay</th>
+            <th class="text-center">Ngày bay (Giờ bay)</th>
             <th class="text-center">Giá</th>
           </tr>
           </thead>
