@@ -10,8 +10,7 @@ declare var $: any
   templateUrl: './bill-list.component.html',
   styleUrls: ['./bill-list.component.css']
 })
-// C-Ngan
-export class BillListComponent implements OnInit {  
+export class BillListComponent implements OnInit {
 
   private bills: Observable<Bill[]>;
   private totalElements: number;
@@ -40,8 +39,7 @@ export class BillListComponent implements OnInit {
       map( res => res.content)
     )   
     $(document).ready(function(){
-      $("#checkAll").click(function () {
-        // let checkbox = $("#checkAll").attr('checked');        
+      $("#checkAll").click(function () {      
           $('input:checkbox').not(this).prop('checked', this.checked);
       }); 
   })

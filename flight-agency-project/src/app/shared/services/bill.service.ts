@@ -10,7 +10,6 @@ import { SelectDto } from '../models/dto/SelectDto';
   providedIn: 'root'
 })
 export class BillService {
-  
   // C-Ngan
   getOptions(page?: number, billCode?: string, brand?: string, departure?: string, arrival?: string): Object {
     let options = {
