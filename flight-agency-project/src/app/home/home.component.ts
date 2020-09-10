@@ -49,6 +49,7 @@ export class HomeComponent implements OnInit {
     );
   }
 
+  // D-Bach
   ngOnInit() {
     this.getPage(1);
     this.branchImages = this.flightScheduleService.branchImages;

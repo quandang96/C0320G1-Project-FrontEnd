@@ -9,7 +9,7 @@ const routes: Routes = [
   path: '', component: HomeComponent
 },
 {
-  path: 'send-feedback',component : SendFeedbackComponent
+  path: 'send-feedback', component : SendFeedbackComponent
 },
 {
   path: 'admin', loadChildren: () => import('./admin/admin.module').then(mod => mod.AdminModule)

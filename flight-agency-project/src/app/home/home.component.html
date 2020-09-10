@@ -85,7 +85,7 @@
                           </div>
                           <select class="custom-select" id="inputGroupSelect01">
                             <option selected>Vui lòng chọn điểm đi....</option>
-                            <option *ngFor="let city of airportCity" [value]="city.city">{{city.city}}</option>
+                            <option *ngFor="let city of airportCity" [value]="city.id">{{city.city}} ({{city.code}})</option>
                           </select>
                         </div>
                       </div>
@@ -102,7 +102,7 @@
                           </div>
                           <select class="custom-select" id="inputGroupSelect02">
                             <option selected>Vui lòng chọn điểm đến....</option>
-                            <option *ngFor="let city of airportCity" [value]="city.city">{{city.city}}</option>
+                            <option *ngFor="let city of airportCity" [value]="city.id">{{city.city}} ({{city.code}})</option>
                           </select>
                         </div>
                       </div>
@@ -155,10 +155,6 @@
                             <option value="3">03</option>
                             <option value="4">04</option>
                             <option value="5">05</option>
-                            <option value="6">06</option>
-                            <option value="7">07</option>
-                            <option value="8">08</option>
-                            <option value="9">09</option>
                           </select>
                         </div>
                       </div>
@@ -183,10 +179,6 @@
                             <option value="3">03</option>
                             <option value="4">04</option>
                             <option value="5">05</option>
-                            <option value="6">06</option>
-                            <option value="7">07</option>
-                            <option value="8">08</option>
-                            <option value="9">09</option>
                           </select>
                         </div>
                       </div>
@@ -211,10 +203,6 @@
                             <option value="3">03</option>
                             <option value="4">04</option>
                             <option value="5">05</option>
-                            <option value="6">06</option>
-                            <option value="7">07</option>
-                            <option value="8">08</option>
-                            <option value="9">09</option>
                           </select>
                         </div>
                       </div>
@@ -291,7 +279,6 @@
             <th class="text-center">Điểm đến (Sân bay)</th>
             <th class="text-center">Ngày bay</th>
             <th class="text-center">Giá</th>
-            <th class="text-center">Tình trạng</th>
           </tr>
           </thead>
           <tbody>
@@ -305,8 +292,7 @@
             <td class="text-center"><i class="fas fa-plane"></i></td>
             <td class="text-center">{{flight?.arrivalAirport?.city}} ({{flight?.arrivalAirport?.name}})</td>
             <td class="text-center">{{flight?.departureDateTime | date : 'dd-MM-yyyy , HH:mm:ss'}}</td>
-            <td class="text-center">{{flight?.price}}</td>
-            <td class="text-center">{{flight?.status}}</td>
+            <td class="text-center">{{flight?.price | number}} đ</td>
           </tr>
           </tbody>
         </table>
