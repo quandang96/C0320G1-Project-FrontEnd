@@ -1,8 +1,8 @@
+
 import { NgModule } from '@angular/core';
-import { MatDatepickerModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import { MatDatepickerModule, MatFormFieldModule, MatInputModule, MatStepperModule } from '@angular/material';
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatDialogModule} from "@angular/material/dialog";
-import {CircleChartComponent} from "./admin/circle-chart/circle-chart.component";
 
 
 @NgModule({
@@ -12,6 +12,7 @@ import {CircleChartComponent} from "./admin/circle-chart/circle-chart.component"
     MatNativeDateModule,
     MatInputModule,
     MatDialogModule,
+    MatStepperModule
   ],
   exports: [
     MatDatepickerModule,
@@ -19,8 +20,8 @@ import {CircleChartComponent} from "./admin/circle-chart/circle-chart.component"
     MatNativeDateModule,
     MatInputModule,
     MatDialogModule,
-  ],
-  entryComponents: []
+    MatStepperModule
+  ]
 })
 
 export class MaterialModule {}

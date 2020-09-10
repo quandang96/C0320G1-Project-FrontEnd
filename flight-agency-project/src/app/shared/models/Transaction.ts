@@ -1,10 +1,12 @@
-export interface Transaction {
-  id: number;
-  // flightSchedule: FlightSchedule;
-  // passengers: Passenger[];
-  account: Account;
-  price: number;
-  createdTime: string;
-  dueTime: string;
-  status: string;
+import { FlightSchedule } from './flight-schedule';
+import { Passenger } from './passenger';
+export interface Transaction{
+    id: number,
+    createdTime: string,
+    dueTime: string,
+    price: number,
+    status: string,
+    account: Account,
+    flightSchedule: FlightSchedule,
+    passengers: Passenger[]
 }
