@@ -8,6 +8,10 @@ import { LoginComponent } from './home/login/login.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../environments/environment';
+import {AngularFireStorageModule} from '@angular/fire/storage';
+import {AngularFirestoreModule} from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -20,7 +24,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireStorageModule,
+    AngularFirestoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
