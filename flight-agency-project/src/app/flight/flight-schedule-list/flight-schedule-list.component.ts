@@ -18,7 +18,7 @@ import { checkInterval, compare } from 'src/app/shared/validations/validation';
 })
 export class FlightScheduleListComponent implements OnInit, AfterViewInit {
 
-  @ViewChildren(OnewayDirective) entry: QueryList<OnewayDirective>
+  @ViewChildren(OnewayDirective) entry: QueryList<OnewayDirective>;
 
   readonly MAX_PEOPLE = new Array(6);
   searchForm: FormGroup;
@@ -45,7 +45,7 @@ export class FlightScheduleListComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.route.data.subscribe((data: { airports: Airport[] }) => {
       this.airportList = data.airports;
-    })
+    });
     this.noOfWay = 1;
     this.searchForm = this.fb.group({
       sortBy: [''],
@@ -70,7 +70,7 @@ export class FlightScheduleListComponent implements OnInit, AfterViewInit {
     // check time betwwen 2 flight
     this.bookingService.departureFlight = this.departureFlight;
     this.bookingService.bookingInfo = this.searchForm.value;
-    if (this.noOfWay == 2) {
+    if (this.noOfWay === 2) {
       const isValid = checkInterval(this.returnFlight.departureDateTime, this.departureFlight.departureDateTime, 240);
       if (isValid) {
         this.bookingService.returnFlight = this.returnFlight;
@@ -92,13 +92,13 @@ export class FlightScheduleListComponent implements OnInit, AfterViewInit {
       babies: this.searchForm.get('babies').value,
       children: this.searchForm.get('children').value,
       adults: this.searchForm.get('adults').value
-    }
+    };
     this.noOfWay = 1;
     this.departureComponent = this.loadComponent(0, depSchedule);
     this.departureComponent.instance.sel.subscribe(data => {
       this.departureFlight = data;
-    })
-    if (this.isRoundTrip.value == '1') {
+    });
+    if (this.isRoundTrip.value === '1') {
       const retSchedule: FlightSearchDTO = {
         sortBy: this.searchForm.get('sortBy').value,
         departure: this.searchForm.get('arrival').value,
@@ -107,12 +107,12 @@ export class FlightScheduleListComponent implements OnInit, AfterViewInit {
         babies: this.searchForm.get('babies').value,
         children: this.searchForm.get('children').value,
         adults: this.searchForm.get('adults').value
-      }
+      };
       this.noOfWay = 2;
       this.returnComponent = this.loadComponent(1, retSchedule);
       this.returnComponent.instance.sel.subscribe(data => {
         this.returnFlight = data;
-      })
+      });
     }
   }
 
@@ -128,7 +128,7 @@ export class FlightScheduleListComponent implements OnInit, AfterViewInit {
   }
 
   changeWay($event) {
-    if ($event.target.value == '') {
+    if ($event.target.value === '') {
       this.retDate.disable();
     } else {
       this.retDate.enable();
@@ -162,7 +162,7 @@ export class FlightScheduleListComponent implements OnInit, AfterViewInit {
   }
 
   get selectedRet() {
-    if (this.noOfWay == 1)
+    if (this.noOfWay === 1)
       return true;
     if (this.returnFlight == null)
       return false;
