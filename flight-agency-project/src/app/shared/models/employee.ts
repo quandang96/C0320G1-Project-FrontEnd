@@ -1,4 +1,4 @@
-export interface Customer {
+export interface Employee {
   [prop: string]: any;
 
   id: number;
@@ -12,4 +12,5 @@ export interface Customer {
   role: bigint;
   passwords: string;
   status: boolean;
+  avatarUrl: string;
 }

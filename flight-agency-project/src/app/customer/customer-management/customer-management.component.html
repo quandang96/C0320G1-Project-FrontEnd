@@ -1,39 +1,41 @@
-<!--<div class="container-fluid-example">-->
-<!--  <div style="text-align: center;" class="justify-content-between">-->
-<!--    <h3>Danh Sách Khách Hàng</h3>-->
-<!--  </div>-->
-<!--</div>-->
-<!--<div class="row mt-3">-->
-<!--  <button [routerLink]="['/themKH']" class="btn btn-success"> Thêm KH</button>-->
-<!--  <table class="table  mt-3">-->
-<!--    <thead class="w-100">-->
-<!--    <tr class="w-100">-->
-<!--      <th>Mã KH</th>-->
-<!--      <th>Họ Tên</th>-->
-<!--      <th>Loại KH</th>-->
-<!--      <th>Ngày sinh</th>-->
-<!--      <th>CMND</th>-->
-<!--      <th>Email</th>-->
-<!--      <th>Địa chỉ</th>-->
-<!--      <th>Sửa</th>-->
-<!--    </tr>-->
-<!--    </thead>-->
-<!--    <tbody>-->
-<!--    <tr-->
-<!--      *ngFor="let kh of customers">-->
-<!--      <td>{{kh.maKH}}</td>-->
-<!--      <td>{{kh.tenKH}}</td>-->
-<!--      <td>{{kh.loaiKH}}</td>-->
-<!--      <td>{{kh.ngaysinhKH}}</td>-->
-<!--      <td>{{kh.cmndKH}}</td>-->
-<!--      <td>{{kh.emailKH}}</td>-->
-<!--      <td>{{kh.diachiKH}}</td>-->
+<div class="container-fluid">
+  <div style="text-align: center;" class="justify-content-between">
+    <h3>Danh Sách Khách Hàng</h3>
+  </div>
+  <div class="row mt-3">
+    <button class="btn btn-primary"> Thêm khách hàng</button>
+    <table class="table table-striped">
+      <thead style="background-color: #189EFF; color: black">
+      <tr>
+        <th scope="col">STT</th>
+        <th scope="col">Họ Tên</th>
+        <th scope="col">Ngày sinh</th>
+        <th scope="col">Địa chỉ</th>
+        <th scope="col">Email</th>
+        <th scope="col">Giới tính</th>
+        <th scope="col">Điện thoại</th>
+        <th scope="col ">Chỉnh sửa</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr
+        *ngFor="let kh of customerList  | async | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalElements}; index as i">
+        <th scope="row">{{stt[i]}}</th>
+        <td>{{kh.fullName}}</td>
+        <td>{{kh.birthDate}}</td>
+        <td>{{kh.address}}</td>
+        <td>{{kh.email}}</td>
+        <td>{{kh.gender}}</td>
+        <td>{{kh.phoneNumber}}</td>
+        <td>
+          <button class="btn btn-primary"><i class="fas fa-pen-nib"> Sửa</i></button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="page">
+    <pagination-controls (pageChange)="getPage($event)"></pagination-controls>
+  </div>
 
-<!--      <td>-->
-<!--        <button [routerLink]="['/suaKH/'+kh.id]" class="btn btn-primary"><i class="fas fa-pen-nib"></i></button>-->
-<!--      </td>-->
-
-<!--    </tr>-->
-<!--    </tbody>-->
-<!--  </table>-->
-<!--</div>-->
+</div>
