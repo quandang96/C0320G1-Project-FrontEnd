@@ -21,11 +21,10 @@
       <label>Nội dung phản hồi</label>
       <textarea type="text" class="form-control" rows="3" [(ngModel)] ="responseContent"></textarea>
     </div>
-    <input type="submit" mat-button [mat-dialog-close]="true" cdkFocusInitial value="Gửi mail" (click)="check()">
-    <button mat-button mat-dialog-close>Cancel</button>
 
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="check()">Gửi mail</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Cancel</button>
 </mat-dialog-actions>
 

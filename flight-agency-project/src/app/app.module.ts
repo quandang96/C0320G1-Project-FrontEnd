@@ -11,11 +11,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { SendFeedbackComponent } from './home/send-feedback/send-feedback.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
 import {FeedbackContentDialogComponent} from './admin/feedback-content-dialog/feedback-content-dialog.component';
 import {FeedbackListComponent} from './admin/feedback-list/feedback-list.component';
 import {MaterialModule} from './material.module';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [

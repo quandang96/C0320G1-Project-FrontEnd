@@ -47,17 +47,15 @@ export class FeedbackListComponent implements OnInit {
     });
     this.getFeedbackPage(1);
     this.getAllFeedback();
-    // console.log(this.feedbackList);
   }
 
   search() {
     this.searchFields = this.formSearchList.value as FeedbackSearch;
-    console.log(this.searchFields);
+    console.log(typeof this.searchFields.createDate);
     this.getFeedbackPage(1);
   }
 
   getFeedbackPage(pageNumber) {
-    console.log(pageNumber);
     this.feedbackPage = this.feedbackService.getFeedbackPage(this.searchFields, pageNumber).pipe(
       tap(res => {
         console.log(res);
@@ -86,10 +84,13 @@ export class FeedbackListComponent implements OnInit {
 
   getAllFeedback(): void {
     this.feedbackService.getFeedbackList().subscribe(data => {
-      this.feedbackList = data.content;
-      console.log(this.feedbackList);
+      this.feedbackList = data;
+      for (let i = 0; i < this.feedbackList.length; i++) {
+        if (this.feedbackList[i].processStatus === false) {
+          this.unprocessedStatusAmount++;
+        }
+      }
     });
-    console.log(this.feedbackList);
   }
 
   openFeedbackDialog(feedback): void {
@@ -105,6 +106,7 @@ export class FeedbackListComponent implements OnInit {
       console.log(this.feedback);
       this.sendMail();
       this.feedbackService.editFeedback(this.feedback, this.feedback.id).subscribe();
+      this.ngOnInit();
     });
   }
 

@@ -1,5 +1,5 @@
 export interface FeedbackSearch {
   customerName: string;
   createDate: string;
-  processStatus: string;
+  processStatus: boolean;
 }
