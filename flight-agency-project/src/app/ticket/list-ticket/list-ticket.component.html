@@ -40,7 +40,7 @@
         <th>Mã đặt chỗ</th>
         <th>Tuyến bay</th>
         <th>Ngày đi</th>
-        <th>Tổng Tiền(VND)</th>
+        <th>Tổng Tiền</th>
         <th class="text-center">Thao tác</th>
       </tr>
       </thead>
@@ -48,8 +48,8 @@
         <td>{{ticket.name}}</td>
         <td>{{ticket.bookingCode}}</td>
         <td>{{ticket.departure}} - {{ticket.destination}}</td>
-        <td>{{ticket.departureTime | date:'dd-MM-yyyy HH:mm:ss'}}</td>
-        <td style="text-align: center">{{ticket.price + ticket.taxesAndFees}}</td>
+        <td>{{ticket.departureTime | date:'HH:mm  dd-MM-yyyy'}}</td>
+        <td>{{mapTotalMoney.get(ticket.id)}}</td>
         <td class="text-center">
           <a href="#" class="select_hover" data-toggle="modal" data-target="#editModal" (click)="edit(ticket.id)">
             Sửa</a>

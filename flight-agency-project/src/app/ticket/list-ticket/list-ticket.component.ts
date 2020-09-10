@@ -28,6 +28,7 @@ export class ListTicketComponent implements OnInit {
   private idDelete;
   private name;
   private email;
+  private mapTotalMoney = new Map();
 
   constructor(
     private ticketService: TicketServiceService,
@@ -86,6 +87,7 @@ export class ListTicketComponent implements OnInit {
     this.ticketService.page( this.formSearch.controls.search.value, this.pageNumber ).subscribe(data => {
       this.tickets = data.content;
       this.totalPages = data.totalPages;
+      this.getTotalMoney();
       this.pageNumber = data.pageable.pageNumber;
     });
   }
@@ -96,6 +98,7 @@ export class ListTicketComponent implements OnInit {
       case 'name':
         this.ticketService.page( this.formSearch.controls.search.value, this.pageNumber ).subscribe(data => {
           this.tickets = data.content;
+          this.getTotalMoney();
           this.totalPages = data.totalPages;
         });
         break;
@@ -103,6 +106,7 @@ export class ListTicketComponent implements OnInit {
       case 'bookingCode':
         this.ticketService.page2( this.formSearch.controls.search.value, this.pageNumber ).subscribe(data => {
           this.tickets = data.content;
+          this.getTotalMoney();
           this.totalPages = data.totalPages;
         });
         break;
@@ -110,6 +114,7 @@ export class ListTicketComponent implements OnInit {
       case 'flight':
         this.ticketService.page3( this.formSearch.controls.search.value, this.pageNumber ).subscribe(data => {
           this.tickets = data.content;
+          this.getTotalMoney();
           this.totalPages = data.totalPages;
         });
         break;
@@ -117,6 +122,7 @@ export class ListTicketComponent implements OnInit {
       default:
         this.ticketService.page( this.formSearch.controls.search.value, this.pageNumber ).subscribe(data => {
           this.tickets = data.content;
+          this.getTotalMoney();
           this.totalPages = data.totalPages;
         });
         break;
@@ -158,24 +164,28 @@ export class ListTicketComponent implements OnInit {
       case 'name':
        this.ticketService.page(this.formSearch.controls.search.value, this.pageNumber).subscribe(data => {
           this.tickets = data.content;
+          this.getTotalMoney();
         });
        break;
 
       case 'bookingCode':
         this.ticketService.page2(this.formSearch.controls.search.value, this.pageNumber).subscribe(data => {
           this.tickets = data.content;
+          this.getTotalMoney();
         });
         break;
 
       case 'flight':
         this.ticketService.page3(this.formSearch.controls.search.value, this.pageNumber).subscribe(data => {
           this.tickets = data.content;
+          this.getTotalMoney();
         });
         break;
 
       default:
         this.ticketService.page(this.formSearch.controls.search.value, this.pageNumber).subscribe(data => {
           this.tickets = data.content;
+          this.getTotalMoney();
         });
     }
   }
@@ -272,6 +282,14 @@ export class ListTicketComponent implements OnInit {
       this.totalMoney = this.totalMoney.substring(0, 1) + '.' + this.totalMoney.substring(1, 4) + '.'
         + this.totalMoney.substring(4, 7) + '.' + this.totalMoney.substring(7, ) + '  VND';
     }
+  }
+
+  getTotalMoney() {
+    this.tickets.forEach(element => {
+      this.totalMoney = element.price + element.taxesAndFees;
+      this.formatMoney();
+      this.mapTotalMoney.set(element.id, this.totalMoney);
+    });
   }
 
 }

@@ -6,9 +6,9 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class TicketServiceService {
-  private baseUrl = 'http://localhost:8080/api/v1/tickets';
-  private baseUrl2 = 'http://localhost:8080/api/v1/tickets/BookingCode';
-  private baseUrl3 = 'http://localhost:8080/api/v1/tickets/Flight';
+  private baseUrl = 'http://localhost:8080/api/v1/admin/tickets';
+  private baseUrl2 = 'http://localhost:8080/api/v1/admin/tickets/BookingCode';
+  private baseUrl3 = 'http://localhost:8080/api/v1/admin/tickets/Flight';
 
   constructor(private http: HttpClient) { }
 
