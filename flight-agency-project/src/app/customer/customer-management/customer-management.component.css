@@ -6,6 +6,9 @@ table{
   margin-left: 2%;
 }
 .page {
-  margin: 0 2%;
+  margin: 10px 2%;
   float: right;
+}
+.container-fluid{
+  padding-bottom: 50px;
 }

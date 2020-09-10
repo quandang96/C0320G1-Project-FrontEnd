@@ -3,11 +3,12 @@ import {BookTicketComponent} from './book-ticket/book-ticket.component';
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {EmployeeInformationComponent} from './employee-information/employee-information.component';
+import {EmployeeHomeComponent} from './employee-home/employee-home.component';
 
 
 const routes: Routes = [
   {
-    path: '',
+    path: '', component: EmployeeHomeComponent,
     children: [
       // creator Trương Khánh Mậu
       {path: 'employeeInfo', component: EmployeeInformationComponent}

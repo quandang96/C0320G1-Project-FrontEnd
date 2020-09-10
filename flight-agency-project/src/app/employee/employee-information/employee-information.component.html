@@ -1,19 +1,12 @@
 <div class=" container">
-  <h2 class="mt-3" style="text-align: center">Thông tin nhân viên</h2>
-  <div *ngIf="message!=''" class="alert alert-success p-2" role="alert">
+  <div id="message" *ngIf="message!=''" class="alert alert-success p-2" role="alert">
     {{message}}
   </div>
-  <div *ngIf="errorMessage!=''" class="alert alert-warning p-2" role="alert">
-    {{errorMessage}}
-  </div>
-  <div *ngFor="let mess of backendMessages">
-    <div class="alert alert-warning p-2" role="alert">
-      {{mess}}
-    </div>
-  </div>
+  <h3 class="tittlePage">Thông tin cá nhân</h3>
   <form class="mt-5 mb-5" [formGroup]="infoForm">
     <div class="form-group row">
       <div class="col-md-7 info">
+
         <div class="form-group row">
           <label for="fullName" class="col-md-3 col-form-label">Họ và tên: </label>
           <div class="col-md-9">
@@ -84,7 +77,18 @@
                 <label for="current_password">Mật khẩu hiện tại: </label>
               </div>
               <div class="col-7">
-                <input class="form-control" formControlName="password"  id="current_password" type="password">
+                <input class="form-control" formControlName="password" id="current_password" type="password">
+                <div *ngIf="password.touched">
+                  <ng-container *ngFor="let error of errors.passwords">
+                    <small *ngIf="password.hasError(error.code)" class="d-block text-danger"
+                           role="alert">{{error.message}}</small>
+                  </ng-container>
+                </div>
+                <div *ngFor="let mess of backendMessages">
+                  <div class="d-block text-danger" role="alert">
+                    <small> {{mess}}</small>
+                  </div>
+                </div>
               </div>
             </div>
             <div style="margin-top: 10px" class="form-group row">
@@ -92,7 +96,17 @@
                 <label for="new_password">Nhập mật khẩu mới: </label>
               </div>
               <div class="col-7">
-                <input class="form-control" id="new_password"  formControlName="newPassword" type="password">
+                <input class="form-control" id="new_password" formControlName="newPassword" type="password">
+                <div *ngIf="newPassword.touched">
+                  <ng-container *ngFor="let error of errors.newPasswordErrors">
+                    <small *ngIf="newPassword.hasError(error.code)" class="d-block text-danger"
+                           role="alert">{{error.message}}</small>
+                  </ng-container>
+                </div>
+                <div class="d-block text-danger" role="alert"
+                     *ngIf="changePassForm.get('newPassword').hasError('whitespace')"><small>Mật khẩu không cho phép chỉ
+                  chứa khoảng trắng.</small>
+                </div>
               </div>
             </div>
             <div style="margin-top: 10px" class="form-group row">
@@ -101,11 +115,14 @@
               </div>
               <div class="col-7">
                 <input class="form-control" id="confirm_password" formControlName="confirmPassword" type="password">
+                <div class="d-block text-danger" role="alert"
+                     *ngIf="changePassForm.hasError('checkPassword') && confirmPassword.touched"><small>Xác thực mật khẩu không chính xác</small>
+                </div>
               </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
-              <input type="submit" class="btn btn-primary" value="Lưu">
+              <input type="submit" class="btn btn-primary" [disabled]="!changePassForm.valid" value="Lưu">
             </div>
           </form>
         </div>

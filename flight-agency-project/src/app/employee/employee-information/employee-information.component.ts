@@ -2,16 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {EmployeeService} from '../../shared/services/employee.service';
 import {employeeDto} from '../../shared/models/dto/employeeDto';
-
-function validateWhitespace(c: AbstractControl) {
-  if (c.value !== '') {
-    const isWhitespace = c.value.trim().length === 0;
-    if (isWhitespace) {
-      const isValid = !isWhitespace;
-      return isValid ? null : {whitespace: true};
-    }
-  }
-}
+import {validation} from '../../shared/validations/validation';
+declare var $: any;
 
 @Component({
   selector: 'app-employee-information',
@@ -39,6 +31,7 @@ export class EmployeeInformationComponent implements OnInit {
   errorMessage = '';
   private avatarUrl = '';
   changePassForm: FormGroup;
+  errors = validation;
 
   constructor(private fb: FormBuilder,
               private employeeService: EmployeeService) {
@@ -46,9 +39,10 @@ export class EmployeeInformationComponent implements OnInit {
 
   ngOnInit() {
     this.changePassForm = this.fb.group({
-        password: ['', [validateWhitespace]],
-        newPassword: ['', [Validators.minLength(6), Validators.maxLength(20), validateWhitespace]],
-        confirmPassword: ['', [Validators.minLength(6), Validators.maxLength(20), validateWhitespace]]
+        password: ['', [Validators.required]],
+      // tslint:disable-next-line:max-line-length
+        newPassword: ['', [Validators.required, Validators.pattern(/^[ A-Za-z0-9]*$/), Validators.minLength(8), Validators.maxLength(16), validateWhitespace]],
+        confirmPassword: ['', [Validators.required]]
     }, {validators: checkPassword});
     this.infoForm = this.fb.group({
       fullName: [''],
@@ -73,6 +67,7 @@ export class EmployeeInformationComponent implements OnInit {
     }, error => {
       this.errorMessage = 'Lỗi!! Không tìm thấy tài khoản của bạn';
     });
+
   }
 
   changePassword() {
@@ -89,10 +84,20 @@ export class EmployeeInformationComponent implements OnInit {
       this.errorMessage = 'Cập nhật tài khoản thất bại';
     }, () => {
       if (this.backendMessages.length === 0) {
-        this.message = 'Thông tin tài khoản của bạn đã được cập nhật';
+        this.message = 'Đổi mật khẩu thành công !!!';
+        $('#basicModal').modal('hide');
       }
       this.ngOnInit();
     });
+  }
+  get password() {
+    return this.changePassForm.get('password');
+  }
+  get newPassword() {
+    return this.changePassForm.get('newPassword');
+  }
+  get confirmPassword() {
+    return this.changePassForm.get('confirmPassword');
   }
 }
 function checkPassword(formGroup: AbstractControl): ValidationErrors | null {
@@ -103,4 +108,13 @@ function checkPassword(formGroup: AbstractControl): ValidationErrors | null {
     return { checkPassword: true };
   }
   return null;
+}
+function validateWhitespace(c: AbstractControl) {
+  if (c.value !== '') {
+    const isWhitespace = c.value.trim().length === 0;
+    if (isWhitespace) {
+      const isValid = !isWhitespace;
+      return isValid ? null : {whitespace: true};
+    }
+  }
 }
