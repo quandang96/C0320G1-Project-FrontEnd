@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { FlightSchedules } from '../models/FlightSchedules';
 import { Page } from '../models/dto/Page';
 import { FlightSchedule } from '../models/flight-schedule';
 import { FlightSearchDTO } from '../models/dto/flight-search-dto';
@@ -35,8 +34,8 @@ export class FlightScheduleService {
   }
 
   // D-Bach
-  getAllFlightSchedule(page: number): Observable<Page<FlightSchedules>> {
-    return this.http.get<Page<FlightSchedules>>(`${this.API_URL}/flight-schedule`, this.getAllFlightScheduleHttpOption(page));
+  getAllFlightSchedule(page: number): Observable<Page<FlightSchedule>> {
+    return this.http.get<Page<FlightSchedule>>(`${this.API_URL}/flight-schedule`, this.getAllFlightScheduleHttpOption(page));
   }
 
   // D-Bach

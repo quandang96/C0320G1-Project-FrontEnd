@@ -10,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Airport } from './../../shared/models/airport';
 import { TransactionService } from './../../shared/services/transaction.service';
 import { checkInterval, compare } from 'src/app/shared/validations/validation';
+import { FlightScheduleService } from 'src/app/shared/services/flight-schedule.service';
 
 @Component({
   selector: 'app-flight-schedule-list',
@@ -39,7 +40,8 @@ export class FlightScheduleListComponent implements OnInit, AfterViewInit {
     private resolver: ComponentFactoryResolver,
     private modalService: NgbModal,
     private fb: FormBuilder,
-    private bookingService: TransactionService
+    private bookingService: TransactionService,
+    private flightScheduleService: FlightScheduleService
   ) { }
 
   ngOnInit() {
@@ -63,6 +65,18 @@ export class FlightScheduleListComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    this.searchForm.patchValue({
+      sortBy: '',
+      isRoundTrip: this.flightScheduleService.flightSearchForm.isRoundTrip,
+      departure: this.flightScheduleService.flightSearchForm.departureAirport,
+      arrival: this.flightScheduleService.flightSearchForm.arrivalAirport,
+      depDate: this.flightScheduleService.flightSearchForm.departureDateTime,
+      retDate: this.flightScheduleService.flightSearchForm.arrivalDateTime,
+      babies: this.flightScheduleService.flightSearchForm.babies,
+      children: this.flightScheduleService.flightSearchForm.children,
+      adults: this.flightScheduleService.flightSearchForm.adults,
+    })
+    this.onSubmit();
   }
 
 

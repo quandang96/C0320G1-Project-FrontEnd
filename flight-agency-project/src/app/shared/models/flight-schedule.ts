@@ -11,6 +11,6 @@ export interface FlightSchedule {
     flightCode: string;
     flightCapacity: number;
     price: number;
-    // status: boolean
+    status: boolean
     // transactions?: Transaction[]
 }
