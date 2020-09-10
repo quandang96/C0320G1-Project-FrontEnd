@@ -1,6 +1,7 @@
 import { MaterialModule } from './material.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { SendFeedbackComponent } from './home/send-feedback/send-feedback.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 @NgModule({
@@ -21,7 +23,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     LoginComponent,
     FooterComponent,
     HeaderComponent,
-    SendFeedbackComponent
+    SendFeedbackComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -31,8 +34,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     HttpClientModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule,
-    BrowserAnimationsModule
+    FormsModule,    
+    BrowserAnimationsModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
