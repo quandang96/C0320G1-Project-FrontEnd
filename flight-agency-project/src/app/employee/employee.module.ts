@@ -9,10 +9,13 @@ import { BookTicketStep2Component } from './book-ticket/book-ticket-step2/book-t
 import { BookTicketStep3Component } from './book-ticket/book-ticket-step3/book-ticket-step3.component';
 import { FindFlightComponent } from './find-flight/find-flight.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PromoEditComponent } from './promo/promo-edit/promo-edit.component';
+import { PromoDeleteComponent } from './promo/promo-delete/promo-delete.component';
+
 
 
 @NgModule({
-  declarations: [BookTicketComponent, BookTicketStep1Component, BookTicketStep2Component, BookTicketStep3Component, FindFlightComponent],
+  declarations: [BookTicketComponent, BookTicketStep1Component, BookTicketStep2Component, BookTicketStep3Component, FindFlightComponent, PromoEditComponent, PromoDeleteComponent],
   imports: [
     CommonModule,
     EmployeeRoutingModule,
