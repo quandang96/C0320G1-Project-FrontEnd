@@ -19,23 +19,19 @@ export class EmployeeService {
   constructor(private http: HttpClient) {
   }
 
-  //Hung: Lấy danh sách airport,
+  // Hung: Lấy danh sách airport,
   getAllAirports(): Observable<any> {
     return this.http.get(this.API_URL, this.httpOptions);
   }
 
+  // creator: Mậu
   getEmployeeById(id): Observable<employeeDto> {
     return this.http.get<employeeDto>(this.API_URL_EMPLOYEE + id, this.httpOptions);
   }
 
+// creator: Mậu
   changePassword(employee: employeeDto, id): Observable<employeeDto> {
     return this.http.put<employeeDto>(this.API_URL_EMPLOYEE + 'changePassword/' + id, JSON.stringify(employee), this.httpOptions);
   }
 
-  comparePassword(c: AbstractControl) {
-    const v = c.value;
-    return (v.newPassword === v.confirmPassword) ? null : {
-      passwordnotmatch: true
-    };
-  }
 }

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {EmployeeService} from '../../shared/services/employee.service';
 import {employeeDto} from '../../shared/models/dto/employeeDto';
 
@@ -49,7 +49,7 @@ export class EmployeeInformationComponent implements OnInit {
         password: ['', [validateWhitespace]],
         newPassword: ['', [Validators.minLength(6), Validators.maxLength(20), validateWhitespace]],
         confirmPassword: ['', [Validators.minLength(6), Validators.maxLength(20), validateWhitespace]]
-    },{validators: [this.employeeService.comparePassword]});
+    }, {validators: checkPassword});
     this.infoForm = this.fb.group({
       fullName: [''],
       email: [''],
@@ -59,7 +59,7 @@ export class EmployeeInformationComponent implements OnInit {
       address: [''],
       avatarUrl: [''],
     });
-    this.employee.id = 9;
+    this.employee.id = 1;
     this.employeeService.getEmployeeById(this.employee.id).subscribe(data => {
       this.avatarUrl = data.avatarUrl;
       if (this.avatarUrl == null) {
@@ -82,7 +82,7 @@ export class EmployeeInformationComponent implements OnInit {
     this.employee.password = this.changePassForm.get('password').value;
     this.employee.newPassword = this.changePassForm.get('newPassword').value;
     this.employee.confirmPassword = this.changePassForm.get('confirmPassword').value;
-    this.employee.id = 9;
+    this.employee.id = 1;
     this.employeeService.changePassword(this.employee, this.employee.id).subscribe(data => {
       this.backendMessages = data.backendMessage;
     }, error => {
@@ -94,4 +94,13 @@ export class EmployeeInformationComponent implements OnInit {
       this.ngOnInit();
     });
   }
+}
+function checkPassword(formGroup: AbstractControl): ValidationErrors | null {
+  const pass: employeeDto = formGroup.value;
+  const password = pass.newPassword;
+  const confirmPassword = pass.confirmPassword;
+  if (password !== confirmPassword) {
+    return { checkPassword: true };
+  }
+  return null;
 }
