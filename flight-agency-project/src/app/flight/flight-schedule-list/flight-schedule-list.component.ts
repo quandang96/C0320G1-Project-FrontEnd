@@ -9,7 +9,7 @@ import { FlightSchedule } from 'src/app/shared/models/flight-schedule';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Airport } from './../../shared/models/airport';
 import { TransactionService } from './../../shared/services/transaction.service';
-import { checkInterval } from 'src/app/shared/validations/validation';
+import { checkInterval, compareDate } from 'src/app/shared/validations/validation';
 
 @Component({
   selector: 'app-flight-schedule-list',
@@ -25,6 +25,7 @@ export class FlightScheduleListComponent implements OnInit, AfterViewInit {
   airportList: Airport[];
   depId = -1;
   arrId = -1;
+  errors = '';
   // selected flight
   private departureFlight: FlightSchedule = null;
   private departureComponent: ComponentRef<FlightOnewayScheduleComponent>;
@@ -47,15 +48,17 @@ export class FlightScheduleListComponent implements OnInit, AfterViewInit {
     })
     this.noOfWay = 1;
     this.searchForm = this.fb.group({
-      sortBy: ['', [Validators.required]],
+      sortBy: [''],
       isRoundTrip: [''],
-      departure: [0, [Validators.required]],
-      arrival: [0, [Validators.required]],
+      departure: [1, [Validators.required]],
+      arrival: [12, [Validators.required]],
       depDate: [new Date(), [Validators.required]],
       retDate: [{ value: new Date(), disabled: true }],
       babies: [0, [Validators.required]],
       children: [0, [Validators.required]],
       adults: [1, [Validators.required]]
+    }, {
+      validators: [compareDate]
     })
   }
 
@@ -71,13 +74,13 @@ export class FlightScheduleListComponent implements OnInit, AfterViewInit {
       const isValid = checkInterval(this.returnFlight.departureDateTime, this.departureFlight.departureDateTime, 240);
       if (isValid) {
         this.bookingService.returnFlight = this.returnFlight;
+        this.errors = '';
       } else {
+        this.errors = 'Thời gian giữa hai chuyến bay cách nhau ít nhất 4h. Vui lòng chọn lại.';
         return;
       }
     }
     this.modalService.open(FlightBookingDetailComponent, { size: 'lg' });
-    // console.log(this.departureFlight);
-    // console.log(this.returnFlight);
   }
 
   onSubmit() {

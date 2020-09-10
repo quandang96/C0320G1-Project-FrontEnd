@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FlightSchedule } from 'src/app/shared/models/flight-schedule';
-import { FlightSearchDTO } from 'src/app/shared/models/dto/flight-search-dto';
 import { TransactionService } from 'src/app/shared/services/transaction.service';
+import { PriceInfo } from './../../shared/models/dto/price-info';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-flight-booking-detail',
@@ -11,17 +11,28 @@ import { TransactionService } from 'src/app/shared/services/transaction.service'
 })
 export class FlightBookingDetailComponent implements OnInit {
 
-  depPriceInfo: PriceInfo[] = [];
-  retPriceInfo: PriceInfo[] = [];
   constructor(
     public modal: NgbActiveModal,
-    private transactionService: TransactionService
+    private transactionService: TransactionService,
+    private route: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit() {
-    this.depPriceInfo = this.calcPrice(this.departureInfo.price);
+    this.transactionService.depPriceInfo = this.calcPrice(this.departureInfo.price);
     if (this.returnInfo != null)
-      this.retPriceInfo = this.calcPrice(this.returnInfo.price);
+      this.transactionService.retPriceInfo = this.calcPrice(this.returnInfo.price);
+  }
+
+  close() {
+    this.transactionService.depPriceInfo = [];
+    this.transactionService.retPriceInfo = [];
+    this.modal.close();
+  }
+
+  goTo() {
+    this.router.navigateByUrl('/flight/confirm');
+    this.modal.close();
   }
 
   calcPrice(price: number): PriceInfo[] {
@@ -64,12 +75,11 @@ export class FlightBookingDetailComponent implements OnInit {
     return this.transactionService.bookingInfo;
   }
 
-}
+  get depPriceInfo() {
+    return this.transactionService.depPriceInfo;
+  }
 
-interface PriceInfo {
-  passengerType: string;
-  quantity: number;
-  netPrice: number;
-  tax: number;
-  totalPrice: number;
+  get retPriceInfo() {
+    return this.transactionService.retPriceInfo;
+  }
 }

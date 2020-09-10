@@ -19,7 +19,7 @@ export class FlightScheduleService {
   // Creator: Duy
   // search for flight schedule
   search(flightSearch: FlightSearchDTO): Observable<FlightSchedule[]> {
-    return this.http.post<FlightSchedule[]>(`${this.API_URL}/flight-schedule`, flightSearch);
+    return this.http.post<FlightSchedule[]>(`${this.API_URL}/flight/schedule`, flightSearch);
   }
 
 }

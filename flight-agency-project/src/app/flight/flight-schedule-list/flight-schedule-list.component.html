@@ -5,6 +5,9 @@
       <ng-template oneWay></ng-template>
       <button (click)="confirmBooking()" class="btn btn-confirm-fn" [disabled]="!selectedDep || !selectedRet">Xác
         nhận</button>
+      <div class="text-center">
+        <p class="text-danger">{{errors}}</p>
+      </div>
     </div>
     <!-- search form -->
     <div class="col-md-4">
@@ -119,7 +122,8 @@
               </div>
             </div>
           </fieldset>
-          <input type="submit" class="form-control btn btn-search-fn" style="margin-top :5px" value="Tìm chuyến bay" />
+          <input [disabled]="!searchForm.valid" type="submit" class="form-control btn btn-search-fn"
+            style="margin-top :5px" value="Tìm chuyến bay" />
         </form>
       </div>
     </div>
