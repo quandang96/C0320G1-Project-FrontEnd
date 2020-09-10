@@ -34,7 +34,8 @@ export class FlightPassengerInfoComponent implements OnInit, AfterViewInit {
     this.transactionService.depPriceInfo.forEach(info => {
       let i = info.quantity;
       while (i > 0) {
-        this.depPeople.push(info.passengerType);
+        if (info.passengerType != 'Em bé')
+          this.depPeople.push(info.passengerType);
         i--;
       }
     })
@@ -42,7 +43,8 @@ export class FlightPassengerInfoComponent implements OnInit, AfterViewInit {
       this.transactionService.retPriceInfo.forEach(info => {
         let i = info.quantity;
         while (i > 0) {
-          this.retPeople.push(info.passengerType);
+          if (info.passengerType != 'Em bé')
+            this.retPeople.push(info.passengerType);
           i--;
         }
       })
