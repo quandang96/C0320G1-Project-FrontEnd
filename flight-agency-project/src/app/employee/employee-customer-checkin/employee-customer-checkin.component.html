@@ -12,21 +12,21 @@
           <div class="col-md">
             <label>Tên khách hàng</label>
             <input type="text" class="form-control" placeholder="vd: Nguyen Van A" style="width: 300px"
-                   id="name" formControlName="name">
-            <p *ngIf="formSearchCustomerCheckin.controls.name.errors?.pattern && formSearchCustomerCheckin.controls.name.touched"
+                   id="fullName" formControlName="fullName">
+            <p *ngIf="formSearchCustomerCheckin.controls.fullName.errors?.pattern && formSearchCustomerCheckin.controls.fullName.touched"
                class="text-danger font-weight-bold">
               Tên khách hàng không được chứa kí tự đặc biệt và số !</p>
           </div>
           <div class="col-md">
             <label>Địa chỉ</label>
-            <input type="text" class="form-control" placeholder="vd: 1A4F2Q" style="width: 300px" formControlName="address">
+            <input id="address" type="text" class="form-control" placeholder="vd: Đà Nẵng" style="width: 300px" formControlName="address">
             <p *ngIf="formSearchCustomerCheckin.controls.address.errors?.pattern && formSearchCustomerCheckin.controls.address.touched"
                class="text-danger font-weight-bold">
               Địa chỉ không được chứa kí tự đặc biệt !</p>
           </div>
           <div class="col-md">
             <label>&nbsp;</label><br>
-            <button type="button" onclick="checkRegex()" class="btn btn-primary"><i
+            <button type="button" (click)="search()" class="btn btn-primary"><i
               class="fas fa-search"></i> Lọc kết quả
             </button>
           </div>
@@ -40,7 +40,7 @@
       <table class="table table-striped mt-2 text-center">
         <thead class="bg-primary text-white">
         <tr>
-          <th scope="col">Stt</th>
+          <th scope="col">#</th>
           <th scope="col">Tên khách hàng</th>
           <th scope="col">Ngày sinh</th>
           <th scope="col">Giới tính</th>
@@ -50,45 +50,14 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-          <td>1</td>
-          <td>Nguyễn Văn A</td>
-          <td>15A262</td>
-          <td>Hà Nội - Hồ Chí Minh</td>
-          <td>5-9-2020</td>
-          <td>5.000.000</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Nguyễn Văn B</td>
-          <td>KFL8FS</td>
-          <td>Hà Nội - Đà Nẵng</td>
-          <td>4-9-2020</td>
-          <td>3.000.000</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Nguyễn Văn C</td>
-          <td>87DJAL</td>
-          <td>Hà Nội - Huế</td>
-          <td>10-9-2020</td>
-          <td>3.200.000</td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>Nguyễn Văn D</td>
-          <td>KDUA9A</td>
-          <td>Đà Nẵng - Hồ Chí Minh</td>
-          <td>15-9-2020</td>
-          <td>5.000.000</td>
-        </tr>
-        <tr>
-          <td>5</td>
-          <td>Nguyễn Văn E</td>
-          <td>LO83JD</td>
-          <td>Hồ Chí Minh - Đà Nẵng</td>
-          <td>20-9-2020</td>
-          <td>5.000.000</td>
+        <tr *ngFor="let customer of customerCheckin | async | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalElements}; index as i">
+          <td>{{stt[i]}}</td>
+          <td>{{customer.fullName}}</td>
+          <td>{{customer.birthDate | date : 'dd-MM-yyyy'}}</td>
+          <td>{{customer.gender}}</td>
+          <td>{{customer.email}}</td>
+          <td>{{customer.phoneNumber}}</td>
+          <td>{{customer.address}}</td>
         </tr>
         </tbody>
       </table>
@@ -96,23 +65,7 @@
   </div>
   <div class="col mt-2">
     <div class="row d-flex justify-content-end">
-      <nav aria-label="Page navigation example">
-        <ul class="pagination">
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-          <li class="page-item"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
+      <pagination-controls (pageChange)="getPage($event)"></pagination-controls>
     </div>
   </div>
 

@@ -78,8 +78,15 @@
               </div>
               <div class="col-3" (click)="createCaptcha()"><i class="fas fa-sync-alt"></i></div>
             </div>
-            <input type="text" class="form-control" style="width: 300px" id="captchaTextBox">
-            <p class="text-danger font-weight-bold" id="warningCaptchaCode"></p>
+            <input type="text" class="form-control" style="width: 300px" id="captchaTextBox" formControlName="confirmCaptchaCode" [class.mark-success]="confirmCaptchaCode.valid">
+            <div *ngIf="confirmCaptchaCode.touched">
+              <ng-container *ngFor="let error of errors.captchaErrors">
+                <p *ngIf="confirmCaptchaCode.hasError(error.code)" class="text-danger font-weight-bold" role="alert">{{error.message}}</p>
+              </ng-container>
+            </div>
+            <div class="text-danger font-weight-bold" role="alert"
+                 *ngIf="formSearchCustomer.hasError('checkCaptchaCode') && confirmCaptchaCode.touched"><p>Mã xác minh không đúng !</p>
+            </div>
           </div>
         </div>
         <div class="row mt-3 justify-content-center mb-4">
