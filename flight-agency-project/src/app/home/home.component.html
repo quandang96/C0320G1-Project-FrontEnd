@@ -113,6 +113,9 @@
                             <strong>Vui lòng chọn điểm đến</strong>
                           </p>
                         </div>
+                        <div class="ghichu2" *ngIf="searchForm.hasError('checkPlace')">
+                          <strong>Điểm đi không được trùng với điểm đến</strong>
+                        </div>
                       </div>
                     </div>
                   </div>

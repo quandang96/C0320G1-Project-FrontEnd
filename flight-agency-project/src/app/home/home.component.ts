@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import { FlightScheduleService } from '../shared/services/flight-schedule.service';
-import { FlightSchedules } from '../shared/models/FlightSchedules';
+import { FlightSchedule } from '../shared/models/flight-schedule';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Airport } from '../shared/models/airport';
 import { FlightSearchForm } from '../shared/models/dto/flight-search-form';
@@ -17,7 +17,7 @@ import { FlightSearchDTO } from '../shared/models/dto/flight-search-dto';
 export class HomeComponent implements OnInit {
   // D-Bach
   oneWay = false;
-  flightSchedule: Observable<FlightSchedules[]>;
+  flightSchedule: Observable<FlightSchedule[]>;
   searchForm: FormGroup;
   airportCity: Airport[];
   pageSize: number;
@@ -71,7 +71,18 @@ export class HomeComponent implements OnInit {
       babies: [0, [Validators.required]],
       children: [0, [Validators.required]],
       adults: [1, [Validators.required]]
-    });
+    }, {validators : [this.checkDepartureAirportAndArrivalAirport]});
+  }
+
+  // D-Bach
+  checkDepartureAirportAndArrivalAirport(formGroup: AbstractControl): ValidationErrors | null {
+    const check: FlightSearchForm = formGroup.value;
+    const departureAirport = check.departureAirport;
+    const arrivalAirport = check.arrivalAirport;
+    if (departureAirport === arrivalAirport && departureAirport !== '' && arrivalAirport !== '') {
+      return {checkPlace: true};
+    }
+    return null;
   }
 
   // D-Bach
