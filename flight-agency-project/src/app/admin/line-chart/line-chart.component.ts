@@ -7,7 +7,7 @@ import {Chart} from 'node_modules/chart.js';
   styleUrls: ['./line-chart.component.css']
 })
 export class LineChartComponent implements OnInit {
-
+  // Thành
   constructor() { }
 
   ngOnInit() {

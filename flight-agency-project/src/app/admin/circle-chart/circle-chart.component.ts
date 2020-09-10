@@ -7,7 +7,7 @@ import {Chart} from 'node_modules/chart.js';
   styleUrls: ['./circle-chart.component.css']
 })
 export class CircleChartComponent implements OnInit {
-
+  // Thành
   constructor() { }
 
   ngOnInit() {

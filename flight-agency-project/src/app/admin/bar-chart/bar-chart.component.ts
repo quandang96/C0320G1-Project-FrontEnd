@@ -7,7 +7,7 @@ import {Chart} from 'node_modules/chart.js';
   styleUrls: ['./bar-chart.component.css']
 })
 export class BarChartComponent implements OnInit {
-
+  // Thành
   constructor() { }
 
   ngOnInit() {

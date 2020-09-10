@@ -7,7 +7,7 @@ import {Chart} from 'node_modules/chart.js';
   styleUrls: ['./pie-chart.component.css']
 })
 export class PieChartComponent implements OnInit {
-
+  // Thành
   constructor() { }
 
   ngOnInit() {
