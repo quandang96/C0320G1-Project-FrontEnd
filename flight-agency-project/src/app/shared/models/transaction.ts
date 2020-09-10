@@ -11,11 +11,13 @@ export interface Transaction {
     passengers: Passenger[];
 }
 export interface BookingDTO {
+    accountId: number;
     depFlightId: number;
     retFlightId: number;
-    accountId: number;
     depTotalPrice: number;
     retTotalPrice: number;
+    depBranch: string;
+    retBranch: string;
     depPassengers: Array<PassengerInfoDTO>;
     retPassengers: Array<PassengerInfoDTO>;
 }

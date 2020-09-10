@@ -50,10 +50,12 @@ export class TransactionService {
     booking.retFlightId = 0;
     booking.accountId = 1;
     booking.depFlightId = this.departureFlight.id;
+    booking.depBranch = this.departureFlight.branch.name;
     booking.depTotalPrice = this.calcTotalPrice(this.depPriceInfo, this.departurePassenger);
     booking.depPassengers = this.departurePassenger;
     if (this.returnFlight != null) {
       booking.retFlightId = this.returnFlight.id;
+      booking.retBranch = this.returnFlight.branch.name;
       booking.retTotalPrice = this.calcTotalPrice(this.retPriceInfo, this.returnPassenger);
       booking.retPassengers = this.returnPassenger;
     }
