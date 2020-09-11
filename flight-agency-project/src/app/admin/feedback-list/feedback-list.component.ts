@@ -51,7 +51,7 @@ export class FeedbackListComponent implements OnInit {
 
   search() {
     this.searchFields = this.formSearchList.value as FeedbackSearch;
-    console.log(typeof this.searchFields.createDate);
+    console.log(this.searchFields.createDate);
     this.getFeedbackPage(1);
   }
 

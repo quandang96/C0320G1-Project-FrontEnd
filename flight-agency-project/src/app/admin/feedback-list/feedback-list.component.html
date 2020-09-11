@@ -8,7 +8,7 @@
         <div class="row">
           <div class="col-md">
             <label for="nguoiDang">Ngày liên hệ</label>
-            <input type="date" class="form-control" id="nguoiDang" placeholder="Vd: Anna">
+            <input type="date" class="form-control" id="nguoiDang" formControlName="createDate" placeholder="Vd: Anna">
           </div>
           <div class="col-md">
             <label for="nguoiMua">Tên khách hàng</label>
@@ -41,7 +41,7 @@
           <th>Chủ đề</th>
           <th>Email</th>
           <th>Số điện thoại</th>
-          <th>Ngày gửi</th>
+          <th>Ngày liên hệ</th>
           <th>Trạng thái xử lý</th>
           <th>Nội dung</th>
         </tr>
@@ -54,7 +54,7 @@
           <td>{{feedback.topic}}</td>
           <td>{{feedback.customerEmail}}</td>
           <td>{{feedback.customerPhone}}</td>
-          <td>{{feedback.createDate}}</td>
+          <td>{{feedback.createDate | date : 'dd/MM/yyyy'}}</td>
           <td [class]="setColorFieldStatusOfProcessStatus(feedback.processStatus)">{{feedback.processStatus ? "Đã xử lý" :  "Chưa xử lý"}}</td>
           <td>
             <button class="btn btn-primary" (click)="openFeedbackDialog(feedback)">Xem</button>
