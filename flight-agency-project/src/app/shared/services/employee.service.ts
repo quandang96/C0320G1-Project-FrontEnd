@@ -19,6 +19,7 @@ export class EmployeeService {
     })
   };
 
+  // Thành Long
   getPassengerCheckinHttpOptions(searchField: CustomerSearchDto, page: number): Object {
     const passenger = {
       headers: new HttpHeaders({
@@ -42,6 +43,7 @@ export class EmployeeService {
     return this.http.get(this.API_URL, this.httpOptions);
   }
 
+  // Thành Long
   getAllPassengerCheckin(searchField: CustomerSearchDto, page: number): Observable<Page<CustomerCheckinDto>> {
     return this.http.get<Page<CustomerCheckinDto>>(`${this.baseUrl}/customer-checkin-list`, this.getPassengerCheckinHttpOptions(searchField, page));
   }

@@ -51,7 +51,7 @@ export class EmployeeCustomerCheckinComponent implements OnInit {
         }
 
         this.isEmpty = false;
-        if (res.content.length == 0) {
+        if (res.content.length == \ 0) {
           this.isEmpty = true;
         }
       }, error => {
