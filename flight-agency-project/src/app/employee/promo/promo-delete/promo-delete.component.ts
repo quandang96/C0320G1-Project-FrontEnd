@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PromoService } from 'src/app/shared/services/promo.service';
 
 @Component({
   selector: 'app-promo-delete',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PromoDeleteComponent implements OnInit {
 
-  constructor() { }
+  constructor(private promoService: PromoService) { }
 
   ngOnInit() {
+  }
+
+  deletePromo(id: number) {
+    this.promoService.deletePromo(id).subscribe(
+      (data) => {}
+    );
   }
 
 }
