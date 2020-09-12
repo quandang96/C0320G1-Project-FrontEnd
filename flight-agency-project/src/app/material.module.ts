@@ -12,7 +12,6 @@ import {MatDialogModule} from "@angular/material/dialog";
     MatNativeDateModule,
     MatInputModule,
     MatDialogModule,
-    MatStepperModule
   ],
   exports: [
     MatDatepickerModule,
