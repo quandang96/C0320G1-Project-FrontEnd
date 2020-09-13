@@ -36,6 +36,7 @@ import { SendFeedbackComponent } from './home/send-feedback/send-feedback.compon
     BrowserAnimationsModule,
     MaterialModule,
     NgbModule
+
   ],
   providers: [
     {
