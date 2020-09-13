@@ -36,43 +36,19 @@
     </div>
 
     <div class="col">
-      <form [formGroup]="formSearchCustomer">
+      <form [formGroup]="formSearchCustomer" (ngSubmit)="search()">
         <div class="row">
           <div class="col-md">
             <label>Mã đặt chỗ</label><span style="color: red"> (*)</span>
-            <input type="text" class="form-control" style="width: 300px" id="bookingCode" formControlName="bookingCode">
+            <input type="text" class="form-control" style="width: 300px" id="id" formControlName="id">
             <p
-              *ngIf="formSearchCustomer.controls.bookingCode.errors?.required && formSearchCustomer.controls.bookingCode.touched"
+              *ngIf="formSearchCustomer.controls.id.errors?.required && formSearchCustomer.controls.id.touched"
               class="text-danger font-weight-bold">
               Mã đặt chỗ không được để trống !</p>
             <p
-              *ngIf="formSearchCustomer.controls.bookingCode.errors?.pattern && formSearchCustomer.controls.bookingCode.touched"
+              *ngIf="formSearchCustomer.controls.id.errors?.pattern && formSearchCustomer.controls.id.touched"
               class="text-danger font-weight-bold">
               Mã đặt chỗ không được chứa kí tự đặc biệt !</p>
-          </div>
-          <div class="col-md">
-            <label>Họ</label><span style="color: red"> (*)</span>
-            <input type="text" class="form-control" placeholder="vd: Nguyen" style="width: 300px" id="surname"
-                   formControlName="surName">
-            <p
-              *ngIf="formSearchCustomer.controls.surName.errors?.required && formSearchCustomer.controls.surName.touched"
-              class="text-danger font-weight-bold">
-              Họ khách hàng không được để trống !</p>
-            <p
-              *ngIf="formSearchCustomer.controls.surName.errors?.pattern && formSearchCustomer.controls.surName.touched"
-              class="text-danger font-weight-bold">
-              Họ khách hàng không được chứa kí tự đặc biệt và số !</p>
-          </div>
-          <div class="col-md">
-            <label>Tên đệm và tên</label><span style="color: red"> (*)</span>
-            <input type="text" class="form-control" placeholder="vd: Van A" style="width: 300px" id="name"
-                   formControlName="fullName">
-            <p *ngIf="formSearchCustomer.controls.fullName.errors?.required && formSearchCustomer.controls.fullName.touched"
-               class="text-danger font-weight-bold">
-              Tên đệm và tên khách hàng không được để trống !</p>
-            <p *ngIf="formSearchCustomer.controls.fullName.errors?.pattern && formSearchCustomer.controls.fullName.touched"
-               class="text-danger font-weight-bold">
-              Tên đệm và tên khách hàng không được chứa kí tự đặc biệt và số !</p>
           </div>
         </div>
         <div class="row mt-1">
@@ -101,8 +77,8 @@
         <div class="row mt-3 justify-content-center mb-4">
           <div>
             <button class="btn btn-primary mr-5" style="width: 300px">Trang chủ</button>
-            <button [disabled]="formSearchCustomer.invalid" (click)="search()" class="btn btn-primary"
-                    style="width: 300px" type="button">Xem chuyến bay
+            <button [disabled]="formSearchCustomer.invalid" class="btn btn-primary"
+                    style="width: 300px" type="submit">Xem chuyến bay
             </button>
           </div>
 
@@ -122,24 +98,19 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let transactionDetail of transactionDetails | async | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalElements}; index as i">
+        <tr *ngFor="let transactionDetail of transactionDetails | async ; index as i">
           <td>{{stt[i]}}</td>
-          <td>{{transactionDetail.bookingCode}}</td>
-          <td>{{transactionDetail.fullName}}</td>
-          <td>{{transactionDetail.departure + "-" + transactionDetail.arrival}}</td>
+          <td>{{transactionDetail?.transaction?.id}}</td>
+          <td>{{transactionDetail?.passenger?.fullName}}</td>
+          <td>{{transactionDetail?.transaction?.flightSchedule?.departureAirport.city + " - " + transactionDetail?.transaction?.flightSchedule?.arrivalAirport.city}}</td>
         </tr>
         </tbody>
       </table>
-      <div class="col mt-2">
-        <div class="row d-flex justify-content-end">
-          <pagination-controls (pageChange)="getPage($event)"></pagination-controls>
-        </div>
-      </div>
 
       <div class="row mt-3 justify-content-center mb-4">
         <div>
           <button class="btn btn-primary mr-5" style="width: 300px">Hủy</button>
-          <button  class="btn btn-primary" style="width: 300px" type="button">Hoàn tất thủ tục</button>
+          <button  class="btn btn-primary" style="width: 300px" (click)="checkin()" type="button">Hoàn tất thủ tục</button>
         </div>
 
       </div>

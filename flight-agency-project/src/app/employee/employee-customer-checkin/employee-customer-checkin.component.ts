@@ -6,6 +6,7 @@ import {CustomerCheckinDto} from '../../shared/models/dto/CustomerCheckinDto';
 import {CustomerSearchDto} from '../../shared/models/dto/CustomerSearchDto';
 import {map, tap} from 'rxjs/operators';
 
+// Thành Long
 @Component({
   selector: 'app-employee-customer-checkin',
   templateUrl: './employee-customer-checkin.component.html',
@@ -51,7 +52,7 @@ export class EmployeeCustomerCheckinComponent implements OnInit {
         }
 
         this.isEmpty = false;
-        if (res.content.length == \ 0) {
+        if (res.content.length ==  0) {
           this.isEmpty = true;
         }
       }, error => {

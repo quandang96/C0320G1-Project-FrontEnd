@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {TransactionDetailSearchDto} from '../models/dto/TransactionDetailSearchDto';
 import {Observable} from 'rxjs';
-import {Page} from '../models/dto/page';
 import {TransactionDetailDTO} from '../models/dto/TransactionDetailDTO';
 
 @Injectable({
@@ -14,7 +12,17 @@ export class CustomerService {
   constructor(private http: HttpClient) { }
 
   // Thành Long
-  getTransactionDetailHttpOptions(searchField: TransactionDetailSearchDto, page: number): Object {
+  private options = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    }),
+    'Access-Control-Allow-Origin': 'http://localhost:4200',
+    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+    responseType: 'text' as 'json'
+  };
+
+  // Thành Long
+  getTransactionDetailHttpOptions(id: number): Object {
     const transactionDetail = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -22,16 +30,20 @@ export class CustomerService {
       'Access-Control-Allow-Origin': 'http://localhost:4200',
       'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
       params: {
-        bookingCode: searchField.bookingCode,
-        fullName: searchField.fullName,
-        page
+        id
       }
     };
     return transactionDetail;
   }
 
   // Thành Long
-  searchTransactionDetail(searchField: TransactionDetailSearchDto, page: number): Observable<Page<TransactionDetailDTO>> {
-    return this.http.get<Page<TransactionDetailDTO>>(`${this.baseUrl}/checkin`, this.getTransactionDetailHttpOptions(searchField, page));
+  searchTransactionDetail(id: number): Observable<TransactionDetailDTO[]> {
+    return this.http.get<TransactionDetailDTO[]>(`${this.baseUrl}/checkin`, this.getTransactionDetailHttpOptions(id));
+  }
+
+  // Thành Long
+  checkinPassenger(idPassenger: number[]): any {
+    const data = { ids: idPassenger };
+    return this.http.put<any>(`${this.baseUrl}/checkin/checkin-list`, data, this.options);
   }
 }

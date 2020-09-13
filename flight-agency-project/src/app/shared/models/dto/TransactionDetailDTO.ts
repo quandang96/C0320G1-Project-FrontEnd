@@ -1,7 +1,9 @@
+import {Passenger} from '../passenger';
+import {Transaction} from '../transaction';
+
 export interface TransactionDetailDTO {
-  bookingCode: string;
-  fullName: string;
-  departure: string;
-  arrival: string;
-  checkin: boolean;
+  id: number;
+  passenger: Passenger;
+  transaction: Transaction;
+
 }

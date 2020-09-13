@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {CustomerCheckinDto} from '../../shared/models/dto/CustomerCheckinDto';
 import {NOTIFICATION_USER} from '../../shared/validations/passengerCheckin';
-import {Observable} from 'rxjs';
+import {Observable, Subscription} from 'rxjs';
 import {TransactionDetailDTO} from '../../shared/models/dto/TransactionDetailDTO';
 import {TransactionDetailSearchDto} from '../../shared/models/dto/TransactionDetailSearchDto';
 import {CustomerService} from '../../shared/services/customer.service';
 import {map, tap} from 'rxjs/operators';
 
+
+// Thành Long
 @Component({
   selector: 'app-customer-checkin',
   templateUrl: './customer-checkin.component.html',
@@ -15,15 +17,14 @@ import {map, tap} from 'rxjs/operators';
 })
 export class CustomerCheckinComponent implements OnInit {
   private formSearchCustomer: FormGroup;
-  transactionDetails: Observable<TransactionDetailDTO[]>;
   stt: number[] = [];
-  currentPage: number;
-  pageSize: number;
-  totalElements: number;
-  isEmpty = false;
+  transactionDetails: Observable<TransactionDetailDTO[]>;
+  private idPassengers: number[] = [];
   code: string;
   hideableDiv = false;
   errors = NOTIFICATION_USER;
+  private interval: any;
+  private subscription: Subscription = new Subscription();
 
   private searchFields: TransactionDetailSearchDto = {} as TransactionDetailSearchDto;
 
@@ -33,14 +34,12 @@ export class CustomerCheckinComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.createCaptcha()
+    this.createCaptcha();
     this.formSearchCustomer = this.formBuilder.group({
-      bookingCode: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]{1,}$')]],
-      surName: ['', [Validators.required, Validators.pattern('^[A-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴa-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵ]{1,}$')]],
-      fullName: ['', [Validators.required, Validators.pattern('^[A-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴa-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵ]{1,}$')]],
+      id: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]{1,}$')]],
+      // fullName: ['', [Validators.required, Validators.pattern('^[A-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴa-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵ\\ ]*$')]],
       confirmCaptchaCode: ['', [Validators.required]]
     }, {validators: [ this.checkCaptchaCode.bind(this)]});
-    this.getPage(1);
   }
 
   createCaptcha() {
@@ -91,38 +90,45 @@ export class CustomerCheckinComponent implements OnInit {
     }
   }
 
-  getPage(pageNumber) {
-    this.transactionDetails = this.customerService.searchTransactionDetail(this.searchFields, pageNumber).pipe(
-      tap(res => {
-        console.log(res);
-        this.totalElements = res.totalElements;
-        this.pageSize = res.size;
-        this.currentPage = pageNumber;
-
-        this.stt = [];
-        const firstIndex = this.pageSize * (this.currentPage - 1) + 1;
-        const lastIndeex = this.pageSize * this.currentPage;
-        for (let i = firstIndex; i <= lastIndeex; i++) {
-          this.stt.push(i);
-        }
-
-        this.isEmpty = false;
-        if (res.content.length == 0) {
-          this.isEmpty = true;
-        }
-      }, error => {
-        console.log(error);
-        console.log('vào được err của tap');
-      }),
-      map(res => res.content)
+  getTransactionDetail() {
+    this.transactionDetails = this.customerService.searchTransactionDetail(this.formSearchCustomer.get('id').value).pipe(
+      map((data: TransactionDetailDTO[]) => {
+        data.forEach(val => {
+          this.idPassengers.push(val.passenger.id);
+        });
+        return data;
+      })
     );
   }
+
+
+  checkin() {
+    console.log(this.idPassengers);
+    this.customerService.checkinPassenger(this.idPassengers)
+      .subscribe(data => {
+        this.interval = setInterval(() => {
+          this.stopReload();
+        }, 100);
+      });
+    window.location.reload();
+    alert('Checkin thành công !');
+  }
+
+  stopReload() {
+    this.subscription.unsubscribe();
+    clearInterval(this.interval);
+  }
+
 
   search() {
     this.togglePass();
     this.searchFields = this.formSearchCustomer.value as TransactionDetailSearchDto;
     console.log(this.searchFields);
-    this.getPage(1);
+    this.getTransactionDetail();
+    this.stt = [];
+    for (let i = 1; i < 1000; i++) {
+      this.stt.push(i);
+    }
   }
 
 }
