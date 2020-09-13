@@ -14,6 +14,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { SendFeedbackComponent } from './home/send-feedback/send-feedback.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
+
 
 
 @NgModule({
@@ -36,7 +38,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     HttpClientModule,
     FormsModule,    
     BrowserAnimationsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    PDFExportModule
   ],
   providers: [],
   bootstrap: [AppComponent]

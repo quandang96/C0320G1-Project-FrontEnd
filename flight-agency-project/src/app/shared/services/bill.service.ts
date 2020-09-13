@@ -40,7 +40,7 @@ export class BillService {
 
 
 // C-Ngan
-  getBillsByAccountId(accountId: number, page?: number): Observable<Page<Bill>>{    
+  getBillsByAccountId(accountId: number, page?: number): Observable<Page<Bill>>{ 
     return this.http.get<Page<Bill>>(this.billUrl + '/' + accountId, this.getOptions(page));
   }
 
@@ -51,6 +51,10 @@ export class BillService {
 // C-Ngan
   getSelectDto():Observable<SelectDto>{
     return this.http.get<SelectDto>(this.billInfoUrl);
+  }
+
+  getBillById(id: number): Observable<Bill>{
+    return this.http.get<Bill>("http://localhost:8080/api/v1/customer/bill" + "/" + id);     
   }
 
 
