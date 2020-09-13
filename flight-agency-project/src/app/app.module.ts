@@ -2,6 +2,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MaterialModule } from './material.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -15,6 +16,9 @@ import { httpInterceptorProviders } from './authentication/auth-interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { SendFeedbackComponent } from './home/send-feedback/send-feedback.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
+
 
 
 @NgModule({
@@ -24,7 +28,8 @@ import { SendFeedbackComponent } from './home/send-feedback/send-feedback.compon
     LoginComponent,
     FooterComponent,
     HeaderComponent,
-    SendFeedbackComponent
+    SendFeedbackComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -35,8 +40,9 @@ import { SendFeedbackComponent } from './home/send-feedback/send-feedback.compon
     SocialLoginModule,
     BrowserAnimationsModule,
     MaterialModule,
-    NgbModule
-
+    NgbModule,
+    NgxPaginationModule,
+    PDFExportModule
   ],
   providers: [
     {
