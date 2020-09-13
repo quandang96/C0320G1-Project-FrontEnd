@@ -10,33 +10,33 @@ import { Feedback } from 'src/app/shared/models/Feedback';
 })
 export class SendFeedbackComponent implements OnInit {
 
-  feedBackForm : FormGroup;
-  captchaCode : string;
+  feedBackForm: FormGroup;
+  captchaCode: string;
   feedBackErrors = FEEDBACK_ERRORS;
 
   constructor(
-    private formBuilder : FormBuilder,
-    private homeService : HomeService
-    ) { 
+    private formBuilder: FormBuilder,
+    private homeService: HomeService
+    ) {
 
   }
 
 
   ngOnInit() {
     this.feedBackForm = this.formBuilder.group({
-      topic : ['khiếu nại',[Validators.required]],
-      customerName : ['',[Validators.required,Validators.pattern(/^[ a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$/)]],
-      customerPhone : ['',[Validators.required,validPhoneNumber]],
-      customerEmail : ['',[Validators.required,Validators.pattern(/^[A-Za-z0-9]+@[A-Za-z0-9]+(\.[A-Za-z0-9]+)$/)]],
-      confirmCaptchaCode : ['',[Validators.required,this.checkCaptchaCode.bind(this)]],
-      content : ['',[Validators.required]]
-    })
+      topic : ['khiếu nại', [Validators.required]],
+      customerName : ['', [Validators.required, Validators.pattern(/^[ a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$/)]],
+      customerPhone : ['', [Validators.required, validPhoneNumber]],
+      customerEmail : ['', [Validators.required, Validators.pattern(/^[A-Za-z0-9]+@[A-Za-z0-9]+(\.[A-Za-z0-9]+)$/)]],
+      confirmCaptchaCode : ['', [Validators.required, this.checkCaptchaCode.bind(this)]],
+      content : ['', [Validators.required]]
+    });
     this.createCaptcha();
   }
 
   createCaptcha() {
     document.getElementById('captcha').innerHTML = '';
-    let charsArray =
+    const charsArray =
       '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@';
     const lengthOtp = 5;
     const captcha = [];
@@ -60,11 +60,11 @@ export class SendFeedbackComponent implements OnInit {
     document.getElementById('captcha').appendChild(canv); // adds the canvas to the body element
     this.feedBackForm.patchValue({
       confirmCaptchaCode : ''
-    })
+    });
   }
 
   checkCaptchaCode(formControl: AbstractControl): ValidationErrors | null {
-    
+
     const confirmCaptchaCode = formControl.value;
 
     if (confirmCaptchaCode !== '' && confirmCaptchaCode !== this.captchaCode) {
@@ -76,7 +76,7 @@ export class SendFeedbackComponent implements OnInit {
   onSubmit() {
     this.homeService.saveFeedback(this.feedBackForm.value).subscribe(data => {
       console.log(data);
-    })
+    });
   }
 
   reFill() {
@@ -99,7 +99,7 @@ export class SendFeedbackComponent implements OnInit {
   }
 
   get customerEmail() {
-    return this.feedBackForm.get('customerEmail');  
+    return this.feedBackForm.get('customerEmail');
   }
 
   get confirmCaptchaCode() {
@@ -150,6 +150,6 @@ const FEEDBACK_ERRORS = {
     { name : 'wrongCaptcha', message : 'Mã xác thực không đúng !'}
   ],
   contentErrors : [
-    { name : 'required',message : 'Vui lòng nhập nội dung !'}
+    { name : 'required', message : 'Vui lòng nhập nội dung !'}
   ]
-}
+};

@@ -1,0 +1,141 @@
+
+<section id="cover" class="min-vh-100">
+  <div id="cover-caption">
+    <div class="container">
+      <div class="row text-white">
+        <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
+          <h1 class="display-4 py-2 text-truncate">Sign up.</h1>
+          <p class="UserAgreement m-bottom-margin">
+            By continuing, you agree to our
+            <a target="_blank" href="https://www.redditinc.com/policies/user-agreement">User Agreement</a> and
+            <a target="_blank" href="https://www.redditinc.com/policies/privacy-policy">Privacy Policy</a>
+          </p>
+          <div class="px-2">
+            <form [formGroup]="registerForm" class="justify-content-center" id="validatedForm">
+
+              <div class="form-group">
+                <label class="sr-only">Email</label>
+                <input type="text" class="form-control" placeholder="Email *" formControlName="email">
+                <p id="i1" class="text-danger"
+                    *ngIf="registerForm.controls.email.errors?.email">Email không hợp lệ !</p>
+                <p id="i2" class="text-danger"
+                   *ngIf="registerForm.controls.email.errors?.required && registerForm.controls.email.touched">Vui lòng nhập Email !</p>
+              </div>
+
+              <div class="form-group">
+                <label class="sr-only">Password</label>
+                <input id="password" name="password" type="password" class="form-control" placeholder="Password *" formControlName="password">
+                <p id="i3" class="text-danger"
+                   *ngIf="registerForm.controls.password.errors?.minlength">Mật khẩu phải nhiều hơn 6 kí tự !</p>
+                <p id="i4" class="text-danger"
+                   *ngIf="registerForm.controls.password.errors?.maxlength">Mật khẩu phải ít hơn 20 kí tự !</p>
+                <p id="i5" class="text-danger"
+                   *ngIf="registerForm.controls.password.errors?.required && registerForm.controls.password.touched">Vui lòng nhập mật khẩu !</p>
+              </div>
+
+              <div class="form-group">
+                <label class="sr-only">Confirm Password</label>
+                <input id="confirmPassword" name="confirmPassword" type="password" class="form-control" placeholder="Confirm Password *">
+<!--                <p id="6" class="text-danger"-->
+<!--                   *ngIf="registerForm.controls.confirmPassword.errors?.required && registerForm.controls.confirmPassword.touched">Vui lòng xác nhận mật khẩu !</p>-->
+                <span id='message'></span>
+              </div>
+
+              <div class="form-group">
+                <label class="sr-only">Phone</label>
+                <input type="tel" class="form-control" placeholder="Phone *" formControlName="phoneNumber">
+                <p id="7" class="text-danger"
+                   *ngIf="registerForm.controls.phoneNumber.errors?.required && registerForm.controls.phoneNumber.touched">Vui lòng nhập số điện thoại !</p>
+                <p id="i8" class="text-danger"
+                   *ngIf="registerForm.controls.phoneNumber.errors?.pattern ">Số điện thoại gồm 12 số !</p>
+              </div>
+
+              <div class="form-group">
+                <label class="sr-only">Name</label>
+                <input type="text" class="form-control" placeholder="Name *" formControlName="fullName">
+                <p id="8" class="text-danger"
+                   *ngIf="registerForm.controls.fullName.errors?.required && registerForm.controls.fullName.touched">Vui lòng nhập họ tên !</p>
+              </div>
+
+              <div class="form-group">
+                <h5>Birth Day: </h5>
+                <mat-form-field class="">
+                  <mat-label>Date of Birth</mat-label>
+                  <input matInput [matDatepicker]="dob" formControlName="birthDate">
+                  <mat-datepicker-toggle matSuffix [for]="dob"></mat-datepicker-toggle>
+                  <mat-datepicker #dob></mat-datepicker>
+                  <mat-error *ngIf="registerForm.get('birthDate').hasError('required')">
+                    Vui lòng nhập ngày sinh!
+                  </mat-error>
+                  <mat-error *ngIf="registerForm.get('birthDate').hasError('invalidDOBYear')">
+                    Bạn phải đủ 18 tuổi để sử dụng dịch vụ này !
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="form-group">
+                <label class="sr-only">Address</label>
+                <input type="text" class="form-control form-control-lg" placeholder="Address *" formControlName="address">
+                <p id="9" class="text-danger"
+                   *ngIf="registerForm.controls.address.errors?.required && registerForm.controls.address.touched">Vui lòng nhập địa chỉ !</p>
+              </div>
+
+              <div data-role="form-group">
+                <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Choose your gender</label>
+                <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" formControlName="gender">
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+                <p id="10" class="text-danger"
+                   *ngIf="registerForm.controls.gender.errors?.required && registerForm.controls.gender.touched">Vui lòng chọn giới tính !</p>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-lg"  (click)="onAddNewAccount()">Continue</button>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+  #cover {
+    background: #222 url('https://unsplash.it/1920/1080/?random') center center no-repeat;
+    background-size: cover;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  #cover-caption {
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* only used for background overlay not needed for centering */
+  form:before {
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background-color: rgba(0,0,0,0.3);
+    z-index: -1;
+    border-radius: 10px;
+  }
+
+</style>
+<script>
+  $('#password, #confirmPassword').on('keyup', function () {
+    if ($('#password').val() == $('#confirmPassword').val()) {
+      $('#message').html('Matching').css('color', 'green');
+    } else
+      $('#message').html('Not Matching').css('color', 'red');
+  });
+</script>

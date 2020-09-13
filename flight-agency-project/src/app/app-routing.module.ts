@@ -2,6 +2,7 @@ import { SendFeedbackComponent } from './home/send-feedback/send-feedback.compon
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import {RegisterComponent} from './register/register.component';
 
 
 const routes: Routes = [
@@ -9,8 +10,11 @@ const routes: Routes = [
   path: '', component: HomeComponent
 },
 {
-  path: 'send-feedback',component : SendFeedbackComponent
+  path: 'send-feedback', component : SendFeedbackComponent
 },
+  {
+    path: 'register', component : RegisterComponent
+  },
 {
   path: 'admin', loadChildren: () => import('./admin/admin.module').then(mod => mod.AdminModule)
 },
@@ -22,7 +26,8 @@ const routes: Routes = [
 },
 {
   path: 'flight', loadChildren: () => import('./flight/flight.module').then(mod => mod.FlightModule)
-}];
+},
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
