@@ -19,7 +19,7 @@ export class AuthJwtService {
     })
   };
 
-  loginUrl = 'http://localhost:8080/account/';
+  loginUrl = 'http://localhost:8080/api/v1/';
 
   constructor(private httpClient: HttpClient) {
   }
