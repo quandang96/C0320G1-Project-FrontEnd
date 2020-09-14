@@ -1,16 +1,37 @@
+import { Page } from './../../shared/models/dto/page';
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Transaction } from '../models/transaction';
 import { FlightSchedule } from '../models/flight-schedule';
 import { FlightSearchDTO } from '../models/dto/flight-search-dto';
-import { Observable } from 'rxjs';
 import { PriceInfo } from './../models/dto/price-info';
 import { PassengerInfoDTO } from '../models/passenger';
 import { BookingDTO } from '../models/transaction';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class TransactionService {
+
+  getOptions(page: number): Object {
+    let options = {
+      headers: this.httpOptions.headers,
+      params: {
+        page: page
+      }
+    }
+    return options;
+  }
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+      'Access-Control-Allow-Origin': 'http://localhost:4200'
+    })
+  };
 
   private readonly API_URL = 'http://localhost:8080/api/v1'
 
@@ -25,6 +46,16 @@ export class TransactionService {
   constructor(
     private http: HttpClient
   ) { }
+
+  private transactionsUrl = "http://localhost:8080/api/v1/customer/transactions";
+
+
+  getAllTransactionsByAccountId(accountId: number, page: number): Observable<Page<Transaction>> {
+    return this.http.get<Page<Transaction>>(this.transactionsUrl + '/' + accountId, this.getOptions(page));
+  }
+
+
+
 
   // Creator: Duy
   createTransaction(): Observable<any> {

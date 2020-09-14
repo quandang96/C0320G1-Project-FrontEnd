@@ -6,25 +6,32 @@
           <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
             <div class="carousel-inner">
               <div class="carousel-item active">
-                <img src="https://res.flynow.vn/Seo/combo-du-lich.png" class="d-block w-100 imgslide" alt="..." style="height: 500px">
+                <img src="https://res.flynow.vn/Seo/combo-du-lich.png" class="d-block w-100 imgslide" alt="..."
+                  style="height: 500px">
               </div>
               <div class="carousel-item">
-                <img src="https://res.flynow.vn/Seo/quy-nhon1.jpg" class="d-block w-100 imgslide" alt="..." style="height: 500px">
+                <img src="https://res.flynow.vn/Seo/quy-nhon1.jpg" class="d-block w-100 imgslide" alt="..."
+                  style="height: 500px">
               </div>
               <div class="carousel-item">
-                <img src="https://res.flynow.vn/Seo/poster101.jpg" class="d-block w-100 imgslide" alt="..." style="height: 500px">
+                <img src="https://res.flynow.vn/Seo/poster101.jpg" class="d-block w-100 imgslide" alt="..."
+                  style="height: 500px">
               </div>
               <div class="carousel-item">
-                <img src="https://file.cenbay.vn/banners/43/VNA-Group-mo-ve-tet-2021.jpg" class="d-block w-100 imgslide" alt="..." style="height: 500px">
+                <img src="https://file.cenbay.vn/banners/43/VNA-Group-mo-ve-tet-2021.jpg" class="d-block w-100 imgslide"
+                  alt="..." style="height: 500px">
               </div>
               <div class="carousel-item">
-                <img src="https://file.cenbay.vn/banners/16/viet-nam-airlines-uu-dai-cuoi-tuan.jpg" class="d-block w-100 imgslide" alt="..." style="height: 500px">
+                <img src="https://file.cenbay.vn/banners/16/viet-nam-airlines-uu-dai-cuoi-tuan.jpg"
+                  class="d-block w-100 imgslide" alt="..." style="height: 500px">
               </div>
               <div class="carousel-item">
-                <img src="https://vnbay.com.vn/vnt_upload/news/04_2018/VNAL.jpg" class="d-block w-100 imgslide" alt="..." style="height: 500px">
+                <img src="https://vnbay.com.vn/vnt_upload/news/04_2018/VNAL.jpg" class="d-block w-100 imgslide"
+                  alt="..." style="height: 500px">
               </div>
               <div class="carousel-item">
-                <img src="https://file.cenbay.vn/banners/18/Bambo-mung-quoc-khanh-dong-gia-299k.png" class="d-block w-100 imgslide" alt="..." style="height: 500px">
+                <img src="https://file.cenbay.vn/banners/18/Bambo-mung-quoc-khanh-dong-gia-299k.png"
+                  class="d-block w-100 imgslide" alt="..." style="height: 500px">
               </div>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
@@ -54,7 +61,7 @@
                     <div class="buttonradio">
                       <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1"
-                               value="option1" checked (change)="twoWayPicked()">
+                          value="option1" checked (change)="twoWayPicked()">
                         <label class="form-check-label" for="inlineRadio1">
                           Khứ hồi
                         </label>
@@ -65,7 +72,7 @@
                     <div class="buttonradio">
                       <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2"
-                               value="option2" (change)="oneWayPicked()">
+                          value="option2" (change)="oneWayPicked()">
                         <label class="form-check-label" for="inlineRadio2">
                           Một chiều
                         </label>
@@ -83,12 +90,15 @@
                               <strong style="color: #4469B0">Điểm đi: </strong>
                             </label>
                           </div>
-                          <select class="custom-select form-control" id="inputGroupSelect01" formControlName="departureAirport">
-                            <option *ngFor="let city of airportCity" [value]="city.id">{{city.city}} ({{city.code}})</option>
+                          <select class="custom-select form-control" id="inputGroupSelect01"
+                            formControlName="departureAirport">
+                            <option *ngFor="let city of airportCity" [value]="city.id">{{city.city}} ({{city.code}})
+                            </option>
                           </select>
                         </div>
                         <div class="ghichu2">
-                          <p *ngIf="searchForm.controls.departureAirport.errors?.required && searchForm.controls.departureAirport.touched">
+                          <p
+                            *ngIf="searchForm.controls.departureAirport.errors?.required && searchForm.controls.departureAirport.touched">
                             <strong>Vui lòng chọn điểm đi</strong>
                           </p>
                         </div>
@@ -104,12 +114,15 @@
                               <strong style="color: #4469B0">Điểm đến: </strong>
                             </label>
                           </div>
-                          <select class="custom-select form-control" id="inputGroupSelect02" formControlName="arrivalAirport">
-                            <option *ngFor="let city of airportCity" [value]="city.id">{{city.city}} ({{city.code}})</option>
+                          <select class="custom-select form-control" id="inputGroupSelect02"
+                            formControlName="arrivalAirport">
+                            <option *ngFor="let city of airportCity" [value]="city.id">{{city.city}} ({{city.code}})
+                            </option>
                           </select>
                         </div>
                         <div class="ghichu2">
-                          <p *ngIf="searchForm.controls.arrivalAirport.errors?.required && searchForm.controls.arrivalAirport.touched">
+                          <p
+                            *ngIf="searchForm.controls.arrivalAirport.errors?.required && searchForm.controls.arrivalAirport.touched">
                             <strong>Vui lòng chọn điểm đến</strong>
                           </p>
                         </div>
@@ -123,12 +136,12 @@
                       <div class="form-group">
                         <div class="input-group mb-3 input1">
                           <div class="input-group-prepend">
-                        <span class="input-group-text label1" id="basic-addon1">
-                          <strong style="color: #4469B0; font-size: 14px; margin-left: -6px">Ngày đi: </strong>
-                        </span>
+                            <span class="input-group-text label1" id="basic-addon1">
+                              <strong style="color: #4469B0; font-size: 14px; margin-left: -6px">Ngày đi: </strong>
+                            </span>
                           </div>
-                          <input type="date" id="date1" class="form-control" aria-label="Username" aria-describedby="basic-addon1"
-                          formControlName="departureDateTime">
+                          <input type="date" id="date1" class="form-control" aria-label="Username"
+                            aria-describedby="basic-addon1" formControlName="departureDateTime">
                         </div>
                       </div>
                     </div>
@@ -138,12 +151,12 @@
                       <div class="form-group" id="returnDate">
                         <div class="input-group mb-3 input1">
                           <div class="input-group-prepend">
-                          <span class="input-group-text label1" id="basic-addon2">
-                            <strong style="color: #4469B0; font-size: 14px; margin-left: -6px">Ngày về: </strong>
-                          </span>
+                            <span class="input-group-text label1" id="basic-addon2">
+                              <strong style="color: #4469B0; font-size: 14px; margin-left: -6px">Ngày về: </strong>
+                            </span>
                           </div>
-                          <input type="date" id="date2" class="form-control" aria-label="Username" aria-describedby="basic-addon2"
-                          formControlName="arrivalDateTime">
+                          <input type="date" id="date2" class="form-control" aria-label="Username"
+                            aria-describedby="basic-addon2" formControlName="arrivalDateTime">
                         </div>
                       </div>
                     </div>
@@ -235,8 +248,8 @@
                   <div class="col-md-6 col-lg-6 col-xl-6">
                     <div class="buttontimkiem2">
                       <div class="form-group">
-                        <button type="button" class="btn btn-warning btn-lg buttontimkiem"
-                        (click)="sendData()" [disabled]="searchForm.invalid">
+                        <button type="button" class="btn btn-warning btn-lg buttontimkiem" (click)="sendData()"
+                          [disabled]="searchForm.invalid">
                           Tìm kiếm nâng cao
                         </button>
                       </div>
@@ -281,30 +294,31 @@
       <div class="col-sm-12 col-xs-12 col-promotion">
         <table class="table">
           <thead class="no-border">
-          <tr>
-            <th class="text-center">STT</th>
-            <th class="text-center">Hãng bay</th>
-            <th class="text-center">Mã vé</th>
-            <th class="text-center">Điểm đi (Sân bay)</th>
-            <th class="text-center"><i class="fas fa-angle-double-right"></i></th>
-            <th class="text-center">Điểm đến (Sân bay)</th>
-            <th class="text-center">Ngày bay (Giờ bay)</th>
-            <th class="text-center">Giá</th>
-          </tr>
+            <tr>
+              <th class="text-center">STT</th>
+              <th class="text-center">Hãng bay</th>
+              <th class="text-center">Mã vé</th>
+              <th class="text-center">Điểm đi (Sân bay)</th>
+              <th class="text-center"><i class="fas fa-angle-double-right"></i></th>
+              <th class="text-center">Điểm đến (Sân bay)</th>
+              <th class="text-center">Ngày bay (Giờ bay)</th>
+              <th class="text-center">Giá</th>
+            </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let flight of flightSchedule | async | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalElements}; index as i">
-            <td class="text-center">{{arr[i]}}</td>
-            <td class="text-center">
-              <img class="img-icon" width="70" height="70" [src]="branchImages[flight?.branch?.id]" alt="">
-            </td>
-            <td class="text-center">{{flight?.flightCode}}</td>
-            <td class="text-center">{{flight?.departureAirport?.city}} ({{flight?.departureAirport?.name}})</td>
-            <td class="text-center"><i class="fas fa-plane"></i></td>
-            <td class="text-center">{{flight?.arrivalAirport?.city}} ({{flight?.arrivalAirport?.name}})</td>
-            <td class="text-center">{{flight?.departureDateTime | date : 'dd-MM-yyyy , HH:mm:ss'}}</td>
-            <td class="text-center">{{flight?.price | number}} đ</td>
-          </tr>
+            <tr
+              *ngFor="let flight of flightSchedule | async | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalElements}; index as i">
+              <td class="text-center">{{arr[i]}}</td>
+              <td class="text-center">
+                <img class="img-icon" width="70" height="70" [src]="branchImages[flight?.branch?.id]" alt="">
+              </td>
+              <td class="text-center">{{flight?.flightCode}}</td>
+              <td class="text-center">{{flight?.departureAirport?.city}} ({{flight?.departureAirport?.name}})</td>
+              <td class="text-center"><i class="fas fa-plane"></i></td>
+              <td class="text-center">{{flight?.arrivalAirport?.city}} ({{flight?.arrivalAirport?.name}})</td>
+              <td class="text-center">{{flight?.departureDateTime | date : 'dd-MM-yyyy , HH:mm:ss'}}</td>
+              <td class="text-center">{{flight?.price | number}} đ</td>
+            </tr>
           </tbody>
         </table>
         <div class="phantrang">
@@ -333,28 +347,36 @@
       </div>
       <div class="row">
         <div class="col-sm-3 col-xs-12 col-promotion img1234">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTvn8_WB438GRlAxxU0h9aGeBiHLBLhdiCf3Q&usqp=CAU" class="img">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTvn8_WB438GRlAxxU0h9aGeBiHLBLhdiCf3Q&usqp=CAU"
+            class="img">
           <div class="content">
             <h6>Dễ dàng tìm kiếm chuyến bay</h6>
             <p>Trên 100 hãng hàng không</p>
           </div>
         </div>
         <div class="col-sm-3 col-xs-12 col-promotion img1234">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSdqRiVBbjBz6qvt9_Dk0CN4qafI2iWx2Ykkw&usqp=CAU" class="img">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSdqRiVBbjBz6qvt9_Dk0CN4qafI2iWx2Ykkw&usqp=CAU"
+            class="img">
           <div class="content">
             <h6>Thanh toán nhanh chóng</h6>
             <p>Tiện lợi và tin cậy</p>
           </div>
         </div>
         <div class="col-sm-3 col-xs-12 col-promotion img1234">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSPeCRN3orPPh42XlH8CWNhYvkXSQlxSO6-ew&usqp=CAU" class="img">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSPeCRN3orPPh42XlH8CWNhYvkXSQlxSO6-ew&usqp=CAU"
+            class="img">
           <div class="content">
             <h6>Đặt vé máy bay 24/7</h6>
             <p>Chăm sóc tận tình chu đáo</p>
           </div>
         </div>
         <div class="col-sm-3 col-xs-12 col-promotion img1234">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTpMK3CsABi-DhK-ekezoWp-haDBSfQtw0MJA&usqp=CAU" class="img">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTpMK3CsABi-DhK-ekezoWp-haDBSfQtw0MJA&usqp=CAU"
+            class="img">
           <div class="content">
             <h6>Săn vé máy bay giá rẻ</h6>
             <p>Khuyến mại quanh năm</p>
@@ -405,20 +427,24 @@
           <h2>Flight Pass - Vé rẻ cả gói</h2>
         </div>
         <div class="col-sm-4 col-xs-12 col-promotion">
-          <div class="box-destination overplay" style="background-image: url(https://www.vietnamairlines.com/~/media/A0012D0022B74662A621E96D43F62C78.ashx)">
+          <div class="box-destination overplay"
+            style="background-image: url(https://www.vietnamairlines.com/~/media/A0012D0022B74662A621E96D43F62C78.ashx)">
 
           </div>
         </div>
         <div class="col-sm-4 col-xs-12 col-promotion">
-          <div class="box-destination overplay" style="background-image: url(https://www.vietnamairlines.com/~/media/4E24E11ACCBB48E59AE020FD3EC26325.ashx)">
+          <div class="box-destination overplay"
+            style="background-image: url(https://www.vietnamairlines.com/~/media/4E24E11ACCBB48E59AE020FD3EC26325.ashx)">
 
           </div>
         </div>
         <div class="col-sm-4 col-xs-12 col-promotion">
-          <div class="box-destination overplay medium" style="background-image: url(https://www.vietnamairlines.com/~/media/227312BD7A334E03BEA862B7F8D194D8.ashx)">
+          <div class="box-destination overplay medium"
+            style="background-image: url(https://www.vietnamairlines.com/~/media/227312BD7A334E03BEA862B7F8D194D8.ashx)">
 
           </div>
-          <div class="box-destination overplay medium2" style="background-image: url(https://www.vietnamairlines.com/~/media/5C8323B9B927469BB99B906A327BE8F2.ashx)">
+          <div class="box-destination overplay medium2"
+            style="background-image: url(https://www.vietnamairlines.com/~/media/5C8323B9B927469BB99B906A327BE8F2.ashx)">
 
           </div>
         </div>
@@ -426,35 +452,42 @@
           <h2>Giá vé ưu đãi</h2>
         </div>
         <div class="col-sm-6 col-xs-12 col-promotion">
-          <div class="box-destination2 overplay" style="background-image: url(https://www.vietnamairlines.com/~/media/Images/VNANew/Home/Fares/VCS.jpg)">
+          <div class="box-destination2 overplay"
+            style="background-image: url(https://www.vietnamairlines.com/~/media/Images/VNANew/Home/Fares/VCS.jpg)">
 
           </div>
         </div>
         <div class="col-sm-6 col-xs-12 col-promotion">
-          <div class="box-destination2 overplay" style="background-image: url(https://www.vietnamairlines.com/~/media/Images/VNANew/Home/Fares/CXR.jpg)">
+          <div class="box-destination2 overplay"
+            style="background-image: url(https://www.vietnamairlines.com/~/media/Images/VNANew/Home/Fares/CXR.jpg)">
 
           </div>
         </div>
         <div class="col-sm-6 col-xs-12 col-promotion">
-          <div class="box-destination2 overplay" style="background-image: url(https://www.vietnamairlines.com/~/media/Images/VNANew/Home/Fares/DLI.jpg)">
+          <div class="box-destination2 overplay"
+            style="background-image: url(https://www.vietnamairlines.com/~/media/Images/VNANew/Home/Fares/DLI.jpg)">
 
           </div>
         </div>
         <div class="col-sm-6 col-xs-12 col-promotion">
-          <div class="box-destination2 overplay" style="background-image: url(https://www.vietnamairlines.com/~/media/Images/VNANew/Home/Fares/UIH.jpg)">
+          <div class="box-destination2 overplay"
+            style="background-image: url(https://www.vietnamairlines.com/~/media/Images/VNANew/Home/Fares/UIH.jpg)">
 
           </div>
         </div>
         <div class="col-sm-6 col-xs-12 col-promotion">
-          <div class="box-destination2 overplay" style="background-image: url(https://khoanh24.com/uploads/w750//2018/07/19/banner5b50031c28b3b_88037e8c9fad416c7564695cca6ad2e0.jpg)">
+          <div class="box-destination2 overplay"
+            style="background-image: url(https://khoanh24.com/uploads/w750//2018/07/19/banner5b50031c28b3b_88037e8c9fad416c7564695cca6ad2e0.jpg)">
 
           </div>
-          <div class="box-destination2 overplay" style="background-image: url(https://www.vietnamairlines.com/~/media/Images/VNANew/Home/Fares/PXU.jpg)">
+          <div class="box-destination2 overplay"
+            style="background-image: url(https://www.vietnamairlines.com/~/media/Images/VNANew/Home/Fares/PXU.jpg)">
 
           </div>
         </div>
         <div class="col-sm-6 col-xs-12 col-promotion">
-          <div class="box-destination3 overplay" style="background-image: url(https://www.vietnamairlines.com/~/media/Images/VNANew/Home/Fares/HUI.jpg)">
+          <div class="box-destination3 overplay"
+            style="background-image: url(https://www.vietnamairlines.com/~/media/Images/VNANew/Home/Fares/HUI.jpg)">
 
           </div>
         </div>
@@ -465,25 +498,33 @@
       </div>
       <div class="row">
         <div class="col-3 img1234">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQYKm6AKeJNJ3zkPdHDhz-oREIQ4ocbc1U-cA&usqp=CAU" class="img">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQYKm6AKeJNJ3zkPdHDhz-oREIQ4ocbc1U-cA&usqp=CAU"
+            class="img">
           <div style="text-align: center; margin-top: 14px">
             <h6>Cổng thanh toán online</h6>
           </div>
         </div>
         <div class="col-3 img1234">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRUiNL3OzOxN6ce7IAzV0dGa68zYn8PpN7gsQ&usqp=CAU" class="img">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRUiNL3OzOxN6ce7IAzV0dGa68zYn8PpN7gsQ&usqp=CAU"
+            class="img">
           <div style="text-align: center; margin-top: 14px">
             <h6>Thanh toán tại nhà riêng</h6>
           </div>
         </div>
         <div class="col-3 img1234">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcStX95D_Zr89TaDdzJAXMAljSm8kWJggkj1Zw&usqp=CAU" class="img2">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcStX95D_Zr89TaDdzJAXMAljSm8kWJggkj1Zw&usqp=CAU"
+            class="img2">
           <div class="content">
             <h6>Thanh toán tại văn phòng</h6>
           </div>
         </div>
         <div class="col-3 img1234">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQeFaFPmjpWOc1j0W15L0lcLzcgmIcrwozCbQ&usqp=CAU" class="img3">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQeFaFPmjpWOc1j0W15L0lcLzcgmIcrwozCbQ&usqp=CAU"
+            class="img3">
           <div class="content">
             <h6>Chuyển khoản ngân hàng</h6>
           </div>
@@ -506,6 +547,3 @@
     </div>
   </div>
 </div>
-
-
-

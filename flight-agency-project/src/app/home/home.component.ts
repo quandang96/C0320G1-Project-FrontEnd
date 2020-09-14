@@ -1,3 +1,4 @@
+import { MatDialog } from '@angular/material';
 import { Component, OnInit } from '@angular/core';
 import { FlightScheduleService } from '../shared/services/flight-schedule.service';
 import { Observable } from 'rxjs';
@@ -7,6 +8,7 @@ import { Router } from '@angular/router';
 import { Airport } from '../shared/models/airport';
 import { FlightSchedule } from 'src/app/shared/models/flight-schedule';
 import { FlightSearchForm } from '../shared/models/dto/flight-search-form';
+import { LoginComponent } from './login/login.component';
 
 @Component({
   selector: 'app-home',
@@ -29,7 +31,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private flightScheduleService: FlightScheduleService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {
   }
 
@@ -72,7 +75,13 @@ export class HomeComponent implements OnInit {
       adults: [1, [Validators.required]]
     });
   }
-
+  openDialog(): void {
+    const dialogRef = this.dialog.open(LoginComponent, {
+      width: '900px',
+      height: '600px',
+      data: {}
+    });
+  }
   // D-Bach
   sendData() {
     this.flightScheduleService.flightSearchForm = this.searchForm.value as FlightSearchForm;
@@ -89,4 +98,5 @@ export class HomeComponent implements OnInit {
   twoWayPicked() {
     this.oneWay = false;
   }
+
 }
