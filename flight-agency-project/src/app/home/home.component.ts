@@ -1,3 +1,4 @@
+import { MatDialog } from '@angular/material';
 import { Component, OnInit } from '@angular/core';
 import { FlightScheduleService } from '../shared/services/flight-schedule.service';
 import { Observable } from 'rxjs';
@@ -7,6 +8,7 @@ import { Router } from '@angular/router';
 import { Airport } from '../shared/models/airport';
 import { FlightSchedule } from 'src/app/shared/models/flight-schedule';
 import { FlightSearchForm } from '../shared/models/dto/flight-search-form';
+import { LoginComponent } from './login/login.component';
 
 @Component({
   selector: 'app-home',
@@ -29,7 +31,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private flightScheduleService: FlightScheduleService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {
   }
 
@@ -78,21 +81,22 @@ export class HomeComponent implements OnInit {
       height: '600px',
       data: {}
     });
-
-    // D-Bach
-    sendData() {
-      this.flightScheduleService.flightSearchForm = this.searchForm.value as FlightSearchForm;
-      this.flightScheduleService.flightSearchForm.isRoundTrip = this.oneWay ? '' : '1';
-      this.router.navigateByUrl('flight/schedule');
-    }
-
-    // D-Bach
-    oneWayPicked() {
-      this.oneWay = true;
-    }
-
-    // D-Bach
-    twoWayPicked() {
-      this.oneWay = false;
-    }
   }
+  // D-Bach
+  sendData() {
+    this.flightScheduleService.flightSearchForm = this.searchForm.value as FlightSearchForm;
+    this.flightScheduleService.flightSearchForm.isRoundTrip = this.oneWay ? '' : '1';
+    this.router.navigateByUrl('flight/schedule');
+  }
+
+  // D-Bach
+  oneWayPicked() {
+    this.oneWay = true;
+  }
+
+  // D-Bach
+  twoWayPicked() {
+    this.oneWay = false;
+  }
+
+}

@@ -1,30 +1,24 @@
-<<<<<<< HEAD
-import { Page } from './../models/dto/Page';
+import { Page } from './../../shared/models/dto/page';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Transaction } from '../models/transaction';
-=======
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { FlightSchedule } from '../models/flight-schedule';
 import { FlightSearchDTO } from '../models/dto/flight-search-dto';
-import { Observable } from 'rxjs';
 import { PriceInfo } from './../models/dto/price-info';
 import { PassengerInfoDTO } from '../models/passenger';
 import { BookingDTO } from '../models/transaction';
->>>>>>> ea89b8b39060ca91f91f2adca90737fcede4656d
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class TransactionService {
 
-<<<<<<< HEAD
   getOptions(page: number): Object {
     let options = {
-      headers : this.httpOptions.headers,
-      params : {
+      headers: this.httpOptions.headers,
+      params: {
         page: page
       }
     }
@@ -33,23 +27,12 @@ export class TransactionService {
 
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json',     
+      'Content-Type': 'application/json',
       'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
       'Access-Control-Allow-Origin': 'http://localhost:4200'
     })
   };
-  
-  private transactionsUrl = "http://localhost:8080/api/v1/customer/transactions";
 
- 
-  constructor(private http: HttpClient) { }
-
-  getAllTransactionsByAccountId(accountId:number, page: number): Observable<Page<Transaction>>{
-    return this.http.get<Page<Transaction>>(this.transactionsUrl + '/' + accountId, this.getOptions(page));
-  }
-  
-
-=======
   private readonly API_URL = 'http://localhost:8080/api/v1'
 
   departureFlight: FlightSchedule;
@@ -63,6 +46,16 @@ export class TransactionService {
   constructor(
     private http: HttpClient
   ) { }
+
+  private transactionsUrl = "http://localhost:8080/api/v1/customer/transactions";
+
+
+  getAllTransactionsByAccountId(accountId: number, page: number): Observable<Page<Transaction>> {
+    return this.http.get<Page<Transaction>>(this.transactionsUrl + '/' + accountId, this.getOptions(page));
+  }
+
+
+
 
   // Creator: Duy
   createTransaction(): Observable<any> {
@@ -99,5 +92,4 @@ export class TransactionService {
     }
     return booking;
   }
->>>>>>> ea89b8b39060ca91f91f2adca90737fcede4656d
 }

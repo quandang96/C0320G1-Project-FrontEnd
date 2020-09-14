@@ -1,5 +1,5 @@
+import { PassengerInfoDTO, Passenger } from './passenger';
 import { FlightSchedule } from './flight-schedule';
-import { Passenger, PassengerInfoDTO } from './passenger';
 export interface Transaction {
     id: number;
     createdTime: string;
