@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData  } from '@angular/common';
 
 import { FlightRoutingModule } from './flight-routing.module';
 import { FlightCenterComponent } from './flight-center/flight-center.component';
@@ -12,7 +12,9 @@ import { FlightDetailComponent } from './flight-detail/flight-detail.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ReservationComponent } from './reservation/reservation.component';
 import { ReservationDetailComponent } from './reservation-detail/reservation-detail.component';
+import localeVi from '@angular/common/locales/vi';
 
+registerLocaleData(localeVi);
 @NgModule({
   declarations: [
     FlightCenterComponent,
@@ -34,6 +36,12 @@ import { ReservationDetailComponent } from './reservation-detail/reservation-det
     FlightBookingDetailComponent,
     FlightOnewayScheduleComponent,
     FlightDetailComponent
+  ],
+  providers: [
+    {
+      provide: localeVi,
+      useValue: 'vi',
+    }
   ]
 })
 export class FlightModule {

@@ -11,7 +11,7 @@ import { Transaction } from 'src/app/shared/models/transaction';
 export class ReservationDetailComponent implements OnInit {
 
   private reservationCode: number;
-  transaction: Transaction;
+  private mTransaction: Transaction;
 
   constructor(
     private route: ActivatedRoute,
@@ -20,7 +20,18 @@ export class ReservationDetailComponent implements OnInit {
 
   ngOnInit() {
     this.reservationCode = Number(this.route.snapshot.paramMap.get('id'));
-    this.paymentService.getReservation(this.reservationCode).subscribe(data => this.transaction = data);
+    this.paymentService.getReservation(this.reservationCode).subscribe(
+      data => this.mTransaction = data,
+      error => console.log(error),
+      () => console.log(this.mTransaction)
+    );
   }
 
+  get transaction() {
+    return this.mTransaction;
+  }
+
+  get flightSchedule() {
+    return this.mTransaction.flightSchedule;
+  }
 }
