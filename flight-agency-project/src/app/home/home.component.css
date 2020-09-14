@@ -366,6 +366,12 @@ hr {
 .ghichu2 {
   margin-top: -15px;
 }
+.ghichu3 {
+  margin-top: -15px;
+  padding-left: 48px;
+  padding-right: 48px;
+  margin-bottom: 10px;
+}
 .buttontimkiem {
   width: 250px;
 }
@@ -374,7 +380,7 @@ hr {
   display: flex;
   padding-bottom: 10px;
 }
-.buttonradio, .inputimkiem {
+.buttonradio, .inputimkiem, .canhbao {
   justify-content: center;
   display: flex;
 }

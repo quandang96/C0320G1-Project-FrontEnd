@@ -70,7 +70,7 @@ export class HomeComponent implements OnInit {
       babies: [0, [Validators.required]],
       children: [0, [Validators.required]],
       adults: [1, [Validators.required]]
-    }, {validators : [this.checkDepartureAirportAndArrivalAirport]});
+    }, {validators : [this.checkDepartureAirportAndArrivalAirport, this.checkAdultsAndBabies, this.checkAdultsAndChildren]});
   }
 
   // D-Bach
@@ -80,6 +80,29 @@ export class HomeComponent implements OnInit {
     const arrivalAirport = check.arrivalAirport;
     if (departureAirport === arrivalAirport && departureAirport !== '' && arrivalAirport !== '') {
       return {checkPlace: true};
+    }
+    return null;
+  }
+
+  // D-Bach
+  checkAdultsAndBabies(formGroup: AbstractControl): ValidationErrors | null {
+    const check: FlightSearchForm = formGroup.value;
+    const adults = check.adults;
+    const babies = check.babies;
+    if (babies > adults) {
+      return {checkBabies: true};
+    }
+    return null;
+  }
+
+  // D-Bach
+  checkAdultsAndChildren(formGroup: AbstractControl): ValidationErrors | null {
+    const check: FlightSearchForm = formGroup.value;
+    const adults = check.adults;
+    const children = check.children;
+    console.log(adults);
+    if ((+adults + +children) >= 9) {
+      return {checkNumber: true};
     }
     return null;
   }
