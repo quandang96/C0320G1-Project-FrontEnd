@@ -17,6 +17,7 @@ export class ReportComponent implements OnInit {
 
   // Thành
   newReport: any;
+  newReport1: any;
   private createReportForm: FormGroup;
 
   constructor(private dialog: MatDialog,
@@ -28,17 +29,19 @@ export class ReportComponent implements OnInit {
     this.createReportForm = this.fb.group({
       chart: [''],
       date1: [''],
-      date2: ['']
+      date2: [''],
+      date3: [''],
+      date4: ['']
     });
   }
 
-  openDialog(): void {
+  openDialog(data, data1, data2, data3): void {
     switch (this.createReportForm.get('chart').value) {
       case '1':
         const dialogRef = this.dialog.open(CircleChartComponent, {
           height: '600px',
           width: '750px',
-          data: {data1: 'aaa'},
+          data: {data1: data, data2: data1, data3: data2, data4: data3},
           disableClose: true
         });
 
@@ -50,7 +53,7 @@ export class ReportComponent implements OnInit {
         const dialogRef1 = this.dialog.open(LineChartComponent, {
           height: '600px',
           width: '750px',
-          data: {data1: 'aaa'},
+          data: {data1: data, data2: data1, data3: data2, data4: data3},
           disableClose: true
         });
 
@@ -62,7 +65,7 @@ export class ReportComponent implements OnInit {
         const dialogRef2 = this.dialog.open(PieChartComponent, {
           height: '600px',
           width: '750px',
-          data: {data1: 'aaa'},
+          data: {data1: data, data2: data1, data3: data2, data4: data3},
           disableClose: true
         });
 
@@ -74,7 +77,7 @@ export class ReportComponent implements OnInit {
         const dialogRef3 = this.dialog.open(BarChartComponent, {
           height: '600px',
           width: '750px',
-          data: {data1: 'aaa'},
+          data: {data1: data, data2: data1, data3: data2, data4: data3},
           disableClose: true
         });
 
@@ -91,10 +94,23 @@ export class ReportComponent implements OnInit {
       date1: this.createReportForm.value.date1,
       date2: this.createReportForm.value.date2
     };
-    this.reportService.getAllReport(this.newReport).subscribe(
-      data => {
-        this.openDialog();
-        console.log(data);
-    });
+    this.newReport1 = {
+      date1: this.createReportForm.value.date3,
+      date2: this.createReportForm.value.date4
+    };
+    if (this.newReport1.date1) {
+      this.reportService.getAllReport(this.newReport).subscribe(
+        data => {
+          this.reportService.getAllReport(this.newReport1).subscribe(
+            data1 => {
+              this.openDialog(data, data1, this.newReport, this.newReport1);
+            });
+        });
+    } else {
+      this.reportService.getAllReport(this.newReport).subscribe(
+        data => {
+          this.openDialog(data, null, this.newReport, null);
+      });
+    }
   }
 }
