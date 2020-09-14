@@ -1,7 +1,7 @@
 .topmain {
   height: 550px;
   margin-bottom: 15px;
-  background: url("https://vietnamairslines.com/image/data/slideshow/ve-may-bay-tet.png") no-repeat center bottom;
+  background: url("https://tailieufree.net/wp-content/uploads/2018/04/hinh-nen-vinh-ha-long-quang-ninh-dep.jpg") no-repeat center bottom;
   background-size: cover;
 }
 .col-xs-6 {
@@ -85,14 +85,13 @@ hr {
   background-color: white;
   display: flex;
   justify-content: center;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 .detail3 {
   width: 100%;
   height: 100%;
-  padding: 25px;
-  background-color: #eaeaea;
+  background-color: #FFFFFF;
 }
 .imgslide {
   height: 600px;
@@ -169,6 +168,14 @@ hr {
   display: inline-block;
   margin-left: 2px;
   margin-top: 5px;
+}
+.hr1 {
+  height:1px;
+  border-width:0;
+  color:#adadad;
+  background-color:#adadad;
+  margin-top: 5px;
+  margin-bottom: 30px;
 }
 .hr2 {
   height:1px;
@@ -301,7 +308,7 @@ hr {
   height: 50px;
   padding: 14px 27px 6px;
   font-size: 23px;
-  color: #dba510;
+  color: #d29328;
 }
 .form_child2 {
   background: #4469B0 none repeat scroll 0 0;
@@ -309,10 +316,10 @@ hr {
   border-radius: 0 10px 10px 10px;
   padding: 14px 27px 6px;
   font-size: 15px;
-  color: #dba510;
+  color: #d29328;
 }
 .form_child h2 {
-  color: #dba510;
+  color: #d29328;
   font-size: 25px;
   margin-top: 0;
   text-align: center;
@@ -330,7 +337,7 @@ hr {
 }
 .input {
   width: 501px;
-  padding-top: 10px;
+  padding-top: 5px;
 }
 .input1 {
   width: 243px;
@@ -353,13 +360,16 @@ hr {
   width: 158px;
 }
 .ghichu {
-  margin-top: -10px;
-  margin-left: 25px;
+  margin-top: -20px;
+  margin-left: 10px;
+}
+.ghichu2 {
+  margin-top: -15px;
 }
 .buttontimkiem {
-  width: 350px;
+  width: 250px;
 }
-#buttontimkiem {
+.buttontimkiem1, .buttontimkiem2 {
   justify-content: center;
   display: flex;
   padding-bottom: 10px;
@@ -371,10 +381,10 @@ hr {
 .buttonradio label {
   font-size: 18px;
 }
-.gioithieu {
+.gioithieu, .thongtinvebay {
   text-align: center;
 }
-.gioithieu h1 {
+.gioithieu h1, .thongtinvebay h1 {
   font-family: VnArial;
 }
 #footer {
@@ -411,4 +421,24 @@ hr {
 .logomaybay2 {
   display: flex;
   justify-content: center;
+}
+table thead {
+  background-color: #FFFFFF;
+}
+table td {
+  vertical-align: middle;
+}
+table th {
+  color: black;
+}
+.phantrang {
+  float: right;
+}
+.bg-color-custom {
+  background-color: #4469B0;
+  border: #e4e4e4 2px solid;
+}
+.img-icon {
+  padding: .25rem !important;
+  height: auto !important;
 }

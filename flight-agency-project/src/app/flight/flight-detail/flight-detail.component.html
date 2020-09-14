@@ -7,30 +7,30 @@
 <div class="modal-body">
   <div class="container">
     <div class="row text-left">
-      <div class="col-md">
-        <img class="img-icon" width="80" height="50" src="assets/branches-image/jetstar.png" alt="">
+      <div class="col-md text-center">
+        <img class="img-icon" width="70" height="40" [src]="branchImages[flightDetail.branch.id]" alt="">
+        <h6 class="mt-md-3">{{flightDetail.branch.name}}</h6>
       </div>
       <div class="col-md">
-        <small>Hồ Chí Minh - SGN</small>
-        <small>Tân sơn nhất</small>
-        <small>Cất cánh: <span>07:45</span></small>
-        <small>Ngày: <span>27/08/2020</span></small>
+        <small>{{flightDetail.departureAirport.city}} - {{flightDetail.departureAirport.code}}</small>
+        <small>{{flightDetail.departureAirport.name}}</small>
+        <small>Cất cánh: <span>{{flightDetail.departureDateTime | date: 'HH:mm'}}</span></small>
+        <small>Ngày: <span>{{flightDetail.departureDateTime | date: 'dd/MM/yyyy'}}</span></small>
       </div>
       <div class="col-md">
-        <small>Hà Nội - HAN</small>
-        <small>Nội Bài</small>
-        <small>Hạ cánh: <span>09:55</span></small>
-        <small>Ngày: <span>27/08/2020</span></small>
+        <small>{{flightDetail.arrivalAirport.city}} - {{flightDetail.arrivalAirport.code}}</small>
+        <small>{{flightDetail.arrivalAirport.name}}</small>
+        <small>Cất cánh: <span>{{flightDetail.arrivalDateTime | date: 'HH:mm'}}</span></small>
+        <small>Ngày: <span>{{flightDetail.arrivalDateTime | date: 'dd/MM/yyyy'}}</span></small>
       </div>
       <div class="col-md">
-        <small>Chyến bay: <span>JS250</span></small>
-        <small>Thời gian bay: <span>02h 10p</span></small>
-        <small>Máy bay: <span>A321</span></small>
+        <small>Chyến bay: <span>{{flightDetail.flightCode}}</span></small>
+        <small>Thời gian bay: <span>{{interval}}</span></small>
         <small>Hành lý xách tay: <span>7kg</span></small>
       </div>
     </div>
   </div>
 </div>
 <div class="modal-footer">
-  <button class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+  <button class="btn btn-secondary" (click)="modal.close()">Đóng</button>
 </div>

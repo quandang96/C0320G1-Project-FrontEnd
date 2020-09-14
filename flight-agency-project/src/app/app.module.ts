@@ -42,7 +42,8 @@ import { PDFExportModule } from './../../node_modules/@progress/kendo-angular-pd
     MaterialModule,
     NgbModule,
     NgxPaginationModule,
-    PDFExportModule
+    PDFExportModule,
+    FormsModule,
   ],
   providers: [
     {

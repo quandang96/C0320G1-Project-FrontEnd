@@ -8,9 +8,18 @@
   border-color: #ffa801;
 }
 
+.btn-sel-fn:hover {
+  color: #fff;
+  background-color: #00aeef;
+  border-color: #00aeef;
+}
 
 .btn-confirm-fn:hover {
   color: #fff;
   background-color: #ee9e02;
   border-color: #ee9e02;
+}
+
+form {
+  border-color: rgba(0, 0, 0, 0.5) !important;
 }
