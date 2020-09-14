@@ -6,6 +6,7 @@ import {BillSearchFields} from '../../shared/models/billSearchField';
 import { ReCaptchaV3Service } from 'ngx-captcha';
 import { map, tap } from 'rxjs/operators';
 
+declare let $:any
 @Component({
   selector: 'app-bill-find',
   templateUrl: './bill-find.component.html',
@@ -20,9 +21,10 @@ export class BillFindComponent implements OnInit {
   totalElements: number;
   stt: number[] = [];
   isEmpty = false;
+  message: string;
   private list;
   private billsList;
-   billsListSearch;
+  billsListSearch;
   constructor(
     private billService: BillService,
     private reCaptchaV3Service: ReCaptchaV3Service,
@@ -101,26 +103,43 @@ export class BillFindComponent implements OnInit {
         console.log("123")
         console.log(res);
         console.log("456")
-        this.totalElements = res.totalElements;
-        this.pageSize = res.size;
-        this.currentPage = pageNumber;
-        this.billsList = res.content;
-        this.stt = [];
-        const firstIndex = this.pageSize * (this.currentPage - 1) + 1;
-        const lastIndeex = this.pageSize * this.currentPage;
-        for (let i = firstIndex; i <= lastIndeex; i++) {
+        if( res != null) {
+          this.totalElements = res.totalElements;
+          this.pageSize = res.size;
+          this.currentPage = pageNumber;
+          this.billsList = res.content;
+          this.stt = [];
+          const firstIndex = this.pageSize * (this.currentPage - 1) + 1;
+          const lastIndeex = this.pageSize * this.currentPage;
+          for (let i = firstIndex; i <= lastIndeex; i++) {
           this.stt.push(i);
+          }
+          this.isEmpty = false;
+          if (res.content.length == 0) {
+            this.isEmpty = true;
+          }
         }
 
-        this.isEmpty = false;
-        if (res.content.length == 0) {
-          this.isEmpty = true;
-        }
-      }, error => {
-        console.log(error);
-        console.log('vào được err của tap');
       }),
-      map(res => res.content)
+
+      map(res => {
+        if(res == null){
+          console.log("emty")
+          this.message = "Không có kết quả"
+          $(document).ready(function(){
+            $("#message").prop('hidden', false),
+            $("#result").prop('hidden', true)
+            $("#pagination").prop('hidden',true)
+          })
+        } else {
+          $(document).ready(function(){
+            $("#result").prop('hidden', false)
+            $("#message").prop('hidden', true)
+            $("#pagination").prop('hidden',false)
+          })
+          return res.content
+        }
+      })
     );
     console.log(this.billsListSearch)
   }
