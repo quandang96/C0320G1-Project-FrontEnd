@@ -1,7 +1,7 @@
 import { Airport } from '../airport';
 
 //BHung
-export interface FlightSearchDTO {
+export interface EmployeeFlightSearchDTO {
     departurePlace: Airport;
     departureDate: string;
     arrivalDate: string;

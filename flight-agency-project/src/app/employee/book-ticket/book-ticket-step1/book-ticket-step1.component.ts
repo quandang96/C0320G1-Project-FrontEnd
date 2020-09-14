@@ -1,10 +1,12 @@
+import { Observable } from 'rxjs';
 //Creator: Nguyễn Xuân Hùng
 import { DataService } from './../../../shared/services/data.service';
 import { EmployeeService } from './../../../shared/services/employee.service';
 import { FlightSchedule } from './../../../shared/models/flight-schedule';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FlightSearchDTO } from './../../../shared/models/dto/FlightSearchDTO';
+import { EmployeeFlightSearchDTO } from '../../../shared/models/dto/employeeFlightSearchDTO';
+import { tap, map } from 'rxjs/operators';
 
 
 @Component({
@@ -14,42 +16,30 @@ import { FlightSearchDTO } from './../../../shared/models/dto/FlightSearchDTO';
 })
 export class BookTicketStep1Component implements OnInit {
 
-  @Input() flight1 = {} as FlightSearchDTO;
+  @Input() flight = {} as EmployeeFlightSearchDTO;
 
   flightIds : number[] = []; 
-  flight : FlightSearchDTO = {
-    departurePlace: {
-      id: 12,
-      city: "Hà Nội",
-      code: "he",
-      name: "12",
-  },
-  departureDate: "2020-09-21",
-  arrivalDate: "2020-09-21",
-  arrivalPlace: {
-    id: 1,
-    city: "Hồ Chí Minh",
-    code: "aaa",
-    name: "sss",
-},
-  adult: 3,
-  child: 2,
-  baby: 0
-  };
-  backFlight = {} as FlightSearchDTO;
+  backFlight = {} as EmployeeFlightSearchDTO;
   @Input() ticketForm: FormGroup;
   twoWay: boolean = null;
   departureDates = [];
   arrivalDates = [];
-  departureFlights = [] as FlightSchedule[];
-  arrivalFlights = [] as FlightSchedule[];
+  departureFlights : Observable<FlightSchedule[]>;
+  arrivalFlights : Observable<FlightSchedule[]>;
   //Biến xét active class
   isButtonDepartureClick : number =3;
   isButtonArrivalClick : number =3;
   //Biến check list null
   isDeptFlightNull: boolean = false;
   isArvFlightNull: boolean = false;
-  
+  //Biến hiển thị phân trang
+  currentPage : number;
+  pageSize : number;
+  totalElements : number;
+  arvCurrentPage : number;
+  arvPageSize : number;
+  arvTotalElements : number;
+
   constructor(private employeeService: EmployeeService,
     private dataService:DataService) {
    }
@@ -66,25 +56,17 @@ export class BookTicketStep1Component implements OnInit {
     this.dataService.currentMessage.subscribe(data=> this.flightIds=data);
 
     //Tìm kiếm danh sách chuyến bay đi:
-    this.employeeService.findAllFlightSchedules(this.flight).subscribe(data=>{
-      this.departureFlights= data;
-      if(this.departureFlights.length==0){
-        this.isDeptFlightNull = true;
-      }
+    this.getDeptPage(1);
       //Tìm kiếm chiều trở về
       if(this.flight.arrivalDate!=""&&this.flight.arrivalDate!=null){
         // this.backFlight = this.flight;
         this.backFlight.departurePlace = this.flight.arrivalPlace;
         this.backFlight.arrivalPlace = this.flight.departurePlace;
-        this.backFlight.departureDate = this.flight.arrivalDate;
-        this.employeeService.findAllFlightSchedules(this.backFlight).subscribe(data=>{
-          this.arrivalFlights=data;
-          if(this.arrivalFlights.length==0){
-            this.isArvFlightNull = true;
-          }
-        })
+        if(this.backFlight.departureDate==null){
+          this.backFlight.departureDate = this.flight.arrivalDate;
+        }
+        this.getArvPage(1);
       }
-    })
   }
 
   //function lấy tên thứ
@@ -143,5 +125,51 @@ export class BookTicketStep1Component implements OnInit {
     this.ticketForm.get('flightDetails').get('DeptFlightSchedule').updateValueAndValidity();
     this.ticketForm.get('flightDetails').get('arvFlightSchedule').markAsTouched();
     this.ticketForm.get('flightDetails').get('arvFlightSchedule').updateValueAndValidity();
+  }
+
+  changeImageBranch(id:number){
+    let imageSrc = ""
+    switch(id){
+      case 1:
+        imageSrc = "../../../assets/branches-image/vietjet.png";
+        return imageSrc;
+      case 2:
+        imageSrc = "../../../assets/branches-image/pacific.png";
+        return imageSrc;
+      case 3:
+        imageSrc = "../../../assets/branches-image/bamboo.png";
+        return imageSrc;
+      case 4:
+        imageSrc = "../../../assets/branches-image/vnairline.gif";
+        return imageSrc;
+    }
+  }
+  getDeptPage(pageNumber: number){
+    this.departureFlights = this.employeeService.findAllFlightSchedules(this.flight,pageNumber-1).pipe(
+      tap(res=>{
+        this.totalElements = res.totalElements;
+        this.pageSize = res.size;
+        this.currentPage = pageNumber;
+        this.isDeptFlightNull = false
+        if(res.content.length==0){
+          this.isDeptFlightNull = true;
+        }
+      }),
+      map(res => res.content)
+    );
+  }
+  getArvPage(pageNumber: number){
+    this.arrivalFlights = this.employeeService.findAllFlightSchedules(this.backFlight,pageNumber-1).pipe(
+      tap(res=>{
+        this.arvTotalElements = res.totalElements;
+        this.arvPageSize = res.size;
+        this.arvCurrentPage = pageNumber;
+        this.isArvFlightNull = false
+        if(res.content.length==0){
+          this.isArvFlightNull = true;
+        }
+      }),
+      map(res => res.content)
+    );
   }
 }

@@ -1,7 +1,7 @@
-import { Account } from './../account';
-import { FlightSchedule } from './../flight-schedule';
+import { Account } from '../account';
+import { FlightSchedule } from '../flight-schedule';
 //BHung
-export interface TransactionDTO{
+export interface EmployeeTransactionDTO{
     id:number;
     flightSchedule: FlightSchedule;
     account: Account;

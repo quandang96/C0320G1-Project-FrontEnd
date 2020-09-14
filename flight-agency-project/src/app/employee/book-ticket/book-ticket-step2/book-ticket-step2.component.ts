@@ -4,13 +4,13 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormArray } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { FlightSearchDTO } from './../../../shared/models/dto/FlightSearchDTO';
-import { TransactionPassengerDTO } from './../../../shared/models/dto/TransactionPassengerDTO';
-import { PassengerDTO } from './../../../shared/models/dto/PassengerDTO';
-import { TransactionDTO } from './../../../shared/models/dto/TransactionDTO';
+import { TransactionPassengerDTO } from '../../../shared/models/dto/transaction-passengerDTO';
+import { EmployeePassengerDTO } from '../../../shared/models/dto/employeePassengerDTO';
+import { EmployeeTransactionDTO } from '../../../shared/models/dto/employeeTransactionDTO';
 import { Account } from './../../../shared/models/account';
 import { EmployeeService } from './../../../shared/services/employee.service';
 import { FlightSchedule } from 'src/app/shared/models/flight-schedule';
+import { EmployeeFlightSearchDTO } from '../../../shared/models/dto/employeeFlightSearchDTO';
 
 @Component({
   selector: 'app-book-ticket-step2',
@@ -19,28 +19,9 @@ import { FlightSchedule } from 'src/app/shared/models/flight-schedule';
 })
 export class BookTicketStep2Component implements OnInit {
 
-  @Input() flight1 = {} as FlightSearchDTO;
+  @Input() flight = {} as EmployeeFlightSearchDTO;
   //Nhận biến flightID
   flightIds : number[];
-  flight = {
-    "departurePlace": {
-      "id": 12,
-      "city": "Hà Nội",
-      "code": null,
-      "name": null
-  },
-  "arrivalPlace": {
-      "id": 1,
-      "city": "Hồ Chí Minh",
-      "code": null,
-      "name": null
-  },
-  "departureDate": "2020-09-21",
-  "arrivalDate": "2020-09-21",
-  "adult": 2,
-  "child": 2,
-  "baby": 0
-  }
   @Input() ticketForm: FormGroup;
   departureFlight={} as FlightSchedule;
   arrivalFlight={} as FlightSchedule;
@@ -48,22 +29,28 @@ export class BookTicketStep2Component implements OnInit {
   emailCheck:string = "";
   totalPrice: number =0;
   transactionPassengerDTO ={} as TransactionPassengerDTO;
-  passengers =[] as PassengerDTO[];
-  transactions = [] as TransactionDTO[];
-  deptTransaction={} as TransactionDTO;
-  arvTransaction={} as TransactionDTO;
-
+  passengers =[] as EmployeePassengerDTO[];
+  transactions = [] as EmployeeTransactionDTO[];
+  deptTransaction={} as EmployeeTransactionDTO;
+  arvTransaction={} as EmployeeTransactionDTO;
+  //Khai báo formArray
+  childPassengers: FormArray;
+  adultPassengers: FormArray;
+  
   constructor(private data:DataService,
               private employeeService:EmployeeService,
               private router:Router) { }
 
   ngOnInit() {
+    this.childPassengers = this.ticketForm.get('childPassengers') as FormArray;
+    this.adultPassengers = this.ticketForm.get('adultPassengers') as FormArray;
     this.data.currentMessage.subscribe(data=>{
       this.flightIds=data;
       if(this.flightIds.length!=0){
         this.employeeService.findFlightById(this.flightIds[0]).subscribe(data=>{
           this.departureFlight=data;
           if(this.flightIds.length!=1){
+            console.log("vô 1")
             this.employeeService.findFlightById(this.flightIds[1]).subscribe(data=>{
               this.arrivalFlight = data;
             })
@@ -90,16 +77,30 @@ export class BookTicketStep2Component implements OnInit {
     })
   }
 
-  //Cập nhật tổng tiền hành lý
-  getTotalLuggagePrice():number{
+  //Cập nhật tổng tiền hành lý chiều đi
+  getTotalDeptLuggagePrice():number{
     let luggagePrice = 0;
     let adultPassengers = this.ticketForm.get("adultPassengers") as FormArray;
     let childPassengers = this.ticketForm.get("childPassengers") as FormArray;
     for(let i=0;i<this.flight.adult;i++){
-      luggagePrice+=adultPassengers.at(i).get('luggageWeight').value*1;
+      luggagePrice+=adultPassengers.at(i).get('deptLuggagePrice').value*1;
     }
     for(let i=0;i<this.flight.child;i++){
-      luggagePrice+=childPassengers.at(i).get('luggageWeight').value*1;
+      luggagePrice+=childPassengers.at(i).get('deptLuggagePrice').value*1;
+    }
+    return luggagePrice;
+  }
+
+  //Cập nhật tổng tiền hành lý chiều về
+  getTotalArvLuggagePrice(): number{
+    let luggagePrice = 0;
+    let adultPassengers = this.ticketForm.get("adultPassengers") as FormArray;
+    let childPassengers = this.ticketForm.get("childPassengers") as FormArray;
+    for(let i=0;i<this.flight.adult;i++){
+      luggagePrice+=adultPassengers.at(i).get('arvLuggagePrice').value*1;
+    }
+    for(let i=0;i<this.flight.child;i++){
+      luggagePrice+=childPassengers.at(i).get('arvLuggagePrice').value*1;
     }
     return luggagePrice;
   }
@@ -108,16 +109,17 @@ export class BookTicketStep2Component implements OnInit {
   changeTotalPrice(){
     let deptPrice = this.ticketForm.get('otherDetails').get('deptPrice').value;
     let arvPrice = this.ticketForm.get('otherDetails').get('arvPrice').value;
-    let luggagePrice = this.getTotalLuggagePrice();
+    let luggagePrice = this.getTotalArvLuggagePrice()+this.getTotalDeptLuggagePrice();
     this.totalPrice= Number.parseInt(deptPrice)+Number.parseInt(arvPrice)+luggagePrice;
   }
 
 
   //Lưu vé
   saveTicket(){
-    
+    this.passengers = [];
+    this.transactions = [];
     //Lưu khách hàng
-    let passenger = {} as PassengerDTO;
+    let passenger = {} as EmployeePassengerDTO;
     let adultPassengers = this.ticketForm.get("adultPassengers") as FormArray;
     let childPassengers = this.ticketForm.get("childPassengers") as FormArray;
     for(let i=0;i<this.flight.adult;i++){
@@ -128,10 +130,13 @@ export class BookTicketStep2Component implements OnInit {
         email: adultPassengers.at(i).get("email").value,
         phoneNumber: adultPassengers.at(i).get("phoneNumber").value,
         gender: adultPassengers.at(i).get("gender").value,
-        checkin: false
+        checkin: false,
+        deptLuggagePrice: adultPassengers.at(i).get("deptLuggagePrice").value,
+        arvLuggagePrice: adultPassengers.at(i).get("arvLuggagePrice").value
       }
       this.passengers.push(passenger);
     }
+    
     for(let i=0;i<this.flight.child;i++){
       passenger={
         id: null,
@@ -140,7 +145,9 @@ export class BookTicketStep2Component implements OnInit {
         email: null,
         phoneNumber: childPassengers.at(i).get("phoneNumber").value,
         gender: childPassengers.at(i).get("gender").value,
-        checkin: false
+        checkin: false,
+        deptLuggagePrice: childPassengers.at(i).get("deptLuggagePrice").value,
+        arvLuggagePrice: childPassengers.at(i).get("arvLuggagePrice").value
       }
       this.passengers.push(passenger);
     }
@@ -155,7 +162,7 @@ export class BookTicketStep2Component implements OnInit {
       id: null,
       createdTime: createdTime,
       dueTime: dueTime,
-      price: this.arvTransaction?this.ticketForm.get('otherDetails').get('deptPrice').value*1+this.getTotalLuggagePrice() : this.totalPrice,
+      price: this.arrivalFlight?this.ticketForm.get('otherDetails').get('deptPrice').value*1+this.getTotalDeptLuggagePrice() : this.totalPrice,
       status: "Chờ thanh toán",
       account: this.customer as Account,
       flightSchedule: this.departureFlight,
@@ -163,28 +170,34 @@ export class BookTicketStep2Component implements OnInit {
     this.transactions.push(this.deptTransaction);
 
     //Lưu chiều về
-    if(this.arrivalFlight){
+    if(this.flightIds.length!=1){
+      console.log("vô")
       this.arvTransaction = {
         id: null,
         createdTime: createdTime,
         dueTime: dueTime,
-        price: this.ticketForm.get('otherDetails').get('arvPrice').value*1,
-        status: "chưa thanh toán",
+        price: this.ticketForm.get('otherDetails').get('arvPrice').value*1 + this.getTotalArvLuggagePrice(),
+        status: "Chờ thanh toán",
         account: this.customer as Account,
-        flightSchedule: this.departureFlight,
+        flightSchedule: this.arrivalFlight,
       }
+      this.transactions.push(this.arvTransaction);
     }
     this.transactionPassengerDTO = {
       transactions: this.transactions,
       passengers: this.passengers
     }
+    console.log(this.transactionPassengerDTO)
     this.employeeService.saveTransactionAndPassenger(this.transactionPassengerDTO).subscribe(()=>{
-
+      this.router.navigateByUrl("/employee/findFlight");
     })
   }
 
   //router
   goToInvoicePage(){
-
+    this.saveTicket();
+    for(let tran of this.transactions){
+      window.open("/employee/transaction/"+ tran.id,"_blank");
+    }
   }
 }

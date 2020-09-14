@@ -11,17 +11,25 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InvoiceTicketComponent } from './invoice-ticket/invoice-ticket.component';
 import {registerLocaleData} from '@angular/common';
 import localVi from '@angular/common/locales/vi'
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 registerLocaleData(localVi);
 @NgModule({
-  declarations: [BookTicketComponent, BookTicketStep1Component, BookTicketStep2Component, FindFlightComponent, InvoiceTicketComponent],
+  declarations: [
+    BookTicketComponent, 
+    BookTicketStep1Component, 
+    BookTicketStep2Component, 
+    FindFlightComponent, 
+    InvoiceTicketComponent
+  ],
   imports: [
     CommonModule,
     EmployeeRoutingModule,
     MatStepperModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPaginationModule
   ]
 })
 export class EmployeeModule { }

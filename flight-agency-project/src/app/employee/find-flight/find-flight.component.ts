@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EmployeeService } from './../../shared/services/employee.service';
-import { FlightSearchDTO } from './../../shared/models/dto/FlightSearchDTO';
+import { EmployeeFlightSearchDTO } from '../../shared/models/dto/employeeFlightSearchDTO';
 
 
 @Component({
@@ -14,7 +14,7 @@ import { FlightSearchDTO } from './../../shared/models/dto/FlightSearchDTO';
 })
 export class FindFlightComponent implements OnInit {
   flightType: boolean = true;
-  flight :FlightSearchDTO={
+  flight :EmployeeFlightSearchDTO={
     departurePlace: null,
     arrivalPlace: null,
     departureDate: "",
@@ -34,8 +34,10 @@ export class FindFlightComponent implements OnInit {
     this.findFlightForm = this.fb.group({
       departurePlace : ['',[Validators.required]],
       arrivalPlace: ['',[Validators.required]],
-      departureDate: ['',[Validators.required]],
-      arrivalDate: ['',[]],
+      flightDates: this.fb.group({
+        arrivalDate: ['',[]],
+        departureDate: ['',[Validators.required,this.employeeService.validateGreaterThanCurrentDate]]
+      },{validators:[this.employeeService.validateArvDateGreaterThanDeptDate]}),
       adult: ['0',[Validators.min(1)]],
       child: ['0',[Validators.min(0)]],
       baby: ['0',[Validators.min(0)]]
@@ -58,7 +60,9 @@ export class FindFlightComponent implements OnInit {
 
   navigateBookTicketPage(){
     this.flight=this.findFlightForm.value;
-    console.log(this.flight);
+    this.flight.arrivalDate = this.findFlightForm.get("flightDates").get("arrivalDate").value;
+    this.flight.departureDate = this.findFlightForm.get("flightDates").get("departureDate").value;
     this.router.navigateByUrl("/employee/bookTicket",{state : this.flight});
   }
+
 }

@@ -1,5 +1,5 @@
 //BHung
-export interface PassengerDTO{
+export interface EmployeePassengerDTO{
     id: number;
     fullName:string;
     identifierCard:string;
@@ -7,4 +7,6 @@ export interface PassengerDTO{
     phoneNumber: string;
     gender: string;
     checkin: boolean;
+    deptLuggagePrice: number;
+    arvLuggagePrice: number;
 }

@@ -1,44 +1,4 @@
-<div id="wrapper">
-    <div id="sidebar-wrapper">
-        <aside id="sidebar">
-            <ul id="sidemenu" class="sidebar-nav">
-                <li>
-                    <a href="#">
-                        <span class="sidebar-icon"><i class="fas fa-user"></i></span>
-                        <span class="sidebar-title">Thông tin nhân viên</span>
-                    </a>
-                </li>
-                <li>
-                    <a class="accordion-toggle collapsed toggle-switch" data-toggle="collapse" href="#submenu-3">
-                        <span class="sidebar-icon"><i class="far fa-gem"></i></span>
-                        <span class="sidebar-title">Khách hàng</span>
-                        <b class="caret"></b>
-                    </a>
-                </li>
-                <li>
-                    <a class="accordion-toggle collapsed toggle-switch" data-toggle="collapse" href="#submenu-2">
-                        <span class="sidebar-icon"><i class="fa fa-shopping-cart"></i></span>
-                        <span class="sidebar-title">Quản lý bán vé</span>
-                        <b class="caret"></b>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="sidebar-icon"><i class="fas fa-clipboard-check"></i></span>
-                        <span class="sidebar-title">Quản lý đặt vé</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="sidebar-icon"><i class="fa fa-chart-line"></i></span>
-                        <span class="sidebar-title">Thống kê</span>
-                    </a>
-                </li>
-            </ul>
-
-        </aside>
-    </div> <!--sidebar-wrapper-->
-    <main>
+<main>
     <div class="main-content container w-75" >
         <div style="border-radius: 25px;border: 2px solid #195B92">
             <h1 class="text-center font-weight-bold border-bottom mx-0 px-0">Tìm vé trống</h1>
@@ -75,7 +35,7 @@
                     <div class="col-md-8">
                         <select class="custom-select form-control" formControlName="arrivalPlace">
                             <option [selected]="true" value="" disabled>Vui lòng chọn điểm đi</option>
-                            <option *ngFor="let airport of airports index as i" [ngValue]="airport" >{{airport.city+" ("+airport.code+")"}}</option>
+                            <option *ngFor="let airport of airports index as i" [ngValue]="airport" [disabled]= "findFlightForm.get('departurePlace').value.id==airport.id">{{airport.city+" ("+airport.code+")"}}</option>
                         </select>
                         <div *ngIf="findFlightForm.get('arrivalPlace').invalid && findFlightForm.get('arrivalPlace').touched" class="text-danger font-alert">
                             <span *ngIf= "findFlightForm.get('arrivalPlace').hasError('required')" >Vui lòng chọn điểm đến</span>
@@ -83,13 +43,14 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="form-group row" formGroupName="flightDates">
                 <div class="col-md-6 row ml-1">
                     <label class="col-md-4 col-form-label"><i class="fas fa-blind"></i> Ngày đi</label>
                     <div class="col-md-8">
                         <input class="form-control" type="date" formControlName="departureDate">
-                        <div *ngIf="findFlightForm.get('departureDate').invalid && findFlightForm.get('departureDate').touched" class="text-danger font-alert">
-                            <span *ngIf= "findFlightForm.get('departureDate').hasError('required')" >Vui lòng chọn ngày đi</span>
+                        <div *ngIf="findFlightForm.get('flightDates').get('departureDate').invalid && findFlightForm.get('flightDates').get('departureDate').touched" class="text-danger font-alert">
+                            <span *ngIf= "findFlightForm.get('flightDates').get('departureDate').hasError('required')" >Vui lòng chọn ngày đi</span>
+                            <span *ngIf= "findFlightForm.get('flightDates').get('departureDate').hasError('chooseDateGreaterThanCurrentDate')" >Ngày đi không được bé hơn ngày hiện tại</span>
                         </div>
                     </div>
                 </div>
@@ -97,8 +58,8 @@
                     <label class="col-md-4 col-form-label"><i class="fas fa-blind"></i> Ngày về</label>
                     <div class="col-md-8">
                         <input class="form-control" type="date" [attr.disabled]="flightType?true:null" formControlName="arrivalDate">
-                        <div *ngIf="findFlightForm.get('arrivalDate').invalid && findFlightForm.get('arrivalDate').touched" class="text-danger font-alert">
-                            <span *ngIf= "findFlightForm.get('arrivalDate').hasError('required')" >Vui lòng chọn ngày về</span>
+                        <div *ngIf="findFlightForm.get('flightDates').hasError('chooseArvDateSmallerThanDeptDate') && findFlightForm.get('flightDates').touched" class="text-danger font-alert">
+                            <span>Ngày về không được bé hơn ngày đi</span>
                         </div>
                     </div>   
                 </div>
@@ -156,4 +117,4 @@
     </div>
 </div>
 </main>  
-{{flight|json}}
+{{findFlightForm.value|json}}

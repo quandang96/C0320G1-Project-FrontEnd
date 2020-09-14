@@ -1,12 +1,15 @@
+import { EmployeeFlightSearchDTO } from '../models/dto/employeeFlightSearchDTO';
 import { Transaction } from './../models/transaction';
-import { TransactionPassengerDTO } from './../models/dto/TransactionPassengerDTO';
-import { FlightSearchDTO } from './../models/dto/FlightSearchDTO';
-import { Account } from './../models/account';
+import { TransactionPassengerDTO } from '../models/dto/transaction-passengerDTO';
 import { FlightSchedule } from './../models/flight-schedule';
 import { Airport } from './../models/airport';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Page } from '../models/dto/page';
+import { AbstractControl } from '@angular/forms';
+import { ɵNullViewportScroller } from '@angular/common';
+
 
 
 
@@ -21,6 +24,18 @@ export class EmployeeService {
       'Content-Type': 'application/json'
     })
   };
+  //BHung get page filghtSchedule
+  getFlightScheduleHttpOptions(page: number): Object {
+    const flightSchedule = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      params: {
+        page
+      }
+    };
+    return flightSchedule;
+  }
 
   constructor(private http: HttpClient) { }
 
@@ -30,9 +45,9 @@ export class EmployeeService {
   }
 
   //BHung: tìm kiếm danh sách flights:
-  findAllFlightSchedules(flightDTO: FlightSearchDTO): Observable<FlightSchedule[]>{
-    return this.http.post<FlightSchedule[]>(this.API_URL+"/flightSchedule",JSON.stringify(flightDTO),this.httpOptions);
-  }
+  findAllFlightSchedules(flightDTO: EmployeeFlightSearchDTO, page: number): Observable<Page<FlightSchedule>>{
+    return this.http.post<Page<FlightSchedule>>(this.API_URL+"/flightSchedule",JSON.stringify(flightDTO),this.getFlightScheduleHttpOptions(page))
+  };
 
   //BHung tìm kiếm flight theo id:
   findFlightById(id:number):Observable<FlightSchedule>{
@@ -50,12 +65,24 @@ export class EmployeeService {
 
   //BHung luu ticket
   saveTransactionAndPassenger(transpass: TransactionPassengerDTO):Observable<any>{
-    return this.http.post(this.API_URL+"/transPass/save",JSON.stringify(transpass));
+    return this.http.post(this.API_URL+"/transPass/save",JSON.stringify(transpass),this.httpOptions);
   }
 
   //BHung tim transaction
   findTransactionById(id: number): Observable<Transaction>{
-    return this.http.get<Transaction>(this.API_URL+"/transaction"+id);
+    return this.http.get<Transaction>(this.API_URL+"/transaction/"+id);
   }
 
+  //BHung validate date 
+  validateGreaterThanCurrentDate(c: AbstractControl) {
+    var chooseDate = Date.parse(c.value);
+    var currentDate = Date.parse(new Date().toISOString().slice(0,10));
+    return (chooseDate - currentDate < 0) ?
+      { chooseDateGreaterThanCurrentDate: true } : null;
+  }
+  validateArvDateGreaterThanDeptDate(c: AbstractControl){
+    const v = c.value;
+    return (Date.parse(v.arrivalDate)-Date.parse(v.departureDate)<0)?
+      {chooseArvDateSmallerThanDeptDate: true} : null;
+  }
 }
