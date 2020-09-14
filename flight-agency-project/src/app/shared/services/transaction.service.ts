@@ -28,7 +28,7 @@ export class TransactionService {
 
   // Creator: Duy
   createTransaction(): Observable<any> {
-    const booking = this.createBooking() as BookingDTO;
+    const booking = this.createBooking();
     return this.http.post(`${this.API_URL}/transaction/booking`, booking);
   }
 
