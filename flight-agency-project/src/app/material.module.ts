@@ -1,3 +1,4 @@
+// material.module.ts
 
 import { NgModule } from '@angular/core';
 import { MatDatepickerModule, MatFormFieldModule, MatInputModule, MatStepperModule } from '@angular/material';
@@ -12,7 +13,6 @@ import {MatDialogModule} from "@angular/material/dialog";
     MatNativeDateModule,
     MatInputModule,
     MatDialogModule,
-    MatStepperModule
   ],
   exports: [
     MatDatepickerModule,

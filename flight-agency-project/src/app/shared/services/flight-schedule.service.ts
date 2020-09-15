@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Page } from '../models/dto/Page';
+import { Page } from '../models/dto/page';
 import { FlightSchedule } from '../models/flight-schedule';
 import { FlightSearchDTO } from '../models/dto/flight-search-dto';
 import { Airport } from '../models/airport';

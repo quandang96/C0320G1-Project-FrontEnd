@@ -1,3 +1,4 @@
+import { MatDialog } from '@angular/material';
 import { Component, OnInit } from '@angular/core';
 import { FlightScheduleService } from '../shared/services/flight-schedule.service';
 import { FlightSchedule } from '../shared/models/flight-schedule';
@@ -7,6 +8,7 @@ import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors }
 import { Router, ActivatedRoute } from '@angular/router';
 import { Airport } from '../shared/models/airport';
 import { FlightSearchForm } from '../shared/models/dto/flight-search-form';
+import { LoginComponent } from './login/login.component';
 
 @Component({
   selector: 'app-home',
@@ -29,7 +31,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private flightScheduleService: FlightScheduleService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {
   }
 
@@ -106,12 +109,20 @@ export class HomeComponent implements OnInit {
     }
     return null;
   }
-
+  openDialog(): void {
+    const dialogRef = this.dialog.open(LoginComponent, {
+      width: '900px',
+      height: '600px',
+      data: {}
+    });
+  }
   // D-Bach
   sendData() {
     this.flightScheduleService.flightSearchForm = this.searchForm.value as FlightSearchForm;
     this.flightScheduleService.flightSearchForm.isRoundTrip = this.oneWay ? '' : '1';
+    console.log(`vo day`);
     this.router.navigateByUrl('flight/schedule');
+    console.log(`vo day1`);
   }
 
   // D-Bach
@@ -123,4 +134,5 @@ export class HomeComponent implements OnInit {
   twoWayPicked() {
     this.oneWay = false;
   }
+
 }
