@@ -1,3 +1,4 @@
+import { RoleGuard } from './../guards/role.guard';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { FlightCenterComponent } from './flight-center/flight-center.component';

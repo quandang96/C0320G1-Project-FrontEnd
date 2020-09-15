@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
-import {Feedback} from '../models/feedback';
-import {Page} from '../models/dto/page';
-import {FeedbackSearch} from '../models/feedbackSearch';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { Feedback } from '../models/feedback';
+import { Page } from './../models/dto/page';
+import { FeedbackSearch } from '../models/feedbackSearch';
 
 @Injectable({
   providedIn: 'root'
@@ -45,7 +45,7 @@ export class FeedbackService {
     return this.http.get<Feedback[]>(`${this.ADMIN_URL}/feedback-list`, this.options);
   }
 
-  editFeedback(feedback, id): Observable<Feedback > {
+  editFeedback(feedback, id): Observable<Feedback> {
     console.log(`${this.ADMIN_URL}/feedback` + '/' + id);
     console.log(feedback);
     return this.http.put<Feedback>(`${this.ADMIN_URL}/feedback` + '/' + id, feedback);

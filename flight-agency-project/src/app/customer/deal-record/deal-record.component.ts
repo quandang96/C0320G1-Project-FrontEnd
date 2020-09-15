@@ -1,3 +1,4 @@
+import { TokenStorageService } from 'src/app/shared/services/token-storage.service';
 import { Transaction } from './../../shared/models/transaction';
 import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
@@ -20,26 +21,26 @@ export class DealRecordComponent implements OnInit {
   private currentPage: number;
 
   constructor(private transactionService: TransactionService,
-              private activatedRoute: ActivatedRoute) {
-              }
-              
+    private activatedRoute: ActivatedRoute, private tokenStorage: TokenStorageService) {
+  }
+
 
   ngOnInit() {
     this.getPage(1);
-    
+
   }
 
-  getPage(page: number){   
-    console.log(page) 
-    this.deals = this.transactionService.getAllTransactionsByAccountId(1, page).pipe(
-      tap(res => {        
+  getPage(page: number) {
+    console.log(page)
+    this.deals = this.transactionService.getAllTransactionsByAccountId(this.tokenStorage.getJwtResponse().accountId, page).pipe(
+      tap(res => {
         this.totalElements = res.totalElements;
         this.pageSize = res.size;
         this.currentPage = page;
       }),
-      map( res => res.content)
+      map(res => res.content)
     )
-    
+
   }
 
 

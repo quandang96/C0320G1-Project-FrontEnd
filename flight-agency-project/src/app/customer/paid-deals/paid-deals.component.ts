@@ -1,3 +1,4 @@
+import { TokenStorageService } from 'src/app/shared/services/token-storage.service';
 import { SelectDto } from './../../shared/models/dto/SelectDto';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { BillService } from './../../shared/services/bill.service';
@@ -28,7 +29,8 @@ export class PaidDealsComponent implements OnInit {
 
   constructor(private router: Router,
     private billService: BillService,
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private tokenStorage: TokenStorageService) { }
 
   ngOnInit() {
 
@@ -50,7 +52,7 @@ export class PaidDealsComponent implements OnInit {
 
   getPage(page: number) {
 
-    this.paidDeals = this.billService.getSearchedBillsByAccountId(1, page, this.searchForm).pipe(
+    this.paidDeals = this.billService.getSearchedBillsByAccountId(this.tokenStorage.getJwtResponse().accountId, page, this.searchForm).pipe(
       tap(res => {
         if (res != null) {
           this.totalElements = res.totalElements;
