@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators, ValidatorFn, FormControl, Validatio
 import { Component, OnInit } from '@angular/core';
 import { Feedback } from 'src/app/shared/models/Feedback';
 
+declare var $: any;
+
 @Component({
   selector: 'app-send-feedback',
   templateUrl: './send-feedback.component.html',
@@ -76,6 +78,10 @@ export class SendFeedbackComponent implements OnInit {
   onSubmit() {
     this.homeService.saveFeedback(this.feedBackForm.value).subscribe(data => {
       console.log(data);
+      $('#success').modal('show');
+    },error => {
+      console.log(error);
+      $('#violation').modal('show');
     })
   }
 
