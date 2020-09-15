@@ -1,11 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {ListTicketComponent} from './list-ticket/list-ticket.component';
+import { ListTicketComponent } from './list-ticket/list-ticket.component';
+import { RoleGuard } from '../guards/role.guard';
 
 
 const routes: Routes = [
   {
-    path: '', component: ListTicketComponent
+    path: '', component: ListTicketComponent, canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'ROLE_EMPLOYEE'
+    }
   }
 ];
 
