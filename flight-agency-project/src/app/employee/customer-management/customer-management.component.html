@@ -2,9 +2,32 @@
   <div style="text-align: center;" class="justify-content-between">
     <h3>Danh Sách Khách Hàng</h3>
   </div>
-  <div class="row mt-3">
-    <button class="btn btn-primary"> Thêm khách hàng</button>
-    <table class="table table-striped">
+
+  <div class="form-top row">
+    <div class="col-md-2 addCus px-0">
+      <button class="btn btn-primary "> Thêm khách hàng</button>
+    </div>
+    <div class="col-md-6"></div>
+    <div class="col-md-1 px-0">
+      <select class="form-control">
+        <option value="name">Họ tên</option>
+        <option value="gender">Giới tính</option>
+        <option value="email">Email</option>
+        <option value="numberPhone">SDT</option>
+        <option value="birthday">Ngày sinh</option>
+      </select>
+    </div>
+    <div class="col-md-3 search px-0 d-flex justify-content-end">
+      <form class="form-inline w-100">
+        <input class="form-control w-75" type="search" placeholder="Search" aria-label="Search">
+        <input type="button" class="btn btn-success w-25 " value="Search">
+      </form>
+    </div>
+  </div>
+
+
+  <div>
+    <table class="table table-striped ">
       <thead style="background-color: #189EFF; color: black">
       <tr>
         <th scope="col">STT</th>
@@ -14,7 +37,7 @@
         <th scope="col">Email</th>
         <th scope="col">Giới tính</th>
         <th scope="col">Điện thoại</th>
-        <th scope="col ">Chỉnh sửa</th>
+        <th scope="col">Chỉnh sửa</th>
       </tr>
       </thead>
       <tbody>

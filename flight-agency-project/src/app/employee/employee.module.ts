@@ -11,6 +11,8 @@ import {FindFlightComponent} from './find-flight/find-flight.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { EmployeeInformationComponent } from './employee-information/employee-information.component';
 import { EmployeeHomeComponent } from './employee-home/employee-home.component';
+import {CustomerManagementComponent} from './customer-management/customer-management.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -20,14 +22,16 @@ import { EmployeeHomeComponent } from './employee-home/employee-home.component';
     BookTicketStep3Component,
     FindFlightComponent,
     EmployeeInformationComponent,
-    EmployeeHomeComponent
+    EmployeeHomeComponent,
+    CustomerManagementComponent,
   ],
   imports: [
     CommonModule,
     EmployeeRoutingModule,
     MatStepperModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPaginationModule
   ]
 })
 export class EmployeeModule {

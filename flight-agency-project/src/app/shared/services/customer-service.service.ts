@@ -8,7 +8,7 @@ import {Page} from '../models/dto/page';
   providedIn: 'root'
 })
 export class CustomerServiceService {
-  private readonly API_URL_ACCOUNT = 'http://localhost:8080/api/v1/customer/';
+  private readonly API_URL_CUSTOMER = 'http://localhost:8080/api/v1/customer/';
 
   constructor(private http: HttpClient) {
   }
@@ -34,11 +34,16 @@ export class CustomerServiceService {
 
   //creator: Mậu
   getAllCustomer(): Observable<listCustomerDto[]> {
-    return this.http.get<listCustomerDto[]>(this.API_URL_ACCOUNT + 'management', this.httpOptions);
+    return this.http.get<listCustomerDto[]>(this.API_URL_CUSTOMER + 'management', this.httpOptions);
   }
 
   //creator: Mậu
   getPage(page: number): Observable<Page<listCustomerDto[]>> {
-    return this.http.get<Page<listCustomerDto[]>>(this.API_URL_ACCOUNT + 'management', this.getCustomerHttpOptions(page));
+    return this.http.get<Page<listCustomerDto[]>>(this.API_URL_CUSTOMER + 'management', this.getCustomerHttpOptions(page));
+  }
+
+  //creator: Mậu
+  search(page: number, pageSize: number, search: string): Observable<any> {
+    return this.http.get(this.API_URL_CUSTOMER + '/search' + `?`);
   }
 }

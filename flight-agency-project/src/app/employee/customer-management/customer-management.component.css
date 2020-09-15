@@ -1,4 +1,5 @@
 table{
+  padding: 0px;
   width: 96%;
   margin-left: 2%;
 }
@@ -12,3 +13,10 @@ table{
 .container-fluid{
   padding-bottom: 50px;
 }
+.form-top{
+  width: 96%;
+  margin-left: 2%;
+}
+
+
+
