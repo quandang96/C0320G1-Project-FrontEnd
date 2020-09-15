@@ -63,10 +63,6 @@ input[type=checkbox] {
       display: none;
     }
     body {-webkit-print-color-adjust: exact;}
-    /* #container{
-        width: 450px !important;
-        -webkit-print-color-adjust:exact;
-    } */
     
   }
   @media (min-width: 768px){
