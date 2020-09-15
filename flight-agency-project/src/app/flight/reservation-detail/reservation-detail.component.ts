@@ -12,6 +12,7 @@ export class ReservationDetailComponent implements OnInit {
 
   private reservationCode: number;
   private mTransaction: Transaction;
+  private mData: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -20,11 +21,19 @@ export class ReservationDetailComponent implements OnInit {
 
   ngOnInit() {
     this.reservationCode = Number(this.route.snapshot.paramMap.get('id'));
-    this.paymentService.getReservation(this.reservationCode).subscribe(
-      data => this.mTransaction = data,
+    this.paymentService.getReservationDetails(this.reservationCode).subscribe(
+      data => {
+        console.log(data);
+        this.mData = data;
+        this.mTransaction = data[0].transaction;
+      },
       error => console.log(error),
       () => console.log(this.mTransaction)
     );
+  }
+
+  get data() {
+    return this.mData;
   }
 
   get transaction() {
