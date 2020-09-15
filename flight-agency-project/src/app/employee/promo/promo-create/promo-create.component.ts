@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {Observable} from 'rxjs';
-import {Branch} from '../../../shared/models/branch';
-import {Airport} from '../../../shared/models/airport';
-import {PromoService} from '../../../shared/services/promo.service';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {PROMO_INVALID_INPUT_WARNING} from '../../../shared/validations/valid-promo';
+import { Observable } from 'rxjs';
+import { Branch } from '../../../shared/models/branch';
+import { Airport } from '../../../shared/models/airport';
+import { PromoService } from '../../../shared/services/promo.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+// import {PROMO_INVALID_INPUT_WARNING} from '../../../shared/validations/valid-promo';
 
 @Component({
   selector: 'app-promo-create',
@@ -16,7 +16,7 @@ export class PromoCreateComponent implements OnInit {
   private airlineList: Observable<Branch>;
   private airportList: Observable<Airport>;
   private createForm: FormGroup;
-  private error = PROMO_INVALID_INPUT_WARNING;
+  // private error = PROMO_INVALID_INPUT_WARNING;
 
   constructor(
     public promoService: PromoService
