@@ -5,7 +5,6 @@ import { FlightCenterComponent } from './flight-center/flight-center.component';
 import { FlightScheduleListComponent } from './flight-schedule-list/flight-schedule-list.component';
 import { AirportResolverService } from './airport-resolver.service';
 import { FlightPassengerInfoComponent } from './flight-passenger-info/flight-passenger-info.component';
-import { RoleGuard } from '../guards/role.guard';
 import { FlightGuardGuard } from './flight-guard.guard';
 
 

@@ -18,7 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SendFeedbackComponent } from './home/send-feedback/send-feedback.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PDFExportModule } from './../../node_modules/@progress/kendo-angular-pdf-export';
-import { NgxCaptchaModule } from 'ngx-captcha';
+// import { NgxCaptchaModule } from 'ngx-captcha';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +42,7 @@ import { NgxCaptchaModule } from 'ngx-captcha';
     NgxPaginationModule,
     PDFExportModule,
     FormsModule,
-    NgxCaptchaModule
+    // NgxCaptchaModule
   ],
   providers: [
     {

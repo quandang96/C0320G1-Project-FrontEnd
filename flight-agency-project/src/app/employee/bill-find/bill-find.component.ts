@@ -1,12 +1,12 @@
 import { BillService } from './../../shared/services/bills.service';
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef,MAT_DIALOG_DATA } from '@angular/material';
-import { FormGroup ,FormBuilder,Validators, AbstractControl, ValidationErrors } from '@angular/forms';
-import {BillSearchFields} from '../../shared/models/billSearchField';
-import { ReCaptchaV3Service } from 'ngx-captcha';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { BillSearchFields } from '../../shared/models/billSearchField';
+// import { ReCaptchaV3Service } from 'ngx-captcha';
 import { map, tap } from 'rxjs/operators';
 
-declare let $:any
+declare let $: any
 @Component({
   selector: 'app-bill-find',
   templateUrl: './bill-find.component.html',
@@ -27,16 +27,16 @@ export class BillFindComponent implements OnInit {
   billsListSearch;
   constructor(
     private billService: BillService,
-    private reCaptchaV3Service: ReCaptchaV3Service,
+    // private reCaptchaV3Service: ReCaptchaV3Service,
     public formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<BillFindComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    ) {}
+  ) { }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
-  
+
 
 
   ngOnInit() {
@@ -44,8 +44,8 @@ export class BillFindComponent implements OnInit {
     this.formSearchBills = this.formBuilder.group({
       confirmCaptchaCode: ['', [Validators.required]],
       billCode: [''],
-      billTax:[''],
-      name:['']
+      billTax: [''],
+      name: ['']
     })
   }
 
@@ -80,10 +80,10 @@ export class BillFindComponent implements OnInit {
     // const cap: UserDto = formGroup.value;
     const confirm = null;
     if (confirm !== this.captchaCode) {
-      return {checkCaptchaCode: true};
+      return { checkCaptchaCode: true };
     }
     return null;
-  
+
   }
   get confirmCaptchaCode() {
     return this.formSearchBills.get('confirmCaptchaCode');
@@ -91,7 +91,7 @@ export class BillFindComponent implements OnInit {
 
 
 
-  searchBills(){
+  searchBills() {
     this.searchFields = this.formSearchBills.value as BillSearchFields;
     console.log(this.searchFields);
     this.getPage(1);
@@ -103,7 +103,7 @@ export class BillFindComponent implements OnInit {
         console.log("123")
         console.log(res);
         console.log("456")
-        if( res != null) {
+        if (res != null) {
           this.totalElements = res.totalElements;
           this.pageSize = res.size;
           this.currentPage = pageNumber;
@@ -112,7 +112,7 @@ export class BillFindComponent implements OnInit {
           const firstIndex = this.pageSize * (this.currentPage - 1) + 1;
           const lastIndeex = this.pageSize * this.currentPage;
           for (let i = firstIndex; i <= lastIndeex; i++) {
-          this.stt.push(i);
+            this.stt.push(i);
           }
           this.isEmpty = false;
           if (res.content.length == 0) {
@@ -123,19 +123,19 @@ export class BillFindComponent implements OnInit {
       }),
 
       map(res => {
-        if(res == null){
+        if (res == null) {
           console.log("emty")
           this.message = "Không có kết quả"
-          $(document).ready(function(){
+          $(document).ready(function () {
             $("#message").prop('hidden', false),
-            $("#result").prop('hidden', true)
-            $("#pagination").prop('hidden',true)
+              $("#result").prop('hidden', true)
+            $("#pagination").prop('hidden', true)
           })
         } else {
-          $(document).ready(function(){
+          $(document).ready(function () {
             $("#result").prop('hidden', false)
             $("#message").prop('hidden', true)
-            $("#pagination").prop('hidden',false)
+            $("#pagination").prop('hidden', false)
           })
           return res.content
         }

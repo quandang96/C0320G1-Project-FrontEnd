@@ -11,10 +11,4 @@ export interface Account {
     avatarImageUrl: string;
     role: string;
     status: string;
-    // export interface Account {
-    //     displayName: string;
-    //     id: string;
-    //     imageURL?: string;
-    //     name?: string;
-    //     rpDisplayName: string;
 }

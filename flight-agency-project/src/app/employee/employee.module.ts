@@ -1,3 +1,5 @@
+import { BillInvoiceComponent } from './bill-invoice/bill-invoice.component';
+import { BillListComponent } from './../employee/bill-list/bill-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './../material.module';
 import { NgModule } from '@angular/core';
@@ -14,6 +16,7 @@ import { InvoiceTicketComponent } from './invoice-ticket/invoice-ticket.componen
 import { registerLocaleData } from '@angular/common';
 import localVi from '@angular/common/locales/vi'
 import { NgxPaginationModule } from 'ngx-pagination';
+import { BillFindComponent } from './bill-find/bill-find.component';
 
 
 registerLocaleData(localVi);
@@ -23,7 +26,10 @@ registerLocaleData(localVi);
     BookTicketStep1Component,
     BookTicketStep2Component,
     FindFlightComponent,
-    InvoiceTicketComponent
+    InvoiceTicketComponent,
+    BillFindComponent,
+    BillListComponent,
+    BillInvoiceComponent
   ],
   imports: [
     CommonModule,
@@ -37,9 +43,10 @@ registerLocaleData(localVi);
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxCaptchaModule,
+    // NgxCaptchaModule,
     NgxPaginationModule
-  ]
+  ],
+  entryComponents: [BillFindComponent]
 
 })
 export class EmployeeModule { }

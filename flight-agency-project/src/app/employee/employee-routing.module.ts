@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { RoleGuard } from '../guards/role.guard';
 import { BillInvoiceComponent } from './bill-invoice/bill-invoice.component';
-import { BillListComponent } from '../customer/bill-list/bill-list.component';
+import { BillListComponent } from '../employee/bill-list/bill-list.component';
 import { BillFindComponent } from './bill-find/bill-find.component';
 
 
@@ -29,8 +29,18 @@ const routes: Routes = [
     }
   },
 
-  { path: "bill-list", component: BillListComponent },
-  { path: "bill-invoice", component: BillInvoiceComponent },
+  {
+    path: "bill-list", component: BillListComponent, canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'ROLE_EMPLOYEE'
+    }
+  },
+  {
+    path: "bill-invoice", component: BillInvoiceComponent, canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'ROLE_EMPLOYEE'
+    }
+  },
 
 
 
@@ -40,7 +50,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  declarations: [],
-  entryComponents: [BillFindComponent]
+  declarations: []
 })
 export class EmployeeRoutingModule { }
