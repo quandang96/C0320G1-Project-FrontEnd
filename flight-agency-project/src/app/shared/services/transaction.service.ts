@@ -8,6 +8,7 @@ import { FlightSearchDTO } from '../models/dto/flight-search-dto';
 import { PriceInfo } from './../models/dto/price-info';
 import { PassengerInfoDTO } from '../models/passenger';
 import { BookingDTO } from '../models/transaction';
+import { TokenStorageService } from './token-storage.service';
 
 
 @Injectable({
@@ -44,7 +45,8 @@ export class TransactionService {
   returnPassenger: Array<PassengerInfoDTO>;
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private tokenUser: TokenStorageService
   ) { }
 
   private transactionsUrl = "http://localhost:8080/api/v1/customer/transactions";
@@ -53,9 +55,6 @@ export class TransactionService {
   getAllTransactionsByAccountId(accountId: number, page: number): Observable<Page<Transaction>> {
     return this.http.get<Page<Transaction>>(this.transactionsUrl + '/' + accountId, this.getOptions(page));
   }
-
-
-
 
   // Creator: Duy
   createTransaction(): Observable<any> {
@@ -79,7 +78,7 @@ export class TransactionService {
   private createBooking(): BookingDTO {
     const booking = {} as BookingDTO;
     booking.retFlightId = 0;
-    booking.accountId = 1;
+    booking.accountId = this.tokenUser.getJwtResponse().accountId;
     booking.depFlightId = this.departureFlight.id;
     booking.depBranch = this.departureFlight.branch.name;
     booking.depTotalPrice = this.calcTotalPrice(this.depPriceInfo, this.departurePassenger);

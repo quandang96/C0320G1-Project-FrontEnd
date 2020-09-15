@@ -86,7 +86,9 @@ export class HomeComponent implements OnInit {
   sendData() {
     this.flightScheduleService.flightSearchForm = this.searchForm.value as FlightSearchForm;
     this.flightScheduleService.flightSearchForm.isRoundTrip = this.oneWay ? '' : '1';
+    console.log(`vo day`);
     this.router.navigateByUrl('flight/schedule');
+    console.log(`vo day1`);
   }
 
   // D-Bach
