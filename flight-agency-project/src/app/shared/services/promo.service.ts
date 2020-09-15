@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {Promo} from '../models/promo';
 
 @Injectable({
   providedIn: 'root'
@@ -35,12 +34,20 @@ export class PromoService {
     return this.http.get(this.urlAPI + `/airport`, this.httpOptions);
   }
 
-  getPromo(status: string): Observable<any> {
-    return this.http.get(this.urlAPI + `?page=1&status=${status}`, this.httpOptions);
+  getPromo(status: string, page: number): Observable<any> {
+    return this.http.get(this.urlAPI + `?page=${page}&status=${status}`, this.httpOptions);
   }
 
-  createPromo(promo: Promo): Observable<any> {
-    return this.http.post(this.urlAPI + `/create`, JSON.stringify(promo), this.options);
+  createPromo(promo: any): any {
+    return this.http.post<any>(this.urlAPI + `/create`, promo, this.options);
+  }
+
+  searchPromo(infoSearch, page: number): Observable<any> {
+    return this.http.post<any>(this.urlAPI + `/search?page=${page}`, JSON.stringify(infoSearch) , this.options);
+  }
+
+  convertDate(date: string): string {
+    return (date + 'T00:00:00');
   }
 
 }
