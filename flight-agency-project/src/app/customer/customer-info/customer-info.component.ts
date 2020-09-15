@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {CustomerService} from '../../shared/services/customer.service';
-import {CustomerUpdateDto} from '../../shared/models/dto/CustomerUpdateDto';
+import { TokenStorageService } from './../../shared/services/token-storage.service';
+import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CustomerService } from '../../shared/services/customer.service';
+import { CustomerUpdateDto } from '../../shared/models/dto/CustomerUpdateDto';
 // Created By Thiện - validate khoảng trắng
 function validateWhitespace(c: AbstractControl) {
   if (c.value !== '') {
@@ -16,7 +17,7 @@ function validateWhitespace(c: AbstractControl) {
 function validateSpecialCharacters(c: AbstractControl) {
   const pattern = /[$&+,:;=?@#|'<>.^*()%!-]+/;
   return (c.value.match(pattern)) ? {
-    containSpecialCharacters : true
+    containSpecialCharacters: true
   } : null;
 }
 
@@ -49,17 +50,17 @@ export class CustomerInfoComponent implements OnInit {
   private avatarUrl = 'https://www.w3schools.com/howto/img_avatar.png';
 
   constructor(private fb: FormBuilder,
-              private customerService: CustomerService) {
+    private customerService: CustomerService, private tokenStorage: TokenStorageService) {
   }
 
   ngOnInit() {
     // Created By Thiện - form thông ton khách hàng
     this.infoForm = this.fb.group({
       fullName: ['', [Validators.required, validateWhitespace, validateSpecialCharacters,
-        Validators.maxLength(30), Validators.minLength(10)]],
+      Validators.maxLength(30), Validators.minLength(10)]],
       email: [''],
       birthday: ['', [Validators.required, Validators.pattern(/^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/),
-        this.customerService.validateBirthday]],
+      this.customerService.validateBirthday]],
       phoneNumber: ['', [Validators.required]],
       gender: ['', [Validators.required]],
       address: ['', [Validators.required, Validators.maxLength(60)]],
@@ -68,7 +69,7 @@ export class CustomerInfoComponent implements OnInit {
     });
 
     // Created By Thiện - Hiển thị thông tin khách hàng
-    this.customer.id = 2;
+    this.customer.id = this.tokenStorage.getJwtResponse().accountId;
     this.customerService.getCustomerById(this.customer.id).subscribe(data => {
       this.avatarUrl = data.avatarImageUrl;
       this.infoForm.patchValue(data);
@@ -82,8 +83,8 @@ export class CustomerInfoComponent implements OnInit {
     this.errorMessage = '';
     this.message = '';
     this.customer = this.infoForm.value;
-    this.customer.id = 2;
-    this.customerService.updateCustomer(this.customer, 2).subscribe(data => {
+    this.customer.id = this.tokenStorage.getJwtResponse().accountId;
+    this.customerService.updateCustomer(this.customer, this.customer.id).subscribe(data => {
       this.backendMessages = data.backendMessage;
     }, error => {
       this.errorMessage = 'Cập nhật tài khoản thất bại';

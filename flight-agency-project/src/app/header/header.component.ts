@@ -72,4 +72,15 @@ export class HeaderComponent implements OnInit {
     this.isLogged = false;
     this.router.navigate(['/'])
   }
+
+  toProfile() {
+    let role = this.tokenStorage.getJwtResponse().authorities[0].authority;
+    if (role == "ROLE_USER") {
+      this.router.navigateByUrl("/customer/info")
+    } else if (role == "ROLE_EMPLOYEE") {
+      this.router.navigateByUrl("/")
+    }
+
+
+  }
 }

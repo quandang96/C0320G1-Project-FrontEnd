@@ -69,14 +69,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 pr-0">
-                        <input class="form-control" type="number" formControlName="adult">
-                        <div *ngIf="findFlightForm.get('adult').invalid && findFlightForm.get('adult').touched"
-                            class="text-danger font-alert">
-                            <span *ngIf="findFlightForm.get('adult').hasError('min')">Số lượng phải lớn hơn 1</span>
-                        </div>
-                        <div class="text text-primary font-alert">
-                            <span class="text-primary">*</span>Trên 12 tuổi
+                    <div class="col-md-6 row mr-1">
+                        <label class="col-md-4 col-form-label"><i class="fas fa-blind"></i> Ngày về</label>
+                        <div class="col-md-8">
+                            <input class="form-control" type="date" [attr.disabled]="flightType?true:null"
+                                formControlName="arrivalDate">
+                            <div *ngIf="findFlightForm.get('flightDates').hasError('chooseArvDateSmallerThanDeptDate') && findFlightForm.get('flightDates').touched"
+                                class="text-danger font-alert">
+                                <span>Ngày về không được bé hơn ngày đi</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -86,8 +87,15 @@
                             <label class="col-form-label" for="arrivalPlace"><i class="fas fa-male"></i> Người
                                 lớn</label>
                         </div>
-                        <div class="text text-primary font-alert">
-                            <span class="text-primary ">*</span>Từ 2 - 12 tuổi
+                        <div class="col-md-6 pr-0">
+                            <input class="form-control" type="number" formControlName="adult">
+                            <div *ngIf="findFlightForm.get('adult').invalid && findFlightForm.get('adult').touched"
+                                class="text-danger font-alert">
+                                <span *ngIf="findFlightForm.get('adult').hasError('min')">Số lượng phải lớn hơn 1</span>
+                            </div>
+                            <div class="text text-primary font-alert">
+                                <span class="text-primary">*</span>Trên 12 tuổi
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4 row mr-1">
@@ -100,8 +108,8 @@
                                 class="text-danger font-alert">
                                 <span *ngIf="findFlightForm.get('child').hasError('min')">Số lượng phải lớn hơn 0</span>
                             </div>
-                            <div class="text text-danger font-alert">
-                                <span class="text-danger ">*</span>Từ 2 - 12 tuổi
+                            <div class="text text-primary font-alert">
+                                <span class="text-primary ">*</span>Từ 2 - 12 tuổi
                             </div>
                         </div>
 
@@ -110,8 +118,15 @@
                         <div class="col-md-6 pl-4">
                             <label class="col-form-label" for="arrivalPlace"><i class="fas fa-baby"></i> Em bé</label>
                         </div>
-                        <div class="text text-primary font-alert">
-                            <span class="text-primary">*</span>Dưới 2 tuổi
+                        <div class="col-md-6 pr-0">
+                            <input class="form-control" type="number" formControlName="baby">
+                            <div *ngIf="findFlightForm.get('baby').invalid && findFlightForm.get('baby').touched"
+                                class="text-danger font-alert">
+                                <span *ngIf="findFlightForm.get('baby').hasError('min')">Số lượng phải lớn hơn 0</span>
+                            </div>
+                            <div class="text text-primary font-alert">
+                                <span class="text-primary">*</span>Dưới 2 tuổi
+                            </div>
                         </div>
 
                     </div>
