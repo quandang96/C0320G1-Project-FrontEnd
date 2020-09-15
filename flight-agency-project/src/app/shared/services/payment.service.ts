@@ -39,5 +39,5 @@ export class PaymentService {
   public getReservationDetails(reservationId: number): Observable<any> {
     return this.http.get<any>(`${this.PAYMENT_API}/transaction/${reservationId}/details`);
   }
-  
+
 }
