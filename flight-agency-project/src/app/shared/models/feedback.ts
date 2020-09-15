@@ -1,5 +1,3 @@
-import DateTimeFormat = Intl.DateTimeFormat;
-
 export interface Feedback {
     id: number;
     topic: string;

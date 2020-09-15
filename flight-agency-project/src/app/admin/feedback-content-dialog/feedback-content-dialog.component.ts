@@ -40,10 +40,10 @@ export class FeedbackContentDialogComponent implements OnInit {
     this.processStatus = this.data.data1.processStatus;
     this.topic = this.data.data1.topic;
     this.data.data1.responseContent = this.sendMailForm.value.responseContent;
-    console.log(this.responseContent);
   }
 
-  check() {
+  sendMailStatus() {
     this.data.data1.responseContent = this.responseContent;
+    this.data.data1.processStatus = true;
   }
 }

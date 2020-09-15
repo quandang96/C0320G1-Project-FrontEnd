@@ -1,0 +1,17 @@
+
+.sidenav a {
+  padding: 18px;
+  text-decoration: none;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: black;
+  display: block;
+  background-color: #adadad;
+}
+
+.sidenav a:hover {
+  color: #4469B0;
+  text-decoration: none;
+  font-weight: 900;
+}

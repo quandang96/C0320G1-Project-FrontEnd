@@ -22,7 +22,6 @@ export class FeedbackListComponent implements OnInit {
   feedback: Feedback = null;
   feedbackPage: Observable<Feedback[]>;
   feedbackList: Feedback[];
-  lastPage: number;
   currentPage: number;
   pageSize = 4;
   totalElements: number;
@@ -53,6 +52,7 @@ export class FeedbackListComponent implements OnInit {
     this.searchFields = this.formSearchList.value as FeedbackSearch;
     console.log(this.searchFields.createDate);
     this.getFeedbackPage(1);
+    console.log(this.totalElements);
   }
 
   getFeedbackPage(pageNumber) {
@@ -102,11 +102,13 @@ export class FeedbackListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      if (this.feedback.processStatus == true) {
+        this.sendMail();
+        this.feedbackService.editFeedback(this.feedback, this.feedback.id).subscribe(next => {
+          this.ngOnInit();
+        });
+      }
       console.log('The dialog was closed');
-      console.log(this.feedback);
-      this.sendMail();
-      this.feedbackService.editFeedback(this.feedback, this.feedback.id).subscribe();
-      this.ngOnInit();
     });
   }
 
@@ -129,7 +131,7 @@ export class FeedbackListComponent implements OnInit {
     if (status === false) {
       return 'text-danger';
     } else if (status === true) {
-      return 'text-muted';
+      return 'text-dark';
     }
   }
 }

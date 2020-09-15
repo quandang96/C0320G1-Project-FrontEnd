@@ -7,10 +7,16 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { FeedbackContentDialogComponent } from './feedback-content-dialog/feedback-content-dialog.component';
 import { MaterialModule } from '../material.module';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {AdminDashboardComponent} from "./admin-dashboard/admin-dashboard.component";
 
 
 @NgModule({
-  declarations: [FeedbackListComponent, FeedbackContentDialogComponent],
+  declarations:
+    [
+      FeedbackListComponent,
+      FeedbackContentDialogComponent,
+      AdminDashboardComponent
+    ],
   imports: [
     CommonModule,
     AdminRoutingModule,
