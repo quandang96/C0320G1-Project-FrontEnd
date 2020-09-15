@@ -20,6 +20,8 @@ export class EmployeeCustomerCheckinComponent implements OnInit {
   pageSize: number;
   totalElements: number;
   isEmpty = false;
+  hideableDiv = false;
+  private message: string;
 
   private searchFields: CustomerSearchDto = {} as CustomerSearchDto;
 
@@ -40,6 +42,12 @@ export class EmployeeCustomerCheckinComponent implements OnInit {
     this.customerCheckin = this.employeeService.getAllPassengerCheckin(this.searchFields, pageNumber).pipe(
       tap(res => {
         console.log(res);
+        if (res === null) {
+          this.message = 'Không tìm thấy chuyến bay khớp với tìm kiếm !';
+          this.hideableDiv = false;
+        } else {
+          this.message = '';
+        }
         this.totalElements = res.totalElements;
         this.pageSize = res.size;
         this.currentPage = pageNumber;

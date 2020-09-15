@@ -43,12 +43,12 @@
             <input type="text" class="form-control" style="width: 300px" id="id" formControlName="id">
             <p
               *ngIf="formSearchCustomer.controls.id.errors?.required && formSearchCustomer.controls.id.touched"
-              class="text-danger font-weight-bold">
-              Mã đặt chỗ không được để trống !</p>
+              class="text-danger font-weight-bold"><b><i>
+              Mã đặt chỗ không được để trống !</i></b></p>
             <p
               *ngIf="formSearchCustomer.controls.id.errors?.pattern && formSearchCustomer.controls.id.touched"
-              class="text-danger font-weight-bold">
-              Mã đặt chỗ không được chứa kí tự đặc biệt !</p>
+              class="text-danger font-weight-bold"><b><i>
+              Mã đặt chỗ không được chứa kí tự đặc biệt !</i></b></p>
           </div>
         </div>
         <div class="row mt-1">
@@ -65,24 +65,24 @@
             <div *ngIf="confirmCaptchaCode.touched">
               <ng-container *ngFor="let error of errors.captchaErrors">
                 <p *ngIf="confirmCaptchaCode.hasError(error.code)" class="text-danger font-weight-bold"
-                   role="alert">{{error.message}}</p>
+                   role="alert"><b><i>{{error.message}}</i></b></p>
               </ng-container>
             </div>
             <div class="text-danger font-weight-bold" role="alert"
-                 *ngIf="formSearchCustomer.hasError('checkCaptchaCode') && confirmCaptchaCode.touched"><p>Mã xác minh
-              không đúng !</p>
+                 *ngIf="formSearchCustomer.hasError('checkCaptchaCode') && confirmCaptchaCode.touched"><p><b><i>Mã xác minh
+              không đúng !</i></b></p>
             </div>
           </div>
         </div>
         <div class="row mt-3 justify-content-center mb-4">
           <div>
-            <button class="btn btn-primary mr-5" style="width: 300px">Trang chủ</button>
+            <button type ="button" (click)="home()" class="btn btn-primary mr-5" style="width: 300px">Trang chủ</button>
             <button [disabled]="formSearchCustomer.invalid" class="btn btn-primary"
                     style="width: 300px" type="submit">Xem chuyến bay
             </button>
           </div>
-
         </div>
+        <h6 class="text-danger"><b><i>{{message}}</i></b></h6>
 
       </form>
     </div>
@@ -109,7 +109,7 @@
 
       <div class="row mt-3 justify-content-center mb-4">
         <div>
-          <button class="btn btn-primary mr-5" style="width: 300px">Hủy</button>
+          <button type="button" class="btn btn-primary mr-5" style="width: 300px" (click)="back()">Hủy</button>
           <button  class="btn btn-primary" style="width: 300px" (click)="checkin()" type="button">Hoàn tất thủ tục</button>
         </div>
 

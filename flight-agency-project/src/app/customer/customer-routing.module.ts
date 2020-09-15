@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {CustomerCheckinComponent} from './customer-checkin/customer-checkin.component';
 import {CustomerPaymentComponent} from './customer-payment/customer-payment.component';
 import {CustomerHomeComponent} from './customer-home/customer-home.component';
 import {CustomerInfoComponent} from './customer-info/customer-info.component';
@@ -11,7 +10,6 @@ import {CustomerPasswordComponent} from './customer-password/customer-password.c
 const routes: Routes = [
   {
     path: '', component: CustomerHomeComponent, children: [
-      {path: 'checkin', component: CustomerCheckinComponent},
       {path: 'payment', component: CustomerPaymentComponent},
       {path: 'info', component: CustomerInfoComponent },
       {path: 'change-password', component: CustomerPasswordComponent }

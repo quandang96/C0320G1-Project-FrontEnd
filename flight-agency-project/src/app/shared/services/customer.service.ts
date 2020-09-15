@@ -7,7 +7,7 @@ import {TransactionDetailDTO} from '../models/dto/TransactionDetailDTO';
   providedIn: 'root'
 })
 export class CustomerService {
-  private readonly baseUrl = 'http://localhost:8080/api/v1/customer';
+  private readonly baseUrl = 'http://localhost:8080/api/v1/checkin';
 
   constructor(private http: HttpClient) { }
 
@@ -38,12 +38,12 @@ export class CustomerService {
 
   // Thành Long
   searchTransactionDetail(id: number): Observable<TransactionDetailDTO[]> {
-    return this.http.get<TransactionDetailDTO[]>(`${this.baseUrl}/checkin`, this.getTransactionDetailHttpOptions(id));
+    return this.http.get<TransactionDetailDTO[]>(`${this.baseUrl}`, this.getTransactionDetailHttpOptions(id));
   }
 
   // Thành Long
   checkinPassenger(idPassenger: number[]): any {
     const data = { ids: idPassenger };
-    return this.http.put<any>(`${this.baseUrl}/checkin/checkin-list`, data, this.options);
+    return this.http.put<any>(`${this.baseUrl}/checkin-list`, data, this.options);
   }
 }

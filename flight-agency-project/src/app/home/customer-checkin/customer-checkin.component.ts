@@ -6,7 +6,8 @@ import {Observable, Subscription} from 'rxjs';
 import {TransactionDetailDTO} from '../../shared/models/dto/TransactionDetailDTO';
 import {TransactionDetailSearchDto} from '../../shared/models/dto/TransactionDetailSearchDto';
 import {CustomerService} from '../../shared/services/customer.service';
-import {map, tap} from 'rxjs/operators';
+import {map} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 
 // Thành Long
@@ -24,13 +25,15 @@ export class CustomerCheckinComponent implements OnInit {
   hideableDiv = false;
   errors = NOTIFICATION_USER;
   private interval: any;
+  private message: string;
   private subscription: Subscription = new Subscription();
 
   private searchFields: TransactionDetailSearchDto = {} as TransactionDetailSearchDto;
 
   constructor(
     public formBuilder: FormBuilder,
-    private customerService: CustomerService
+    private customerService: CustomerService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -93,6 +96,13 @@ export class CustomerCheckinComponent implements OnInit {
   getTransactionDetail() {
     this.transactionDetails = this.customerService.searchTransactionDetail(this.formSearchCustomer.get('id').value).pipe(
       map((data: TransactionDetailDTO[]) => {
+        if (data === null) {
+          this.message = 'Không tìm thấy chuyến bay khớp với tìm kiếm !';
+          this.hideableDiv = false;
+        }
+        if (this.hideableDiv === true) {
+          this.message = '';
+        }
         data.forEach(val => {
           this.idPassengers.push(val.passenger.id);
         });
@@ -129,6 +139,14 @@ export class CustomerCheckinComponent implements OnInit {
     for (let i = 1; i < 1000; i++) {
       this.stt.push(i);
     }
+  }
+
+  home() {
+    this.router.navigate(['']);
+  }
+
+  back() {
+    window.location.reload();
   }
 
 }

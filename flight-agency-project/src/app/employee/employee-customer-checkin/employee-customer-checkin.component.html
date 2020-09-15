@@ -13,22 +13,27 @@
             <label>Tên khách hàng</label>
             <input type="text" class="form-control" placeholder="vd: Nguyen Van A" style="width: 300px"
                    id="fullName" formControlName="fullName">
-            <p *ngIf="formSearchCustomerCheckin.controls.fullName.errors?.pattern && formSearchCustomerCheckin.controls.fullName.touched"
-               class="text-danger font-weight-bold">
-              Tên khách hàng không được chứa kí tự đặc biệt và số !</p>
+            <p
+              *ngIf="formSearchCustomerCheckin.controls.fullName.errors?.pattern && formSearchCustomerCheckin.controls.fullName.touched"
+              class="text-danger font-weight-bold"><b><i>
+              Tên khách hàng không được chứa kí tự đặc biệt và số !</i></b></p>
+
           </div>
           <div class="col-md">
             <label>Địa chỉ</label>
-            <input id="address" type="text" class="form-control" placeholder="vd: Đà Nẵng" style="width: 300px" formControlName="address">
-            <p *ngIf="formSearchCustomerCheckin.controls.address.errors?.pattern && formSearchCustomerCheckin.controls.address.touched"
-               class="text-danger font-weight-bold">
-              Địa chỉ không được chứa kí tự đặc biệt !</p>
+            <input id="address" type="text" class="form-control" placeholder="vd: Đà Nẵng" style="width: 300px"
+                   formControlName="address">
+            <p
+              *ngIf="formSearchCustomerCheckin.controls.address.errors?.pattern && formSearchCustomerCheckin.controls.address.touched"
+              class="text-danger font-weight-bold"><b><i>
+              Địa chỉ không được chứa kí tự đặc biệt !</i></b></p>
           </div>
           <div class="col-md">
             <label>&nbsp;</label><br>
             <button type="button" (click)="search()" class="btn btn-primary"><i
               class="fas fa-search"></i> Lọc kết quả
             </button>
+            <p class="text-danger"><b><i>{{message}}</i></b></p>
           </div>
         </div>
       </form>
@@ -50,7 +55,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let customer of customerCheckin | async | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalElements}; index as i">
+        <tr
+          *ngFor="let customer of customerCheckin | async | paginate: { itemsPerPage: pageSize, currentPage: currentPage, totalItems: totalElements}; index as i">
           <td>{{stt[i]}}</td>
           <td>{{customer.fullName}}</td>
           <td>{{customer.birthDate | date : 'dd-MM-yyyy'}}</td>

@@ -2,6 +2,7 @@ import { SendFeedbackComponent } from './home/send-feedback/send-feedback.compon
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import {CustomerCheckinComponent} from './home/customer-checkin/customer-checkin.component';
 
 
 const routes: Routes = [
@@ -9,8 +10,11 @@ const routes: Routes = [
   path: '', component: HomeComponent
 },
 {
-  path: 'send-feedback',component : SendFeedbackComponent
+  path: 'send-feedback', component : SendFeedbackComponent
 },
+  {
+    path: 'checkin', component : CustomerCheckinComponent
+  },
 {
   path: 'admin', loadChildren: () => import('./admin/admin.module').then(mod => mod.AdminModule)
 },

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CustomerRoutingModule } from './customer-routing.module';
-import { CustomerCheckinComponent } from './customer-checkin/customer-checkin.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CustomerInfoComponent } from './customer-info/customer-info.component';
 import { CustomerHomeComponent } from './customer-home/customer-home.component';
@@ -11,7 +10,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 
 
 @NgModule({
-  declarations: [CustomerInfoComponent, CustomerHomeComponent , CustomerPaymentComponent, CustomerPasswordComponent, CustomerCheckinComponent],
+  declarations: [CustomerInfoComponent, CustomerHomeComponent , CustomerPaymentComponent, CustomerPasswordComponent],
   imports: [
     CommonModule,
     CustomerRoutingModule,
