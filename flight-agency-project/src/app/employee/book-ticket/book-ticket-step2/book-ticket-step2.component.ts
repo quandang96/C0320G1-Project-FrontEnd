@@ -11,6 +11,7 @@ import { Account } from './../../../shared/models/account';
 import { EmployeeService } from './../../../shared/services/employee.service';
 import { FlightSchedule } from 'src/app/shared/models/flight-schedule';
 import { EmployeeFlightSearchDTO } from '../../../shared/models/dto/employeeFlightSearchDTO';
+import { Transaction } from 'src/app/shared/models/transaction';
 
 @Component({
   selector: 'app-book-ticket-step2',
@@ -33,15 +34,18 @@ export class BookTicketStep2Component implements OnInit {
   transactions = [] as EmployeeTransactionDTO[];
   deptTransaction={} as EmployeeTransactionDTO;
   arvTransaction={} as EmployeeTransactionDTO;
+  saveTransactions = [] as Transaction[];
   //Khai báo formArray
   childPassengers: FormArray;
   adultPassengers: FormArray;
+  check : Boolean = false;
   
   constructor(private data:DataService,
               private employeeService:EmployeeService,
               private router:Router) { }
 
   ngOnInit() {
+
     this.childPassengers = this.ticketForm.get('childPassengers') as FormArray;
     this.adultPassengers = this.ticketForm.get('adultPassengers') as FormArray;
     this.data.currentMessage.subscribe(data=>{
@@ -50,7 +54,6 @@ export class BookTicketStep2Component implements OnInit {
         this.employeeService.findFlightById(this.flightIds[0]).subscribe(data=>{
           this.departureFlight=data;
           if(this.flightIds.length!=1){
-            console.log("vô 1")
             this.employeeService.findFlightById(this.flightIds[1]).subscribe(data=>{
               this.arrivalFlight = data;
             })
@@ -115,7 +118,7 @@ export class BookTicketStep2Component implements OnInit {
 
 
   //Lưu vé
-  saveTicket(){
+  async saveTicket(){
     this.passengers = [];
     this.transactions = [];
     //Lưu khách hàng
@@ -171,7 +174,6 @@ export class BookTicketStep2Component implements OnInit {
 
     //Lưu chiều về
     if(this.flightIds.length!=1){
-      console.log("vô")
       this.arvTransaction = {
         id: null,
         createdTime: createdTime,
@@ -187,17 +189,21 @@ export class BookTicketStep2Component implements OnInit {
       transactions: this.transactions,
       passengers: this.passengers
     }
-    console.log(this.transactionPassengerDTO)
-    this.employeeService.saveTransactionAndPassenger(this.transactionPassengerDTO).subscribe(()=>{
-      this.router.navigateByUrl("/employee/findFlight");
+    this.employeeService.saveTransactionAndPassenger(this.transactionPassengerDTO).subscribe(data=>{
+      this.saveTransactions = data;
+      if (this.check == true) {        
+        for(let tran of this.saveTransactions){
+          console.log(tran)
+          window.open("/employee/transaction/invoice/"+ tran.id,"_blank");
+        }
+      } 
+      window.location.href="/employee";  
     })
   }
 
   //router
-  goToInvoicePage(){
-    this.saveTicket();
-    for(let tran of this.transactions){
-      window.open("/employee/transaction/"+ tran.id,"_blank");
-    }
+  goToInvoicePage(){    
+   this.check=true;
+   this.saveTicket();
   }
 }

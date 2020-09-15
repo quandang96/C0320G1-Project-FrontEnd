@@ -74,8 +74,8 @@
                         <div *ngIf="findFlightForm.get('adult').invalid && findFlightForm.get('adult').touched" class="text-danger font-alert">
                             <span *ngIf= "findFlightForm.get('adult').hasError('min')" >Số lượng phải lớn hơn 1</span>
                         </div>
-                        <div class="text text-danger font-alert">
-                            <span class="text-danger">*</span>Trên 12 tuổi
+                        <div class="text text-primary font-alert">
+                            <span class="text-primary">*</span>Trên 12 tuổi
                         </div>
                     </div>
                 </div>
@@ -88,8 +88,8 @@
                         <div *ngIf="findFlightForm.get('child').invalid && findFlightForm.get('child').touched" class="text-danger font-alert">
                             <span *ngIf= "findFlightForm.get('child').hasError('min')" >Số lượng phải lớn hơn 0</span>
                         </div>
-                        <div class="text text-danger font-alert">
-                            <span class="text-danger ">*</span>Từ 2 - 12 tuổi
+                        <div class="text text-primary font-alert">
+                            <span class="text-primary ">*</span>Từ 2 - 12 tuổi
                         </div>
                     </div>
                     
@@ -103,8 +103,8 @@
                         <div *ngIf="findFlightForm.get('baby').invalid && findFlightForm.get('baby').touched" class="text-danger font-alert">
                             <span *ngIf= "findFlightForm.get('baby').hasError('min')" >Số lượng phải lớn hơn 0</span>
                         </div>
-                        <div class="text text-danger font-alert">
-                            <span class="text-danger">*</span>Dưới 2 tuổi
+                        <div class="text text-primary font-alert">
+                            <span class="text-primary">*</span>Dưới 2 tuổi
                         </div>
                     </div>
                     
@@ -117,4 +117,3 @@
     </div>
 </div>
 </main>  
-{{findFlightForm.value|json}}
