@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 
-    //Created by: Quân
+//Created by: Quân
 export class RoleGuard implements CanActivate {
 
   constructor(
@@ -19,10 +19,12 @@ export class RoleGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): boolean {
+
     const currentAccount = this.tokenStorageService.getJwtResponse();
-    const expectedRole = route.data.roles
-    const roleAuthorities = this.tokenStorageService.getJwtResponse().authorities
+
     if (currentAccount) {
+      const expectedRole = route.data.expectedRole
+      const roleAuthorities = this.tokenStorageService.getJwtResponse().authorities[0].authority
       if (roleAuthorities == expectedRole) {
         return true;
       } else {
@@ -31,7 +33,7 @@ export class RoleGuard implements CanActivate {
       }
     } else {
       // not logged in so redirect to login page with the return url
-      this.router.navigate(['/user/login'], { queryParams: { returnUrl: state.url } });
+      this.router.navigate(['/'], { queryParams: { returnUrl: state.url } });
       return false;
     }
   }

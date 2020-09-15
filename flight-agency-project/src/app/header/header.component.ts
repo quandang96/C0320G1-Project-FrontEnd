@@ -1,3 +1,4 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { JwtResponse } from './../shared/models/dto/jwt-response';
 import { TokenStorageService } from 'src/app/shared/services/token-storage.service';
 import { SocialAuthService } from 'node_modules/angularx-social-login';
@@ -16,7 +17,8 @@ export class HeaderComponent implements OnInit {
 
   userLogged: JwtResponse;
   isLogged: boolean;
-  constructor(public dialog: MatDialog, private authService: SocialAuthService, private tokenStorage: TokenStorageService) { }
+  constructor(public dialog: MatDialog, private authService: SocialAuthService,
+    private tokenStorage: TokenStorageService, private router: Router, private activatedRoute: ActivatedRoute,) { }
 
   //Created by: Quân
   ngOnInit() {
@@ -26,7 +28,12 @@ export class HeaderComponent implements OnInit {
     } else {
       this.isLogged = false;
     }
-
+    this.activatedRoute.queryParamMap.subscribe(value => {
+      const returnUrl = value.get('returnUrl');
+      if (returnUrl) {
+        this.openDialog();
+      }
+    })
   }
 
   //Created by: Quân
@@ -43,7 +50,13 @@ export class HeaderComponent implements OnInit {
       console.log(result);
       this.isLogged = result;
       console.log('The dialog was closed');
-      this.ngOnInit();
+      this.activatedRoute.queryParamMap.subscribe(value => {
+        const returnUrl = value.get('returnUrl');
+        if (!returnUrl) {
+          this.ngOnInit();
+        }
+      })
+
     });
   }
 
@@ -57,5 +70,6 @@ export class HeaderComponent implements OnInit {
     });
     this.tokenStorage.logOut();
     this.isLogged = false;
+    this.router.navigate(['/'])
   }
 }

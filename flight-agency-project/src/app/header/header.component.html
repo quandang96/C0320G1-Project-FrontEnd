@@ -21,11 +21,24 @@
     Flight agency
     <div class="ml-5 mr-2 ">
         <div class="float-right " role="navigation">
-            <a class="_3unRI btn-outline-primary " target="" href="/">Trang chủ</a>
+            <a class="_3unRI btn-outline-primary" target="" href="/">Trang chủ</a>
             <a class="_3unRI btn-outline-primary" target="_blank" href="dat-ve-doan.html">Đặt vé đoàn</a>
             <a class="_3unRI btn-outline-primary " target="" href="/khuyen-mai">Khuyến mại</a>
             <a class="_3unRI btn-outline-primary" target="" href="/huong-dan-dat-ve.html">Hướng dẫn đặt vé</a>
-            <a class="_3unRI btn-outline-primary" target="" href="/gioi-thieu-ve-chung-toi.html">Về chúng tôi</a>
+            <div class="nav-item dropdown d-inline-flex">
+                <a type="button" class="dropdown-toggle _3unRI btn-outline-primary" placement="bottom"
+                    [ngbPopover]="popContent">
+                    Hỗ trợ
+                </a>
+                <ng-template #popContent>
+                    <button type="button" class="list-item text-center " routerLink="/send-feedback">Góp ý</button>
+                    <hr class="line">
+                    <button type="button" data-toggle="modal" data-target="#exampleModal"
+                        class="list-item text-center">Về chúng tôi</button>
+
+                </ng-template>
+            </div>
+            <!-- <a class="_3unRI btn-outline-primary" target="" href="/gioi-thieu-ve-chung-toi.html">Về chúng tôi</a> -->
 
             <div *ngIf="!isLogged" class="nav-item dropdown d-inline-flex">
                 <a type="button" class="dropdown-toggle _3unRI btn-outline-primary" placement="bottom"
@@ -47,6 +60,7 @@
 
                 </a>
                 <ng-template #popContent>
+                    <button type="button" class="list-item text-center ">Xem hồ sơ</button>
 
                     <button type="button" routerLink="/employee/employeeInfo" class="list-item text-center ">Xem hồ sơ</button>
                     <hr class="line">
@@ -58,7 +72,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="exampleModal" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="false"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -78,3 +92,4 @@
             </div>
         </div>
     </div>
+</div>

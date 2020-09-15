@@ -1,5 +1,5 @@
 .rounded-circle{
-  margin-top: -10px;
+  margin-top: -5px;
   width: 25px;
   height: 25px;
   margin-right: 3px;
@@ -60,7 +60,7 @@
     color: white;
     border-bottom: 4px solid #FFBF00;
     padding-top: 10px;
-    padding-bottom: 5px;
+    padding-bottom: 6px;
     z-index: 1000;
 
 }
@@ -84,15 +84,14 @@
    border: 0px solid white;
    background: #4469B0;
    border-radius: 20px;
-}
-.btn-outline-primary:hover{
-    background-color:white !important;
-    color:#4469B0 ;
-}
-.btn-outline-primary:active{
-    background: #4469B0 !important;
-}
 
+}
+.btn-outline-primary:hover,
+.btn-outline-primary:active{
+    background-color:white !important;
+    color:#4469B0 !important;
+    border: 0px solid white;
+}
 
 .line{
   margin: 5px 0px;
@@ -165,3 +164,4 @@ hr {
     background-color:#22478b; 
 
   }
+

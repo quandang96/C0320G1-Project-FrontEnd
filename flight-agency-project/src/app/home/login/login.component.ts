@@ -120,8 +120,18 @@ export class LoginComponent implements OnInit {
           res => {
             this.tokenStorage.saveJwtResponse(res, this.isRemember);
             this.isLogged = true;
-            this.dialogRef.close(this.isLogged);
+            this.activatedRoute.queryParamMap.subscribe(value => {
+              const returnUrl = value.get('returnUrl');
+              if (returnUrl) {
+                this.router.navigateByUrl(returnUrl);
+              } else {
+                this.isLogged = true;
+                this.dialogRef.close(this.isLogged)
+              }
+            });
+
           },
+
           err => {
             console.log(err);
             this.logOut();
@@ -144,7 +154,15 @@ export class LoginComponent implements OnInit {
           res => {
             this.tokenStorage.saveJwtResponse(res, this.isRemember);
             this.isLogged = true;
-            this.dialogRef.close(this.isLogged);
+            this.activatedRoute.queryParamMap.subscribe(value => {
+              const returnUrl = value.get('returnUrl');
+              if (returnUrl) {
+                this.router.navigateByUrl(returnUrl);
+              } else {
+                this.isLogged = true;
+                this.dialogRef.close(this.isLogged)
+              }
+            });
           },
           err => {
             console.log(err);

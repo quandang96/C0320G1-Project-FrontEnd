@@ -9,13 +9,16 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './home/login/login.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 import { httpInterceptorProviders } from './authentication/auth-interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { SendFeedbackComponent } from './home/send-feedback/send-feedback.component';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { PDFExportModule } from './../../node_modules/@progress/kendo-angular-pdf-export';
+
 
 
 @NgModule({
@@ -37,12 +40,16 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     SocialLoginModule,
     BrowserAnimationsModule,
     MaterialModule,
+    NgbModule,
     HttpClientModule,
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    NgbModule
+    NgbModule,
+    NgxPaginationModule,
+    PDFExportModule,
+    FormsModule,
   ],
   providers: [
     {
