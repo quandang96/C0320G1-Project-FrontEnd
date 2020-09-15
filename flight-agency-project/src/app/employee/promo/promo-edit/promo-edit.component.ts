@@ -1,26 +1,31 @@
+import { Promo } from './../../../shared/models/promo';
 import { PromoService } from './../../../shared/services/promo.service';
 import { PromoUpdateDto } from './../../../shared/models/dto/PromoUpdateDto';
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { AbstractControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { from, Observable } from 'rxjs';
+import { Branch } from 'src/app/shared/models/branch';
+import { Airport } from 'src/app/shared/models/airport';
+import { map } from 'rxjs/operators'
 
 
 
 function validateWhitespace(c: AbstractControl) {
   if (c.value != '') {
-    const isWhitespace = c.value.trim().length === 0;
+    const isWhitespace = c.value.length === 0;
     if (isWhitespace) {
       const isValid = !isWhitespace;
       return isValid ? null : { 'whitespace': true };
     }
   }
 }
-function validateSpecialCharacters(c: AbstractControl) {
-  const pattern = /[$&+,:;=?@#|'<>.^*()%!-]+/;
-  return (c.value.match(pattern)) ? {
-    containSpecialCharacters: true
-  } : null
-}
+// function validateSpecialCharacters(c: AbstractControl) {
+//   const pattern = /[$&+,:;=?@#|'<>.^*()%!-]+/;
+//   return (c.value.match(pattern)) ? {
+//     containSpecialCharacters: true
+//   } : null
+// }
 
 @Component({
   selector: 'app-promo-edit',
@@ -29,24 +34,17 @@ function validateSpecialCharacters(c: AbstractControl) {
 })
 export class PromoEditComponent implements OnInit, AfterViewInit {
 
-  public promoId;
+  public airlineList: Branch[];
+  public airportList: Airport[];
+  // public promoId;
   message = "";
   errorMessage = "";
   @ViewChild('focusCheck', { static: true }) private elementRef: ElementRef;
   promoForm: FormGroup;
   hideableDiv = false;
-  promo: PromoUpdateDto = {
-    id: null,
-    promoName: null,
-    discount: null,
-    airline: null,
-    departurePlace: null,
-    arrivalPlace: null,
-    flightDepartureDateStart: null,
-    flightDepartureDateEnd: null,
-    promoDateStart: null,
-    promoDateEnd: null
-  };
+  promo: Promo[];
+  id: number;
+
   constructor(private fb: FormBuilder,
     private promoService: PromoService,
     private router: Router,
@@ -59,35 +57,49 @@ export class PromoEditComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.promoForm = this.fb.group({
-      promoName: ['', [Validators.required, validateSpecialCharacters, validateWhitespace, Validators.maxLength(255)]],
+      namePromo: ['', [Validators.required, validateWhitespace, Validators.maxLength(255)]],
       discount: ['', [Validators.required, Validators.max(1), Validators.min(0)]],
-      airline: ['', [Validators.required, validateWhitespace]],
-      departurePlace: ['', [Validators.required, validateWhitespace, validateSpecialCharacters]],
-      arrivalPlace: ['', [Validators.required, validateWhitespace, validateSpecialCharacters]],
-      flightDepartureDateStart: ['', [Validators.required,Validators.pattern(/^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/)]],
-      flightDepartureDateEnd: ['', [Validators.required,Validators.pattern(/^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/)]],
-      promoDateStart: ['', [Validators.required,Validators.pattern(/^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/)]],
-      promoDateEnd: ['', [Validators.required,Validators.pattern(/^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/)]]
+      airline: new FormControl('', [Validators.required, validateWhitespace]),
+      departurePlace: new FormControl('', [Validators.required, validateWhitespace]),
+      arrivalPlace: new FormControl('', [Validators.required, validateWhitespace]),
+      flightDepartureDateStart: ['', [Validators.required, Validators.pattern(/^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/)]],
+      flightDepartureDateEnd: ['', [Validators.required, Validators.pattern(/^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/)]],
+      promoDateStart: ['', [Validators.required, Validators.pattern(/^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/)]],
+      promoDateEnd: ['', [Validators.required, Validators.pattern(/^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/)]]
     });
 
     this.activeRoute.params.subscribe(data => {
-      this.promoId = data.id;
-      this.promoService.getPromoById(this.promoId).subscribe(data => {
+      this.id = data.id;
+      this.promoService.getPromoById(this.id).subscribe(data => {
         this.promoForm.patchValue(data);
       })
-    })
+    });
+
+
+    this.promoService.getAirlines()
+      // .pipe(map(value => JSON.parse(value)))
+      .subscribe(data => {
+        this.airlineList = data;
+      });
+
+
+    this.promoService.getAirports()
+      // .pipe(map(value => JSON.parse(value)))
+      .subscribe(data => {
+        this.airportList = data;
+      });
+    console.log(this.promoForm);
   }
   updatePromo() {
-    this.promoService.updatePromo(this.promoForm.value, this.promoId).subscribe(data => { },
-      error => { this.errorMessage = "Cập nhật thất bại" }, () => {
-        if (this.errorMessage.length <= 5) {
+    this.promoService.updatePromo(this.id, this.promoForm.value).subscribe(data => { }
+      , error => { this.errorMessage = "Cập nhật thất bại" }, () => {
+        if (this.errorMessage.length == 0) {
           this.message = "Cập nhật thành công";
         }
-        this.ngOnInit();
       })
-
   }
-  backToPromoList(){
+
+  backToPromoList() {
     this.router.navigateByUrl("/employee/promo-list");
   }
 }

@@ -1,3 +1,4 @@
+import DateTimeFormat = Intl.DateTimeFormat;
 export interface PromoUpdateDto {
     'id': number;
     'promoName': string;
@@ -5,9 +6,9 @@ export interface PromoUpdateDto {
     'airline': string;
     'departurePlace': string;
     'arrivalPlace': string;
-    'flightDepartureDateStart': string;
-    'flightDepartureDateEnd': string ;
-    'promoDateStart': string ;
-    'promoDateEnd': string ;
+    'flightDepartureDateStart': DateTimeFormat;
+    'flightDepartureDateEnd': DateTimeFormat ;
+    'promoDateStart': DateTimeFormat ;
+    'promoDateEnd': DateTimeFormat ;
   }
   

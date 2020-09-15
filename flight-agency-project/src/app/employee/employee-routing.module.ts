@@ -10,8 +10,8 @@ import { PromoDeleteComponent } from './promo/promo-delete/promo-delete.componen
 const routes: Routes = [
     {path:"bookTicket",component: BookTicketComponent},
     {path:"findFlight",component:FindFlightComponent},
-    {path:"promotion/promo-edit/:id",component: PromoEditComponent},
-    {path:"promotion/promo-delete/:id",component: PromoDeleteComponent},
+    {path:'promotion/promo-edit/:id',component: PromoEditComponent},
+    {path:'promotion/promo-delete/:id',component: PromoDeleteComponent},
 ];
 
 @NgModule({

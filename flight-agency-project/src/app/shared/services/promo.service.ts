@@ -12,31 +12,38 @@ export class PromoService {
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-    })
+      'Access-Control-Allow-Origin': 'http://localhost:4200',
+      'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
+    }),
+   
   };
 
-  private options = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    }),
-    responseType: 'text' as 'json'
-  };
+ 
 
   constructor(public http: HttpClient) { }
 
   //Tùng
-  getPromoById(id): Observable<PromoUpdateDto> {
-    return this.http.get<PromoUpdateDto>(this.urlAPI + id, this.httpOptions);
+  getPromoById(id:number): Observable<any> {
+    return this.http.get(`${this.urlAPI}/promo-edit/${id}`, this.httpOptions);
   }
 
   //Tùng
-  updatePromo(promo: PromoUpdateDto, id): Observable<PromoUpdateDto> {
-    return this.http.put<PromoUpdateDto>(this.urlAPI + 'promo-edit/' + id, JSON.stringify(promo), this.httpOptions);
+  updatePromo(id: number, value: any): Observable<any> {
+    console.log(`${this.urlAPI}/update-edit/${id}`);
+    return this.http.put(`${this.urlAPI}/update-edit/${id}`,JSON.stringify(value), this.httpOptions);
   }
 
 
   //Tùng
-  deletePromo(idDelete: number): any {
-    return this.http.put<any>(`${this.urlAPI}/promo-delete/${idDelete}`, this.options);
+  deletePromo(idDelete: number): Observable<any> {
+    return this.http.put<any>(`${this.urlAPI}/promo-delete/${idDelete}`, this.httpOptions);
   }
+  getAirlines(): Observable<any> {
+    return this.http.get(this.urlAPI + `/airline`, this.httpOptions);
+  }
+
+  getAirports():  Observable<any> {
+    return this.http.get(this.urlAPI + `/airport`, this.httpOptions);
+  }
+
 }
