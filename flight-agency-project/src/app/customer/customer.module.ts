@@ -12,6 +12,8 @@ import { PaidDealsComponent } from './paid-deals/paid-deals.component';
 import { CustomerInfoComponent } from './customer-info/customer-info.component';
 import { CustomerPaymentComponent } from './customer-payment/customer-payment.component';
 import { CustomerPasswordComponent } from './customer-password/customer-password.component';
+import { HttpClientModule } from '@angular/common/http';
+import { CustomerService } from '../shared/services/customer.service';
 
 
 
@@ -23,11 +25,13 @@ import { CustomerPasswordComponent } from './customer-password/customer-password
     NgxPaginationModule,
     FormsModule,
     ReactiveFormsModule,
-    PDFExportModule
+    PDFExportModule,
+    HttpClientModule
 
 
   ],
-  providers: [],
+  providers: [CustomerService],
   bootstrap: []
 })
-export class CustomerModule { }
+export class CustomerModule {
+}
