@@ -64,8 +64,8 @@ export class EmployeeService {
   }
 
   //BHung luu ticket
-  saveTransactionAndPassenger(transpass: TransactionPassengerDTO):Observable<any>{
-    return this.http.post(this.API_URL+"/transPass/save",JSON.stringify(transpass),this.httpOptions);
+  saveTransactionAndPassenger(transpass: TransactionPassengerDTO):Observable<Transaction[]>{
+    return this.http.post<Transaction[]>(this.API_URL+"/transPass/save",JSON.stringify(transpass),this.httpOptions);
   }
 
   //BHung tim transaction

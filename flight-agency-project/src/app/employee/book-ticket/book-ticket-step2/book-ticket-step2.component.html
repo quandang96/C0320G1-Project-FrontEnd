@@ -40,6 +40,9 @@
                     </div>
                     <div class="col-md-8" [formGroupName]="i">
                         <input type="text" class="form-control" formControlName="phoneNumber" >
+                        <div *ngIf="adultPassengers?.controls[i].get('phoneNumber').invalid && adultPassengers?.controls[i].get('phoneNumber').touched" class="text text-danger font-alert">
+                            <span *ngIf= "adultPassengers?.controls[i].get('phoneNumber').hasError('pattern')">Số điện thoại không đúng định dạng.</span>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6 row">
@@ -133,6 +136,9 @@
                     </div>
                     <div class="col-md-8" [formGroupName]="i">
                         <input type="text" class="form-control" formControlName="phoneNumber" >
+                        <div *ngIf="childPassengers?.controls[i].get('phoneNumber').invalid && childPassengers?.controls[i].get('phoneNumber').touched" class="text text-danger font-alert">
+                            <span *ngIf= "childPassengers?.controls[i].get('phoneNumber').hasError('pattern')">Số điện thoại không đúng định dạng.</span>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6 row">
@@ -355,7 +361,8 @@
                 </div>
                 <div class="col-md-6 p-0" formGroupName="otherDetails">
                     <input type="email" class="form-control" placeholder="Nhập email" formControlName="emailCheck">
-                    <div class="text-danger font-alert" *ngIf="emailCheck">{{emailCheck}}</div>
+                    <div class="text-danger font-alert" *ngIf="emailCheck!='Email hợp lệ'">{{emailCheck}}</div>
+                    <div class="text-primary font-alert" *ngIf="emailCheck=='Email hợp lệ'">{{emailCheck}}</div>
                 </div>
                 
             </div>
@@ -406,7 +413,7 @@
         <!-- Modal footer -->
         <div class="modal-footer">
             <button type="button" class="btn btn-warning mr-3" data-dismiss="modal">Đóng</button>
-            <a class="btn btn-danger" href="/employee" (click)="goToInvoicePage()">In vé</a>
+            <button class="btn btn-danger" (click)="goToInvoicePage()">In vé</button>
         </div>
     </div>
     </div>
@@ -432,7 +439,7 @@
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-warning mr-3" data-dismiss="modal">Đóng</button>
-                <a class="btn btn-primary" href="/employee" (click)="saveTicket()">Lưu vé</a>
+                <button class="btn btn-primary" (click)="saveTicket()">Lưu vé</button>
             </div>
         </div>
         </div>
