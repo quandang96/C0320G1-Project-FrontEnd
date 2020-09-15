@@ -7,6 +7,8 @@ import { RoleGuard } from '../guards/role.guard';
 import { BillInvoiceComponent } from './bill-invoice/bill-invoice.component';
 import { BillListComponent } from '../employee/bill-list/bill-list.component';
 import { BillFindComponent } from './bill-find/bill-find.component';
+import { PromoListComponent } from './promo/promo-list/promo-list.component';
+import { PromoCreateComponent } from './promo/promo-create/promo-create.component';
 
 
 const routes: Routes = [
@@ -41,6 +43,8 @@ const routes: Routes = [
       expectedRole: 'ROLE_EMPLOYEE'
     }
   },
+  { path: "promotion", component: PromoListComponent },
+  { path: "promotion/create", component: PromoCreateComponent }
 
 
 

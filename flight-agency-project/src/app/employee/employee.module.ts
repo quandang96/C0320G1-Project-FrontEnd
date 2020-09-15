@@ -1,6 +1,5 @@
 import { BillInvoiceComponent } from './bill-invoice/bill-invoice.component';
 import { BillListComponent } from './../employee/bill-list/bill-list.component';
-import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './../material.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -17,6 +16,8 @@ import { registerLocaleData } from '@angular/common';
 import localVi from '@angular/common/locales/vi'
 import { NgxPaginationModule } from 'ngx-pagination';
 import { BillFindComponent } from './bill-find/bill-find.component';
+import { PromoListComponent } from './promo/promo-list/promo-list.component';
+import { PromoCreateComponent } from './promo/promo-create/promo-create.component';
 
 
 registerLocaleData(localVi);
@@ -29,7 +30,9 @@ registerLocaleData(localVi);
     InvoiceTicketComponent,
     BillFindComponent,
     BillListComponent,
-    BillInvoiceComponent
+    BillInvoiceComponent,
+    PromoListComponent,
+    PromoCreateComponent
   ],
   imports: [
     CommonModule,
