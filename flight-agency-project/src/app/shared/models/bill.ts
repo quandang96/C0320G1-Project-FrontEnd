@@ -1,6 +1,6 @@
 export interface Bill {
     [prop: string]: any;
-    id: number ;
+    id: number;
     dateCreated: string;
     billCode: string;
     taxCode: string;

@@ -4,6 +4,9 @@ import { BookTicketComponent } from './book-ticket/book-ticket.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { RoleGuard } from '../guards/role.guard';
+import { BillInvoiceComponent } from './bill-invoice/bill-invoice.component';
+import { BillListComponent } from '../customer/bill-list/bill-list.component';
+import { BillFindComponent } from './bill-find/bill-find.component';
 
 
 const routes: Routes = [
@@ -24,11 +27,20 @@ const routes: Routes = [
     data: {
       expectedRole: 'ROLE_EMPLOYEE'
     }
-  }
+  },
+
+  { path: "bill-list", component: BillListComponent },
+  { path: "bill-invoice", component: BillInvoiceComponent },
+
+
+
+
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  declarations: [],
+  entryComponents: [BillFindComponent]
 })
 export class EmployeeRoutingModule { }

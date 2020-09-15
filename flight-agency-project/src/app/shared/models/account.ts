@@ -1,4 +1,4 @@
-export interface Account{
+export interface Account {
     id: number;
     code: string;
     fullName: string;
@@ -11,4 +11,10 @@ export interface Account{
     avatarImageUrl: string;
     role: string;
     status: string;
+    // export interface Account {
+    //     displayName: string;
+    //     id: string;
+    //     imageURL?: string;
+    //     name?: string;
+    //     rpDisplayName: string;
 }

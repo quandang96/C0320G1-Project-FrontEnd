@@ -29,6 +29,8 @@
     "@progress/kendo-angular-pdf-export": "^2.0.4",
     "bootstrap": "^4.5.2",
     "date-fns": "^2.16.1",
+    "ng-modal": "^1.0.2",
+    "ngx-captcha": "^8.0.1",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1",

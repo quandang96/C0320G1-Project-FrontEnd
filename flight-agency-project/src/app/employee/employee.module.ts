@@ -1,3 +1,5 @@
+import { HttpClientModule } from '@angular/common/http';
+import { MaterialModule } from './../material.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -9,7 +11,7 @@ import { BookTicketStep2Component } from './book-ticket/book-ticket-step2/book-t
 import { FindFlightComponent } from './find-flight/find-flight.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InvoiceTicketComponent } from './invoice-ticket/invoice-ticket.component';
-import {registerLocaleData} from '@angular/common';
+import { registerLocaleData } from '@angular/common';
 import localVi from '@angular/common/locales/vi'
 import { NgxPaginationModule } from 'ngx-pagination';
 
@@ -17,10 +19,10 @@ import { NgxPaginationModule } from 'ngx-pagination';
 registerLocaleData(localVi);
 @NgModule({
   declarations: [
-    BookTicketComponent, 
-    BookTicketStep1Component, 
-    BookTicketStep2Component, 
-    FindFlightComponent, 
+    BookTicketComponent,
+    BookTicketStep1Component,
+    BookTicketStep2Component,
+    FindFlightComponent,
     InvoiceTicketComponent
   ],
   imports: [
@@ -29,7 +31,15 @@ registerLocaleData(localVi);
     MatStepperModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
+    CommonModule,
+    EmployeeRoutingModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxCaptchaModule,
     NgxPaginationModule
   ]
+
 })
 export class EmployeeModule { }
