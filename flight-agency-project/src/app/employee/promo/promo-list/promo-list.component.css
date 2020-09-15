@@ -1,14 +1,11 @@
-
-
 .main-content {
-  padding: 50px;
+  /*padding: 50px;*/
   /*padding-left: 50px;*/
-  /*padding-top: 100px;*/
+  padding-top: 100px;
 }
 
 /*LIST KHUYEN MAI*/
 /* TAB BAR */
-
 nav > .nav.nav-tabs{
   border: none;
   color:#fff;
@@ -68,7 +65,7 @@ nav > div a.nav-item.nav-link:focus
   padding: 10px 5px 2px 0px;
 }
 
-label { /*thao*/
+label {
   /* color: #e74c3c; */
   font-weight: bold;
 }

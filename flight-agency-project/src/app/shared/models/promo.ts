@@ -14,5 +14,5 @@ export interface Promo {
   promoDateEnd: string;
   flightDepartureDateStart: string;
   flightDepartureDateEnd: string;
-  isDelete: boolean;
+  delete: boolean;
 }
