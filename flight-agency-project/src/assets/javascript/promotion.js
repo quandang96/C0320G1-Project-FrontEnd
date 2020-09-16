@@ -4,6 +4,17 @@ var mm = today.getMonth() + 1; //January is 0!
 console.log(mm)
 var yyyy = today.getFullYear();
 
+function today() {
+
+  if (dd < 10) {
+    var dd = '0' + dd;
+  }
+  if (mm < 10) {
+    var mm = '0' + mm;
+  }
+  today1 = yyyy + '-' + mm + '-' + dd;
+  return toString(today1) ;
+}
 
 function dayNow(idclass) {
 
@@ -31,7 +42,7 @@ function day(dd, mm) {
     var mm = '0' + mm;
   }
 
-  var today = dd + '/' + mm + '/' + yyyy;
+  var today = yyyy + '-'+ mm + '-' +dd ;
   return today;
 }
 
@@ -183,7 +194,7 @@ function openTabs1(evt, cityName) {
   evt.currentTarget.className += " active";
 }
 
-openTabs(event, 'London');
+openTabs(event, 'dayOfWeek1');
 openTabs(event, 'ttday1');
 function khuhoi(){
   document.getElementById('hidden2').style.display= 'block';

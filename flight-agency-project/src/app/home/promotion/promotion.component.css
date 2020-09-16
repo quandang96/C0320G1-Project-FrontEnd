@@ -3,16 +3,18 @@
   padding: 0;
   border: 4px solid #d29328;
 }
+
 .menu-promotion {
   height: auto;
 }
+
 .menu {
   width: 95%;
   height: auto;
   border: 4px solid #d29328;
   box-shadow: 1px 1px 7px 0px #4469B0;;
   border-radius: 10px;
-  background-color: #4469B0 ;
+  background-color: #4469B0;
   padding: 10px;
   color: white;
   margin-bottom: 10px;
@@ -24,7 +26,7 @@
 
 .bg-color-custom {
   width: 100%;
-  background-color: #4469B0 ;
+  background-color: #4469B0;
   margin: 0px;
 }
 
@@ -40,7 +42,7 @@
 
 /* Style the buttons inside the tab */
 .tab button {
-  width: 14.2857142857% ;
+  width: 14.2857142857%;
   border: none;
   border-left: 0.05px solid cornflowerblue;
 
@@ -87,6 +89,7 @@
   padding: .25rem !important;
   height: auto !important;
 }
+
 .table {
   text-align: center;
   font-size: 15px;
@@ -95,16 +98,28 @@
 .sale {
   color: black;
   font-weight: bold;
-  background-image: url("../../../assets/sale.jpg") ;
+  background-image: url("../../../assets/sale.jpg");
   font-size: 20px;
   background-size: 100%;
 }
 
 .to-to {
-  text-align: center ;
+  text-align: center;
   font-size: 30px;
 }
 
+.table-sm {
+  text-align: center;
+  width: 100%;
+}
+.table-sm tr {
+  font-family: Arial, sans-serif;
+  border-bottom: 1px solid rgba(102, 102, 102,0.5);
+  font-size: 15px;
+}
+.nodata {
+  display: none;
+}
 /*.display {*/
 /*  display: block;*/
 /*}*/

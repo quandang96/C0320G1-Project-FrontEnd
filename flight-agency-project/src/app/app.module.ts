@@ -12,7 +12,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { SendFeedbackComponent } from './home/send-feedback/send-feedback.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { PromotionComponent } from './home/promotion/promotion.component';
 
 
 @NgModule({
@@ -22,8 +21,7 @@ import { PromotionComponent } from './home/promotion/promotion.component';
     LoginComponent,
     FooterComponent,
     HeaderComponent,
-    SendFeedbackComponent,
-    PromotionComponent
+    SendFeedbackComponent
   ],
   imports: [
     BrowserModule,

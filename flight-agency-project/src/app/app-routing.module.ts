@@ -2,7 +2,6 @@ import { SendFeedbackComponent } from './home/send-feedback/send-feedback.compon
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import {PromotionComponent} from './home/promotion/promotion.component';
 
 
 const routes: Routes = [
@@ -10,10 +9,7 @@ const routes: Routes = [
   path: '', component: HomeComponent
 },
 {
-  path: 'promotion', component: PromotionComponent
-},
-{
-  path: 'send-feedback', component : SendFeedbackComponent
+  path: 'send-feedback',component : SendFeedbackComponent
 },
 {
   path: 'admin', loadChildren: () => import('./admin/admin.module').then(mod => mod.AdminModule)
