@@ -1,3 +1,4 @@
+import { ReportComponent } from './report/report.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -13,7 +14,7 @@ import { BarChartComponent } from './bar-chart/bar-chart.component';
 
 
 @NgModule({
-  declarations: [FeedbackListComponent, FeedbackContentDialogComponent],
+  declarations: [FeedbackListComponent, ReportComponent, FeedbackContentDialogComponent, CircleChartComponent, LineChartComponent, BarChartComponent, LineChartComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
