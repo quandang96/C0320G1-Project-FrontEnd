@@ -22,6 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { SendFeedbackComponent } from './home/send-feedback/send-feedback.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PDFExportModule } from './../../node_modules/@progress/kendo-angular-pdf-export';
+import { NgxPayPalModule } from 'ngx-paypal';
+import { ToastrModule } from 'ngx-toastr';
 // import { NgxCaptchaModule } from 'ngx-captcha';
 @NgModule({
   declarations: [
@@ -50,6 +52,8 @@ import { PDFExportModule } from './../../node_modules/@progress/kendo-angular-pd
     AngularFirestoreModule,
     FormsModule,
     // NgxCaptchaModule
+    NgxPayPalModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     {
@@ -74,4 +78,5 @@ import { PDFExportModule } from './../../node_modules/@progress/kendo-angular-pd
     ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

@@ -3,6 +3,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PDFExportModule } from './../../../node_modules/@progress/kendo-angular-pdf-export';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 import { CustomerRoutingModule } from './customer-routing.module';
 import { CustomerHomeComponent } from './customer-home/customer-home.component';
@@ -16,7 +17,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { CustomerService } from '../shared/services/customer.service';
 
 
-
 @NgModule({
   declarations: [CustomerHomeComponent, CustomerHomeComponent, DealRecordComponent, BillListComponent, PaidDealsComponent, CustomerInfoComponent, CustomerPaymentComponent, CustomerPasswordComponent],
   imports: [
@@ -26,7 +26,8 @@ import { CustomerService } from '../shared/services/customer.service';
     FormsModule,
     ReactiveFormsModule,
     PDFExportModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxPayPalModule
 
 
   ],

@@ -6,6 +6,8 @@ import { FlightScheduleListComponent } from './flight-schedule-list/flight-sched
 import { AirportResolverService } from './airport-resolver.service';
 import { FlightPassengerInfoComponent } from './flight-passenger-info/flight-passenger-info.component';
 import { FlightGuardGuard } from './flight-guard.guard';
+import { ReservationComponent } from './reservation/reservation.component';
+import { ReservationDetailComponent } from './reservation-detail/reservation-detail.component';
 
 
 const routes: Routes = [{
@@ -17,7 +19,9 @@ const routes: Routes = [{
   canActivate: [RoleGuard],
   children: [
     { path: 'schedule', component: FlightScheduleListComponent, resolve: { airports: AirportResolverService } },
-    { path: 'confirm', component: FlightPassengerInfoComponent, canActivate: [FlightGuardGuard] }
+    { path: 'confirm', component: FlightPassengerInfoComponent, canActivate: [FlightGuardGuard] },
+    { path: 'reservation', component: ReservationComponent },
+    { path: 'reservation/:id', component: ReservationDetailComponent }
   ]
 }];
 
