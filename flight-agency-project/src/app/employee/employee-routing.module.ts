@@ -15,6 +15,8 @@ import { EmployeeCustomerCheckinComponent } from './employee-customer-checkin/em
 import { EmployeeInformationComponent } from './employee-information/employee-information.component';
 import { EmployeeHomeComponent } from './employee-home/employee-home.component';
 import { CustomerManagementComponent } from './customer-management/customer-management.component';
+import { AddPassengerComponent } from './add-passenger/add-passenger.component';
+import { UpdatePassengerComponent } from './update-passenger/update-passenger.component';
 
 
 const routes: Routes = [
@@ -67,7 +69,8 @@ const routes: Routes = [
   },
 
 
-
+  { path: "add-passenger", component: AddPassengerComponent },
+  { path: "list-passenger/update/:id", component: UpdatePassengerComponent },
 
 
   {

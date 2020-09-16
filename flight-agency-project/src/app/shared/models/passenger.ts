@@ -7,6 +7,8 @@ export interface Passenger {
   phoneNumber: string;
   gender: string;
   transactions?: Transaction[]
+  address: string;
+  birthDate: string;
 }
 
 export interface PassengerInfoDTO {

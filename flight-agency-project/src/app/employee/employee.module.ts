@@ -21,9 +21,14 @@ import { PromoListComponent } from './promo/promo-list/promo-list.component';
 import { PromoCreateComponent } from './promo/promo-create/promo-create.component';
 import { EmployeeTableComponent } from './employee-table/employee-table.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
-import {EmployeeInformationComponent} from './employee-information/employee-information.component';
-import {EmployeeHomeComponent} from './employee-home/employee-home.component';
-import {CustomerManagementComponent} from './customer-management/customer-management.component';
+import { EmployeeInformationComponent } from './employee-information/employee-information.component';
+import { EmployeeHomeComponent } from './employee-home/employee-home.component';
+import { CustomerManagementComponent } from './customer-management/customer-management.component';
+import { AddPassengerComponent } from './add-passenger/add-passenger.component';
+import { UpdatePassengerComponent } from './update-passenger/update-passenger.component';
+
+
+
 
 
 registerLocaleData(localVi);
@@ -45,6 +50,8 @@ registerLocaleData(localVi);
     EmployeeInformationComponent,
     EmployeeHomeComponent,
     CustomerManagementComponent,
+    AddPassengerComponent,
+    UpdatePassengerComponent
   ],
   imports: [
     CommonModule,
