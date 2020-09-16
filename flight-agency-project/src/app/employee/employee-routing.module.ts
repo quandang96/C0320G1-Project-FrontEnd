@@ -12,9 +12,30 @@ import { BillFindComponent } from './bill-find/bill-find.component';
 import { PromoListComponent } from './promo/promo-list/promo-list.component';
 import { PromoCreateComponent } from './promo/promo-create/promo-create.component';
 import { EmployeeCustomerCheckinComponent } from './employee-customer-checkin/employee-customer-checkin.component';
+import { EmployeeInformationComponent } from './employee-information/employee-information.component';
+import { EmployeeHomeComponent } from './employee-home/employee-home.component';
+import { CustomerManagementComponent } from './customer-management/customer-management.component';
 
 
 const routes: Routes = [
+  {
+    path: '', component: EmployeeHomeComponent,
+    children: [
+      // creator Trương Khánh Mậu
+      {
+        path: 'employeeInfo', component: EmployeeInformationComponent, canActivate: [RoleGuard],
+        data: {
+          expectedRole: 'ROLE_EMPLOYEE'
+        }
+      },
+      {
+        path: 'management', component: CustomerManagementComponent, canActivate: [RoleGuard],
+        data: {
+          expectedRole: 'ROLE_EMPLOYEE'
+        }
+      }
+    ],
+  },
   {
     path: "bookTicket", component: BookTicketComponent, canActivate: [RoleGuard],
     data: {
@@ -60,4 +81,5 @@ const routes: Routes = [
   exports: [RouterModule],
   declarations: []
 })
-export class EmployeeRoutingModule { }
+export class EmployeeRoutingModule {
+}

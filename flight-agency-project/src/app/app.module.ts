@@ -42,6 +42,7 @@ import { FlightModule } from './flight/flight.module';
     CustomerCheckinComponent
   ],
   imports: [
+    NgxPaginationModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -50,6 +51,12 @@ import { FlightModule } from './flight/flight.module';
     SocialLoginModule,
     BrowserAnimationsModule,
     MaterialModule,
+    NgbModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    FormsModule,
+    BrowserAnimationsModule,
     NgbModule,
     NgxPaginationModule,
     PDFExportModule,

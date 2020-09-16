@@ -18,7 +18,11 @@ import { CustomerService } from '../shared/services/customer.service';
 
 
 @NgModule({
-  declarations: [CustomerHomeComponent, CustomerHomeComponent, DealRecordComponent, BillListComponent, PaidDealsComponent, CustomerInfoComponent, CustomerPaymentComponent, CustomerPasswordComponent],
+  declarations: [CustomerHomeComponent, CustomerHomeComponent, DealRecordComponent, BillListComponent, PaidDealsComponent, CustomerInfoComponent, CustomerPaymentComponent, CustomerPasswordComponent,
+    CustomerInfoComponent,
+    CustomerHomeComponent,
+    CustomerPaymentComponent,
+    CustomerPasswordComponent],
   imports: [
     CommonModule,
     CustomerRoutingModule,
@@ -27,7 +31,10 @@ import { CustomerService } from '../shared/services/customer.service';
     ReactiveFormsModule,
     PDFExportModule,
     HttpClientModule,
-    NgxPayPalModule
+    NgxPayPalModule,
+    CommonModule,
+    CustomerRoutingModule,
+
 
 
   ],

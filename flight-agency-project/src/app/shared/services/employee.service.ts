@@ -11,6 +11,8 @@ import { AbstractControl } from '@angular/forms';
 import { ɵNullViewportScroller } from '@angular/common';
 import { CustomerSearchDto } from '../models/dto/CustomerSearchDto';
 import { CustomerCheckinDto } from '../models/dto/CustomerCheckinDto';
+import { employeeDto } from '../models/dto/employeeDto';
+
 
 
 
@@ -22,6 +24,7 @@ export class EmployeeService {
   //BHung api url employee
   private readonly API_URL = "http://localhost:8080/api/v1/employee";
   private readonly URL = "http://localhost:8080/api/v1/employeeAPI";
+  private readonly API_URL_EMPLOYEE = 'http://localhost:8080/api/v1/employee/';
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -107,7 +110,7 @@ export class EmployeeService {
     return this.http.get<Transaction>(this.API_URL + "/transaction/" + id);
   }
 
-  //BHung validate date 
+  //BHung validate date
   validateGreaterThanCurrentDate(c: AbstractControl) {
     var chooseDate = Date.parse(c.value);
     var currentDate = Date.parse(new Date().toISOString().slice(0, 10));
@@ -130,4 +133,15 @@ export class EmployeeService {
     const link = this.URL;
     return this.http.post(link, employees);
   }
+
+  // creator: Mậu
+  getEmployeeById(id): Observable<employeeDto> {
+    return this.http.get<employeeDto>(this.API_URL_EMPLOYEE + id, this.httpOptions);
+  }
+
+  // creator: Mậu
+  changePassword(employee: employeeDto, id): Observable<employeeDto> {
+    return this.http.put<employeeDto>(this.API_URL_EMPLOYEE + 'changePassword/' + id, JSON.stringify(employee), this.httpOptions);
+  }
+
 }

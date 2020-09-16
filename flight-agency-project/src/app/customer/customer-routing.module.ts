@@ -13,6 +13,7 @@ import { CustomerPasswordComponent } from './customer-password/customer-password
 import { RoleGuard } from '../guards/role.guard';
 
 
+
 const routes: Routes = [
   {
     path: "", component: CustomerHomeComponent, canActivate: [RoleGuard],
