@@ -1,5 +1,5 @@
 import { MatDialog } from '@angular/material';
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, QueryList, ViewChildren, ComponentRef, ComponentFactoryResolver } from '@angular/core';
 import { FlightScheduleService } from '../shared/services/flight-schedule.service';
 import { FlightSchedule } from '../shared/models/flight-schedule';
 import { Observable } from 'rxjs';
@@ -9,6 +9,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Airport } from '../shared/models/airport';
 import { FlightSearchForm } from '../shared/models/dto/flight-search-form';
 import { LoginComponent } from './login/login.component';
+import { OnewayDirective } from '../flight/oneway.directive';
+import { FlightOnewayScheduleComponent } from '../flight/flight-oneway-schedule/flight-oneway-schedule.component';
+import {FlightSearchDTO} from '../shared/models/dto/flight-search-dto';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +19,9 @@ import { LoginComponent } from './login/login.component';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
+  @ViewChildren(OnewayDirective) entry: QueryList<OnewayDirective>;
+
   // D-Bach
   oneWay = false;
   flightSchedule: Observable<FlightSchedule[]>;
@@ -27,12 +33,17 @@ export class HomeComponent implements OnInit {
   arr: number[];
   branchImages: string[];
   isEmpty = false;
+  departureComponent: ComponentRef<FlightOnewayScheduleComponent>;
+  arrivalComponent: ComponentRef<FlightOnewayScheduleComponent>;
+  departureFlight: FlightSchedule = null;
+  arrivalFlight: FlightSchedule = null;
 
   constructor(
     private flightScheduleService: FlightScheduleService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private resolve: ComponentFactoryResolver
   ) {
   }
 
@@ -74,6 +85,34 @@ export class HomeComponent implements OnInit {
       children: [0, [Validators.required]],
       adults: [1, [Validators.required]]
     }, {validators : [this.checkDepartureAirportAndArrivalAirport, this.checkAdultsAndBabies, this.checkAdultsAndChildren]});
+  }
+
+  // D-Bach
+  search() {
+     const departureSchedule: FlightSearchDTO = {
+       sortBy : '',
+       departure : this.searchForm.get('departureAirport').value,
+       arrival : this.searchForm.get('arrivalAirport').value,
+       depDate : this.searchForm.get('departureDateTime').value,
+       babies : this.searchForm.get('babies').value,
+       children : this.searchForm.get('children').value,
+       adults : this.searchForm.get('adults').value
+     };
+     this.departureComponent = this.loadComponent(0, departureSchedule);
+     this.departureComponent.instance.sel.subscribe(data => {
+       this.departureFlight = data;
+     });
+  }
+
+  // D-Bach
+  // @ts-ignore
+  loadComponent(index: number, flightSearch: FlightSearchDTO): ComponentRef<FlightOnewayScheduleComponent> {
+    this.entry.toArray()[index].viewContainer.clear();
+    const resolve = this.resolve.resolveComponentFactory(FlightOnewayScheduleComponent);
+    const componentRef = this.entry.toArray()[index].viewContainer.createComponent(resolve);
+    componentRef.instance.flightSearch = flightSearch;
+    componentRef.changeDetectorRef.detectChanges();
+    return componentRef;
   }
 
   // D-Bach
