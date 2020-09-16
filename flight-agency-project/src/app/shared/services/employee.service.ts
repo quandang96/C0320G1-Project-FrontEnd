@@ -9,6 +9,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Page } from '../models/dto/page';
 import { AbstractControl } from '@angular/forms';
 import { ɵNullViewportScroller } from '@angular/common';
+import { CustomerSearchDto } from '../models/dto/CustomerSearchDto';
+import { CustomerCheckinDto } from '../models/dto/CustomerCheckinDto';
 
 
 
@@ -37,52 +39,73 @@ export class EmployeeService {
     return flightSchedule;
   }
 
+  // Thành Long
+  getPassengerCheckinHttpOptions(searchField: CustomerSearchDto, page: number): Object {
+    const passenger = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      'Access-Control-Allow-Origin': 'http://localhost:4200',
+      'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+      params: {
+        fullName: searchField.fullName,
+        address: searchField.address,
+        page
+      }
+    };
+    return passenger;
+  }
+
   constructor(private http: HttpClient) { }
 
   //BHung: Lấy danh sách airport:
-  getAllAirports(): Observable<Airport[]>{
-    return this.http.get<Airport[]>(this.API_URL+"/airport",this.httpOptions);
+  getAllAirports(): Observable<Airport[]> {
+    return this.http.get<Airport[]>(this.API_URL + "/airport", this.httpOptions);
   }
 
   //BHung: tìm kiếm danh sách flights:
-  findAllFlightSchedules(flightDTO: EmployeeFlightSearchDTO, page: number): Observable<Page<FlightSchedule>>{
-    return this.http.post<Page<FlightSchedule>>(this.API_URL+"/flightSchedule",JSON.stringify(flightDTO),this.getFlightScheduleHttpOptions(page))
+  findAllFlightSchedules(flightDTO: EmployeeFlightSearchDTO, page: number): Observable<Page<FlightSchedule>> {
+    return this.http.post<Page<FlightSchedule>>(this.API_URL + "/flightSchedule", JSON.stringify(flightDTO), this.getFlightScheduleHttpOptions(page))
   };
 
   //BHung tìm kiếm flight theo id:
-  findFlightById(id:number):Observable<FlightSchedule>{
-    return this.http.get<FlightSchedule>(this.API_URL+"/flightSchedule/"+id);
+  findFlightById(id: number): Observable<FlightSchedule> {
+    return this.http.get<FlightSchedule>(this.API_URL + "/flightSchedule/" + id);
   }
 
   //BHung check email
-  checkAccountByEmail(email: string):Observable<any>{
-    return this.http.get<any>(this.API_URL+"/checkEmail",{
-      params:{
-        email:email
+  checkAccountByEmail(email: string): Observable<any> {
+    return this.http.get<any>(this.API_URL + "/checkEmail", {
+      params: {
+        email: email
       }
     });
   }
 
   //BHung luu ticket
-  saveTransactionAndPassenger(transpass: TransactionPassengerDTO):Observable<Transaction[]>{
-    return this.http.post<Transaction[]>(this.API_URL+"/transPass/save",JSON.stringify(transpass),this.httpOptions);
+  saveTransactionAndPassenger(transpass: TransactionPassengerDTO): Observable<Transaction[]> {
+    return this.http.post<Transaction[]>(this.API_URL + "/transPass/save", JSON.stringify(transpass), this.httpOptions);
   }
 
   //BHung tim transaction
-  findTransactionById(id: number): Observable<Transaction>{
-    return this.http.get<Transaction>(this.API_URL+"/transaction/"+id);
+  findTransactionById(id: number): Observable<Transaction> {
+    return this.http.get<Transaction>(this.API_URL + "/transaction/" + id);
   }
 
   //BHung validate date 
   validateGreaterThanCurrentDate(c: AbstractControl) {
     var chooseDate = Date.parse(c.value);
-    var currentDate = Date.parse(new Date().toISOString().slice(0,10));
+    var currentDate = Date.parse(new Date().toISOString().slice(0, 10));
     return (chooseDate - currentDate < 0) ?
       { chooseDateGreaterThanCurrentDate: true } : null;
   }
-  validateArvDateGreaterThanDeptDate(c: AbstractControl){
+  validateArvDateGreaterThanDeptDate(c: AbstractControl) {
     const v = c.value;
-    return (Date.parse(v.arrivalDate)-Date.parse(v.departureDate)<0)?
-      {chooseArvDateSmallerThanDeptDate: true} : null;
+    return (Date.parse(v.arrivalDate) - Date.parse(v.departureDate) < 0) ?
+      { chooseArvDateSmallerThanDeptDate: true } : null;
+  }
+  // Thành Long
+  getAllPassengerCheckin(searchField: CustomerSearchDto, page: number): Observable<Page<CustomerCheckinDto>> {
+    return this.http.get<Page<CustomerCheckinDto>>(`${this.API_URL}/customer-checkin-list`, this.getPassengerCheckinHttpOptions(searchField, page));
   }
 }

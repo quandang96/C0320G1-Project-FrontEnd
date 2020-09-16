@@ -25,6 +25,9 @@ import { PDFExportModule } from './../../node_modules/@progress/kendo-angular-pd
 import { NgxPayPalModule } from 'ngx-paypal';
 import { ToastrModule } from 'ngx-toastr';
 // import { NgxCaptchaModule } from 'ngx-captcha';
+import { CustomerCheckinComponent } from './home/customer-checkin/customer-checkin.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +36,8 @@ import { ToastrModule } from 'ngx-toastr';
     FooterComponent,
     HeaderComponent,
     SendFeedbackComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    CustomerCheckinComponent
   ],
   imports: [
     BrowserModule,

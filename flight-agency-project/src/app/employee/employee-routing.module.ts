@@ -9,6 +9,7 @@ import { BillListComponent } from '../employee/bill-list/bill-list.component';
 import { BillFindComponent } from './bill-find/bill-find.component';
 import { PromoListComponent } from './promo/promo-list/promo-list.component';
 import { PromoCreateComponent } from './promo/promo-create/promo-create.component';
+import { EmployeeCustomerCheckinComponent } from './employee-customer-checkin/employee-customer-checkin.component';
 
 
 const routes: Routes = [
@@ -44,7 +45,8 @@ const routes: Routes = [
     }
   },
   { path: "promotion", component: PromoListComponent },
-  { path: "promotion/create", component: PromoCreateComponent }
+  { path: "promotion/create", component: PromoCreateComponent },
+  { path: 'customer-checkin-list', component: EmployeeCustomerCheckinComponent },
 
 
 

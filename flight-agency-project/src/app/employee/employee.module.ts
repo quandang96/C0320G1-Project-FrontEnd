@@ -5,12 +5,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { EmployeeRoutingModule } from './employee-routing.module';
+import { EmployeeCustomerCheckinComponent } from './employee-customer-checkin/employee-customer-checkin.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BookTicketComponent } from './book-ticket/book-ticket.component';
 import { MatStepperModule } from '@angular/material';
 import { BookTicketStep1Component } from './book-ticket/book-ticket-step1/book-ticket-step1.component';
 import { BookTicketStep2Component } from './book-ticket/book-ticket-step2/book-ticket-step2.component';
 import { FindFlightComponent } from './find-flight/find-flight.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InvoiceTicketComponent } from './invoice-ticket/invoice-ticket.component';
 import { registerLocaleData } from '@angular/common';
 import localVi from '@angular/common/locales/vi'
@@ -32,7 +33,8 @@ registerLocaleData(localVi);
     BillListComponent,
     BillInvoiceComponent,
     PromoListComponent,
-    PromoCreateComponent
+    PromoCreateComponent,
+    EmployeeCustomerCheckinComponent
   ],
   imports: [
     CommonModule,
