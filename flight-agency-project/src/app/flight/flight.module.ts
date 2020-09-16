@@ -42,6 +42,7 @@ registerLocaleData(localeVi);
     ReactiveFormsModule,
     NgxPayPalModule
   ],
+  exports: [OnewayDirective],
   entryComponents: [
     FlightBookingDetailComponent,
     FlightOnewayScheduleComponent,
