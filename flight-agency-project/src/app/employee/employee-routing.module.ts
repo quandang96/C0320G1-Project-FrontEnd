@@ -17,6 +17,7 @@ import { EmployeeHomeComponent } from './employee-home/employee-home.component';
 import { CustomerManagementComponent } from './customer-management/customer-management.component';
 import { AddPassengerComponent } from './add-passenger/add-passenger.component';
 import { UpdatePassengerComponent } from './update-passenger/update-passenger.component';
+import { PromoEditComponent } from './promo/promo-edit/promo-edit.component';
 
 
 const routes: Routes = [
@@ -70,10 +71,6 @@ const routes: Routes = [
     ],
   },
 
-
-
-
-
   {
     path: "bill-invoice", component: BillInvoiceComponent, canActivate: [RoleGuard],
     data: {
@@ -84,7 +81,8 @@ const routes: Routes = [
   { path: "promotion/create", component: PromoCreateComponent },
 
   { path: '/table', component: EmployeeTableComponent },
-
+  { path: 'promotion/promo-edit/:id', component: PromoEditComponent },
+  { path: "promotion", component: PromoListComponent },
 
 
 ];

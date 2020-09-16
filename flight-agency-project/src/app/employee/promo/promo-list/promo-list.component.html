@@ -257,8 +257,80 @@
                             <h6>{{promo.namePromo}}</h6>
                             <a title="" href="" class="btn-sm btn-outline-success" data-toggle="tooltip"> <i
                                 class="far fa-edit"></i> Sửa</a>
-                            <a href="" class="btn-sm btn-outline-danger"> <i class="far fa-trash-alt"></i> Xóa</a>
+                            <a href="" class="btn-sm btn-outline-danger" data-target="#delete" data-toggle="modal"> <i class="far fa-trash-alt"></i> Xóa</a>
                           </div>
+                          <div class="modal fade" id="delete" tabindex="-1" role="dialog"
+                                                            aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title text-danger"
+                                                                            id="exampleModalLongTitle">Thông báo</h5>
+                                                                        <button type="button" class="close"
+                                                                            data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div class="alert alert-danger"><i
+                                                                                class="fas fa-exclamation-triangle"></i>
+                                                                            Bạn chắc
+                                                                            chắn
+                                                                            muốn
+                                                                            xóa giao dịch này?</div>
+                                                                            Tên khuyến mãi: {{promo.name}} <br>
+                                                                            Giảm giá: {{promo.discount}} <br>
+                                                                            Hãng bay: {{promo.airline}} <br>
+                                                                            Thời gian khởi hành bay: Từ {{promo.flightDepartureDateStart}} đến {{promo.flightDepartureDateEnd}} <br>
+                                                                            Thời gian hiển thị khuyến mãi: Từ {{promo.promoDateStart}} đến {{promo.promoDateEnd}}
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-primary"
+                                                                            data-toggle="modal"
+                                                                            data-target="#alertSuccess"
+                                                                            data-dismiss="modal"
+                                                                            (click)="deletePromo(promo.id)">Có</button>
+                                                                        <button type="button" class="btn btn-danger"
+                                                                            data-dismiss="modal">Không</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- modal delete success -->
+                                                        <div class="modal fade" id="alertSuccess" tabindex="-1"
+                                                            role="dialog" aria-labelledby="exampleModalCenterTitle"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered"
+                                                                role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title text-danger"
+                                                                            id="exampleModalLongTitle">Thông Báo</h5>
+                                                                        <button type="button" class="close"
+                                                                            data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <div *ngIf="message!=''"
+                                                                            class="alert alert-success p-2"
+                                                                            role="alert"><i
+                                                                                class="fas fa-clipboard-check"></i>
+                                                                            {{message}}
+                                                                        </div>
+                                                                        <div *ngIf="errorMessage!=''"
+                                                                            class="alert alert-danger p-2" role="alert">
+                                                                            <i class="fas fa-clipboard-check"></i>
+                                                                            {{errorMessage}}
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            data-dismiss="modal">Đóng</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                         </figure>
                       </td>
 

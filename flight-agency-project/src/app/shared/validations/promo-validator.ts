@@ -1,5 +1,5 @@
 // Message for Promo searching and creation form
-import {AbstractControl, FormControl, ValidationErrors, ValidatorFn} from '@angular/forms';
+import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 export const PROMO_INVALID_INPUT_WARNING = {
   namePromoErrors: [
@@ -46,14 +46,14 @@ export const validCompareDate: ValidatorFn = (control: AbstractControl): Validat
   const promoStart = new Date(verification.promoDateStart); // ten cua form control.
   const promoEnd = new Date(verification.promoDateEnd);
   if (flightStart.valueOf() > flightEnd.valueOf() && promoStart.valueOf() > promoEnd.valueOf()) {
-    return {flightDateNotValid: true, promoDateNotValid: true};
+    return { flightDateNotValid: true, promoDateNotValid: true };
   } else if (promoStart.valueOf() > promoEnd.valueOf()) {
-    return {promoDateNotValid: true};
+    return { promoDateNotValid: true };
   } else if (flightStart.valueOf() > flightEnd.valueOf()) {
-    return {flightDateNotValid: true};
+    return { flightDateNotValid: true };
   }
   if (promoEnd.valueOf() > flightEnd.valueOf()) {
-    return {promoEndLaterThanFlightEnd: true};
+    return { promoEndLaterThanFlightEnd: true };
   }
   return null;
 };
@@ -68,7 +68,7 @@ export const validChooseDateOfPast: ValidatorFn = (control: FormControl): Valida
   const promoEnd = new Date(control.value);
   if (flightStart.valueOf() < today.valueOf() || flightEnd.valueOf() < today.valueOf()
     || promoStart.valueOf() < today.valueOf() || promoEnd.valueOf() < today.valueOf()) {
-    return {chooseDateOfPast: true};
+    return { chooseDateOfPast: true };
   }
   return null;
 };
@@ -78,7 +78,7 @@ export const validPlace: ValidatorFn = (control: AbstractControl): ValidationErr
   const arrivalPlace = control.value.arrivalPlace;
   if (departurePlace !== '' && arrivalPlace !== '' && departurePlace === arrivalPlace) {
     console.log('duplicated');
-    return {duplicatedPlace: true};
+    return { duplicatedPlace: true };
   }
   return null;
 };

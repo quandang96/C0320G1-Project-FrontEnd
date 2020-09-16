@@ -1,5 +1,5 @@
-import {Branch} from './branch';
-import {Airport} from './airport';
+import { Branch } from './branch';
+import { Airport } from './airport';
 
 export interface Promo {
   [prop: string]: any;

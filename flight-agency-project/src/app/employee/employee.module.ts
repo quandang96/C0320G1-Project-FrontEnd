@@ -26,6 +26,7 @@ import { EmployeeHomeComponent } from './employee-home/employee-home.component';
 import { CustomerManagementComponent } from './customer-management/customer-management.component';
 import { AddPassengerComponent } from './add-passenger/add-passenger.component';
 import { UpdatePassengerComponent } from './update-passenger/update-passenger.component';
+import { PromoEditComponent } from './promo/promo-edit/promo-edit.component';
 
 
 
@@ -51,7 +52,9 @@ registerLocaleData(localVi);
     EmployeeHomeComponent,
     CustomerManagementComponent,
     AddPassengerComponent,
-    UpdatePassengerComponent
+    UpdatePassengerComponent,
+    PromoEditComponent,
+    PromoListComponent
   ],
   imports: [
     CommonModule,

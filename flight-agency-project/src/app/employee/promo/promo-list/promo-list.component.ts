@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import {PromoService} from '../../../shared/services/promo.service';
-import {Airport} from '../../../shared/models/airport';
-import {Branch} from '../../../shared/models/branch';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { PromoService } from '../../../shared/services/promo.service';
+import { Airport } from '../../../shared/models/airport';
+import { Branch } from '../../../shared/models/branch';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {
   PROMO_INVALID_INPUT_WARNING,
   validCompareDate, validPlace,
 } from '../../../shared/validations/promo-validator';
-import {map} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-promo-list',
@@ -16,6 +16,9 @@ import {map} from 'rxjs/operators';
 })
 export class PromoListComponent implements OnInit {
 
+
+  message = "";
+  errorMessage = "";
   private promoList: any;
   private airlineList: Branch[];
   private airportList: Airport[];
@@ -46,14 +49,17 @@ export class PromoListComponent implements OnInit {
       place: new FormGroup(
         {
           departurePlace: new FormControl(''),
-          arrivalPlace: new FormControl('')}, validPlace),
+          arrivalPlace: new FormControl('')
+        }, validPlace),
       airline: new FormControl(''),
       discount: new FormControl('', [Validators.min(0), Validators.max(100), Validators.pattern('[0-9]{1,}')]),
       flightGroup: new FormGroup(
-        { flightDepartureDateStart: new FormControl(''),
+        {
+          flightDepartureDateStart: new FormControl(''),
           flightDepartureDateEnd: new FormControl(''),
           promoDateStart: new FormControl(''),
-          promoDateEnd: new FormControl('')}, validCompareDate),
+          promoDateEnd: new FormControl('')
+        }, validCompareDate),
     });
     this.page = 1;
   }
@@ -67,7 +73,7 @@ export class PromoListComponent implements OnInit {
 
   searchPromo() {
     console.log(this.createForm);
-    if ( this.createForm.valid) {
+    if (this.createForm.valid) {
       this.infoSearch = {
         namePromo: this.createForm.value.namePromo,
         airline: this.createForm.value.airline,
@@ -84,12 +90,21 @@ export class PromoListComponent implements OnInit {
       this.promoService.searchPromo(this.infoSearch, this.page)
         .pipe(map(value => JSON.parse(value)))
         .subscribe(data => {
-            this.promoList = data;
-            console.log(data);
-          }
+          this.promoList = data;
+          console.log(data);
+        }
         );
       document.getElementById('nav-tab').style.display = 'none';
     }
+  }
+  deletePromo(id: number) {
+    this.promoService.deletePromo(id).subscribe(
+      (data) => { }, error => { this.errorMessage = "Xóa thất bại" }, () => {
+        if (this.errorMessage.length == 0) {
+          this.message = "Xóa thành công";
+        }
+      }
+    );
   }
 
   //to valid
@@ -138,9 +153,9 @@ export class PromoListComponent implements OnInit {
     } else {
       this.promoService.searchPromo(this.infoSearch, this.page).pipe(map(value => JSON.parse(value)))
         .subscribe(data => {
-            this.promoList = data;
-            console.log(data);
-          }
+          this.promoList = data;
+          console.log(data);
+        }
         );
     }
   }

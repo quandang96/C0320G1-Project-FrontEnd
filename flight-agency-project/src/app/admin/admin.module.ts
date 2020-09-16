@@ -13,6 +13,7 @@ import { LineChartComponent } from './line-chart/line-chart.component';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
 
 
+
 @NgModule({
   declarations: [FeedbackListComponent, ReportComponent, FeedbackContentDialogComponent, CircleChartComponent, LineChartComponent, BarChartComponent, LineChartComponent],
   imports: [
