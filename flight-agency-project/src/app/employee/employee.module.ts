@@ -9,10 +9,15 @@ import { BookTicketStep2Component } from './book-ticket/book-ticket-step2/book-t
 import { BookTicketStep3Component } from './book-ticket/book-ticket-step3/book-ticket-step3.component';
 import { FindFlightComponent } from './find-flight/find-flight.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AddPassengerComponent } from './add-passenger/add-passenger.component';
+import { UpdatePassengerComponent } from './update-passenger/update-passenger.component';
+import { ListPassengerComponent } from './list-passenger/list-passenger.component';
+
+
 
 
 @NgModule({
-  declarations: [BookTicketComponent, BookTicketStep1Component, BookTicketStep2Component, BookTicketStep3Component, FindFlightComponent],
+  declarations: [BookTicketComponent, BookTicketStep1Component, BookTicketStep2Component, BookTicketStep3Component, FindFlightComponent, AddPassengerComponent, UpdatePassengerComponent, ListPassengerComponent],
   imports: [
     CommonModule,
     EmployeeRoutingModule,
