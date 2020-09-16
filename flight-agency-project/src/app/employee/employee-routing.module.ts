@@ -64,13 +64,14 @@ const routes: Routes = [
           expectedRole: 'ROLE_EMPLOYEE'
         }
       },
+      { path: "add-passenger", component: AddPassengerComponent },
+      { path: "list-passenger/update/:id", component: UpdatePassengerComponent },
 
     ],
   },
 
 
-  { path: "add-passenger", component: AddPassengerComponent },
-  { path: "list-passenger/update/:id", component: UpdatePassengerComponent },
+
 
 
   {
