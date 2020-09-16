@@ -6,7 +6,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {
   PROMO_INVALID_INPUT_WARNING,
   validChooseDateOfPast,
-  validCompareDate
+  validCompareDate, validPlace
 } from '../../../shared/validations/promo-validator';
 import {Router} from '@angular/router';
 
@@ -21,8 +21,7 @@ export class PromoCreateComponent implements OnInit {
   private airlineList: Branch[];
   private airportList: Airport[];
   private createForm: FormGroup;
-
-  // validate
+  private message: any;
   private errors = PROMO_INVALID_INPUT_WARNING;
 
   constructor(
@@ -39,8 +38,10 @@ export class PromoCreateComponent implements OnInit {
     });
     this.createForm = new FormGroup({
       namePromo: new FormControl('', [Validators.required, Validators.maxLength(60), Validators.pattern('[ 0-9A-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴa-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵ]{1,}')]),
-      departurePlace: new FormControl('', Validators.required),
-      arrivalPlace: new FormControl('', Validators.required),
+      place: new FormGroup(
+        {
+          departurePlace: new FormControl('', Validators.required),
+          arrivalPlace: new FormControl('', Validators.required)}, validPlace),
       airline: new FormControl('', Validators.required),
       discount: new FormControl('', [Validators.required, Validators.min(0), Validators.max(100), Validators.pattern('[0-9]{1,}')]),
       flightGroup: new FormGroup(
@@ -57,8 +58,8 @@ export class PromoCreateComponent implements OnInit {
         namePromo: this.createForm.value.namePromo,
         discount: this.createForm.value.discount / 100,
         airline: this.airlineList.find(x => x.id == this.createForm.value.airline),
-        departurePlace: this.airportList.find(x => x.id == this.createForm.value.departurePlace),
-        arrivalPlace: this.airportList.find(x => x.id == this.createForm.value.arrivalPlace),
+        departurePlace: this.airportList.find(x => x.id == this.createForm.value.place.departurePlace),
+        arrivalPlace: this.airportList.find(x => x.id == this.createForm.value.place.arrivalPlace),
         promoDateStart: this.promoService.convertDate(this.createForm.value.flightGroup.promoDateStart),
         promoDateEnd: this.promoService.convertDate(this.createForm.value.flightGroup.promoDateEnd),
         flightDepartureDateStart: this.promoService.convertDate(this.createForm.value.flightGroup.flightDepartureDateStart),
@@ -73,6 +74,8 @@ export class PromoCreateComponent implements OnInit {
           this.router.navigateByUrl('/employee/promotion');
         }
       );
+    } else {
+      this.message = 'Vui lòng điền đầy đủ thông tin hợp lệ';
     }
   }
 
@@ -86,11 +89,14 @@ export class PromoCreateComponent implements OnInit {
   get airline() {
     return this.createForm.get('airline');
   }
+  get place() {
+    return this.createForm.get('place') as FormGroup;
+  }
   get departurePlace() {
-    return this.createForm.get('departurePlace');
+    return this.createForm.get('place.departurePlace');
   }
   get arrivalPlace() {
-    return this.createForm.get('arrivalPlace');
+    return this.createForm.get('place.arrivalPlace');
   }
   get flightGroup() {
     return this.createForm.get('flightGroup') as FormGroup;

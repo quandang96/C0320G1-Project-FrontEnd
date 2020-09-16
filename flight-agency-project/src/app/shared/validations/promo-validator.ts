@@ -11,7 +11,7 @@ export const PROMO_INVALID_INPUT_WARNING = {
     { code: 'required', message: 'Không được để trống' },
     { code: 'min', message: 'Vui lòng nhập giá trị trong khoảng 0-100' },
     { code: 'max', message: 'Vui lòng nhập giá trị trong khoảng 0-100' },
-    { code: 'pattern', message: 'Chỉ bao gồm chữ số' }
+    { code: 'pattern', message: 'Chỉ bao gồm một số dương' }
   ],
   airlineErrors: [
     { code: 'required', message: 'Không được để trống' }
@@ -74,10 +74,10 @@ export const validChooseDateOfPast: ValidatorFn = (control: FormControl): Valida
 };
 
 export const validPlace: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-  const verification = control.value;
-  const departurePlace = verification.departurePlace;
-  const arrivalPlace = verification.arrivalPlace;
-  if (departurePlace === arrivalPlace) {
+  const departurePlace = control.value.departurePlace;
+  const arrivalPlace = control.value.arrivalPlace;
+  if (departurePlace !== '' && arrivalPlace !== '' && departurePlace === arrivalPlace) {
+    console.log('duplicated');
     return {duplicatedPlace: true};
   }
   return null;
