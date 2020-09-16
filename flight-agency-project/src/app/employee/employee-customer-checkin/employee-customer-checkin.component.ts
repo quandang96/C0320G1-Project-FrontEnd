@@ -43,7 +43,7 @@ export class EmployeeCustomerCheckinComponent implements OnInit {
       tap(res => {
         console.log(res);
         if (res === null) {
-          this.message = 'Không tìm thấy chuyến bay khớp với tìm kiếm !';
+          this.message = 'Không tìm thấy thông tin khách hàng khớp với tìm kiếm !';
           this.hideableDiv = false;
         } else {
           this.message = '';
