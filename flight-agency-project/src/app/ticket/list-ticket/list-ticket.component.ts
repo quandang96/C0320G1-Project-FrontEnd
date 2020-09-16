@@ -6,6 +6,7 @@ import {DeleteTicketComponent} from '../delete-ticket/delete-ticket.component';
 import {AlterComponent} from '../alter/alter.component';
 import {Ticket} from '../../shared/models/Ticket';
 import {TicketServiceService} from '../../shared/services/ticket-service.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-list-ticket',
@@ -34,8 +35,11 @@ export class ListTicketComponent implements OnInit {
     private ticketService: TicketServiceService,
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
+    private translate: TranslateService
   ) {
+    translate.setDefaultLang('en');
+    translate.use('en');
   }
 
   ngOnInit() {
@@ -291,5 +295,10 @@ export class ListTicketComponent implements OnInit {
       this.mapTotalMoney.set(element.id, this.totalMoney);
     });
   }
+
+  switchLanguage(language: string) {
+    this.translate.use(language);
+  }
+
 
 }

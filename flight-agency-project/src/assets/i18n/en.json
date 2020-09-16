@@ -1,0 +1,39 @@
+{
+  "title": {
+    "content" : "Ticket Manager"
+  },
+  "1": {
+    "1" : "Find",
+    "2" : "",
+    "3" : "tickets",
+    "4" : "at here"
+  },
+  "2": {
+    "1" : "Find By :",
+    "2" : "Name customer",
+    "3" : "Booking code",
+    "4" : "Flight"
+  },
+  "3": {
+    "1" : "Find ..."
+  },
+  "4": {
+    "1" : "Name",
+    "2" : "Booking Code",
+    "3" : "Flight",
+    "4" : "Depature time",
+    "5" : "Total",
+    "6" : "Action"
+  },
+  "5": {
+    "1" : "Edit",
+    "2" : "Delete",
+    "3" : "Print"
+  },
+  "6": {
+    "1" : "first page",
+    "2" : "prev",
+    "3" : "next",
+    "4" : "last page"
+  }
+}
