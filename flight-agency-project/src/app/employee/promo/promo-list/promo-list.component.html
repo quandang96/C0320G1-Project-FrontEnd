@@ -264,12 +264,12 @@
                                                     <div class="text-left">
                                                         <h6>{{promo.namePromo}}</h6>
                                                         <a title="" href="" class="btn-sm btn-outline-success"
-                                                            data-toggle="tooltip"> <i class="far fa-edit"></i> Sửa</a>
+                                                            data-toggle="tooltip"> <i class="far fa-edit" routerLink="/promotion/promo-edit/${promo.id}"  ></i> Sửa</a>
                                                         <a href="" class="btn-sm btn-outline-danger" data-toggle="modal"
                                                             data-target="#delete"> <i class="far fa-trash-alt"></i>
                                                             Xóa</a>
                                                         <div class="modal fade" id="delete" tabindex="-1" role="dialog"
-                                                            aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                                            ari a-labelledby="exampleModalLongTitle" aria-hidden="true">
                                                             <div class="modal-dialog" role="document">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
@@ -287,9 +287,9 @@
                                                                             chắn
                                                                             muốn
                                                                             xóa giao dịch này?</div>
-                                                                            Tên khuyến mãi: {{promo.name}} <br>
+                                                                            Tên khuyến mãi: {{promo.namePromo}} <br>
                                                                             Giảm giá: {{promo.discount}} <br>
-                                                                            Hãng bay: {{promo.airline}} <br>
+                                                                            Hãng bay: {{promo.airline.name}} <br>
                                                                             Thời gian khởi hành bay: Từ {{promo.flightDepartureDateStart}} đến {{promo.flightDepartureDateEnd}} <br>
                                                                             Thời gian hiển thị khuyến mãi: Từ {{promo.promoDateStart}} đến {{promo.promoDateEnd}}
                                                                     </div>
