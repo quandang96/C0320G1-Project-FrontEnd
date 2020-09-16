@@ -71,7 +71,7 @@
     padding: 10px 15px;
     vertical-align: top;
     color: white;
-    
+
 }
 
 .dropdown:hover>.dropdown-menu {
@@ -99,9 +99,9 @@
 }
 
 #wrapper {
-  background:#eaeaea !important;
+  background: #f6f6f6 !important;
   padding-bottom: 30px;
-  height: 80px !important; 
+  height: 80px !important;
 }
 
 .logoWord {
@@ -161,7 +161,7 @@ hr {
     width:70px
   }
   .btn-2:hover{
-    background-color:#22478b; 
+    background-color:#22478b;
 
   }
 

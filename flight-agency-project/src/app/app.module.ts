@@ -26,6 +26,8 @@ import { NgxPayPalModule } from 'ngx-paypal';
 import { ToastrModule } from 'ngx-toastr';
 // import { NgxCaptchaModule } from 'ngx-captcha';
 import { CustomerCheckinComponent } from './home/customer-checkin/customer-checkin.component';
+import { FlightModule } from './flight/flight.module';
+
 
 
 @NgModule({
@@ -57,7 +59,8 @@ import { CustomerCheckinComponent } from './home/customer-checkin/customer-check
     FormsModule,
     // NgxCaptchaModule
     NgxPayPalModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    FlightModule,
   ],
   providers: [
     {

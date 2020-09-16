@@ -126,6 +126,9 @@
                             <strong>Vui lòng chọn điểm đến</strong>
                           </p>
                         </div>
+                        <div class="ghichu2" *ngIf="searchForm.hasError('checkPlace')">
+                          <strong style="color: #ffffff">Điểm đi không được trùng với điểm đến</strong>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -231,15 +234,22 @@
                       </div>
                     </div>
                     <div class="ghichu">
-                      <p>* dưới 24 tháng tuổi</p>
+                      <p>*dưới 24 tháng</p>
                     </div>
                   </div>
                 </div>
                 <div class="row">
+                  <div class="ghichu3" *ngIf="searchForm.hasError('checkBabies')">
+                    <strong style="color: #ffffff">Số lượng em bé không được lớn hơn số lượng người lớn</strong>
+                  </div>
+                  <div class="ghichu3" *ngIf="searchForm.hasError('checkNumber')">
+                    <strong style="color: #ffffff">Tổng số lượng người lớn và trẻ em không được vượt quá 9</strong>
+                  </div>
                   <div class="col-md-6 col-lg-6 col-xl-6">
                     <div class="buttontimkiem1">
                       <div class="form-group">
-                        <button type="button" class="btn btn-warning btn-lg buttontimkiem">
+                        <button type="button" class="btn btn-warning btn-lg buttontimkiem" (click)="search()"
+                                [disabled]="searchForm.invalid">
                           Tìm kiếm nhanh
                         </button>
                       </div>
@@ -259,6 +269,21 @@
               </form>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="wrapper4">
+  <div class="detail4">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <ng-container oneWay></ng-container>
+        </div>
+        <div class="col-sm-12">
+          <ng-container oneWay></ng-container>
         </div>
       </div>
     </div>

@@ -61,7 +61,7 @@ export class FlightScheduleListComponent implements OnInit, AfterViewInit {
       adults: [1, [Validators.required]]
     }, {
       validators: [compare]
-    })
+    });
   }
 
   ngAfterViewInit() {
@@ -75,7 +75,7 @@ export class FlightScheduleListComponent implements OnInit, AfterViewInit {
       babies: this.flightScheduleService.flightSearchForm.babies,
       children: this.flightScheduleService.flightSearchForm.children,
       adults: this.flightScheduleService.flightSearchForm.adults,
-    })
+    });
     this.onSubmit();
   }
 
@@ -170,16 +170,19 @@ export class FlightScheduleListComponent implements OnInit, AfterViewInit {
   }
 
   get selectedDep() {
-    if (this.departureFlight == null)
+    if (this.departureFlight == null) {
       return false;
+    }
     return true;
   }
 
   get selectedRet() {
-    if (this.noOfWay === 1)
+    if (this.noOfWay === 1) {
       return true;
-    if (this.returnFlight == null)
+    }
+    if (this.returnFlight == null) {
       return false;
+    }
     return true;
   }
 

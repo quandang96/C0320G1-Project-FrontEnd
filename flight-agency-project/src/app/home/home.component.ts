@@ -1,14 +1,17 @@
 import { MatDialog } from '@angular/material';
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, QueryList, ViewChildren, ComponentRef, ComponentFactoryResolver } from '@angular/core';
 import { FlightScheduleService } from '../shared/services/flight-schedule.service';
+import { FlightSchedule } from '../shared/models/flight-schedule';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Airport } from '../shared/models/airport';
-import { FlightSchedule } from 'src/app/shared/models/flight-schedule';
 import { FlightSearchForm } from '../shared/models/dto/flight-search-form';
 import { LoginComponent } from './login/login.component';
+import { OnewayDirective } from '../flight/oneway.directive';
+import { FlightOnewayScheduleComponent } from '../flight/flight-oneway-schedule/flight-oneway-schedule.component';
+import {FlightSearchDTO} from '../shared/models/dto/flight-search-dto';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +19,9 @@ import { LoginComponent } from './login/login.component';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
+  @ViewChildren(OnewayDirective) entry: QueryList<OnewayDirective>;
+
   // D-Bach
   oneWay = false;
   flightSchedule: Observable<FlightSchedule[]>;
@@ -27,12 +33,17 @@ export class HomeComponent implements OnInit {
   arr: number[];
   branchImages: string[];
   isEmpty = false;
+  departureComponent: ComponentRef<FlightOnewayScheduleComponent>;
+  arrivalComponent: ComponentRef<FlightOnewayScheduleComponent>;
+  departureFlight: FlightSchedule = null;
+  arrivalFlight: FlightSchedule = null;
 
   constructor(
     private flightScheduleService: FlightScheduleService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private resolve: ComponentFactoryResolver
   ) {
   }
 
@@ -73,7 +84,84 @@ export class HomeComponent implements OnInit {
       babies: [0, [Validators.required]],
       children: [0, [Validators.required]],
       adults: [1, [Validators.required]]
-    });
+    }, {validators : [this.checkDepartureAirportAndArrivalAirport, this.checkAdultsAndBabies, this.checkAdultsAndChildren]});
+  }
+
+  // D-Bach
+  search() {
+     const departureSchedule: FlightSearchDTO = {
+       sortBy : '',
+       departure : this.searchForm.get('departureAirport').value,
+       arrival : this.searchForm.get('arrivalAirport').value,
+       depDate : this.searchForm.get('departureDateTime').value,
+       babies : this.searchForm.get('babies').value,
+       children : this.searchForm.get('children').value,
+       adults : this.searchForm.get('adults').value
+     };
+     this.departureComponent = this.loadComponent(0, departureSchedule);
+     this.departureComponent.instance.sel.subscribe(data => {
+       this.departureFlight = data;
+     });
+     if (!this.oneWay) {
+       const arrivalSchedule: FlightSearchDTO = {
+         sortBy : '',
+         departure : this.searchForm.get('departureAirport').value,
+         arrival : this.searchForm.get('arrivalAirport').value,
+         depDate : this.searchForm.get('arrivalDateTime').value,
+         babies : this.searchForm.get('babies').value,
+         children : this.searchForm.get('children').value,
+         adults : this.searchForm.get('adults').value
+       };
+       this.arrivalComponent = this.loadComponent(1, arrivalSchedule);
+       this.arrivalComponent.instance.sel.subscribe(data => {
+         this.arrivalFlight = data;
+       });
+     }
+  }
+
+  // D-Bach
+  // @ts-ignore
+  loadComponent(index: number, flightSearch: FlightSearchDTO): ComponentRef<FlightOnewayScheduleComponent> {
+    this.entry.toArray()[index].viewContainer.clear();
+    const resolve = this.resolve.resolveComponentFactory(FlightOnewayScheduleComponent);
+    const componentRef = this.entry.toArray()[index].viewContainer.createComponent(resolve);
+    componentRef.instance.flightSearch = flightSearch;
+    componentRef.changeDetectorRef.detectChanges();
+    return componentRef;
+  }
+
+  // D-Bach
+  checkDepartureAirportAndArrivalAirport(formGroup: AbstractControl): ValidationErrors | null {
+    const check: FlightSearchForm = formGroup.value;
+    const departureAirport = check.departureAirport;
+    const arrivalAirport = check.arrivalAirport;
+    if (departureAirport === arrivalAirport && departureAirport !== '' && arrivalAirport !== '') {
+      return {checkPlace: true};
+    }
+    return null;
+  }
+
+  // D-Bach
+  checkAdultsAndBabies(formGroup: AbstractControl): ValidationErrors | null {
+    const check: FlightSearchForm = formGroup.value;
+    const adults = check.adults;
+    const babies = check.babies;
+    if (babies > adults) {
+      return {checkBabies: true};
+    }
+    return null;
+  }
+
+  // D-Bach
+  checkAdultsAndChildren(formGroup: AbstractControl): ValidationErrors | null {
+    const check: FlightSearchForm = formGroup.value;
+    const adults = check.adults;
+    const children = check.children;
+    console.log(adults);
+    if ((+adults + +children) >= 9) {
+      return {checkNumber: true};
+    }
+    return null;
   }
   openDialog(): void {
     const dialogRef = this.dialog.open(LoginComponent, {
