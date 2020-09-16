@@ -6,7 +6,9 @@ import { AbstractControl } from '@angular/forms';
 import { CustomerChangePassDto } from '../models/dto/CustomerChangePassDto';
 import { TransactionDetailDTO } from '../models/dto/TransactionDetailDTO';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CustomerService {
   private readonly API_URL_CUSTOMER = 'http://localhost:8080/api/v1/customer/';
   private readonly baseUrl = 'http://localhost:8080/api/v1/checkin';
@@ -19,6 +21,32 @@ export class CustomerService {
       'Content-Type': 'application/json'
     })
   };
+
+  // Thành Long
+  private options = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    }),
+    'Access-Control-Allow-Origin': 'http://localhost:4200',
+    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+    responseType: 'text' as 'json'
+  };
+
+  // Thành Long
+  getTransactionDetailHttpOptions(id: number): Object {
+    const transactionDetail = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      }),
+      'Access-Control-Allow-Origin': 'http://localhost:4200',
+      'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+      params: {
+        id
+      }
+    };
+    return transactionDetail;
+  }
+
 
   // Created By Thiện
   getCustomerById(id): Observable<CustomerUpdateDto> {
@@ -48,30 +76,8 @@ export class CustomerService {
     return (chooseDate - currentDate >= 0) ?
       { chooseDateGreaterThanCurrentDate: true } : null;
   }
-  // Thành Long
-  private options = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    }),
-    'Access-Control-Allow-Origin': 'http://localhost:4200',
-    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-    responseType: 'text' as 'json'
-  };
 
-  // Thành Long
-  getTransactionDetailHttpOptions(id: number): Object {
-    const transactionDetail = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      }),
-      'Access-Control-Allow-Origin': 'http://localhost:4200',
-      'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-      params: {
-        id
-      }
-    };
-    return transactionDetail;
-  }
+
 
   // Thành Long
   searchTransactionDetail(id: number): Observable<TransactionDetailDTO[]> {
