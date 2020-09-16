@@ -1,4 +1,4 @@
-<div class="container-xl">
+<div class="container-xl" #epltable>
   <div class="table-responsive">
     <div class="table-wrapper">
       <div class="table-title">
@@ -8,14 +8,12 @@
           </div>
           <div class="col-sm-8">
             <a href="#" class="btn btn-primary"><i class="material-icons">add</i> <span>Thêm Nhân Viên</span></a>
-            <button (click)="ExportTOExcel()" class="btn btn-primary"><i class="material-icons">add</i>
-              <span>Excel</span></button>
-            <a href="#" (click)="ExportTOExcel()" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i>
+            <a (click)="exportToExcel()" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i>
               <span>Export to Excel</span></a>
           </div>
         </div>
       </div>
-      <form (ngSubmit)="searchEmployee()" class="form-group" [(ngModel)]="valueSearch" [formGroup]="searchEmployeeForm">
+      <form (ngSubmit)="searchEmployee()" class="form-group" [formGroup]="searchEmployeeForm">
         <div class="table-filter">
           <div class="row">
             <div class="col-sm-3">
@@ -35,7 +33,7 @@
             <div class="col-sm-9">
               <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
               <div class="filter-group">
-                <input formControlName="value" type="text" class="form-control">
+                <input formControlName="value" type="text"  [ngModel]="valueSearch" class="form-control">
               </div>
               <div class="filter-group">
                 <label>Tìm Kiếm</label>

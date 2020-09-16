@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {EmployeeDTO} from '../../shared/models/dto/employeeDTO';
 import {EmployeeService} from '../../shared/services/employee.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import * as xlsx from 'xlsx';
 
 @Component({
   selector: 'app-employee-table',
@@ -9,6 +10,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./employee-table.component.css']
 })
 export class EmployeeTableComponent implements OnInit {
+  @ViewChild('epltable', {static: false}) epltable: ElementRef;
   employees: EmployeeDTO[];
   employee: EmployeeDTO;
   page = 0;
@@ -75,16 +77,12 @@ export class EmployeeTableComponent implements OnInit {
     );
   }
 
-  ExportTOExcel() {
-    console.log('to excel');
-    // @ts-ignore
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(this.TABLE.nativeElement);
-    // @ts-ignore
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    // @ts-ignore
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-    // @ts-ignore
-    XLSX.writeFile(wb, 'ScoreSheet.xlsx');
+  exportToExcel() {
+    const ws: xlsx.WorkSheet =
+      xlsx.utils.table_to_sheet(this.epltable.nativeElement);
+    const wb: xlsx.WorkBook = xlsx.utils.book_new();
+    xlsx.utils.book_append_sheet(wb, ws, 'Sheet1');
+    xlsx.writeFile(wb, 'epltable.xlsx');
   }
 
   searchEmployee() {
@@ -106,16 +104,30 @@ export class EmployeeTableComponent implements OnInit {
   }
 
   onFirstPage() {
+    if (this.valueSearch != null) {
+      this.searchEmployee();
+    }
     this.page = 0;
     this.getAllEmployee(this.page, this.size);
   }
 
   onLastPage() {
+    if (this.valueSearch != null) {
+      this.page = this.totalPage - 1;
+      this.searchEmployee();
+    }
     this.page = this.totalPage - 1;
     this.getAllEmployee(this.page, this.size);
   }
 
   onBackPage() {
+    // tslint:disable-next-line:triple-equals
+    if (this.valueSearch != '') {
+      if (this.page > 0) {
+        this.page--;
+      }
+      this.searchEmployee();
+    }
     // tslint:disable-next-line:triple-equals
     if (this.page != 0) {
       this.page--;
@@ -124,6 +136,11 @@ export class EmployeeTableComponent implements OnInit {
   }
 
   onNextPage() {
+    // tslint:disable-next-line:triple-equals
+    if (this.valueSearch != '') {
+      this.page++;
+      this.searchEmployee();
+    }
     // tslint:disable-next-line:triple-equals
     if (this.page != this.totalPage - 1) {
       this.page++;
