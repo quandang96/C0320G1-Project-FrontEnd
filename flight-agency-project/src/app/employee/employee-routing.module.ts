@@ -1,6 +1,8 @@
 import { InvoiceTicketComponent } from './invoice-ticket/invoice-ticket.component';
 import { FindFlightComponent } from './find-flight/find-flight.component';
 import { BookTicketComponent } from './book-ticket/book-ticket.component';
+import { EmployeeListComponent } from './employee-list/employee-list.component';
+import { EmployeeTableComponent } from './employee-table/employee-table.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { RoleGuard } from '../guards/role.guard';
@@ -47,7 +49,7 @@ const routes: Routes = [
   { path: "promotion", component: PromoListComponent },
   { path: "promotion/create", component: PromoCreateComponent },
   { path: 'customer-checkin-list', component: EmployeeCustomerCheckinComponent },
-
+  { path: '', component: EmployeeTableComponent },
 
 
 

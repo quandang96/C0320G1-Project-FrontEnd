@@ -56,12 +56,26 @@ export class EmployeeService {
     return passenger;
   }
 
-  constructor(private http: HttpClient) { }
-
-  //BHung: Lấy danh sách airport:
-  getAllAirports(): Observable<Airport[]> {
-    return this.http.get<Airport[]>(this.API_URL + "/airport", this.httpOptions);
+  constructor(private http: HttpClient) {
   }
+
+  // Hung: Lấy danh sách airport,
+  getAllAirports(): Observable<any> {
+    return this.http.get(this.API_URL, this.httpOptions);
+  }
+
+  // Duc: lấy danh sách nhân viên
+  getAllEmployee(page, size): Observable<any> {
+    const link = this.API_URL + '?page=' + page + '&size=' + size;
+    return this.http.get(link);
+  }
+
+  // Duc: tìm kiếm và trả về có phân trang
+  searchEmployees(key, value, page, size): Observable<any> {
+    const link = this.API_URL + '/search?key=' + key + '&value=' + value + '&page=' + page + '&size=' + size;
+    return this.http.get(link);
+  }
+
 
   //BHung: tìm kiếm danh sách flights:
   findAllFlightSchedules(flightDTO: EmployeeFlightSearchDTO, page: number): Observable<Page<FlightSchedule>> {
@@ -107,5 +121,12 @@ export class EmployeeService {
   // Thành Long
   getAllPassengerCheckin(searchField: CustomerSearchDto, page: number): Observable<Page<CustomerCheckinDto>> {
     return this.http.get<Page<CustomerCheckinDto>>(`${this.API_URL}/customer-checkin-list`, this.getPassengerCheckinHttpOptions(searchField, page));
+
+
+  }
+  // Duc: thêm mới nhân viên
+  addNewEmployees(employees): Observable<any> {
+    const link = this.API_URL;
+    return this.http.post(link, employees);
   }
 }

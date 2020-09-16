@@ -19,6 +19,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { BillFindComponent } from './bill-find/bill-find.component';
 import { PromoListComponent } from './promo/promo-list/promo-list.component';
 import { PromoCreateComponent } from './promo/promo-create/promo-create.component';
+import { EmployeeTableComponent } from './employee-table/employee-table.component';
+import { EmployeeListComponent } from './employee-list/employee-list.component';
 
 
 registerLocaleData(localVi);
@@ -34,7 +36,9 @@ registerLocaleData(localVi);
     BillInvoiceComponent,
     PromoListComponent,
     PromoCreateComponent,
-    EmployeeCustomerCheckinComponent
+    EmployeeCustomerCheckinComponent,
+    EmployeeTableComponent,
+    EmployeeListComponent
   ],
   imports: [
     CommonModule,
@@ -54,4 +58,5 @@ registerLocaleData(localVi);
   entryComponents: [BillFindComponent]
 
 })
-export class EmployeeModule { }
+export class EmployeeModule {
+}

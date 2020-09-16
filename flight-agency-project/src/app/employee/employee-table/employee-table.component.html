@@ -1,0 +1,96 @@
+<div class="container-xl" #epltable>
+  <div class="table-responsive">
+    <div class="table-wrapper">
+      <div class="table-title">
+        <div class="row">
+          <div class="col-sm-4">
+            <h2>Danh Sách <b>Nhân Viên</b></h2>
+          </div>
+          <div class="col-sm-8">
+            <a href="#" class="btn btn-primary"><i class="material-icons">add</i> <span>Thêm Nhân Viên</span></a>
+            <a (click)="exportToExcel()" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i>
+              <span>Export to Excel</span></a>
+          </div>
+        </div>
+      </div>
+      <form (ngSubmit)="searchEmployee()" class="form-group" [formGroup]="searchEmployeeForm">
+        <div class="table-filter">
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="show-entries">
+                <span>Hiển thị</span>
+                <select (click)="onChangeSize()" formControlName="size" [(ngModel)]="size" class="form-control"
+                        style="width: 28%">
+                  <option [value]="5">5</option>
+                  <option [value]="10" [selected]="true">10</option>
+                  <option [value]="20">20</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>
+                <span>mục</span>
+              </div>
+            </div>
+            <div class="col-sm-9">
+              <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+              <div class="filter-group">
+                <input formControlName="value" type="text"  [ngModel]="valueSearch" class="form-control">
+              </div>
+              <div class="filter-group">
+                <label>Tìm Kiếm</label>
+                <select formControlName="key" class="form-control">
+                  <option value="email" [selected]="true">Email</option>
+                  <option value="fullName">Họ Tên</option>
+                  <option value="birthday">Ngày Sinh</option>
+                  <option value="address">Địa Chỉ</option>
+                  <option value="phoneNumber">Số Điện thoại</option>
+                </select>
+              </div>
+              <span class="filter-icon"><i class="fa fa-filter"></i></span>
+            </div>
+          </div>
+        </div>
+      </form>
+      <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>Nhân Viên</th>
+          <th>Địa Chỉ</th>
+          <th>Ngày Sinh</th>
+          <th>Email</th>
+          <th>Số Điện Thoại</th>
+          <th style="width: 10%">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let employee of employees">
+          <td>{{employee.id}}</td>
+          <td><a href="#"><img [src]="employee.avatarImageUrl" class="avatar" alt="Avatar"> {{employee.fullName}}</a>
+          </td>
+          <td>{{employee.address}}</td>
+          <td>{{employee.birthday}}</td>
+          <td>{{employee.email}}</td>
+          <td>{{employee.phoneNumber}}</td>
+          <td>
+            <a href="#editEmployeeModal" class="edit" data-toggle="modal"><i class="material-icons"
+                                                                             data-toggle="tooltip"
+                                                                             title="Edit">&#xE254;</i></a>
+            <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons"
+                                                                                 data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="clearfix">
+        <div class="hint-text">Hiển thị <b>{{size}}</b> trong <b>{{totalItems}}</b> mục</div>
+        <ul class="pagination">
+          <li class="page-item " (click)="onFirstPage()"><a class="page-link">Trang Đầu</a></li>
+          <li class="page-item" (click)="onBackPage()"><a class="page-link"><</a></li>
+          <li class="page-item active" ><a class="page-link">{{page + 1}}</a></li>
+          <li class="page-item" (click)="onNextPage()"><a class="page-link">> </a></li>
+          <li class="page-item" (click)="onLastPage()"><a class="page-link">Trang Cuối</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
