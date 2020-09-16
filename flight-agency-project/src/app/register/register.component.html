@@ -1,141 +1,138 @@
+<body>
+<div class="signup-form">
+  <form  class="form-horizontal" [formGroup]="registerForm" (ngSubmit)="onSubmit()" >
 
-<section id="cover" class="min-vh-100">
-  <div id="cover-caption">
-    <div class="container">
-      <div class="row text-white">
-        <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 mx-auto text-center form p-4">
-          <h1 class="display-4 py-2 text-truncate">Sign up.</h1>
-          <p class="UserAgreement m-bottom-margin">
-            By continuing, you agree to our
-            <a target="_blank" href="https://www.redditinc.com/policies/user-agreement">User Agreement</a> and
-            <a target="_blank" href="https://www.redditinc.com/policies/privacy-policy">Privacy Policy</a>
-          </p>
-          <div class="px-2">
-            <form [formGroup]="registerForm" class="justify-content-center" id="validatedForm">
-
-              <div class="form-group">
-                <label class="sr-only">Email</label>
-                <input type="text" class="form-control" placeholder="Email *" formControlName="email">
-                <p id="i1" class="text-danger"
-                    *ngIf="registerForm.controls.email.errors?.email">Email không hợp lệ !</p>
-                <p id="i2" class="text-danger"
-                   *ngIf="registerForm.controls.email.errors?.required && registerForm.controls.email.touched">Vui lòng nhập Email !</p>
-              </div>
-
-              <div class="form-group">
-                <label class="sr-only">Password</label>
-                <input id="password" name="password" type="password" class="form-control" placeholder="Password *" formControlName="password">
-                <p id="i3" class="text-danger"
-                   *ngIf="registerForm.controls.password.errors?.minlength">Mật khẩu phải nhiều hơn 6 kí tự !</p>
-                <p id="i4" class="text-danger"
-                   *ngIf="registerForm.controls.password.errors?.maxlength">Mật khẩu phải ít hơn 20 kí tự !</p>
-                <p id="i5" class="text-danger"
-                   *ngIf="registerForm.controls.password.errors?.required && registerForm.controls.password.touched">Vui lòng nhập mật khẩu !</p>
-              </div>
-
-              <div class="form-group">
-                <label class="sr-only">Confirm Password</label>
-                <input id="confirmPassword" name="confirmPassword" type="password" class="form-control" placeholder="Confirm Password *">
-<!--                <p id="6" class="text-danger"-->
-<!--                   *ngIf="registerForm.controls.confirmPassword.errors?.required && registerForm.controls.confirmPassword.touched">Vui lòng xác nhận mật khẩu !</p>-->
-                <span id='message'></span>
-              </div>
-
-              <div class="form-group">
-                <label class="sr-only">Phone</label>
-                <input type="tel" class="form-control" placeholder="Phone *" formControlName="phoneNumber">
-                <p id="7" class="text-danger"
-                   *ngIf="registerForm.controls.phoneNumber.errors?.required && registerForm.controls.phoneNumber.touched">Vui lòng nhập số điện thoại !</p>
-                <p id="i8" class="text-danger"
-                   *ngIf="registerForm.controls.phoneNumber.errors?.pattern ">Số điện thoại gồm 12 số !</p>
-              </div>
-
-              <div class="form-group">
-                <label class="sr-only">Name</label>
-                <input type="text" class="form-control" placeholder="Name *" formControlName="fullName">
-                <p id="8" class="text-danger"
-                   *ngIf="registerForm.controls.fullName.errors?.required && registerForm.controls.fullName.touched">Vui lòng nhập họ tên !</p>
-              </div>
-
-              <div class="form-group">
-                <h5>Birth Day: </h5>
-                <mat-form-field class="">
-                  <mat-label>Date of Birth</mat-label>
-                  <input matInput [matDatepicker]="dob" formControlName="birthDate">
-                  <mat-datepicker-toggle matSuffix [for]="dob"></mat-datepicker-toggle>
-                  <mat-datepicker #dob></mat-datepicker>
-                  <mat-error *ngIf="registerForm.get('birthDate').hasError('required')">
-                    Vui lòng nhập ngày sinh!
-                  </mat-error>
-                  <mat-error *ngIf="registerForm.get('birthDate').hasError('invalidDOBYear')">
-                    Bạn phải đủ 18 tuổi để sử dụng dịch vụ này !
-                  </mat-error>
-                </mat-form-field>
-              </div>
-
-              <div class="form-group">
-                <label class="sr-only">Address</label>
-                <input type="text" class="form-control form-control-lg" placeholder="Address *" formControlName="address">
-                <p id="9" class="text-danger"
-                   *ngIf="registerForm.controls.address.errors?.required && registerForm.controls.address.touched">Vui lòng nhập địa chỉ !</p>
-              </div>
-
-              <div data-role="form-group">
-                <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Choose your gender</label>
-                <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref" formControlName="gender">
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Other">Other</option>
-                </select>
-                <p id="10" class="text-danger"
-                   *ngIf="registerForm.controls.gender.errors?.required && registerForm.controls.gender.touched">Vui lòng chọn giới tính !</p>
-              </div>
-
-              <button type="submit" class="btn btn-primary btn-lg"  (click)="onAddNewAccount()">Continue</button>
-
-            </form>
-          </div>
-        </div>
+    <div class="form-group row">
+      <label class="col-form-label col-4">Email Address</label>
+      <div class="col-8">
+        <input type="text" class="form-control"  required="required" formControlName="email" >
+        <span class="text-danger"
+              *ngIf=" submitted && registerFormControl.email.errors?.required">
+                                Vui lòng nhập email !
+                            </span>
+        <span class="text-danger"
+              *ngIf=" submitted && registerFormControl.email.errors?.email">
+                                Email không hợp lệ !
+                            </span>
       </div>
     </div>
-  </div>
-</section>
-<style>
-  #cover {
-    background: #222 url('https://unsplash.it/1920/1080/?random') center center no-repeat;
-    background-size: cover;
-    height: 100%;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    position: relative;
-  }
 
-  #cover-caption {
-    width: 100%;
-    position: relative;
-    z-index: 1;
-  }
+    <div class="form-group row">
+      <label class="col-form-label col-4">Password</label>
+      <div class="col-8">
+        <input type="email" class="form-control" required="required" formControlName="password">
+        <span  class="text-danger"
+           *ngIf="registerFormControl.password.errors?.minlength && submitted">Mật khẩu phải nhiều hơn 6 kí tự !</span>
+        <span  class="text-danger"
+           *ngIf="registerFormControl.password.errors?.maxlength && submitted">Mật khẩu phải ít hơn 20 kí tự !</span>
+        <span class="text-danger"
+              *ngIf=" submitted && registerFormControl.password.errors?.required">
+                                Vui lòng nhập mật khẩu !
+                            </span>
+      </div>
+    </div>
 
-  /* only used for background overlay not needed for centering */
-  form:before {
-    content: '';
-    height: 100%;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    background-color: rgba(0,0,0,0.3);
-    z-index: -1;
-    border-radius: 10px;
-  }
+    <div class="form-group row">
+      <label class="col-form-label col-4">Confirm Password</label>
+      <div class="col-8">
+        <input type="text" class="form-control"  required="required" formControlName="confirmPassword">
+        <span class="text-danger"
+              *ngIf="submitted && registerFormControl.confirmPassword.errors?.required">
+                                Vui lòng xác nhận mật khẩu !
+                            </span>
+        <span class="text-danger"
+              *ngIf="registerFormControl.confirmPassword.errors?.passwordMismatch && submitted ">
+                                Xác nhận mật khẩu thất bại !
+                            </span>
+      </div>
+    </div>
 
-</style>
-<script>
-  $('#password, #confirmPassword').on('keyup', function () {
-    if ($('#password').val() == $('#confirmPassword').val()) {
-      $('#message').html('Matching').css('color', 'green');
-    } else
-      $('#message').html('Not Matching').css('color', 'red');
-  });
-</script>
+    <div class="form-group row">
+      <label class="col-form-label col-4">Phone</label>
+      <div class="col-8">
+        <input type="text" class="form-control"  required="required" formControlName="phoneNumber">
+        <span class="text-danger"
+              *ngIf="submitted && registerFormControl.phoneNumber.errors?.required">
+                                Vui lòng nhập số điện thoại !
+                            </span>
+        <span class="text-danger"
+              *ngIf="registerFormControl.phoneNumber.errors?.pattern && submitted ">
+                                Số điện thoại không đúng định dạng !
+                            </span>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-form-label col-4">Name</label>
+      <div class="col-8">
+        <input type="text" class="form-control"  required="required" formControlName="fullName">
+        <span class="text-danger"
+              *ngIf=" submitted && registerFormControl.fullName.errors?.required">
+                                Vui lòng nhập tên !
+                            </span>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-form-label col-4">Birth</label>
+      <div class="col-8">
+        <mat-form-field class="">
+          <mat-label>Date of Birth</mat-label>
+          <input matInput [matDatepicker]="dob" formControlName="birthDate">
+          <mat-datepicker-toggle matSuffix [for]="dob"></mat-datepicker-toggle>
+          <mat-datepicker #dob></mat-datepicker>
+          <mat-error *ngIf="submitted && registerFormControl.birthDate.errors?.required">
+            Vui lòng nhập ngày sinh!
+          </mat-error>
+          <mat-error *ngIf="submitted && registerForm.get('birthDate').hasError('invalidDOBYear')">
+            Bạn phải đủ 18 tuổi để sử dụng dịch vụ này !
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-form-label col-4">Address</label>
+      <div class="col-8">
+        <input type="text" class="form-control"  required="required" formControlName="address">
+        <span class="text-danger"
+              *ngIf="(registerFormControl.address.touched || submitted) && registerFormControl.address.errors?.required">
+                                Bạn phải nhập điạ chỉ !
+                            </span>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <!-- Material inline 1 -->
+      <div class="form-check form-check-inline">
+        <input type="radio" class="form-check-input" id="materialInline1" name="inlineMaterialRadiosExample" formControlName="gender" value="male">
+        <label class="form-check-label" for="materialInline1">male</label>
+      </div>
+
+      <!-- Material inline 2 -->
+      <div class="form-check form-check-inline">
+        <input type="radio" class="form-check-input" id="materialInline2" name="inlineMaterialRadiosExample" formControlName="gender" value="female">
+        <label class="form-check-label" for="materialInline2">female</label>
+      </div>
+
+      <!-- Material inline 3 -->
+      <div class="form-check form-check-inline">
+        <input type="radio" class="form-check-input" id="materialInline3" name="inlineMaterialRadiosExample"formControlName="gender" value="other">
+        <label class="form-check-label" for="materialInline3">other</label>
+      </div>
+      <span class="text-danger"
+            *ngIf="submitted && registerFormControl.gender.errors?.required">
+                                Vui lòng chọn giới tính !
+                            </span>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-8 offset-4">
+        <p><label class="form-check-label"><input type="checkbox" required="required"> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a>.</label></p>
+        <button type="submit" class="btn btn-primary btn-lg" >Sign Up</button>
+      </div>
+    </div>
+  </form>
+  <div class="text-center">Already have an account? <a href="#">Login here</a></div>
+</div>
+</body>

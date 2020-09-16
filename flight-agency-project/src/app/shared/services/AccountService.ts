@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Account} from '../models/Account';
 import {Observable} from 'rxjs';
 import {AbstractControl} from '@angular/forms';
 import {AdminPasswordDTO} from '../models/dto/AdminPasswordDTO';
@@ -10,7 +9,7 @@ import {AdminPasswordDTO} from '../models/dto/AdminPasswordDTO';
 })
 export class AccountService {
 
-  private readonly API_URL_ACCOUNT = 'http://localhost:8080/api/v1/account';
+  private readonly API_URL_ACCOUNT = 'http://localhost:8080/api/v1';
   constructor(private http: HttpClient) {}
 
   createUser(account): Observable<any> {
@@ -19,6 +18,10 @@ export class AccountService {
 
   updatePassword(passwordDTO: AdminPasswordDTO, id): Observable<any> {
     return this.http.put(this.API_URL_ACCOUNT + '/password/' + id, passwordDTO);
+  }
+
+  getAdminById(id): Observable<AdminPasswordDTO> {
+    return this.http.get<AdminPasswordDTO>(this.API_URL_ACCOUNT + '/admin/info/' + id);
   }
 
   comparePassword(c: AbstractControl) {

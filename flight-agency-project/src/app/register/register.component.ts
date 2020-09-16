@@ -32,11 +32,11 @@ function datePickerValidator(control: AbstractControl): ValidationErrors | null 
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  submitted = false;
 
   constructor(
     private fb: FormBuilder,
     private accountService: AccountService,
-    private router: Router,
     ) {}
 
   private account: Account = {
@@ -49,26 +49,76 @@ export class RegisterComponent implements OnInit {
     phoneNumber: null,
     address: null,
     gender: null,
+    customerRank: null,
     avatarImageUrl: null,
     role: null,
     status: null,
   };
   registerForm: FormGroup;
 
+
   ngOnInit() {
     this.registerForm = this.fb.group({
-      // tslint:disable-next-line:max-line-length
       fullName: ['', [Validators.required, Validators.pattern(/^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s\W|_]+$/)]],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
       birthDate: ['', [Validators.required, datePickerValidator]],
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', [Validators.required, Validators.pattern(/^((09|03|07|08|05)+([0-9]{8})\b)$/)]],
-      // tslint:disable-next-line:max-line-length
+      confirmPassword: ['', [Validators.required]],
       address: ['', [Validators.required, Validators.pattern(/^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s\W|_]+$/)]],
       gender: ['', [Validators.required]],
-    });
+    }, { validator: this.MatchPassword('password', 'confirmPassword'), });
   }
   onAddNewAccount() {
+    // this.submitted = true;
+    // this.account.fullName = this.registerForm.get('fullName').value;
+    // this.account.password = this.registerForm.get('password').value;
+    // this.account.birthDate = this.registerForm.get('birthDate').value;
+    // this.account.email = this.registerForm.get('email').value;
+    // this.account.phoneNumber = this.registerForm.get('phoneNumber').value;
+    // this.account.address = this.registerForm.get('address').value;
+    // this.account.gender = this.registerForm.get('gender').value;
+    // this.account.status = false;
+    // this.account.customerRank = '';
+    // this.account.avatarImageUrl = '';
+    // this.account.role = 'ROLE_USER';
+    // this.account.code = '';
+    //
+    // console.log(this.account);
+    //
+    // this.accountService.createUser(this.account).subscribe(data => {
+    //   // this.router.navigateByUrl('');
+    //   console.log('success');
+    // });
+  }
+
+  get registerFormControl() {
+    return this.registerForm.controls;
+  }
+
+  MatchPassword(password: string, confirmPassword: string) {
+    return (formGroup: FormGroup) => {
+      const passwordControl = formGroup.controls[password];
+      const confirmPasswordControl = formGroup.controls[confirmPassword];
+
+      if (!passwordControl || !confirmPasswordControl) {
+        return null;
+      }
+
+      if (confirmPasswordControl.errors && !confirmPasswordControl.errors.passwordMismatch) {
+        return null;
+      }
+
+      if (passwordControl.value !== confirmPasswordControl.value) {
+        confirmPasswordControl.setErrors({ passwordMismatch: true });
+      } else {
+        confirmPasswordControl.setErrors(null);
+      }
+    };
+  }
+
+  onSubmit() {
+    this.submitted = true;
     this.account.fullName = this.registerForm.get('fullName').value;
     this.account.password = this.registerForm.get('password').value;
     this.account.birthDate = this.registerForm.get('birthDate').value;
@@ -77,15 +127,15 @@ export class RegisterComponent implements OnInit {
     this.account.address = this.registerForm.get('address').value;
     this.account.gender = this.registerForm.get('gender').value;
     this.account.status = false;
+    this.account.customerRank = '';
     this.account.avatarImageUrl = '';
     this.account.role = 'ROLE_USER';
     this.account.code = '';
 
-    console.log(this.account);
+    // console.table(this.registerForm.value);
+    console.table(this.account);
 
     this.accountService.createUser(this.account).subscribe(data => {
-      // this.router.navigateByUrl('');
-      console.log('success');
     });
   }
 }

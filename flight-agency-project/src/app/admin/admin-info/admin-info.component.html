@@ -1,1 +1,64 @@
-<h2>InfoAdmin-Work</h2>
+<div class=" container">
+  <div id="message" *ngIf="message!=''" class="alert alert-success p-2" role="alert">
+    {{message}}
+  </div>
+  <h3 class="tittlePage">Thông tin cá nhân</h3>
+
+  <form [formGroup]="infoForm">
+    <div class="form-group row">
+      <div class="col-md-7 info">
+
+        <div class="form-group row">
+          <label for="fullName" class="col-md-3 col-form-label">Họ và tên: </label>
+          <div class="col-md-9">
+            <input class="form-control" required type="text" formControlName="fullName" id="fullName" readonly>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="birthday" class="col-md-3 col-form-label">Ngày sinh : </label>
+          <div class="col-md-9">
+            <input class="form-control pr-4" required type="date" formControlName="birthday" id="birthday" readonly>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="address" class="col-md-3 col-form-label">Địa chỉ : </label>
+          <div class="col-md-9">
+            <input class="form-control" required type="text" formControlName="address" id="address" readonly>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="email" class="col-md-3 col-form-label">Email : </label>
+          <div class="col-md-9">
+            <input class="form-control" required type="text" formControlName="email" id="email" readonly>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="gender" class="col-md-3 col-form-label">Giới tính : </label>
+          <div class="col-md-9">
+            <input class="form-control" formControlName="gender" id="gender" readonly>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="phoneNumber" class="col-md-3 col-form-label">Số điện thoại : </label>
+          <div class="col-md-9">
+            <input class="form-control" formControlName="phoneNumber" id="phoneNumber" readonly>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-left: 5%" class="col-md-3">
+        <div class="avatar"><img src="{{avatarUrl}}" alt="avatar">
+        </div>
+        <div style="margin-top: 10%" class="d-flex justify-content-center">
+          <input type="button" class="btn btn-success "
+                 data-toggle="modal" data-target="#basicModal" (click)="noClosedModal()" value="Đổi mật khẩu">
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

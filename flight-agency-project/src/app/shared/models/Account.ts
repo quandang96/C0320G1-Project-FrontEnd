@@ -8,6 +8,7 @@ export interface Account {
   phoneNumber: string;
   address: string;
   gender: string;
+  customerRank: string;
   avatarImageUrl: string;
   role: string;
   status: boolean;
