@@ -16,6 +16,9 @@ import {map} from 'rxjs/operators';
 })
 export class PromoListComponent implements OnInit {
 
+
+  message = "";
+  errorMessage = "";
   private promoList: any;
   private airlineList: Branch[];
   private airportList: Airport[];
@@ -90,7 +93,11 @@ export class PromoListComponent implements OnInit {
   }
   deletePromo(id: number) {
     this.promoService.deletePromo(id).subscribe(
-      (data) => {}
+      (data) => {}, error => { this.errorMessage = "Xóa thất bại" }, () => {
+        if (this.errorMessage.length == 0) {
+          this.message = "Xóa thành công";
+        }
+      }
     );
   }
 
