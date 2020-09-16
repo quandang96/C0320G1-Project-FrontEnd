@@ -1,6 +1,5 @@
-import { PromoUpdateDto } from './../models/dto/PromoUpdateDto';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -12,25 +11,33 @@ export class PromoService {
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': 'http://localhost:4200',
-      'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
-    }),
-   
+    })
   };
 
- 
+  private options = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    }),
+  };
 
-  constructor(public http: HttpClient) { }
+  constructor(
+    public http: HttpClient
+  ) { }
+
+
+
+
+
 
   //Tùng
-  getPromoById(id:number): Observable<any> {
+  getPromoById(id: number): Observable<any> {
     return this.http.get(`${this.urlAPI}/promo-edit/${id}`, this.httpOptions);
   }
 
   //Tùng
   updatePromo(id: number, value: any): Observable<any> {
     debugger
-    return this.http.put(`${this.urlAPI}/update-edit/${id}`,JSON.stringify(value), this.httpOptions);
+    return this.http.put(`${this.urlAPI}/update-edit/${id}`, JSON.stringify(value), this.httpOptions);
   }
 
 
@@ -42,19 +49,20 @@ export class PromoService {
     return this.http.get(this.urlAPI + `/airline`, this.httpOptions);
   }
 
-  getAirports():  Observable<any> {
+  getAirports(): Observable<any> {
     return this.http.get(this.urlAPI + `/airport`, this.httpOptions);
   }
+
   getPromo(status: string, page: number): Observable<any> {
     return this.http.get(this.urlAPI + `?page=${page}&status=${status}`, this.httpOptions);
   }
 
   createPromo(promo: any): any {
-    return this.http.post<any>(this.urlAPI + `/create`, promo, this.httpOptions);
+    return this.http.post<any>(this.urlAPI + `/create`, promo, this.options);
   }
 
   searchPromo(infoSearch, page: number): Observable<any> {
-    return this.http.post<any>(this.urlAPI + `/search?page=${page}`, JSON.stringify(infoSearch) , this.httpOptions);
+    return this.http.post<any>(this.urlAPI + `/search?page=${page}`, JSON.stringify(infoSearch), this.options);
   }
 
   convertDate(date: string): string {

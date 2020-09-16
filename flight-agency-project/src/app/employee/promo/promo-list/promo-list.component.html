@@ -21,7 +21,7 @@
                             <div style="margin: 20px 40px 20px 40px;">
                                 <div class="form-row">
                                     <div class="form-group col-md">
-                                        <label for="namePromo">Chủ đề khuyến mãi *</label>
+                                        <label for="namePromo">Chủ đề khuyến mãi</label>
                                         <input formControlName="namePromo" [class.mark-success]="namePromo.valid"
                                             type="text" class="form-control form-control-sm" id="namePromo">
                                         <div *ngIf="namePromo.touched && namePromo.invalid">
@@ -37,7 +37,7 @@
 
                                 <div class="form-row">
                                     <div class="form-group col-md">
-                                        <label>Hãng hàng không *</label>
+                                        <label>Hãng hàng không</label>
                                         <select formControlName="airline" [class.mark-success]="airline.valid"
                                             class="form-control form-control-sm"
                                             aria-describedby="inputGroup-sizing-sm">
@@ -65,7 +65,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group col-md">
+                                    <div class="form-group col-md" formGroupName="place">
                                         <label for="departurePlace">Chặng bay</label>
                                         <div class="input-group input-group-sm">
                                             <div class="input-group-prepend">
@@ -87,7 +87,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group col-md">
+                                    <div class="form-group col-md" formGroupName="place">
                                         <label for="arrivalPlace">&nbsp;</label>
                                         <div class="input-group input-group-sm">
                                             <div class="input-group-prepend">
@@ -105,6 +105,12 @@
                                                 <small *ngIf="arrivalPlace.hasError(error.code)"
                                                     class="d-block text-danger" role="alert">{{error.message}}</small>
                                             </ng-container>
+                                        </div>
+                                        <div *ngIf="place.touched && place.invalid">
+                                            <small class="d-block text-danger" role="alert"
+                                                *ngIf="place.errors?.duplicatedPlace">
+                                                Vui lòng chọn điểm đi và điểm đến khác nhau
+                                            </small>
                                         </div>
                                     </div>
                                 </div>
@@ -151,7 +157,7 @@
                                         <div *ngIf="flightGroup.touched && flightGroup.invalid">
                                             <small class="d-block text-danger" role="alert"
                                                 *ngIf="flightGroup.errors?.flightDateNotValid">
-                                                Ngày chuyến bay KM kết thúc không được lớn hơn ngày chuyến bay KM bắt
+                                                Ngày chuyến bay KM kết thúc không được nhỏ hơn ngày chuyến bay KM bắt
                                                 đầu
                                             </small>
                                         </div>
@@ -258,13 +264,13 @@
                                                     </dl>
                                                 </div> <!-- price-wrap .// -->
                                             </td>
-
                                             <td>
                                                 <figure class="media">
                                                     <div class="text-left">
                                                         <h6>{{promo.namePromo}}</h6>
                                                         <a title="" href="" class="btn-sm btn-outline-success"
-                                                            data-toggle="tooltip"> <i class="far fa-edit" routerLink="/promotion/promo-edit/${promo.id}"  ></i> Sửa</a>
+                                                            data-toggle="tooltip"> <i class="far fa-edit"></i>
+                                                            Sửa</a>
                                                         <a href="" class="btn-sm btn-outline-danger" data-toggle="modal"
                                                             data-target="#delete"> <i class="far fa-trash-alt"></i>
                                                             Xóa</a>
@@ -287,11 +293,15 @@
                                                                             chắn
                                                                             muốn
                                                                             xóa giao dịch này?</div>
-                                                                            Tên khuyến mãi: {{promo.namePromo}} <br>
-                                                                            Giảm giá: {{promo.discount}} <br>
-                                                                            Hãng bay: {{promo.airline.name}} <br>
-                                                                            Thời gian khởi hành bay: Từ {{promo.flightDepartureDateStart}} đến {{promo.flightDepartureDateEnd}} <br>
-                                                                            Thời gian hiển thị khuyến mãi: Từ {{promo.promoDateStart}} đến {{promo.promoDateEnd}}
+                                                                        Tên khuyến mãi: {{promo.namePromo}} <br>
+                                                                        Giảm giá: {{promo.discount}} <br>
+                                                                        Hãng bay: {{promo.airline.name}} <br>
+                                                                        Thời gian khởi hành bay: Từ
+                                                                        {{promo.flightDepartureDateStart}} đến
+                                                                        {{promo.flightDepartureDateEnd}} <br>
+                                                                        Thời gian hiển thị khuyến mãi: Từ
+                                                                        {{promo.promoDateStart}} đến
+                                                                        {{promo.promoDateEnd}}
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-primary"
@@ -408,14 +418,13 @@
                                         </li>
                                     </ul>
                                 </nav>
-                            </div> <!-- card.// -->
-                        </div> <!-- row -->
-                    </div> <!-- col of column-->
-                </div> <!-- row of column-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!--row of main content-->
-            <hr>
 
+            <hr>
         </div>
     </div>
 </main>

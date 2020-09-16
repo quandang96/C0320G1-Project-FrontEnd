@@ -1,7 +1,10 @@
+import { TokenStorageService } from 'src/app/shared/services/token-storage.service';
 import { HomeService } from './../../shared/services/home.service';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, FormControl, ValidationErrors, AbstractControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Feedback } from 'src/app/shared/models/Feedback';
+
+declare var $: any;
 
 @Component({
   selector: 'app-send-feedback',
@@ -10,27 +13,35 @@ import { Feedback } from 'src/app/shared/models/Feedback';
 })
 export class SendFeedbackComponent implements OnInit {
 
-  feedBackForm : FormGroup;
-  captchaCode : string;
+  feedBackForm: FormGroup;
+  captchaCode: string;
   feedBackErrors = FEEDBACK_ERRORS;
 
   constructor(
-    private formBuilder : FormBuilder,
-    private homeService : HomeService
-    ) { 
+    private formBuilder: FormBuilder,
+    private homeService: HomeService,
+    private tokenStorage: TokenStorageService
+  ) {
 
   }
 
 
   ngOnInit() {
     this.feedBackForm = this.formBuilder.group({
-      topic : ['khiếu nại',[Validators.required]],
-      customerName : ['',[Validators.required,Validators.pattern(/^[ a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$/)]],
-      customerPhone : ['',[Validators.required,validPhoneNumber]],
-      customerEmail : ['',[Validators.required,Validators.pattern(/^[A-Za-z0-9]+@[A-Za-z0-9]+(\.[A-Za-z0-9]+)$/)]],
-      confirmCaptchaCode : ['',[Validators.required,this.checkCaptchaCode.bind(this)]],
-      content : ['',[Validators.required]]
+      topic: ['khiếu nại', [Validators.required]],
+      customerName: ['', [Validators.required, Validators.pattern(/^[ a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+$/)]],
+      customerPhone: ['', [Validators.required, validPhoneNumber]],
+      customerEmail: ['', [Validators.required, Validators.pattern(/^[A-Za-z0-9]+@[A-Za-z0-9]+(\.[A-Za-z0-9]+)$/)]],
+      confirmCaptchaCode: ['', [Validators.required, this.checkCaptchaCode.bind(this)]],
+      content: ['', [Validators.required]]
     })
+    let jwtResponse = this.tokenStorage.getJwtResponse();
+    if (jwtResponse) {
+      this.feedBackForm.patchValue({
+        customerName: jwtResponse.name,
+        customerEmail: jwtResponse.accountName
+      })
+    }
     this.createCaptcha();
   }
 
@@ -59,12 +70,12 @@ export class SendFeedbackComponent implements OnInit {
     this.captchaCode = captcha.join('');
     document.getElementById('captcha').appendChild(canv); // adds the canvas to the body element
     this.feedBackForm.patchValue({
-      confirmCaptchaCode : ''
+      confirmCaptchaCode: ''
     })
   }
 
   checkCaptchaCode(formControl: AbstractControl): ValidationErrors | null {
-    
+
     const confirmCaptchaCode = formControl.value;
 
     if (confirmCaptchaCode !== '' && confirmCaptchaCode !== this.captchaCode) {
@@ -76,12 +87,16 @@ export class SendFeedbackComponent implements OnInit {
   onSubmit() {
     this.homeService.saveFeedback(this.feedBackForm.value).subscribe(data => {
       console.log(data);
+      $('#success').modal('show');
+    }, error => {
+      console.log(error);
+      $('#violation').modal('show');
     })
   }
 
   reFill() {
     this.feedBackForm.patchValue({
-      topic : ''
+      topic: ''
     });
     this.createCaptcha();
   }
@@ -99,7 +114,7 @@ export class SendFeedbackComponent implements OnInit {
   }
 
   get customerEmail() {
-    return this.feedBackForm.get('customerEmail');  
+    return this.feedBackForm.get('customerEmail');
   }
 
   get confirmCaptchaCode() {
@@ -119,37 +134,37 @@ const validPhoneNumber: ValidatorFn = (control: FormControl): ValidationErrors |
     return null;
   }
   if (characterRegex.test(_phoneNumber)) {
-    return {alphabelPhoneNumber: true};
+    return { alphabelPhoneNumber: true };
   }
   if (!phoneRegex.test(_phoneNumber)) {
-    return {wrongPhoneNumber: true};
+    return { wrongPhoneNumber: true };
   }
   return null;
 };
 
 const FEEDBACK_ERRORS = {
 
-  topicErrors : [
-    { name : 'required', message : 'Vui lòng chọn chủ đề !'}
+  topicErrors: [
+    { name: 'required', message: 'Vui lòng chọn chủ đề !' }
   ],
-  customerNameErrors : [
-    { name : 'required', message : 'Họ và tên không được để trống !' },
-    { name : 'pattern' , message : 'Họ và tên không được phép chứa số và ký tự đặc biệt !'}
+  customerNameErrors: [
+    { name: 'required', message: 'Họ và tên không được để trống !' },
+    { name: 'pattern', message: 'Họ và tên không được phép chứa số và ký tự đặc biệt !' }
   ],
-  customerPhoneErrors : [
-    { name : 'required' , message : 'Số điện thoại không được để trống !'},
-    { name : 'alphabelPhoneNumber', message : 'Số điện thoại không được phép chứa chữ cái !'},
-    { name : 'wrongPhoneNumber', message : 'Số điện thoại không hợp lệ !'}
+  customerPhoneErrors: [
+    { name: 'required', message: 'Số điện thoại không được để trống !' },
+    { name: 'alphabelPhoneNumber', message: 'Số điện thoại không được phép chứa chữ cái !' },
+    { name: 'wrongPhoneNumber', message: 'Số điện thoại không hợp lệ !' }
   ],
-  customerEmailErrors : [
-    { name : 'required' , message : 'Email không được để trống !'},
-    { name : 'pattern' , message : 'Email không hợp lệ !'}
+  customerEmailErrors: [
+    { name: 'required', message: 'Email không được để trống !' },
+    { name: 'pattern', message: 'Email không hợp lệ !' }
   ],
-  confirmCaptchaCodeErrors : [
-    { name : 'required' , message : 'Vui lòng nhập mã xác thực !'},
-    { name : 'wrongCaptcha', message : 'Mã xác thực không đúng !'}
+  confirmCaptchaCodeErrors: [
+    { name: 'required', message: 'Vui lòng nhập mã xác thực !' },
+    { name: 'wrongCaptcha', message: 'Mã xác thực không đúng !' }
   ],
-  contentErrors : [
-    { name : 'required',message : 'Vui lòng nhập nội dung !'}
+  contentErrors: [
+    { name: 'required', message: 'Vui lòng nhập nội dung !' }
   ]
 }

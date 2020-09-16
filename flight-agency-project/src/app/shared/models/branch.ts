@@ -1,5 +1,4 @@
-export interface Branch{
-    [prop: string]: any;
-    id: number,
-    name: string
+export interface Branch {
+  id: number;
+  name: string;
 }
