@@ -248,7 +248,8 @@
                   <div class="col-md-6 col-lg-6 col-xl-6">
                     <div class="buttontimkiem1">
                       <div class="form-group">
-                        <button type="button" class="btn btn-warning btn-lg buttontimkiem">
+                        <button type="button" class="btn btn-warning btn-lg buttontimkiem" (click)="search()"
+                                [disabled]="searchForm.invalid">
                           Tìm kiếm nhanh
                         </button>
                       </div>
@@ -268,6 +269,21 @@
               </form>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="wrapper4">
+  <div class="detail4">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <ng-container oneWay></ng-container>
+        </div>
+        <div class="col-sm-12">
+          <ng-container oneWay></ng-container>
         </div>
       </div>
     </div>

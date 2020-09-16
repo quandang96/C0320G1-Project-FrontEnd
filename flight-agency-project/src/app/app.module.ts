@@ -18,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SendFeedbackComponent } from './home/send-feedback/send-feedback.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PDFExportModule } from './../../node_modules/@progress/kendo-angular-pdf-export';
+import {FlightModule} from './flight/flight.module';
 
 
 
@@ -31,20 +32,21 @@ import { PDFExportModule } from './../../node_modules/@progress/kendo-angular-pd
     SendFeedbackComponent,
     PageNotFoundComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    SocialLoginModule,
-    BrowserAnimationsModule,
-    MaterialModule,
-    NgbModule,
-    NgxPaginationModule,
-    PDFExportModule,
-    FormsModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        SocialLoginModule,
+        BrowserAnimationsModule,
+        MaterialModule,
+        NgbModule,
+        NgxPaginationModule,
+        PDFExportModule,
+        FormsModule,
+        FlightModule,
+    ],
   providers: [
     {
       provide: 'SocialAuthServiceConfig',

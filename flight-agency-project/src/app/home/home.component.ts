@@ -102,6 +102,21 @@ export class HomeComponent implements OnInit {
      this.departureComponent.instance.sel.subscribe(data => {
        this.departureFlight = data;
      });
+     if (!this.oneWay) {
+       const arrivalSchedule: FlightSearchDTO = {
+         sortBy : '',
+         departure : this.searchForm.get('departureAirport').value,
+         arrival : this.searchForm.get('arrivalAirport').value,
+         depDate : this.searchForm.get('arrivalDateTime').value,
+         babies : this.searchForm.get('babies').value,
+         children : this.searchForm.get('children').value,
+         adults : this.searchForm.get('adults').value
+       };
+       this.arrivalComponent = this.loadComponent(1, arrivalSchedule);
+       this.arrivalComponent.instance.sel.subscribe(data => {
+         this.arrivalFlight = data;
+       });
+     }
   }
 
   // D-Bach

@@ -16,29 +16,32 @@ import { FormDirective } from './form.directive';
 import { FlightPersonalFormComponent } from './flight-personal-form/flight-personal-form.component';
 
 @NgModule({
-  declarations: [
-    FlightCenterComponent,
-    FlightScheduleListComponent,
-    FlightBookingDetailComponent,
-    FlightOnewayScheduleComponent,
-    OnewayDirective,
-    FlightDetailComponent,
-    FlightPassengerInfoComponent,
-    FlightOnewayBookingComponent,
-    FormDirective,
-    FlightPersonalFormComponent],
-  imports: [
-    CommonModule,
-    FlightRoutingModule,
-    NgbModule,
-    ReactiveFormsModule
-  ],
-  entryComponents: [
-    FlightBookingDetailComponent,
-    FlightOnewayScheduleComponent,
-    FlightDetailComponent,
-    FlightOnewayBookingComponent,
-    FlightPersonalFormComponent
-  ]
+    declarations: [
+        FlightCenterComponent,
+        FlightScheduleListComponent,
+        FlightBookingDetailComponent,
+        FlightOnewayScheduleComponent,
+        OnewayDirective,
+        FlightDetailComponent,
+        FlightPassengerInfoComponent,
+        FlightOnewayBookingComponent,
+        FormDirective,
+        FlightPersonalFormComponent],
+    imports: [
+        CommonModule,
+        FlightRoutingModule,
+        NgbModule,
+        ReactiveFormsModule
+    ],
+    exports: [
+        OnewayDirective
+    ],
+    entryComponents: [
+        FlightBookingDetailComponent,
+        FlightOnewayScheduleComponent,
+        FlightDetailComponent,
+        FlightOnewayBookingComponent,
+        FlightPersonalFormComponent
+    ]
 })
 export class FlightModule { }
