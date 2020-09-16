@@ -8,7 +8,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 export class EmployeeService {
 
   private readonly API_URL = 'http://localhost:8080/api/v1/cart';
-  private readonly API = 'http://localhost:8080/api/v1/employees';
+  private readonly API = 'http://localhost:8080/api/v1/employee';
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'

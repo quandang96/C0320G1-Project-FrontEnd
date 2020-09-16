@@ -11,6 +11,11 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 export class EmployeeTableComponent implements OnInit {
   employees: EmployeeDTO[];
   employee: EmployeeDTO;
+  page = 0;
+  size = 10;
+  valueSearch = '';
+  totalPage = 1;
+  totalItems = 1;
   searchObj = {
     key: '',
     value: '',
@@ -58,6 +63,9 @@ export class EmployeeTableComponent implements OnInit {
     }
     this.employeeService.getAllEmployee(page, size).subscribe(data => {
         console.log(data);
+        this.totalPage = data.totalPages;
+        this.totalItems = data.totalItems;
+        this.page = data.currentPage;
         this.employees = data.body;
       }, error => {
         console.log('Get Data Thất Bại ');
@@ -66,6 +74,7 @@ export class EmployeeTableComponent implements OnInit {
       }
     );
   }
+
   ExportTOExcel() {
     console.log('to excel');
     // @ts-ignore
@@ -77,18 +86,71 @@ export class EmployeeTableComponent implements OnInit {
     // @ts-ignore
     XLSX.writeFile(wb, 'ScoreSheet.xlsx');
   }
+
   searchEmployee() {
     this.searchObj = this.searchEmployeeForm.value;
     console.log(this.searchObj);
     // tslint:disable-next-line:max-line-length
-    this.employeeService.searchEmployees(this.searchObj.key, this.searchObj.value, this.searchObj.page, this.searchObj.size).subscribe(data => {
+    this.employeeService.searchEmployees(this.searchObj.key, this.searchObj.value, this.page, this.size).subscribe(data => {
         console.log('data trả về ' + data);
         this.employees = data.body;
+        this.totalPage = data.totalPages;
+        this.page = data.currentPage;
+        this.totalItems = data.totalItems;
       }, error => {
         console.log('Get Data Thất Bại ');
       }, () => {
         console.log('Search thành công ,Get Data Thành Công');
       }
     );
+  }
+
+  onFirstPage() {
+    this.page = 0;
+    // if (this.valueSearch != null) {
+    //   this.searchEmployee();
+    // }
+    this.getAllEmployee(this.page, this.size);
+  }
+
+  onLastPage() {
+    this.page = this.totalPage - 1;
+    // if (this.valueSearch != null) {
+    //   this.searchEmployee();
+    // }
+    this.getAllEmployee(this.page, this.size);
+  }
+
+  onBackPage() {
+    // // tslint:disable-next-line:triple-equals
+    // if (this.valueSearch != null) {
+    //   this.searchEmployee();
+    // }
+    // tslint:disable-next-line:triple-equals
+    if (this.page != 0) {
+      this.page--;
+      this.getAllEmployee(this.page, this.size);
+    }
+  }
+
+  onNextPage() {
+    // if (this.valueSearch != null) {
+    //   this.searchEmployee();
+    // }
+    // tslint:disable-next-line:triple-equals
+    if (this.page != this.totalPage - 1) {
+      this.page++;
+      this.getAllEmployee(this.page, this.size);
+    }
+
+  }
+
+  onChangeSize() {
+    if (this.valueSearch != null) {
+      this.searchEmployee();
+    }
+    // @ts-ignore
+    this.getAllEmployee(this.page, this.size);
+    console.log('load lại trang , size : ' + this.size);
   }
 }
