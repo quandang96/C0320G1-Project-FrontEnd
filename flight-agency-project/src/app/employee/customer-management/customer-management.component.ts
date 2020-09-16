@@ -1,8 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {listCustomerDto} from '../../shared/models/dto/listCustomerDto';
 import {CustomerServiceService} from '../../shared/services/customer-service.service';
-import {Observable, Subscription} from 'rxjs';
 import {map, tap} from 'rxjs/operators';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {log} from 'util';
+
 
 @Component({
   selector: 'app-customer-management',
@@ -13,32 +16,38 @@ export class CustomerManagementComponent implements OnInit {
   currentPage: number;
   pageSize: number;
   totalElements: number;
-  private customerList: Observable<listCustomerDto[]>;
+  customerList: Observable<listCustomerDto[]>;
   stt: number[];
-  customers: listCustomerDto[];
   isEmpty = false;
+  formSearch: FormGroup;
 
-  constructor(public customerService: CustomerServiceService) {
+
+
+  constructor(public customerService: CustomerServiceService,
+              public fb: FormBuilder) {
   }
 
   ngOnInit() {
-    this.getAllCustomer();
+    this.formSearch = this.fb.group({
+      key: ['name', Validators.required],
+      value: ['', Validators.required]
+    });
+    // this.getPage(1);
     this.getPage(1);
   }
 
-  getAllCustomer() {
-    this.customerService.getAllCustomer().subscribe(value =>
-      (data: listCustomerDto[]) => this.customers = data);
+  search() {
+    this.getPage(1);
   }
 
-  getPage(pageNumber) {
-    // @ts-ignore
-    this.customerList = this.customerService.getPage(pageNumber).pipe(
+  getPage(page : number) {
+    this.customerList = this.customerService.getPage_2(page - 1,this.formSearch.value.key, this.formSearch.value.value).pipe(
       tap(res => {
-        console.log(res);
+
+
         this.totalElements = res.totalElements;
         this.pageSize = res.size;
-        this.currentPage = pageNumber;
+        this.currentPage = page;
 
         this.stt = [];
         const firstIndex = this.pageSize * (this.currentPage - 1) + 1;
@@ -54,9 +63,13 @@ export class CustomerManagementComponent implements OnInit {
       }, error => {
         console.log(error);
       }),
-      map(res => res.content)
+      map(res => {
+        console.log(res.content);
+        return res.content;
+      }),
     );
   }
+
 
 
 }

@@ -11,6 +11,7 @@ import { PaidDealsComponent } from './paid-deals/paid-deals.component';
 import { CustomerInfoComponent } from './customer-info/customer-info.component';
 import { CustomerPaymentComponent } from './customer-payment/customer-payment.component';
 import { CustomerPasswordComponent } from './customer-password/customer-password.component';
+import {PDFExportModule} from '@progress/kendo-angular-pdf-export';
 
 
 

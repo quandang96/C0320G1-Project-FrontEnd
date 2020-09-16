@@ -19,12 +19,22 @@ export class CustomerServiceService {
     })
   };
 
-  //creator: Mậu
-  getCustomerHttpOptions(page: number): Object {
+  getCustomerHttpOptions_2( page: number, key : string, value : string): Object {
     const customer = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      }),
+      headers: this.httpOptions.headers,
+      params: {
+        page,
+        key,
+        value
+      }
+    };
+    return customer;
+  }
+
+  // creator: Mậu
+  getCustomerHttpOptions( page: number): Object {
+    const customer = {
+      headers: this.httpOptions.headers,
       params: {
         page
       }
@@ -32,18 +42,8 @@ export class CustomerServiceService {
     return customer;
   }
 
-  //creator: Mậu
-  getAllCustomer(): Observable<listCustomerDto[]> {
-    return this.http.get<listCustomerDto[]>(this.API_URL_CUSTOMER + 'management', this.httpOptions);
+  getPage_2(page: number, key : string, value : string): Observable<Page<listCustomerDto>> {
+    return this.http.get<Page<listCustomerDto>>(this.API_URL_CUSTOMER + 'search', this.getCustomerHttpOptions_2(page,key,value));
   }
 
-  //creator: Mậu
-  getPage(page: number): Observable<Page<listCustomerDto[]>> {
-    return this.http.get<Page<listCustomerDto[]>>(this.API_URL_CUSTOMER + 'management', this.getCustomerHttpOptions(page));
-  }
-
-  //creator: Mậu
-  search(page: number, pageSize: number, search: string): Observable<any> {
-    return this.http.get(this.API_URL_CUSTOMER + '/search' + `?`);
-  }
 }
