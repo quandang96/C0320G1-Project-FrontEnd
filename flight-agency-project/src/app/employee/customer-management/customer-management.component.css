@@ -21,7 +21,12 @@ table{
   padding: 0;
   margin: 0;
 }
-
+h3{
+  margin-top: 50px;
+}
+.text-danger{
+  margin-top: 50px;
+}
 
 
 
