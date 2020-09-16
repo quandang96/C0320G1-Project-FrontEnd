@@ -1,11 +1,13 @@
+import { Airport } from 'src/app/shared/models/airport';
+import { Branch } from 'src/app/shared/models/branch';
 import DateTimeFormat = Intl.DateTimeFormat;
 export interface PromoUpdateDto {
     'id': number;
     'promoName': string;
     'discount': number;
-    'airline': string;
-    'departurePlace': string;
-    'arrivalPlace': string;
+    'airline': Branch;
+    'departurePlace': Airport;
+    'arrivalPlace': Airport;
     'flightDepartureDateStart': DateTimeFormat;
     'flightDepartureDateEnd': DateTimeFormat ;
     'promoDateStart': DateTimeFormat ;

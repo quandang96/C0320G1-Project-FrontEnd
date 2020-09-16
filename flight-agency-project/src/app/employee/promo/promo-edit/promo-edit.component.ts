@@ -34,6 +34,7 @@ function validateWhitespace(c: AbstractControl) {
 })
 export class PromoEditComponent implements OnInit, AfterViewInit {
 
+  private newPromo: any;
   public airlineList: Branch[];
   public airportList: Airport[];
   // public promoId;
@@ -59,9 +60,9 @@ export class PromoEditComponent implements OnInit, AfterViewInit {
     this.promoForm = this.fb.group({
       namePromo: ['', [Validators.required, validateWhitespace, Validators.maxLength(255)]],
       discount: ['', [Validators.required, Validators.max(1), Validators.min(0)]],
-      airline: new FormControl('', [Validators.required, validateWhitespace]),
-      departurePlace: new FormControl('', [Validators.required, validateWhitespace]),
-      arrivalPlace: new FormControl('', [Validators.required, validateWhitespace]),
+      airline: ['', [Validators.required, validateWhitespace]],
+      departurePlace: ['', [Validators.required, validateWhitespace]],
+      arrivalPlace: ['', [Validators.required, validateWhitespace]],
       flightDepartureDateStart: ['', [Validators.required, Validators.pattern(/^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/)]],
       flightDepartureDateEnd: ['', [Validators.required, Validators.pattern(/^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/)]],
       promoDateStart: ['', [Validators.required, Validators.pattern(/^([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/)]],
@@ -90,13 +91,29 @@ export class PromoEditComponent implements OnInit, AfterViewInit {
       });
     console.log(this.promoForm);
   }
-  updatePromo() {
-    this.promoService.updatePromo(this.id, this.promoForm.value).subscribe(data => { }
-      , error => { this.errorMessage = "Cập nhật thất bại" }, () => {
-        if (this.errorMessage.length == 0) {
-          this.message = "Cập nhật thành công";
-        }
-      })
+  updatePromo() {  
+    
+    if ( this.promoForm.valid) {
+      this.newPromo = {
+        namePromo: this.promoForm.value.namePromo,
+        discount: this.promoForm.value.discount / 100,
+        airline: this.airlineList.find(x => x.id == this.promoForm.value.airline),
+        departurePlace: this.airportList.find(x => x.id == this.promoForm.value.departurePlace),
+        arrivalPlace: this.airportList.find(x => x.id == this.promoForm.value.arrivalPlace),
+        promoDateStart: this.promoForm.value.promoDateStart,
+        promoDateEnd: this.promoForm.value.promoDateEnd,
+        flightDepartureDateStart: this.promoForm.value.flightDepartureDateStart,
+        flightDepartureDateEnd: this.promoForm.value.flightDepartureDateEnd,
+      };
+      console.log(this.newPromo);
+      this.promoService.updatePromo(this.id, this.newPromo).subscribe(data => { }
+        , error => { this.errorMessage = "Cập nhật thất bại" }, () => {
+          if (this.errorMessage.length == 0) {
+            this.message = "Cập nhật thành công";
+          }
+        })
+    }
+    
   }
 
   backToPromoList() {

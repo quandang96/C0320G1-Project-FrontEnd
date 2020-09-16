@@ -29,7 +29,7 @@ export class PromoService {
 
   //Tùng
   updatePromo(id: number, value: any): Observable<any> {
-    console.log(`${this.urlAPI}/update-edit/${id}`);
+    debugger
     return this.http.put(`${this.urlAPI}/update-edit/${id}`,JSON.stringify(value), this.httpOptions);
   }
 
@@ -44,6 +44,21 @@ export class PromoService {
 
   getAirports():  Observable<any> {
     return this.http.get(this.urlAPI + `/airport`, this.httpOptions);
+  }
+  getPromo(status: string, page: number): Observable<any> {
+    return this.http.get(this.urlAPI + `?page=${page}&status=${status}`, this.httpOptions);
+  }
+
+  createPromo(promo: any): any {
+    return this.http.post<any>(this.urlAPI + `/create`, promo, this.httpOptions);
+  }
+
+  searchPromo(infoSearch, page: number): Observable<any> {
+    return this.http.post<any>(this.urlAPI + `/search?page=${page}`, JSON.stringify(infoSearch) , this.httpOptions);
+  }
+
+  convertDate(date: string): string {
+    return (date + 'T00:00:00');
   }
 
 }

@@ -9,8 +9,8 @@
                         (ngSubmit)="updatePromo();">
                         <div class="form-group">
                             <label for="inputAddress">Tên khuyến mãi *</label>
-                            <input id="inputAddress" type="text" class="form-control form-control-sm" formControlName="namePromo"
-                                #focusCheck>
+                            <input id="inputAddress" type="text" class="form-control form-control-sm"
+                                formControlName="namePromo" #focusCheck>
                             <span *ngIf="promoForm.get('namePromo').hasError('required')" class="text-danger">Tên khuyến
                                 mãi không được để
                                 trống.</span>
@@ -32,10 +32,10 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="inputGroup-sizing-sm">Điểm khởi hành *</span>
                                     </div>
-                                    <select formControlName="departurePlace" id="inputState" class="form-control form-control-sm"
-                                        aria-describedby="inputGroup-sizing-sm" >
+                                    <select formControlName="departurePlace" id="inputState"
+                                        class="form-control form-control-sm" aria-describedby="inputGroup-sizing-sm">
                                         <option disabled>Choose...</option>
-                                        <option *ngFor="let airport of airportList">{{airport.city}}</option>
+                                        <option *ngFor="let airport of airportList" value={{airport.id}}>{{airport.city}}</option>
                                     </select>
                                     <!-- <span *ngIf="promoForm.get('departurePlace').hasError('required')" class="text-danger">Điểm khởi hành không được để
                                     trống.</span>
@@ -53,10 +53,10 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="inputGroup-sizing-sm">Điểm đến *</span>
                                     </div>
-                                    <select formControlName="arrivalPlace" id="inputState" class="form-control form-control-sm"
-                                        aria-describedby="inputGroup-sizing-sm">
+                                    <select formControlName="arrivalPlace" id="inputState"
+                                        class="form-control form-control-sm" aria-describedby="inputGroup-sizing-sm">
                                         <option disabled>Choose...</option>
-                                        <option *ngFor="let airport of airportList">{{airport.city}}</option>
+                                        <option *ngFor="let airport of airportList" value={{airport.id}}>{{airport.city}}</option>
                                     </select>
                                     <!-- <span *ngIf="promoForm.get('arrivalPlace').hasError('required')" class="text-danger">Điểm đến không được để
                                     trống.</span>
@@ -74,7 +74,8 @@
                                 <select id="inputState" class="form-control form-control-sm"
                                     aria-describedby="inputGroup-sizing-sm" formControlName="airline">
                                     <option disabled>Choose...</option>
-                                    <option *ngFor="let airline of airlineList" >{{airline.name}}</option>
+                                    <option *ngFor="let airline of airlineList" value={{airline.id}}>{{airline.name}}
+                                    </option>
                                 </select>
                                 <span *ngIf="promoForm.get('airline').hasError('required')" class="text-danger">Hãng Bay
                                     không được để
@@ -89,7 +90,7 @@
                             </div>
 
                             <div class="form-group col-md-6">
-                                <label for="inputCity">Giảm giá *</label>
+                                <label for="inputCity">Giảm giá (%)*</label>
                                 <input type="number" class="form-control form-control-sm" formControlName="discount">
                             </div>
                         </div>
@@ -159,16 +160,17 @@
                         <div *ngIf="message!=''" class="alert alert-success p-2" role="alert">
                             {{message}}
                         </div>
-                        <div *ngIf="errorMessage!=''" class="alert alert-warning p-2" role="alert">
+                        <div *ngIf="errorMessage!=''" class="alert alert-danger p-2" role="alert">
                             {{errorMessage}}
                         </div>
 
                         <div class="float-center">
-                            <button type="submit" class="btn btn-outline-success btn-rounded btn-sm my-0">OK</button>
-                            <button type="button" class="btn btn-outline-primary btn-rounded btn-sm my-0"
+                            <button type="submit" class="btn btn-outline-success " style="margin-right: 30px;">Xác
+                                Nhận</button>
+                            <button type="button" class="btn btn-outline-danger"
                                 (click)="backToPromoList()">Hủy</button>
                         </div>
-                       
+
                     </form>
                 </div>
             </div>
