@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ReservationComponent } from './reservation/reservation.component';
 import { ReservationDetailComponent } from './reservation-detail/reservation-detail.component';
 import localeVi from '@angular/common/locales/vi';
+import {NgxPayPalModule} from 'ngx-paypal';
 
 registerLocaleData(localeVi);
 @NgModule({
@@ -30,7 +31,8 @@ registerLocaleData(localeVi);
     CommonModule,
     FlightRoutingModule,
     NgbModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxPayPalModule
   ],
   entryComponents: [
     FlightBookingDetailComponent,

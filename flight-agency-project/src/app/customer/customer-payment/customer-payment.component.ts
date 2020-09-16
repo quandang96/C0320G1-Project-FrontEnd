@@ -1,10 +1,8 @@
-/**
- *  Created by: Toàn
- */
 import {Component, OnInit} from '@angular/core';
 import {ICreateOrderRequest, IPayPalConfig} from 'ngx-paypal';
 import {PaymentService} from '../../shared/services/payment.service';
 import {Transaction} from '../../shared/models/transaction';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-customer-payment',
@@ -21,7 +19,9 @@ export class CustomerPaymentComponent implements OnInit {
   private accountId: number;
   private taxCode: string;
 
-  constructor(private paymentService: PaymentService) {
+  constructor(
+    private paymentService: PaymentService,
+    private toastr: ToastrService) {
     this.picked = [];
     this.totalPrice = 0;
     this.accountId = 1;
@@ -87,12 +87,13 @@ export class CustomerPaymentComponent implements OnInit {
             this.transactions = list;
             this.picked = [];
             this.totalPrice = 0;
+            this.toastr.success('Thanh toán thành công');
           });
         });
       },
       onError: err => {
         console.log(err);
-        window.alert('Vui lòng thử lại.');
+        this.toastr.warning('Vui lòng thử lại.');
       }
     };
   }

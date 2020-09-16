@@ -19,7 +19,7 @@
               <td style="padding-left: 1rem;">{{flightSchedule.arrivalAirport.city}}</td>
             </tr>
           </table>
-          <div style="margin-bottom: 1rem;">{{flightSchedule.branch.name}} {{flightSchedule.flightCode}}</div>
+          <div style="margin-top: 1rem;">{{flightSchedule.branch.name}} {{flightSchedule.flightCode}}</div>
         </div>
       </div>
 
@@ -79,7 +79,12 @@
           </div>
         </div>
       </div>
-      <div id="paypal-button"></div>
+      <div *ngIf="transaction.status === 'Chờ thanh toán'">
+        <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+      </div>
+      <div class="alert alert-primary" role="alert" *ngIf="transaction.status === 'Đã thanh toán'">
+        Mã đặt chỗ này đã được thanh toán thành công!
+      </div>
     </div>
   </div>
 </div>

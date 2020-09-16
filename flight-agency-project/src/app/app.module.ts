@@ -13,6 +13,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
 import {SendFeedbackComponent} from './home/send-feedback/send-feedback.component';
 import {ReactiveFormsModule, FormsModule} from '@angular/forms';
+import {ToastrModule} from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import {ReactiveFormsModule, FormsModule} from '@angular/forms';
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    NgxPayPalModule
+    NgxPayPalModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
