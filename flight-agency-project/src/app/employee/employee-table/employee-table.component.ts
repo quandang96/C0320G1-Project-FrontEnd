@@ -107,25 +107,15 @@ export class EmployeeTableComponent implements OnInit {
 
   onFirstPage() {
     this.page = 0;
-    // if (this.valueSearch != null) {
-    //   this.searchEmployee();
-    // }
     this.getAllEmployee(this.page, this.size);
   }
 
   onLastPage() {
     this.page = this.totalPage - 1;
-    // if (this.valueSearch != null) {
-    //   this.searchEmployee();
-    // }
     this.getAllEmployee(this.page, this.size);
   }
 
   onBackPage() {
-    // // tslint:disable-next-line:triple-equals
-    // if (this.valueSearch != null) {
-    //   this.searchEmployee();
-    // }
     // tslint:disable-next-line:triple-equals
     if (this.page != 0) {
       this.page--;
@@ -134,9 +124,6 @@ export class EmployeeTableComponent implements OnInit {
   }
 
   onNextPage() {
-    // if (this.valueSearch != null) {
-    //   this.searchEmployee();
-    // }
     // tslint:disable-next-line:triple-equals
     if (this.page != this.totalPage - 1) {
       this.page++;
