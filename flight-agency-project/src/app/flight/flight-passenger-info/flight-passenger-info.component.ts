@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit, ViewChildren, QueryList, ComponentRef, ComponentFactoryResolver, AfterViewInit } from '@angular/core';
 import { TransactionService } from 'src/app/shared/services/transaction.service';
 import { OnewayDirective } from '../oneway.directive';
@@ -27,7 +28,8 @@ export class FlightPassengerInfoComponent implements OnInit, AfterViewInit {
   errors: string;
   constructor(
     private resolver: ComponentFactoryResolver,
-    private transactionService: TransactionService
+    private transactionService: TransactionService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -78,7 +80,9 @@ export class FlightPassengerInfoComponent implements OnInit, AfterViewInit {
       }
     }
     this.errors = '';
-    this.transactionService.createTransaction().subscribe();
+    this.transactionService.createTransaction().subscribe(() => {
+      this.router.navigateByUrl("/customer/payment")
+    });
     // console.log(this.departurePassenger);
     // console.log(this.returnPassenger);
   }

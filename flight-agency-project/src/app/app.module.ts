@@ -14,13 +14,17 @@ import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-logi
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 import { httpInterceptorProviders } from './authentication/auth-interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from '../environments/environment';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { HttpClientModule } from '@angular/common/http';
 import { SendFeedbackComponent } from './home/send-feedback/send-feedback.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { PDFExportModule } from './../../node_modules/@progress/kendo-angular-pdf-export';
-
-
-
+import { NgxPayPalModule } from 'ngx-paypal';
+import { ToastrModule } from 'ngx-toastr';
+// import { NgxCaptchaModule } from 'ngx-captcha';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +53,13 @@ import { PDFExportModule } from './../../node_modules/@progress/kendo-angular-pd
     NgbModule,
     NgxPaginationModule,
     PDFExportModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireStorageModule,
+    AngularFirestoreModule,
     FormsModule,
+    // NgxCaptchaModule
+    NgxPayPalModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     {
@@ -74,4 +84,5 @@ import { PDFExportModule } from './../../node_modules/@progress/kendo-angular-pd
     ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

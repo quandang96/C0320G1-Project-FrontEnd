@@ -2,6 +2,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { PDFExportModule } from './../../../node_modules/@progress/kendo-angular-pdf-export';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 import { CustomerRoutingModule } from './customer-routing.module';
 import { CustomerHomeComponent } from './customer-home/customer-home.component';
@@ -11,8 +13,8 @@ import { PaidDealsComponent } from './paid-deals/paid-deals.component';
 import { CustomerInfoComponent } from './customer-info/customer-info.component';
 import { CustomerPaymentComponent } from './customer-payment/customer-payment.component';
 import { CustomerPasswordComponent } from './customer-password/customer-password.component';
-import {PDFExportModule} from '@progress/kendo-angular-pdf-export';
-
+import { HttpClientModule } from '@angular/common/http';
+import { CustomerService } from '../shared/services/customer.service';
 
 
 @NgModule({
@@ -28,11 +30,15 @@ import {PDFExportModule} from '@progress/kendo-angular-pdf-export';
     FormsModule,
     ReactiveFormsModule,
     PDFExportModule,
+    HttpClientModule,
+    NgxPayPalModule,
     CommonModule,
     CustomerRoutingModule,
-    NgxPaginationModule
+
+
+
   ],
-  providers: [],
+  providers: [CustomerService],
   bootstrap: []
 })
 export class CustomerModule {

@@ -1,7 +1,7 @@
 import { exception } from './../shared/exceptions/exceptions';
 import { TokenStorageService } from 'src/app/shared/services/token-storage.service';
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router, CanActivateChild } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -9,11 +9,15 @@ import { Observable } from 'rxjs';
 })
 
 //Created by: Quân
-export class RoleGuard implements CanActivate {
+export class RoleGuard implements CanActivate, CanActivateChild {
 
   constructor(
     private router: Router,
     private tokenStorageService: TokenStorageService) {
+  }
+  canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
+    return this.canActivate(childRoute, state);
+
   }
 
   canActivate(
