@@ -33,34 +33,43 @@ const routes: Routes = [
         data: {
           expectedRole: 'ROLE_EMPLOYEE'
         }
-      }
+      },
+      {
+        path: 'tickets', loadChildren: () => import('../ticket/ticket.module').then(mod => mod.TicketModule)
+      },
+      {
+        path: "findFlight", component: FindFlightComponent, canActivate: [RoleGuard],
+        data: {
+          expectedRole: 'ROLE_EMPLOYEE'
+        }
+      },
+      { path: 'customer-checkin-list', component: EmployeeCustomerCheckinComponent },
+      {
+        path: "bookTicket", component: BookTicketComponent, canActivate: [RoleGuard],
+        data: {
+          expectedRole: 'ROLE_EMPLOYEE'
+        }
+      },
+      {
+        path: "transaction/invoice/:id", component: InvoiceTicketComponent, canActivate: [RoleGuard],
+        data: {
+          expectedRole: 'ROLE_EMPLOYEE'
+        }
+      },
+      {
+        path: "bill-list", component: BillListComponent, canActivate: [RoleGuard],
+        data: {
+          expectedRole: 'ROLE_EMPLOYEE'
+        }
+      },
+
     ],
   },
-  {
-    path: "bookTicket", component: BookTicketComponent, canActivate: [RoleGuard],
-    data: {
-      expectedRole: 'ROLE_EMPLOYEE'
-    }
-  },
-  {
-    path: "findFlight", component: FindFlightComponent, canActivate: [RoleGuard],
-    data: {
-      expectedRole: 'ROLE_EMPLOYEE'
-    }
-  },
-  {
-    path: "transaction/invoice/:id", component: InvoiceTicketComponent, canActivate: [RoleGuard],
-    data: {
-      expectedRole: 'ROLE_EMPLOYEE'
-    }
-  },
 
-  {
-    path: "bill-list", component: BillListComponent, canActivate: [RoleGuard],
-    data: {
-      expectedRole: 'ROLE_EMPLOYEE'
-    }
-  },
+
+
+
+
   {
     path: "bill-invoice", component: BillInvoiceComponent, canActivate: [RoleGuard],
     data: {
@@ -69,8 +78,8 @@ const routes: Routes = [
   },
   { path: "promotion", component: PromoListComponent },
   { path: "promotion/create", component: PromoCreateComponent },
-  { path: 'customer-checkin-list', component: EmployeeCustomerCheckinComponent },
-  { path: '', component: EmployeeTableComponent },
+
+  { path: '/table', component: EmployeeTableComponent },
 
 
 

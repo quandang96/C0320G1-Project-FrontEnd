@@ -12,8 +12,8 @@ import { BillSearchFields } from '../models/billSearchField';
 export class BillService {
 
   // Son
-  ApiBill = "http://localhost:8081/api/v1/bills-list";
-  url = "http://localhost:8081/api/v1/"
+  ApiBill = "http://localhost:8080/api/v1/bills-list";
+  url = "http://localhost:8080/api/v1/"
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -27,7 +27,7 @@ export class BillService {
     return this.http.get<Page<Bill>>(this.ApiBill)
   }
 
-  getBillsListSearch(searchField: BillSearchFields,page: number): Observable<Page<Bill>> {
+  getBillsListSearch(searchField: BillSearchFields, page: number): Observable<Page<Bill>> {
 
     return this.http.get<Page<Bill>>(`${this.url}/bill-search?billCode=${searchField.billCode}&billTax=${searchField.billTax}&name=${searchField.name}`);
   }

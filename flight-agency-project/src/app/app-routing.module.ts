@@ -27,9 +27,7 @@ const routes: Routes = [
   {
     path: 'passenger', loadChildren: () => import('./passenger/passenger.module').then(mod => mod.PassengerModule)
   },
-  {
-    path: 'tickets', loadChildren: () => import('./ticket/ticket.module').then(mod => mod.TicketModule)
-  },
+
   {
     path: 'checkin', component: CustomerCheckinComponent
   },];

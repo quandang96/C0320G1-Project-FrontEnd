@@ -65,7 +65,7 @@ export class EmployeeService {
 
   // Hung: Lấy danh sách airport,
   getAllAirports(): Observable<any> {
-    return this.http.get(this.API_URL, this.httpOptions);
+    return this.http.get(this.API_URL + "/airport", this.httpOptions);
   }
 
   // Duc: lấy danh sách nhân viên
