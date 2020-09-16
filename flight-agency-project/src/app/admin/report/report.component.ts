@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {CircleChartComponent} from '../circle-chart/circle-chart.component';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LineChartComponent} from '../line-chart/line-chart.component';
 import {PieChartComponent} from '../pie-chart/pie-chart.component';
 import {BarChartComponent} from '../bar-chart/bar-chart.component';
@@ -27,15 +27,16 @@ export class ReportComponent implements OnInit {
 
   ngOnInit() {
     this.createReportForm = this.fb.group({
-      chart: [''],
-      date1: [''],
-      date2: [''],
+      chart: ['', Validators.required],
+      date1: ['', Validators.required],
+      date2: ['', Validators.required],
       date3: [''],
-      date4: ['']
+      date4: [''],
+      type: ['', Validators.required]
     });
   }
 
-  openDialog(data, data1, data2, data3): void {
+  openDialog(data, data1, data2, data3, data4): void {
     switch (this.createReportForm.get('chart').value) {
       case '1':
         const dialogRef = this.dialog.open(CircleChartComponent, {
@@ -77,7 +78,7 @@ export class ReportComponent implements OnInit {
         const dialogRef3 = this.dialog.open(BarChartComponent, {
           height: '600px',
           width: '750px',
-          data: {data1: data, data2: data1, data3: data2, data4: data3},
+          data: {data1: data, data2: data1, data3: data2, data4: data3, data5: data4},
           disableClose: true
         });
 
@@ -89,28 +90,52 @@ export class ReportComponent implements OnInit {
   }
 
   onSubmit() {
-
-    this.newReport = {
-      date1: this.createReportForm.value.date1,
-      date2: this.createReportForm.value.date2
-    };
-    this.newReport1 = {
-      date1: this.createReportForm.value.date3,
-      date2: this.createReportForm.value.date4
-    };
-    if (this.newReport1.date1) {
-      this.reportService.getAllReport(this.newReport).subscribe(
-        data => {
-          this.reportService.getAllReport(this.newReport1).subscribe(
-            data1 => {
-              this.openDialog(data, data1, this.newReport, this.newReport1);
-            });
-        });
+    if (this.createReportForm.get('type').value === '1') {
+      this.newReport = {
+        date1: this.createReportForm.value.date1,
+        date2: this.createReportForm.value.date2
+      };
+      this.newReport1 = {
+        date1: this.createReportForm.value.date3,
+        date2: this.createReportForm.value.date4
+      };
+      if (this.newReport1.date1) {
+        this.reportService.getAllReport(this.newReport).subscribe(
+          data => {
+            this.reportService.getAllReport(this.newReport1).subscribe(
+              data1 => {
+                this.openDialog(data, data1, this.newReport, this.newReport1, 1);
+              });
+          });
+      } else {
+        this.reportService.getAllReport(this.newReport).subscribe(
+          data => {
+            this.openDialog(data, null, this.newReport, null, 1);
+          });
+      }
     } else {
-      this.reportService.getAllReport(this.newReport).subscribe(
-        data => {
-          this.openDialog(data, null, this.newReport, null);
-      });
+      this.newReport = {
+        date1: this.createReportForm.value.date1,
+        date2: this.createReportForm.value.date2
+      };
+      this.newReport1 = {
+        date1: this.createReportForm.value.date3,
+        date2: this.createReportForm.value.date4
+      };
+      if (this.newReport1.date1) {
+        this.reportService.getAllAirline(this.newReport).subscribe(
+          data => {
+            this.reportService.getAllAirline(this.newReport1).subscribe(
+              data1 => {
+                this.openDialog(data, data1, this.newReport, this.newReport1, 2);
+              });
+          });
+      } else {
+        this.reportService.getAllAirline(this.newReport).subscribe(
+          data => {
+            this.openDialog(data, null, this.newReport, null, 2);
+          });
+      }
     }
   }
 }
