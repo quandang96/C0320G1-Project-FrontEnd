@@ -13,13 +13,20 @@ import { ReservationDetailComponent } from './reservation-detail/reservation-det
 const routes: Routes = [{
   path: '',
   component: FlightCenterComponent,
-  data: {
-    expectedRole: 'ROLE_USER'
-  },
-  canActivate: [RoleGuard],
+
   children: [
-    { path: 'schedule', component: FlightScheduleListComponent, resolve: { airports: AirportResolverService } },
-    { path: 'confirm', component: FlightPassengerInfoComponent, canActivate: [FlightGuardGuard] },
+    {
+      path: 'schedule', component: FlightScheduleListComponent, data: {
+        expectedRole: 'ROLE_USER'
+      },
+      canActivate: [RoleGuard], resolve: { airports: AirportResolverService }
+    },
+    {
+      path: 'confirm', component: FlightPassengerInfoComponent, data: {
+        expectedRole: 'ROLE_USER'
+      },
+      canActivate: [RoleGuard, FlightGuardGuard]
+    },
     { path: 'reservation', component: ReservationComponent },
     { path: 'reservation/:id', component: ReservationDetailComponent }
   ]

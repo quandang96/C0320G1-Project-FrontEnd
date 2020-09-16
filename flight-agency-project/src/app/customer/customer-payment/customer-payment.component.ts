@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {ICreateOrderRequest, IPayPalConfig} from 'ngx-paypal';
-import {PaymentService} from '../../shared/services/payment.service';
-import {Transaction} from '../../shared/models/transaction';
-import {ToastrService} from 'ngx-toastr';
+import { TokenStorageService } from 'src/app/shared/services/token-storage.service';
+import { Component, OnInit } from '@angular/core';
+import { ICreateOrderRequest, IPayPalConfig } from 'ngx-paypal';
+import { PaymentService } from '../../shared/services/payment.service';
+import { Transaction } from '../../shared/models/transaction';
+import { ToastrService } from './../../../../node_modules/ngx-toastr';
 
 @Component({
   selector: 'app-customer-payment',
@@ -11,7 +12,7 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class CustomerPaymentComponent implements OnInit {
 
-  private payPalConfig ?: IPayPalConfig;
+  private payPalConfig?: IPayPalConfig;
   private transactions: Transaction[];
   private picked: number[];
   private pickedToCancel: number;
@@ -21,10 +22,11 @@ export class CustomerPaymentComponent implements OnInit {
 
   constructor(
     private paymentService: PaymentService,
-    private toastr: ToastrService) {
+    private toastr: ToastrService,
+    private tokenStorage: TokenStorageService) {
     this.picked = [];
     this.totalPrice = 0;
-    this.accountId = 1;
+    this.accountId = this.tokenStorage.getJwtResponse().accountId;
     this.taxCode = '4000242327';
   }
 
