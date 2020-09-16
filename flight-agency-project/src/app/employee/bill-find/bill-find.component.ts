@@ -1,10 +1,12 @@
 import { BillService } from './../../shared/services/bills.service';
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef,MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup ,FormBuilder,Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import {BillSearchFields} from '../../shared/models/billSearchField';
 import { ReCaptchaV3Service } from 'ngx-captcha';
 import { map, tap } from 'rxjs/operators';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { BillInvoiceComponent } from '../bill-invoice/bill-invoice.component';
+
 
 declare let $:any
 @Component({
@@ -25,12 +27,14 @@ export class BillFindComponent implements OnInit {
   private list;
   private billsList;
   billsListSearch;
+  billId =3;
   constructor(
     private billService: BillService,
     private reCaptchaV3Service: ReCaptchaV3Service,
     public formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<BillFindComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
+    public dialog: MatDialog
     ) {}
 
   onNoClick(): void {
@@ -88,6 +92,22 @@ export class BillFindComponent implements OnInit {
   }
   get confirmCaptchaCode() {
     return this.formSearchBills.get('confirmCaptchaCode');
+  }
+  openDialogViewBills(): void {
+    this.getBillId()
+    const dialogRef = this.dialog.open(BillInvoiceComponent, {
+      width: '800px',
+      data: {billList: this.billsList, billId : this.billId}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+  getBillId(): number{
+    console.log("Test vs bill 3")
+    // this.bi
+    return 3;
   }
 
 

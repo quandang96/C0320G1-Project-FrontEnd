@@ -1,42 +1,18 @@
-<!-- <p>bill-invoice works!</p>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hoa don</title>
-
- <link rel="stylesheet" type="text/css" href="./styleBill.css"> -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-<!-- </head> -->
-
-<body>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-        crossorigin="anonymous"></script>
-
+<div mat-dialog-content>
 
    
     <button class="btn btn-dark-outline" (click)="convertToPDF()">Generate PDF</button>
 
 
 
-    <div id="containerConvert">
+    <div id="containerConvert" ng-ngModel="billDetail">
         <div class="d-flex justify-content-center">
             <div>
                 <img src="https://upload.wikimedia.org/wikipedia/en/2/2f/Company_3_-_official_logo.png">
             </div>
         </div>
         <div>
-            <h3 class="text-center text-primary">C03 Airline</h3>
+            <h2 class="text-center text-primary mt-2 mb-3">C03 Airline</h2>
         </div>
 
         <div class="row">
@@ -47,7 +23,7 @@
                     <td class="col-3" style="font-size:smaller">
                         Đơn vị bán(Seller):
                     </td>
-                    <td class="col-6" style="font-size:smaller">
+                    <td class="col-6" style="font-size:smaller"> 
                         <u>Công ty TNHH DV Hàng Không C03</u>
                     </td>
                     <td class="col-3" style="font-size:smaller">
@@ -119,20 +95,21 @@
                                 Tên khách hàng (Buyer):
                             </td>
                             <td>
-                                Nguyễn Phi Sơn
+
+                                {{billDetail.transaction.account.fullName}}
                             </td>
                         </tr>
                         <tr>
-                            <td>Địa chỉ (Address):</td>
+                            <td>Mã chuyến bay ( flightCode ):</td>
 
-                            <td>82/119 Nguyễn Lương Bằng, Hòa Khánh, Đà Nẵng</td>
+                            <td>{{billDetail.transaction.flightSchedule.flightCode}}</td>
                         </tr>
                         <tr>
                             <td>
                                 Mã số thuế (Tax Code)
                             </td>
                             <td>
-                                0091428973
+                                {{billDetail.taxCode}}
                             </td>
                         </tr>
 
@@ -140,44 +117,30 @@
 
 
 
-                    <table class="table table-hover">
-                        <tr class="table-primary text-left">
-                            <td>STT (No)</td>
-                            <td> Ngày (Date)</td>
-                            <td>Hành trình (Route)</td>
-                            <td>Đơn giá(Unit price)</td>
-                            <td>Loại tiền (Currency)</td>
+                    <table class="table table-hover text-center">
+                        <tr class="table-primary">
+                            <td>STT <br>(No)</td>
+                            <td>Hành trình <br>(Route)</td>
+                            <td>
+                                Đơn giá <br>(Unitprice)
+
+                            </td>
+                            <td>Loại tiền <br> (Currency)</td>
 
                             <td>Mã hóa đơn</td>
 
                         </tr>
                         <tr>
                             <td>1</td>
-                            <td>10/02/2020</td>
-                            <td>DN - HN</td>
-                            <td>350.000</td>
+                            <!-- <td>{{billDetail.dateCreated}}</td> -->
+                            <td>{{billDetail.transaction.flightSchedule.arrivalAirport.code}} - {{billDetail.transaction.flightSchedule.departureAirport.code}}</td>
+                            <td>{{billDetail.transaction.price}}</td>
                             <td>VND</td>
-                            <td>DNHN01</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>03/09/2020</td>
-                            <td>HCM-HN</td>
-                            <td>925.000</td>
-                            <td>VND</td>
-                            <td>HCMHN01</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>14/06/2020</td>
-                            <td>HN-HUE</td>
-                            <td>450.000</td>
-                            <td>VND</td>
-                            <td>HNHUE01</td>
+                            <td>{{billDetail.billCode}}</td>
                         </tr>
                     </table>
-                    <div class="text-right">
-                        <b>Tổng thanh toán: 1.725.000 VND</b>
+                    <div class="text-center">
+                        <b>Tổng thanh toán:  {{billDetail.transaction.price}}  VND</b>
                     </div>
                 </div>
             </div>
@@ -186,7 +149,9 @@
         <div class="col-1"></div>
 
     </div>
+    <div class="col-11 modal-footer">
+        <button type="button" class="btn btn-secondary" mat-dialog-close>Đóng</button>
+        <!-- <button type="button" class="btn btn-outline-info ">Chuyển đến tải hóa đơn</button> -->
+      </div>
 
-    <!-- </div> -->
-
-</body>
+</div>
