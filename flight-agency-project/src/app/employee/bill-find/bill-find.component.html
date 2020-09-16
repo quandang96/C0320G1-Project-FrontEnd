@@ -55,9 +55,8 @@
             role="alert">{{error.message}}</small>
         </ng-container>
       </div> -->
-      <div class="d-block text-danger" role="alert"
-        *ngIf="formSearchBills.hasError('checkCaptchaCode') && confirmCaptchaCode.touched"><small>mã xác minh không
-          đúng</small>
+      <div class="d-block text-danger mt-1" role="alert"
+        *ngIf="formSearchBills.hasError('checkCaptchaCode') && confirmCaptchaCode.touched">Mã xác minh không đúng
       </div>
        <p *ngIf="formSearchBills.controls.confirmCaptchaCode.errors?.required && formSearchBills.controls.confirmCaptchaCode.touched" class="text-danger">Không được để trống trường này</p>
     </div>
@@ -82,8 +81,8 @@
 
 
     <thead class="table-primary">
-      <td> STT</td>
-      <td> Ký hiệu hóa đơn</td>
+      <td> Bill ID</td>
+      <td> Mã số thuế </td>
       <td> Ngày hóa đơn </td>
       <td> Tình trạng đơn </td>
       <td> Mã hóa đơn </td>
@@ -96,7 +95,7 @@
         {{bills.id}}
       </td>
       <td>
-        Sp001
+        {{bills.taxCode}}
       </td>
       <td>
         {{bills.dateCreated}}

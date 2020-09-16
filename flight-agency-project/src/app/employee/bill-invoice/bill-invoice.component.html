@@ -8,8 +8,8 @@
     <title>Hoa don</title>
 
  <link rel="stylesheet" type="text/css" href="./styleBill.css"> -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 <!-- </head> -->
 
 <body>
@@ -24,18 +24,20 @@
         crossorigin="anonymous"></script>
 
 
-            <div class="d-flex justify-content-center">
-                <div>
-                    <img src="https://upload.wikimedia.org/wikipedia/en/2/2f/Company_3_-_official_logo.png"> 
-                </div>
-            </div>
+   
+    <button class="btn btn-dark-outline" (click)="convertToPDF()">Generate PDF</button>
 
+
+
+    <div id="containerConvert">
+        <div class="d-flex justify-content-center">
             <div>
-                <h3 class="text-center text-primary">C03 Air line</h3>
+                <img src="https://upload.wikimedia.org/wikipedia/en/2/2f/Company_3_-_official_logo.png">
             </div>
-
-
-
+        </div>
+        <div>
+            <h3 class="text-center text-primary">C03 Airline</h3>
+        </div>
 
         <div class="row">
             <div class="col-1"></div>
@@ -52,7 +54,7 @@
                         Mẫu số (Form No:): 01GTKT3/004
                     </td>
                 </tr>
-    
+
                 <tr class="row col-12">
                     <td class="col-3" style="font-size:smaller">
                         Mã số thuế (Code):
@@ -83,77 +85,71 @@
 
 
 
-    <div class="text-center"><h4>HÓA ĐƠN TIỀN CƯỚC VẬN CHUYỂN VÀ PHÍ DỊCH VỤ</h4></div>
-    <div class="text-center"><h4>(COMMERCIAL INVOICE)</h4></div>
-
-
-    <div class="text-center">
-        <div >
-            Ngày 01 Tháng 09 Năm 2020
+        <div class="text-center">
+            <h4>HÓA ĐƠN TIỀN CƯỚC VẬN CHUYỂN VÀ PHÍ DỊCH VỤ</h4>
         </div>
-    </div>
+        <div class="text-center">
+            <h4>(COMMERCIAL INVOICE)</h4>
+        </div>
 
 
-
-    <div class="row">
-        <div class="col-1"></div>
-
-        <div class="col-10">
-            
-            <div class="col-12">
-                <b>Công ty TNHH DV Hàng Không C03</b>
-                <b>(C03 AVITATION JOINT STOCK COMPANY)</b>
+        <div class="text-center">
+            <div>
+                Ngày 01 Tháng 09 Năm 2020
             </div>
+        </div>
 
 
-            <div class="col-12">
-                <table class="table table-hover">
-                    <tr>
-                        <td>
-                            Tên khách hàng (Buyer):
-                        </td>
-                        <td>
-                            Nguyễn Phi Sơn
+
+        <div class="row">
+            <div class="col-1"></div>
+
+            <div class="col-10">
+
+                <div class="col-12">
+                    <b>Công ty TNHH DV Hàng Không C03</b>
+                    <b>(C03 AVITATION JOINT STOCK COMPANY)</b>
+                </div>
+
+
+                <div class="col-12">
+                    <table class="table table-hover">
+                        <tr>
+                            <td>
+                                Tên khách hàng (Buyer):
                             </td>
-                    </tr>
-                    <tr>
-                        <td>Địa chỉ (Address):</td>
-        
-                        <td>82/119 Nguyễn Lương Bằng, Hòa Khánh, Đà Nẵng</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            Mã số thuế (Tax Code)
-                        </td>
-                        <td>
-                            0091428973
-                        </td>
-                    </tr>
-                    
-                </table>
+                            <td>
+                                Nguyễn Phi Sơn
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Địa chỉ (Address):</td>
+
+                            <td>82/119 Nguyễn Lương Bằng, Hòa Khánh, Đà Nẵng</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Mã số thuế (Tax Code)
+                            </td>
+                            <td>
+                                0091428973
+                            </td>
+                        </tr>
+
+                    </table>
 
 
-    
-            
-        
-                <!-- <div class="row col 10">
-                    Currency
-                </div> -->
+
                     <table class="table table-hover">
                         <tr class="table-primary text-left">
-                            <td >STT (No)</td>
-                            <td> Ngày  (Date)</td>
+                            <td>STT (No)</td>
+                            <td> Ngày (Date)</td>
                             <td>Hành trình (Route)</td>
                             <td>Đơn giá(Unit price)</td>
                             <td>Loại tiền (Currency)</td>
-                            <!-- <td>Tình trạng</td> -->
+
                             <td>Mã hóa đơn</td>
-                            <!-- <td>Số vé (PNR)</td>
-                            <td>Hành trình (Route)</td>
-                            <td>Số lượng (Quantity)</td>
-                            <td>Đơn giá(Unit price)</td>
-                            <td>Thành tiền (Amount)</td>
-                            <td>Thu hộ nhà chức trách (Authorized collection)</td> -->
+
                         </tr>
                         <tr>
                             <td>1</td>
@@ -185,12 +181,12 @@
                     </div>
                 </div>
             </div>
-
-            
         </div>
-        
+
         <div class="col-1"></div>
+
+    </div>
+
     <!-- </div> -->
 
 </body>
-

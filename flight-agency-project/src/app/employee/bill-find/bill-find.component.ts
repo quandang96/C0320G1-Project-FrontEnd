@@ -41,12 +41,13 @@ export class BillFindComponent implements OnInit {
 
   ngOnInit() {
     this.billsList = this.data
+    this.createCaptcha()
     this.formSearchBills = this.formBuilder.group({
       confirmCaptchaCode: ['', [Validators.required]],
       billCode: [''],
       billTax:[''],
       name:['']
-    })
+    },{validators: [this.checkCaptchaCode.bind(this)]})
   }
 
   createCaptcha() {
@@ -77,8 +78,8 @@ export class BillFindComponent implements OnInit {
   }
 
   checkCaptchaCode(formGroup: AbstractControl): ValidationErrors | null {
-    // const cap: UserDto = formGroup.value;
-    const confirm = null;
+    // console.log(formGroup.value)
+    const confirm = formGroup.value.confirmCaptchaCode;
     if (confirm !== this.captchaCode) {
       return {checkCaptchaCode: true};
     }
