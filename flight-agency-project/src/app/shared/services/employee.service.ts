@@ -21,6 +21,7 @@ import { CustomerCheckinDto } from '../models/dto/CustomerCheckinDto';
 export class EmployeeService {
   //BHung api url employee
   private readonly API_URL = "http://localhost:8080/api/v1/employee";
+  private readonly URL = "http://localhost:8080/api/v1/employeeAPI";
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -66,13 +67,13 @@ export class EmployeeService {
 
   // Duc: lấy danh sách nhân viên
   getAllEmployee(page, size): Observable<any> {
-    const link = this.API_URL + '?page=' + page + '&size=' + size;
+    const link = this.URL + '?page=' + page + '&size=' + size;
     return this.http.get(link);
   }
 
   // Duc: tìm kiếm và trả về có phân trang
   searchEmployees(key, value, page, size): Observable<any> {
-    const link = this.API_URL + '/search?key=' + key + '&value=' + value + '&page=' + page + '&size=' + size;
+    const link = this.URL + '/search?key=' + key + '&value=' + value + '&page=' + page + '&size=' + size;
     return this.http.get(link);
   }
 
@@ -126,7 +127,7 @@ export class EmployeeService {
   }
   // Duc: thêm mới nhân viên
   addNewEmployees(employees): Observable<any> {
-    const link = this.API_URL;
+    const link = this.URL;
     return this.http.post(link, employees);
   }
 }
