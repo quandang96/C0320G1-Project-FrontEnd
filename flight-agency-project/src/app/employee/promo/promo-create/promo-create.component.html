@@ -1,5 +1,5 @@
 <main>
-  <div class="mt-3">
+  <div class="main-content">
     <div class="container-fluid">
       <h2>Thêm mới khuyến mãi</h2>
       <hr>
@@ -55,12 +55,12 @@
                 </div>
                 <!--form-row-->
 
-                <div class="form-row">
+                <div class="form-row" formGroupName="place">
                   <div class="form-group col-md">
                     <label for="departurePlace">Chặng bay *</label>
                     <div class="input-group input-group-sm">
                       <div class="input-group-prepend">
-                        <span class="input-group-text" id="departurePlace">Khởi hành *</span>
+                        <span class="input-group-text" id="departurePlace">Điểm đi *</span>
                       </div>
                       <select formControlName="departurePlace" class="form-control form-control-sm"
                         aria-describedby="inputGroup-sizing-sm">
@@ -68,19 +68,13 @@
                         <option *ngFor="let airport of airportList" value={{airport.id}}>{{airport.city}}</option>
                       </select>
                     </div>
-                    <div *ngIf="departurePlace.touched && departurePlace.invalid">
-                      <ng-container *ngFor="let error of errors.departurePlaceErrors">
-                        <small *ngIf="departurePlace.hasError(error.code)" class="d-block text-danger"
-                          role="alert">{{error.message}}</small>
-                      </ng-container>
-                    </div>
                   </div>
 
                   <div class="form-group col-md">
                     <label for="arrivalPlace">&nbsp;</label>
                     <div class="input-group input-group-sm">
                       <div class="input-group-prepend">
-                        <span class="input-group-text" id="arrivalPlace">Đến *</span>
+                        <span class="input-group-text" id="arrivalPlace">Điểm đến *</span>
                       </div>
                       <select formControlName="arrivalPlace" class="form-control form-control-sm"
                         aria-describedby="inputGroup-sizing-sm">
@@ -88,11 +82,10 @@
                         <option *ngFor="let airport of airportList" value={{airport.id}}>{{airport.city}}</option>
                       </select>
                     </div>
-                    <div *ngIf="arrivalPlace.touched && arrivalPlace.invalid">
-                      <ng-container *ngFor="let error of errors.arrivalPlaceErrors">
-                        <small *ngIf="arrivalPlace.hasError(error.code)" class="d-block text-danger"
-                          role="alert">{{error.message}}</small>
-                      </ng-container>
+                    <div *ngIf="place.touched && place.invalid">
+                      <small class="d-block text-danger" role="alert" *ngIf="place.errors?.duplicatedPlace">
+                        Vui lòng chọn điểm đi và điểm đến khác nhau
+                      </small>
                     </div>
                   </div>
                 </div>
@@ -142,7 +135,7 @@
                       </div>
                       <div *ngIf="flightGroup.touched && flightGroup.invalid">
                         <small class="d-block text-danger" role="alert" *ngIf="flightGroup.errors?.flightDateNotValid">
-                          Ngày chuyến bay KM kết thúc không được lớn hơn ngày chuyến bay KM bắt đầu
+                          Ngày chuyến bay KM kết thúc không được nhỏ hơn ngày chuyến bay KM bắt đầu
                         </small>
                       </div>
                     </div>
@@ -205,6 +198,9 @@
                 <!--form-group-->
 
                 <div class="float-center" style="margin-top: 20px">
+                  <small class="d-block text-danger" role="alert">
+                    {{message}}
+                  </small>
                   <button type="submit" class="btn btn-outline-success btn-rounded btn-sm my-0">OK</button> &nbsp;
                   <button type="button" class="btn btn-outline-primary btn-rounded btn-sm my-0">
                     <a href="/employee/promotion" style="text-decoration: none">Hủy</a></button>
@@ -216,7 +212,6 @@
       </div>
       <!--row-->
       <hr>
-
     </div>
   </div>
 </main>

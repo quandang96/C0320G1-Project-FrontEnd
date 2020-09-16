@@ -5,7 +5,7 @@ import {Branch} from '../../../shared/models/branch';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {
   PROMO_INVALID_INPUT_WARNING,
-  validCompareDate,
+  validCompareDate, validPlace,
 } from '../../../shared/validations/promo-validator';
 import {map} from 'rxjs/operators';
 
@@ -43,8 +43,10 @@ export class PromoListComponent implements OnInit {
     });
     this.createForm = new FormGroup({
       namePromo: new FormControl('', [Validators.maxLength(60), Validators.pattern('[ 0-9A-ZẮẰẲẴẶĂẤẦẨẪẬÂÁÀÃẢẠĐẾỀỂỄỆÊÉÈẺẼẸÍÌỈĨỊỐỒỔỖỘÔỚỜỞỠỢƠÓÒÕỎỌỨỪỬỮỰƯÚÙỦŨỤÝỲỶỸỴa-zắằẳẵặăấầẩẫậâáàãảạđếềểễệêéèẻẽẹíìỉĩịốồổỗộôớờởỡợơóòõỏọứừửữựưúùủũụýỳỷỹỵ]{1,}')]),
-      departurePlace: new FormControl(''),
-      arrivalPlace: new FormControl(''),
+      place: new FormGroup(
+        {
+          departurePlace: new FormControl(''),
+          arrivalPlace: new FormControl('')}, validPlace),
       airline: new FormControl(''),
       discount: new FormControl('', [Validators.min(0), Validators.max(100), Validators.pattern('[0-9]{1,}')]),
       flightGroup: new FormGroup(
@@ -64,12 +66,13 @@ export class PromoListComponent implements OnInit {
   }
 
   searchPromo() {
+    console.log(this.createForm);
     if ( this.createForm.valid) {
       this.infoSearch = {
         namePromo: this.createForm.value.namePromo,
         airline: this.createForm.value.airline,
-        departurePlace: this.createForm.value.departurePlace,
-        arrivalPlace: this.createForm.value.arrivalPlace,
+        departurePlace: this.createForm.value.place.departurePlace,
+        arrivalPlace: this.createForm.value.place.arrivalPlace,
         promoDateStart: this.createForm.value.flightGroup.promoDateStart,
         promoDateEnd: this.createForm.value.flightGroup.promoDateEnd,
         flightDepartureDateStart: this.createForm.value.flightGroup.flightDepartureDateStart,
@@ -99,11 +102,14 @@ export class PromoListComponent implements OnInit {
   get airline() {
     return this.createForm.get('airline');
   }
+  get place() {
+    return this.createForm.get('place') as FormGroup;
+  }
   get departurePlace() {
-    return this.createForm.get('departurePlace');
+    return this.createForm.get('place.departurePlace');
   }
   get arrivalPlace() {
-    return this.createForm.get('arrivalPlace');
+    return this.createForm.get('place.arrivalPlace');
   }
   get flightGroup() {
     return this.createForm.get('flightGroup') as FormGroup;
