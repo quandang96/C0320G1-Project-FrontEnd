@@ -11,6 +11,10 @@ import {FindFlightComponent} from './find-flight/find-flight.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {EmployeeListComponent} from './employee-list/employee-list.component';
 import {EmployeeTableComponent} from './employee-table/employee-table.component';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../../environments/environment';
+import {AngularFireStorageModule} from '@angular/fire/storage';
+import {AngularFireDatabaseModule} from '@angular/fire/database';
 
 
 @NgModule({
@@ -21,7 +25,10 @@ import {EmployeeTableComponent} from './employee-table/employee-table.component'
     EmployeeRoutingModule,
     MatStepperModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireStorageModule,
+    AngularFireDatabaseModule
   ]
 })
 export class EmployeeModule {
