@@ -3,11 +3,15 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { CustomerCheckinComponent } from './home/customer-checkin/customer-checkin.component';
+import { PromotionComponent } from './home/promotion/promotion.component';
 
 
 const routes: Routes = [
   {
     path: '', component: HomeComponent
+  },
+  {
+    path: 'promotion', component: PromotionComponent
   },
   {
     path: 'send-feedback', component: SendFeedbackComponent

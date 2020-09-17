@@ -84,7 +84,8 @@ export class HomeComponent implements OnInit {
       babies: [0, [Validators.required]],
       children: [0, [Validators.required]],
       adults: [1, [Validators.required]]
-    }, {validators : [this.checkDepartureAirportAndArrivalAirport, this.checkAdultsAndBabies, this.checkAdultsAndChildren]});
+    }, {validators : [this.checkDepartureAirportAndArrivalAirport, this.checkAdultsAndBabies, this.checkAdultsAndChildren,
+      this.checkSelectDepartureDate, this.checkSelectArrivalDate, this.checkDepartureDateAndArrivalDate]});
   }
 
   // D-Bach
@@ -128,6 +129,37 @@ export class HomeComponent implements OnInit {
     componentRef.instance.flightSearch = flightSearch;
     componentRef.changeDetectorRef.detectChanges();
     return componentRef;
+  }
+
+  // D-Bach
+  checkSelectDepartureDate(formGroup: AbstractControl): ValidationErrors | null {
+    const select: FlightSearchForm = formGroup.value;
+    const selectDate = Date.parse(select.departureDateTime);
+    const currentDate = Date.parse(new Date().toISOString().slice(0, 10));
+    return (selectDate - currentDate < 0) ?
+      { chooseDateGreaterThanCurrentDate: true } : null;
+  }
+
+  // D-Bach
+  checkSelectArrivalDate(formGroup: AbstractControl): ValidationErrors | null {
+    const select: FlightSearchForm = formGroup.value;
+    const selectDate = Date.parse(select.arrivalDateTime);
+    const currentDate = Date.parse(new Date().toISOString().slice(0, 10));
+    if (selectDate - currentDate < 0) {
+      return { checkArrivalDate: true};
+    }
+    return null;
+  }
+
+  // D-Bach
+  checkDepartureDateAndArrivalDate(formGroup: AbstractControl): ValidationErrors | null {
+    const select: FlightSearchForm = formGroup.value;
+    const departureDate = Date.parse(select.departureDateTime);
+    const arrivalDate = Date.parse(select.arrivalDateTime);
+    if (arrivalDate - departureDate < 0) {
+      return { checkDepAndArrDate: true };
+    }
+    return null;
   }
 
   // D-Bach

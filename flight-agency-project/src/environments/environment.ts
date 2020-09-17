@@ -4,15 +4,16 @@
 
 export const environment = {
   production: false,
-  firebaseConfig : {
-    apiKey: 'AIzaSyD0U0vivs9HS6wXxZJaeaXfVFbTtqChmvs',
-    authDomain: 'c03-airlines.firebaseapp.com',
-    databaseURL: 'https://c03-airlines.firebaseio.com',
-    projectId: 'c03-airlines',
-    storageBucket: 'c03-airlines.appspot.com',
-    messagingSenderId: '59529881252',
-    appId: '1:59529881252:web:2efc6d945b65c095fba831',
-    measurementId: 'G-L206CBS8RL'
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  firebaseConfig: {
+    apiKey: 'AIzaSyBpu5w4W9YgtEGgHWIwR-rnLoLkBPecxHg',
+    authDomain: 'anhduc-leon.firebaseapp.com',
+    databaseURL: 'https://anhduc-leon.firebaseio.com',
+    projectId: 'anhduc-leon',
+    storageBucket: 'anhduc-leon.appspot.com',
+    messagingSenderId: '729625987861',
+    appId: '1:729625987861:web:bc6e7d7a9da7e5520e371c',
+    measurementId: 'G-4B911JNDZT',
   }
 };
 

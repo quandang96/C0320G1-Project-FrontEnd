@@ -18,7 +18,7 @@
         <td> </td>
       </thead>
 
-      <tr *ngFor="let bills of billsList| paginate: { itemsPerPage: 3, currentPage: p }">
+      <tr *ngFor="let bills of billsList| paginate: { itemsPerPage: 5, currentPage: p }">
         <td>
           {{bills.id}}
         </td>
@@ -37,7 +37,9 @@
         <td>
           {{bills.transaction.account.fullName}}
         </td>
-        <td> <input type="checkbox"></td>
+        <td> 
+          <button type="button" class="btn btn-outline-info ml-5 p-2" (click)="openDialogViewBills(bills.id)"> Xem hóa đơn</button>
+        </td>
       </tr>
 
     </table>
@@ -53,8 +55,8 @@
 </div>
 
 <div>
-  <button type="button" class="btn btn-outline-info ml-5 p-2" > Tải hóa đơn</button>
-  <button type="button" class="btn btn-outline-info ml-5 p-2" (click)="openDialog()">
+  <!-- <button type="button" class="btn btn-outline-info ml-5 p-2" (click)="openDialogViewBills()"> Xem hóa đơn</button> -->
+  <button type="button" class="btn btn-outline-info ml-5 p-2" (click)="openDialogFind()">
     <span > Tìm kiếm hóa đơn </span>
     <i class="fas fa-search ml-2"></i>
   </button>

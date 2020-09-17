@@ -1,3 +1,6 @@
+import { EmployeeTableComponent } from './../employee/employee-table/employee-table.component';
+import { EmployeeModule } from './../employee/employee.module';
+import { AdminHomeComponent } from './admin-home/admin-home.component';
 
 import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -9,22 +12,30 @@ import { ReportComponent } from './report/report.component';
 const routes: Routes = [
 
   {
-    path: 'feedback-list', component: FeedbackListComponent, canActivate: [RoleGuard],
+    path : '',component : AdminHomeComponent, canActivate: [RoleGuard],
     data: {
       expectedRole: 'ROLE_ADMIN'
-    },
-  },
-  {
-    path: 'report', component: ReportComponent, canActivate: [RoleGuard],
-    data: {
-      expectedRole: 'ROLE_ADMIN'
-    }
+    },children : [
+      {
+        path: 'report', component: ReportComponent
+      },
+      {
+        path: 'feedback-list', component: FeedbackListComponent
+      },
+      {
+        path : 'employee-table', component : EmployeeTableComponent
+      }
+    ]
+    
   }
 
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [
+    RouterModule.forChild(routes),
+    EmployeeModule
+  ],
   exports: [RouterModule]
 })
 export class AdminRoutingModule { }

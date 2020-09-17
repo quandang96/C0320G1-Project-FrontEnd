@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="319c9281-1434-489f-bc3f-84dcdde189a9" name="Default Changelist" comment="" />
+    <list default="true" id="319c9281-1434-489f-bc3f-84dcdde189a9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flight-agency-project/src/app/admin/report/report.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/flight-agency-project/src/app/admin/report/report.component.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -11,6 +14,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1hWmUR2kBjAB8Fl3fHG2hdIhcSY" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -20,7 +24,9 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../c0320g1-flight-agency" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="D:\C0320G1_Huynh_Ngoc_Thanh\module4\Sprint 2\Sprint 2 Frontend\C0320G1-Project-FrontEnd\flight-agency-project\node_modules\typescript\lib" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -33,16 +39,68 @@
       <option name="presentableId" value="Default" />
       <updated>1600135237710</updated>
       <workItem from="1600135239935" duration="34000" />
+      <workItem from="1600305509577" duration="134000" />
+      <workItem from="1600305645983" duration="334000" />
+      <workItem from="1600306055605" duration="803000" />
+      <workItem from="1600306860890" duration="15000" />
+      <workItem from="1600306877287" duration="569000" />
     </task>
+    <task id="LOCAL-00001" summary="aaa">
+      <created>1600306192617</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1600306192618</updated>
+    </task>
+    <task id="LOCAL-00002" summary="aaa">
+      <created>1600306229505</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1600306229505</updated>
+    </task>
+    <task id="LOCAL-00003" summary="aaa">
+      <created>1600306243407</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1600306243407</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="aaa" />
+    <option name="LAST_COMMIT_MESSAGE" value="aaa" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="1154" y="275" key="FileChooserDialogImpl" timestamp="1600135272255">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="211" y="0" key="CommitChangelistDialog2" timestamp="1600306242070">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
+    <state x="211" y="0" key="CommitChangelistDialog2/0.0.1366.738@0.0.1366.738" timestamp="1600306242070" />
+    <state x="821" y="195" key="FileChooserDialogImpl" timestamp="1600306873989">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="821" y="195" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1600306873989" />
     <state x="1154" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1600135272255" />
+    <state width="1345" height="181" key="GridCell.Tab.0.bottom" timestamp="1600251841886">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1345" height="181" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1600251841886" />
+    <state width="1345" height="181" key="GridCell.Tab.0.center" timestamp="1600251841885">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1345" height="181" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1600251841885" />
+    <state width="1345" height="181" key="GridCell.Tab.0.left" timestamp="1600251841883">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1345" height="181" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1600251841883" />
+    <state width="1345" height="181" key="GridCell.Tab.0.right" timestamp="1600251841885">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1345" height="181" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1600251841885" />
   </component>
 </project>

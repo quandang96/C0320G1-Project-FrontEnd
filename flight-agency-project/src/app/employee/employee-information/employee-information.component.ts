@@ -4,7 +4,6 @@ import {EmployeeService} from '../../shared/services/employee.service';
 import {employeeDto} from '../../shared/models/dto/employeeDto';
 import {validation} from '../../shared/validations/validation';
 import {TokenStorageService} from '../../shared/services/token-storage.service';
-
 declare var $: any;
 
 @Component({
