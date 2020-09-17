@@ -2,34 +2,39 @@ import { SendFeedbackComponent } from './home/send-feedback/send-feedback.compon
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { CustomerCheckinComponent } from './home/customer-checkin/customer-checkin.component';
 
 
 const routes: Routes = [
-{
-  path: '', component: HomeComponent
-},
-{
-  path: 'send-feedback', component : SendFeedbackComponent
-},
-{
-  path: 'admin', loadChildren: () => import('./admin/admin.module').then(mod => mod.AdminModule)
-},
-{
-  path: 'employee', loadChildren: () => import('./employee/employee.module').then(mod => mod.EmployeeModule)
-},
-{
-  path: 'customer', loadChildren: () => import('./customer/customer.module').then(mod => mod.CustomerModule)
-},
-{
-  path: 'flight', loadChildren: () => import('./flight/flight.module').then(mod => mod.FlightModule)
-},
-{
-  path: 'tickets', loadChildren: () => import('./ticket/ticket.module').then(mod => mod.TicketModule)
-}
-];
+  {
+    path: '', component: HomeComponent
+  },
+  {
+    path: 'send-feedback', component: SendFeedbackComponent
+  },
+  {
+    path: 'admin', loadChildren: () => import('./admin/admin.module').then(mod => mod.AdminModule)
+  },
+  {
+    path: 'employee', loadChildren: () => import('./employee/employee.module').then(mod => mod.EmployeeModule)
+  },
+  {
+    path: 'customer', loadChildren: () => import('./customer/customer.module').then(mod => mod.CustomerModule)
+  },
+  {
+    path: 'flight', loadChildren: () => import('./flight/flight.module').then(mod => mod.FlightModule)
+  },
+  {
+    path: 'passenger', loadChildren: () => import('./passenger/passenger.module').then(mod => mod.PassengerModule)
+  },
+
+  {
+    path: 'checkin', component: CustomerCheckinComponent
+  },];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

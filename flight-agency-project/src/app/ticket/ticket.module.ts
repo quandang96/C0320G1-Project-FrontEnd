@@ -7,14 +7,15 @@ import {MatButtonModule, MatDialogModule} from '@angular/material';
 import {ListTicketComponent} from './list-ticket/list-ticket.component';
 import {TicketRoutingModule} from './ticket-routing.module';
 import {CommonModule} from '@angular/common';
-import {TranslateModule} from '@ngx-translate/core';
+import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
 
 
 @NgModule({
   declarations: [
     ListTicketComponent,
     DeleteTicketComponent,
-    AlterComponent
+    AlterComponent,
+    EditTicketComponent
   ],
   imports: [
     TicketRoutingModule,
@@ -24,11 +25,11 @@ import {TranslateModule} from '@ngx-translate/core';
     CommonModule,
     MatDialogModule,
     MatButtonModule,
-    TranslateModule
   ],
   entryComponents: [
     DeleteTicketComponent,
-    AlterComponent
+    AlterComponent,
+    EditTicketComponent
   ]
 })
 export class TicketModule { }

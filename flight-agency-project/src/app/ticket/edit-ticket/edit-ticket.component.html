@@ -1,0 +1,77 @@
+<div id="modal-content-wrapper" class="d-fex justify-content-center">
+  <header id="modal-header">
+    <h1 id="modal-title" style="color: goldenrod;text-align: center">Chỉnh sửa vé ! </h1>
+  </header>
+
+    <form [formGroup]="formEditTicket">
+    <div class="row">
+      <div class="col-xs-4">
+        <label style="line-height: 2.5">Hãng bay :</label></div>
+      <div class="col-xs-12">
+        <input  type="text" class="form-control noInput" style="color: #00aeef" [value]="airline" disabled>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-4">
+        <label style="line-height: 2.5">Mã đặt chỗ :</label></div>
+      <div class="col-xs-12">
+        <input  type="text" class="form-control noInput" [value]="bookingCode" disabled>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-4">
+        <label>Tên hành khách:</label></div>
+      <div class="col-xs-12">
+        <input type="text" formControlName="name" class="form-control input">
+        <p *ngIf="formEditTicket.controls.name.errors?.required && formEditTicket.controls.name.touched"
+           class="text-danger">Vui nhập tên hành khách ! </p>
+        <p *ngIf="formEditTicket.controls.name.errors?.pattern && formEditTicket.controls.name.touched"
+           class="text-danger">Tên không đúng định dạng ! </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-4">
+        <label style="line-height: 2.5">Chuyến bay :</label></div>
+      <div class="col-xs-12">
+        <input  type="text" class="form-control noInput"  [value]="flight" disabled>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-4">
+        <label style="line-height: 2.5">Thời gian đi :</label></div>
+      <div class="col-xs-12">
+        <input  type="text" class="form-control noInput" style="color: #00aeef" [value]="departure" disabled>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-4">
+        <label>Email thanh toán:</label></div>
+      <div class="col-xs-12">
+        <input type="text" formControlName="email" class="form-control input">
+        <p *ngIf="formEditTicket.controls.email.errors?.required && formEditTicket.controls.email.touched"
+           class="text-danger">Vui nhập email thanh toán ! </p>
+        <p *ngIf="formEditTicket.controls.email.errors?.pattern && formEditTicket.controls.email.touched"
+           class="text-danger">Email không đúng dịnh dạng ! </p>
+      </div>
+    </div>
+
+      <div class="row d-flex mt-3">
+        <div class="col-sm-5">
+          <button type="submit" class="btn btn-warning" (click)="back()" >Hủy</button>
+        </div>
+
+        <div class="col-sm-5">
+          <button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="submitEdit()"> Lưu
+<!--            [disabled]="formEditTicket.invalid"-->
+          </button>
+        </div>
+      </div>
+    </form>
+
+</div>
+
