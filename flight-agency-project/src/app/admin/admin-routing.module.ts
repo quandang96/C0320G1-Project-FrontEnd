@@ -1,3 +1,5 @@
+import { EmployeeTableComponent } from './../employee/employee-table/employee-table.component';
+import { EmployeeModule } from './../employee/employee.module';
 import { AdminHomeComponent } from './admin-home/admin-home.component';
 
 import { NgModule, Component } from '@angular/core';
@@ -19,6 +21,9 @@ const routes: Routes = [
       },
       {
         path: 'feedback-list', component: FeedbackListComponent
+      },
+      {
+        path : 'employee-table', component : EmployeeTableComponent
       }
     ]
     
@@ -27,7 +32,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [
+    RouterModule.forChild(routes),
+    EmployeeModule
+  ],
   exports: [RouterModule]
 })
 export class AdminRoutingModule { }

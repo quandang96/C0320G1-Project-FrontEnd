@@ -65,9 +65,9 @@ registerLocaleData(localVi);
     NgxPaginationModule,
     CommonModule,
     MaterialModule,
-
-
-
+  ],
+  exports : [
+    EmployeeTableComponent
   ],
   entryComponents: [BillFindComponent]
 
