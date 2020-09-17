@@ -14,7 +14,7 @@ import { BookTicketStep2Component } from './book-ticket/book-ticket-step2/book-t
 import { FindFlightComponent } from './find-flight/find-flight.component';
 import { InvoiceTicketComponent } from './invoice-ticket/invoice-ticket.component';
 import { registerLocaleData } from '@angular/common';
-import localVi from '@angular/common/locales/vi'
+import localVi from '@angular/common/locales/vi';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { BillFindComponent } from './bill-find/bill-find.component';
 import { PromoListComponent } from './promo/promo-list/promo-list.component';
@@ -28,6 +28,10 @@ import { AddPassengerComponent } from './add-passenger/add-passenger.component';
 import { UpdatePassengerComponent } from './update-passenger/update-passenger.component';
 import { PromoEditComponent } from './promo/promo-edit/promo-edit.component';
 
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../../environments/environment';
+import {AngularFireStorageModule} from '@angular/fire/storage';
+import {AngularFireDatabaseModule} from '@angular/fire/database';
 
 
 
@@ -65,6 +69,9 @@ registerLocaleData(localVi);
     NgxPaginationModule,
     CommonModule,
     MaterialModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireStorageModule,
+    AngularFireDatabaseModule
   ],
   exports : [
     EmployeeTableComponent

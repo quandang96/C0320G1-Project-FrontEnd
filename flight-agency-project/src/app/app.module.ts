@@ -12,6 +12,7 @@ import { HeaderComponent } from './header/header.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
+// @ts-ignore
 import { httpInterceptorProviders } from './authentication/auth-interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire';
@@ -21,7 +22,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { HttpClientModule } from '@angular/common/http';
 import { SendFeedbackComponent } from './home/send-feedback/send-feedback.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { PDFExportModule } from './../../node_modules/@progress/kendo-angular-pdf-export';
+import { PDFExportModule } from '@progress/kendo-angular-pdf-export';
 import { NgxPayPalModule } from 'ngx-paypal';
 import { ToastrModule } from 'ngx-toastr';
 // import { NgxCaptchaModule } from 'ngx-captcha';
