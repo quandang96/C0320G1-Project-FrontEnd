@@ -79,6 +79,8 @@ export class HeaderComponent implements OnInit {
       this.router.navigateByUrl("/customer/info")
     } else if (role == "ROLE_EMPLOYEE") {
       this.router.navigateByUrl("/employee/employeeInfo")
+    } else {
+      this.router.navigateByUrl("/admin/report")
     }
 
 

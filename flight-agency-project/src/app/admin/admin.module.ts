@@ -12,11 +12,12 @@ import { CircleChartComponent } from './circle-chart/circle-chart.component';
 import { LineChartComponent } from './line-chart/line-chart.component';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
 import { PieChartComponent } from './pie-chart/pie-chart.component';
+import { AdminHomeComponent } from './admin-home/admin-home.component';
 
 
 
 @NgModule({
-  declarations: [FeedbackListComponent, ReportComponent, FeedbackContentDialogComponent, CircleChartComponent, LineChartComponent, BarChartComponent, LineChartComponent, PieChartComponent],
+  declarations: [FeedbackListComponent, ReportComponent, FeedbackContentDialogComponent, CircleChartComponent, LineChartComponent, BarChartComponent, LineChartComponent, PieChartComponent, AdminHomeComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
