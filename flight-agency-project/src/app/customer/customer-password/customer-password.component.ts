@@ -1,14 +1,23 @@
 import { TokenStorageService } from './../../shared/services/token-storage.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import { CustomerChangePassDto } from '../../shared/models/dto/CustomerChangePassDto';
 import { CustomerService } from '../../shared/services/customer.service';
 
+function checkPassword(formGroup: AbstractControl): ValidationErrors | null {
+  const password = formGroup.get('newPassword').value;
+  const confirmPassword = formGroup.get('confirmPassword').value;
+  if (password !== confirmPassword) {
+    return { checkPassword: true };
+  }
+  return null;
+}
 @Component({
   selector: 'app-customer-password',
   templateUrl: './customer-password.component.html',
   styleUrls: ['./customer-password.component.css']
 })
+
 export class CustomerPasswordComponent implements OnInit {
   passwordForm: FormGroup;
 
@@ -32,7 +41,7 @@ export class CustomerPasswordComponent implements OnInit {
       password: ['', [Validators.required]],
       newPassword: ['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,20}$/)]],
       confirmPassword: [''],
-    }, { validators: [this.customerService.comparePassword] });
+    }, { validators: checkPassword });
   }
   // Created By Thiện - đổi mật khẩu
   updatePassword() {
