@@ -54,6 +54,7 @@ export class EmployeeTableComponent implements OnInit {
   uploadProgress: Observable<number>;
   url = [];
   statusAdd = true;
+  statusSave = false;
 
   constructor(
     private employeeService: EmployeeService,
@@ -144,12 +145,14 @@ export class EmployeeTableComponent implements OnInit {
       this.getAllEmployee(0, 5);
     }
   }
+
   clearAlias2(index) {
     // tslint:disable-next-line:triple-equals
     this.aliases.removeAt(index);
     delete this.url[index];
     // tslint:disable-next-line:triple-equals
     if (this.aliases.length == 0) {
+      this.statusAdd = true;
       this.getAllEmployee(0, 5);
     }
   }
@@ -207,39 +210,45 @@ export class EmployeeTableComponent implements OnInit {
 
   onFirstPage() {
     this.page = 0;
-    this.getAllEmployee(this.page, this.size);
+    // tslint:disable-next-line:triple-equals
+    if ('' == this.valueSearch) {
+      this.getAllEmployee(this.page, this.size);
+    } else {
+      this.searchEmployee();
+    }
+
   }
 
   onLastPage() {
     this.page = this.totalPage - 1;
-    this.getAllEmployee(this.page, this.size);
+    // tslint:disable-next-line:triple-equals
+    if ('' == this.valueSearch) {
+      this.getAllEmployee(this.page, this.size);
+    } else {
+      this.searchEmployee();
+    }
   }
 
   onBackPage() {
+    this.page--;
     // tslint:disable-next-line:triple-equals
-    if (this.valueSearch != '') {
-      this.page--;
+    if ('' == this.valueSearch) {
+      this.getAllEmployee(this.page, this.size);
+    } else {
       this.searchEmployee();
     }
-    // tslint:disable-next-line:triple-equals
-    if (this.page != 0) {
-      this.page--;
-      this.getAllEmployee(this.page, this.size);
-    }
+
   }
 
   onNextPage() {
+    this.page++;
     // tslint:disable-next-line:triple-equals
-    if (this.valueSearch != '') {
-      this.page++;
-      this.searchEmployee();
+    if ('' == this.valueSearch) {
+      this.getAllEmployee(this.page, this.size);
     } else {
-      // tslint:disable-next-line:triple-equals
-      if (this.page != this.totalPage - 1) {
-        this.page++;
-        this.getAllEmployee(this.page, this.size);
-      }
+      this.searchEmployee();
     }
+
   }
 
   onSubmit() {
@@ -248,17 +257,20 @@ export class EmployeeTableComponent implements OnInit {
     this.employees.forEach((value, index) => {
       value.avatarImageUrl = this.url[index];
     });
+    this.statusSave = true;
     this.employeeService.addNewEmployees(this.employees).subscribe(data => {
       console.log(data);
     }, error => {
       console.log(error.error.message);
       this.message = error.error.message;
       this.classNameMessage = 'alert alert-danger';
+      this.getAllEmployee(0, 5);
     }, () => {
       console.log('Save Thành Công');
       this.getAllEmployee(0, 5);
     });
     this.statusAdd = true;
+    this.statusSave = false;
   }
 
   onChangeSize() {

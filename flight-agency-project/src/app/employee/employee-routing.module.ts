@@ -80,7 +80,7 @@ const routes: Routes = [
   { path: "promotion", component: PromoListComponent },
   { path: "promotion/create", component: PromoCreateComponent },
 
-  { path: '/table', component: EmployeeTableComponent },
+  { path: 'table', component: EmployeeTableComponent },
   { path: 'promotion/promo-edit/:id', component: PromoEditComponent },
   { path: "promotion", component: PromoListComponent },
 

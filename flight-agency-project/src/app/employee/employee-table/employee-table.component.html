@@ -1,3 +1,6 @@
+<div *ngIf="statusSave" class="spinner-border" role="status">
+  <span class="sr-only">Loading...</span>
+</div>
 <form (ngSubmit)="onSubmit()" [formGroup]="addNewForm">
   <div class="container-xl" #epltable>
     <div class="table-responsive">
@@ -5,10 +8,9 @@
         <div class="table-title">
           <div class="row">
             <div class="col-sm-4">
-              <a style="color: white" href="http://localhost:4200/employee"><h2> Danh Sách Nhân Viên</h2></a>
+              <a style="color: white" href="http://localhost:4200/employee/table"><h2> Danh Sách Nhân Viên</h2></a>
             </div>
             <div class="col-sm-8">
-
               <a [hidden]="statusAdd" style="color: #fff;
     background-color: #dc3545;
     border-color: #dc3545;" (click)="clearAlias()" class="btn btn-danger"><i class="material-icons">layers_clear</i>
@@ -48,14 +50,14 @@
               <div class="col-sm-9">
                 <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
                 <div class="filter-group">
-                  <input formControlName="value" type="text" class="form-control">
+                  <input [(ngModel)]="valueSearch" formControlName="value" type="text" class="form-control">
                 </div>
                 <div class="filter-group">
                   <label>Tìm Kiếm</label>
                   <select formControlName="key" class="form-control">
                     <option value="email" [selected]="true">Email</option>
                     <option value="fullName">Họ Tên</option>
-                    <option value="birthday">Ngày Sinh</option>
+                    <option value="birthday">Ngày Sinh (dd/mm/yyyy)</option>
                     <option value="address">Địa Chỉ</option>
                     <option value="phoneNumber">Số Điện thoại</option>
                   </select>
