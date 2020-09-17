@@ -218,7 +218,7 @@ export class ListTicketComponent implements OnInit {
         width: '500px',
         height: '460px',
         data: {data1: data},
-        disableClose: false,
+        disableClose: true,
       });
 
       dialogRef.afterClosed().subscribe(result => {
