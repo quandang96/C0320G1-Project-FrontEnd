@@ -5,16 +5,16 @@
         <div class="slideimage">
           <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
             <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img src="https://res.flynow.vn/Seo/combo-du-lich.png" class="d-block w-100 imgslide" alt="..."
-                  style="height: 500px">
-              </div>
               <div class="carousel-item">
                 <img src="https://res.flynow.vn/Seo/quy-nhon1.jpg" class="d-block w-100 imgslide" alt="..."
                   style="height: 500px">
               </div>
+              <div class="carousel-item active">
+                <img src="https://thebank.vn/uploads/2017/12/19/thebank_baovebanmotcachtoandienvoibaohiemdulichquoctebaoviet_1513702055.jpg" class="d-block w-100 imgslide" alt="..."
+                     style="height: 500px">
+              </div>
               <div class="carousel-item">
-                <img src="https://res.flynow.vn/Seo/poster101.jpg" class="d-block w-100 imgslide" alt="..."
+                <img src="https://pic.pikbest.com/01/29/92/62G888piCAsU.jpg-2.jpg!bw700" class="d-block w-100 imgslide" alt="..."
                   style="height: 500px">
               </div>
               <div class="carousel-item">
@@ -22,15 +22,11 @@
                   alt="..." style="height: 500px">
               </div>
               <div class="carousel-item">
-                <img src="https://file.cenbay.vn/banners/16/viet-nam-airlines-uu-dai-cuoi-tuan.jpg"
-                  class="d-block w-100 imgslide" alt="..." style="height: 500px">
-              </div>
-              <div class="carousel-item">
-                <img src="https://vnbay.com.vn/vnt_upload/news/04_2018/VNAL.jpg" class="d-block w-100 imgslide"
+                <img src="https://baohiemhcm.com/wp-content/uploads/2016/04/Phi%CC%81-ba%CC%89o-hie%CC%82%CC%89m-du-li%CC%A3ch-quo%CC%82%CC%81c-te%CC%82.jpg" class="d-block w-100 imgslide"
                   alt="..." style="height: 500px">
               </div>
               <div class="carousel-item">
-                <img src="https://file.cenbay.vn/banners/18/Bambo-mung-quoc-khanh-dong-gia-299k.png"
+                <img src="https://tourhoichoquocte.com/data/images/du%20lich%20quoc%20te(2).jpg"
                   class="d-block w-100 imgslide" alt="..." style="height: 500px">
               </div>
             </div>
@@ -99,7 +95,7 @@
                         <div class="ghichu2">
                           <p
                             *ngIf="searchForm.controls.departureAirport.errors?.required && searchForm.controls.departureAirport.touched">
-                            <strong>Vui lòng chọn điểm đi</strong>
+                            <strong class="text-warning">Vui lòng chọn điểm đi</strong>
                           </p>
                         </div>
                       </div>
@@ -123,11 +119,11 @@
                         <div class="ghichu2">
                           <p
                             *ngIf="searchForm.controls.arrivalAirport.errors?.required && searchForm.controls.arrivalAirport.touched">
-                            <strong>Vui lòng chọn điểm đến</strong>
+                            <strong class="text-warning">Vui lòng chọn điểm đến</strong>
                           </p>
                         </div>
                         <div class="ghichu2" *ngIf="searchForm.hasError('checkPlace')">
-                          <strong style="color: #ffffff">Điểm đi không được trùng với điểm đến</strong>
+                          <strong class="text-warning">Điểm đi không được trùng với điểm đến</strong>
                         </div>
                       </div>
                     </div>
@@ -144,7 +140,10 @@
                             </span>
                           </div>
                           <input type="date" id="date1" class="form-control" aria-label="Username"
-                            aria-describedby="basic-addon1" formControlName="departureDateTime">
+                                 aria-describedby="basic-addon1" formControlName="departureDateTime">
+                        </div>
+                        <div class="ghichu2" *ngIf="searchForm.hasError('chooseDateGreaterThanCurrentDate')">
+                          <strong class="text-warning">Ngày đi phải lớn hơn hoặc bằng ngày hiện tại</strong>
                         </div>
                       </div>
                     </div>
@@ -159,11 +158,17 @@
                             </span>
                           </div>
                           <input type="date" id="date2" class="form-control" aria-label="Username"
-                            aria-describedby="basic-addon2" formControlName="arrivalDateTime">
+                                 aria-describedby="basic-addon2" formControlName="arrivalDateTime">
+                        </div>
+                        <div class="ghichu2" *ngIf="searchForm.hasError('checkArrivalDate')">
+                          <strong class="text-warning">Ngày về phải lớn hơn hoặc bằng ngày hiện tại</strong>
                         </div>
                       </div>
                     </div>
                   </div>
+                </div>
+                <div class="ghichu4" *ngIf="searchForm.hasError('checkDepAndArrDate')">
+                  <strong style="text-align: center" class="text-warning">Ngày về phải lớn hơn hoặc bằng ngày đi</strong>
                 </div>
                 <div class="row">
                   <div class="col-md-4 col-lg-4 col-xl-4">
@@ -240,10 +245,10 @@
                 </div>
                 <div class="row">
                   <div class="ghichu3" *ngIf="searchForm.hasError('checkBabies')">
-                    <strong style="color: #ffffff">Số lượng em bé không được lớn hơn số lượng người lớn</strong>
+                    <strong class="text-warning">Số lượng em bé không được lớn hơn số lượng người lớn</strong>
                   </div>
                   <div class="ghichu3" *ngIf="searchForm.hasError('checkNumber')">
-                    <strong style="color: #ffffff">Tổng số lượng người lớn và trẻ em không được vượt quá 9</strong>
+                    <strong class="text-warning">Tổng số lượng người lớn và trẻ em không được vượt quá 9</strong>
                   </div>
                   <div class="col-md-6 col-lg-6 col-xl-6">
                     <div class="buttontimkiem1">
@@ -310,7 +315,7 @@
           </div>
           <div class="col-xs-10">
             <h5 class="text-light">
-              Flight Now-Hơn Cả Một Chuyến Bay!
+              C0320G1 Flight Agency - Hơn Cả Một Chuyến Bay!
             </h5>
             <h6 class="text-light">Tham gia đăng kí để nhận thêm các ưu đãi</h6>
           </div>
@@ -363,7 +368,7 @@
       <div class="row">
         <div class="col-12">
           <div class="gioithieu">
-            <h1>Trải nghiệm tuyệt vời tại Fly Now</h1>
+            <h1>Trải nghiệm tuyệt vời tại C0320G1 - Flight Agency</h1>
           </div>
         </div>
         <div class="col-12">
