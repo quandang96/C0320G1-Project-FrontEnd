@@ -27,6 +27,7 @@ import { ToastrModule } from 'ngx-toastr';
 // import { NgxCaptchaModule } from 'ngx-captcha';
 import { CustomerCheckinComponent } from './home/customer-checkin/customer-checkin.component';
 import { FlightModule } from './flight/flight.module';
+import { PromotionComponent } from './home/promotion/promotion.component';
 
 
 
@@ -39,7 +40,8 @@ import { FlightModule } from './flight/flight.module';
     HeaderComponent,
     SendFeedbackComponent,
     PageNotFoundComponent,
-    CustomerCheckinComponent
+    CustomerCheckinComponent,
+    PromotionComponent
   ],
   imports: [
     NgxPaginationModule,
