@@ -39,13 +39,14 @@ export class BookTicketStep2Component implements OnInit {
   childPassengers: FormArray;
   adultPassengers: FormArray;
   check : Boolean = false;
-  
+  deptPrice: number = 0;
+  arvPrice: number = 0;
+
   constructor(private data:DataService,
               private employeeService:EmployeeService,
               private router:Router) { }
 
   ngOnInit() {
-
     this.childPassengers = this.ticketForm.get('childPassengers') as FormArray;
     this.adultPassengers = this.ticketForm.get('adultPassengers') as FormArray;
     this.data.currentMessage.subscribe(data=>{
@@ -53,14 +54,23 @@ export class BookTicketStep2Component implements OnInit {
       if(this.flightIds.length!=0){
         this.employeeService.findFlightById(this.flightIds[0]).subscribe(data=>{
           this.departureFlight=data;
-          if(this.flightIds.length!=1){
+           this.deptPrice = this.departureFlight.price*(this.flight.adult+this.flight.child*1)+(this.departureFlight.price*(this.flight.adult*1+this.flight.child*1*1))*10/100;
+           let luggagePrice = this.getTotalArvLuggagePrice()+this.getTotalDeptLuggagePrice();
+            this.totalPrice= this.deptPrice+luggagePrice; 
+           if(this.flightIds.length!=1){
             this.employeeService.findFlightById(this.flightIds[1]).subscribe(data=>{
               this.arrivalFlight = data;
+              this.arvPrice= this.arrivalFlight.price*(this.flight.adult+this.flight.child*1)+(this.arrivalFlight.price*(this.flight.adult*1+this.flight.child*1*1))*10/100;
+              let luggagePrice = this.getTotalArvLuggagePrice()+this.getTotalDeptLuggagePrice();
+              this.totalPrice= this.deptPrice+this.arvPrice+luggagePrice;
             })
+           
           }
+          
         })
       }
     })
+   
 }
 
   //lặp số lượng
@@ -108,17 +118,12 @@ export class BookTicketStep2Component implements OnInit {
     return luggagePrice;
   }
 
-  //cập nhật totalPrice
-  changeTotalPrice(){
-    let deptPrice = this.ticketForm.get('otherDetails').get('deptPrice').value;
-    let arvPrice = this.ticketForm.get('otherDetails').get('arvPrice').value;
-    let luggagePrice = this.getTotalArvLuggagePrice()+this.getTotalDeptLuggagePrice();
-    this.totalPrice= Number.parseInt(deptPrice)+Number.parseInt(arvPrice)+luggagePrice;
+  changeLuggage(){
+        let luggagePrice = this.getTotalArvLuggagePrice()+this.getTotalDeptLuggagePrice();
+        this.totalPrice=this.arvPrice+this.deptPrice+luggagePrice;
   }
-
-
   //Lưu vé
-  async saveTicket(){
+  saveTicket(){
     this.passengers = [];
     this.transactions = [];
     //Lưu khách hàng
@@ -159,13 +164,13 @@ export class BookTicketStep2Component implements OnInit {
     //Chiều đi
     let createdTime = new DatePipe('vi-VN').transform(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", 'GMT+7');
     let due = new Date();
-    due.setHours(due.getHours()+2); 
+    due.setMinutes(due.getMinutes()+15); 
     let dueTime = new DatePipe('vi-VN').transform(due, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", 'GMT+7');
     this.deptTransaction = {
       id: null,
       createdTime: createdTime,
       dueTime: dueTime,
-      price: this.arrivalFlight?this.ticketForm.get('otherDetails').get('deptPrice').value*1+this.getTotalDeptLuggagePrice() : this.totalPrice,
+      price: this.arrivalFlight?this.deptPrice+this.getTotalDeptLuggagePrice() : this.totalPrice,
       status: "Chờ thanh toán",
       account: this.customer as Account,
       flightSchedule: this.departureFlight,
@@ -178,7 +183,7 @@ export class BookTicketStep2Component implements OnInit {
         id: null,
         createdTime: createdTime,
         dueTime: dueTime,
-        price: this.ticketForm.get('otherDetails').get('arvPrice').value*1 + this.getTotalArvLuggagePrice(),
+        price: this.arvPrice + this.getTotalArvLuggagePrice(),
         status: "Chờ thanh toán",
         account: this.customer as Account,
         flightSchedule: this.arrivalFlight,
@@ -197,7 +202,7 @@ export class BookTicketStep2Component implements OnInit {
           window.open("/employee/transaction/invoice/"+ tran.id,"_blank");
         }
       } 
-      window.location.href="/employee";  
+      window.location.href="/employee/findFlight";  
     })
   }
 

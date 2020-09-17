@@ -21,7 +21,6 @@ export class InvoiceTicketComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe(data=>{
       this.employeeService.findTransactionById(Number.parseInt(data.get("id"))).subscribe(trans=>{
         this.transaction = trans;
-        this.changeImageBranch(this.transaction.flightSchedule.branch.id);
       })
     })
   }
@@ -48,10 +47,9 @@ export class InvoiceTicketComponent implements OnInit {
       From : "hungupindn@gmail.com",
       Subject : "Vé máy bay C0320G1",
       Body : "<h3>Cảm ơn bạn đã đặt vé tại phòng vé C0320G1.</h3><div> Xin vui lòng đăng nhập website và thanh toán số tiền "+this.transaction.price+" VND cho mã chuyến bay:"
-      +this.transaction.id +"Cảm ơn quý khách.</div>"
+      +this.transaction.id +" Cảm ơn quý khách.</div>"
       }).then(
-          $("#exampleModal").modal("show")
+          $("#emailModal").modal("show")
       );
-
   }
 }

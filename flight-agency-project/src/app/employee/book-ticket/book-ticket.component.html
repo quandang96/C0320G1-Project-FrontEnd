@@ -1,4 +1,4 @@
-<div class="container w-75">
+<div class="container w-100">
   <form id="regForm" [formGroup]="ticketForm">
     <mat-horizontal-stepper #stepper linear>
       <mat-step formGroupName="flightDetails" 
@@ -15,3 +15,4 @@
     </mat-horizontal-stepper>
   </form>
 </div>
+{{ticketForm.value|json}}

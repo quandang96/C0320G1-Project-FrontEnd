@@ -1,4 +1,4 @@
-<main>
+
     <div class="main-content container w-100" [formGroup]="ticketForm">
     <h1 class="text-center text-uppercase">quản lý bán vé</h1>
     <h2 class="text-center text-uppercase">Nhập vé bán</h2>
@@ -74,7 +74,7 @@
                         <label class="col-form-label">Hành lý<span *ngIf="flightIds.length!=1"> chiều đi</span><span class="text-danger">*</span></label>
                     </div>
                     <div class="col-md-8" [formGroupName]="i">
-                        <select class="form-control custom-select" formControlName="deptLuggagePrice">
+                        <select class="form-control custom-select" formControlName="deptLuggagePrice" (change)="changeLuggage()">
                             <option value="0" [selected]="true">Miễn phí - 7Kg hành lý</option>
                             <option value="170000">Mua thêm - 15Kg - 170.000 VND</option>
                             <option value="225000">Mua thêm - 20Kg - 225.000 VND</option>
@@ -89,7 +89,7 @@
                         <label class="col-form-label">Hành lý chiều về<span class="text-danger">*</span></label>
                     </div>
                     <div class="col-md-8" [formGroupName]="i">
-                        <select class="form-control custom-select" formControlName="arvLuggagePrice">
+                        <select class="form-control custom-select" formControlName="arvLuggagePrice" (change)="changeLuggage()">
                             <option value="0" [selected]="true">Miễn phí - 7Kg hành lý</option>
                             <option value="170000">Mua thêm - 15Kg - 170.000 VND</option>
                             <option value="225000">Mua thêm - 20Kg - 225.000 VND</option>
@@ -146,7 +146,7 @@
                         <label class="col-form-label">Hành lý<span *ngIf="flightIds.length!=1"> chiều đi</span><span class="text-danger">*</span></label>
                     </div>
                     <div class="col-md-8" [formGroupName]="i">
-                        <select class="form-control custom-select" formControlName="deptLuggagePrice">
+                        <select class="form-control custom-select" formControlName="deptLuggagePrice" (change)="changeLuggage()">
                             <option value="0" [selected]="true">Miễn phí - 7Kg hành lý</option>
                             <option value="170000">Mua thêm - 15Kg - 170.000 VND</option>
                             <option value="225000">Mua thêm - 20Kg - 225.000 VND</option>
@@ -172,7 +172,7 @@
                         <label class="col-form-label">Hành lý chiều về<span class="text-danger">*</span></label>
                     </div>
                     <div class="col-md-8" [formGroupName]="i">
-                        <select class="form-control custom-select" formControlName="arvLuggagePrice">
+                        <select class="form-control custom-select" formControlName="arvLuggagePrice" (change)="changeLuggage()">
                             <option value="0" [selected]="true">Miễn phí - 7Kg hành lý</option>
                             <option value="170000">Mua thêm - 15Kg - 170.000 VND</option>
                             <option value="225000">Mua thêm - 20Kg - 225.000 VND</option>
@@ -253,11 +253,7 @@
                     <label class="col-form-label pl-3">Tổng giá bán <br>(VND)</label>
                 </div>
                 <div class="col-md-7" formGroupName="otherDetails">
-                    <input type="text" class="form-control" formControlName="deptPrice" placeholder="Nhập giá bán" (change)="changeTotalPrice()">
-                    <div *ngIf="ticketForm.get('otherDetails').get('deptPrice').invalid && ticketForm.get('otherDetails').get('deptPrice').touched" class="text text-danger font-alert">
-                        <span *ngIf= "ticketForm.get('otherDetails').get('deptPrice').hasError('required')">Tổng giá bán không được để trống.</span>
-                        <span *ngIf= "ticketForm.get('otherDetails').get('deptPrice').hasError('min')">Tổng giá bán phải lớn hơn 0.</span>
-                    </div>
+                    <input type="text" class="form-control" readonly [value]="deptPrice|number" >
                 </div>
             </div>
         </div>
@@ -332,11 +328,7 @@
                     <label class="col-form-label pl-3">Tổng giá bán <br>(VND)</label>
                 </div>
                 <div class="col-md-7" formGroupName="otherDetails">
-                    <input type="text" class="form-control" formControlName="arvPrice" placeholder="Nhập giá bán" (change)="changeTotalPrice()">
-                    <div *ngIf="ticketForm.get('otherDetails').get('arvPrice').invalid && ticketForm.get('otherDetails').get('arvPrice').touched" class="text text-danger font-alert">
-                        <span *ngIf= "ticketForm.get('otherDetails').get('arvPrice').hasError('required')">Tổng giá bán không được để trống.</span>
-                        <span *ngIf= "ticketForm.get('otherDetails').get('arvPrice').hasError('min')">Tổng giá bán phải lớn hơn 0.</span>
-                    </div>
+                    <input type="text" class="form-control" readonly [value]="arvPrice|number">
                 </div>
             </div>
         </div>
@@ -373,7 +365,7 @@
                     <label class="col-form-label">Tổng giá bán<br>(đã bao gồm hành lý-VND)</label>
                 </div>
                 <div class="col-md-6" formGroupName="otherDetails">
-                    <input type="text" class="form-control" value="{{totalPrice|number}}" formControlName="totalPrice" disabled>
+                    <input type="text" class="form-control" [value]="totalPrice|number" formControlName="totalPrice" disabled>
                 </div>
             </div>
             <div class="col-md-6 row justify-content-end h-50">
@@ -444,4 +436,4 @@
         </div>
         </div>
         </div>
-</main>
+
