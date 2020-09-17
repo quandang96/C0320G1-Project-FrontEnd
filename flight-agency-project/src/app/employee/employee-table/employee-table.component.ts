@@ -6,6 +6,7 @@ import * as xlsx from 'xlsx';
 import {AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask} from '@angular/fire/storage';
 import {Observable} from 'rxjs';
 import {finalize} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-employee-table',
@@ -56,10 +57,19 @@ export class EmployeeTableComponent implements OnInit {
   statusAdd = true;
   statusSave = false;
 
+  // B-HoangLong
+  private flag = -1;
+  private checkEdit = false;
+  private editEmployeeForm: FormGroup;
+  private employeeEditId: number;
+
   constructor(
     private employeeService: EmployeeService,
     private afStorage: AngularFireStorage,
-    private  fb: FormBuilder
+    private  fb: FormBuilder,
+    private  formBuilder: FormBuilder,
+    //B-HoangLong
+    private router: Router,
   ) {
   }
 
@@ -85,6 +95,7 @@ export class EmployeeTableComponent implements OnInit {
         id: ['']
       }
     );
+    this.editEmployeeForm = this.addNewEmployeeForm;
   }
 
   upload(event) {
@@ -280,5 +291,51 @@ export class EmployeeTableComponent implements OnInit {
     // @ts-ignore
     this.getAllEmployee(this.page, this.size);
     console.log('load lại trang , size : ' + this.size);
+  }
+
+  //B-HoangLong
+  checkEditEmployee(id) {
+    if (!this.checkEdit) {
+      this.checkEdit = !this.checkEdit;
+      this.flag = id;
+      this.employeeEditId = id;
+      this.employeeService.getEmployeeEditById(this.employeeEditId).subscribe(data => {
+        this.editEmployeeForm.patchValue(data);
+        console.log(this.editEmployeeForm);
+      });
+    }
+    if (this.flag > 0) {
+      this.flag = id;
+      this.employeeEditId = id;
+      this.employeeService.getEmployeeEditById(this.employeeEditId).subscribe(data => {
+        this.editEmployeeForm.patchValue(data);
+        console.log(this.editEmployeeForm);
+      });
+    }
+  }
+
+  editEmployee() {
+    this.employeeService.update(this.editEmployeeForm.value, this.employeeEditId).subscribe(data => {
+      // this.employeeService.showNotification('', 'Sửa thành công, chúc mừng bạn');
+      this.flag = -1;
+      this.checkEdit = false;
+      this.getAllEmployee(this.page, this.size );
+    });
+  }
+
+  close() {
+    this.redirectTo('employee/table');
+  }
+
+  redirectTo(uri: string) {
+    this.router.navigateByUrl( '/', {skipLocationChange: true}).then(() =>
+      this.router.navigate([uri]));
+  }
+
+  deleteEmployee(id: number) {
+    this.employeeService.deleteEmployee(id).subscribe(data => {
+      this.getAllEmployee(this.page, this.size );
+      console.log(id);
+    });
   }
 }
