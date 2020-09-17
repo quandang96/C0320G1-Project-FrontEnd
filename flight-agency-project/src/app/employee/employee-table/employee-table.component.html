@@ -16,7 +16,8 @@
               <button [hidden]="statusAdd"
                       style="color: #fff;
                            background-color: #28a745;
-                        border-color: #28a745;" class="btn btn-success" type="submit"><i class="material-icons">save</i>Lưu Thay Đổi
+                        border-color: #28a745;" class="btn btn-success" type="submit"><i class="material-icons">save</i>Lưu
+                Thay Đổi
               </button>
               <a style="    color: #212529;
     background-color: #ffc107;
@@ -79,8 +80,8 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let employee of employees">
-              <td>{{employee.id}}</td>
+            <tr *ngFor="let employee of employees; let index=index">
+              <td>{{5*page+index+1}}</td>
               <td><a href="#"><img [src]="employee.avatarImageUrl" class="avatar" alt="Avatar"> {{employee.fullName}}
               </a>
               </td>
@@ -99,9 +100,9 @@
             </tr>
             </tbody>
           </table>
-          <div *ngFor="let alias of aliases.controls; let i=index" [hidden]="statusAdd">
+          <div *ngFor="let aliases of aliases.controls; let i=index" [hidden]="statusAdd">
             <!-- The repeated alias template -->
-            <div [formGroupName]="i" class="form-row">
+            <div [formGroupName]="i" class="form-row" style="margin-top: 15px">
               <div style="width: 5%">
                 <input type="file" class="custom-file-input"
                        placeholder="Avt" #fileUploader (change)="upload($event)">
@@ -109,26 +110,57 @@
               </div>
               <div class="col">
                 <input formControlName="fullName" class="form-control" placeholder="Tên nhân viên">
+                <small
+                  *ngIf="addNewForm.controls.aliases.controls[i].controls.fullName.touched&&addNewForm.controls.aliases.controls[i].controls.fullName.errors?.required"
+                  class="text-danger">Vui lòng nhập họ tên</small>
+                <small
+                  *ngIf="addNewForm.controls.aliases.controls[i].controls.fullName.touched&&addNewForm.controls.aliases.controls[i].controls.fullName.errors?.pattern"
+                  class="text-danger">Họ tên không chứa kí tự đặc biệt</small>
               </div>
               <div class="col">
                 <input formControlName="address" class="form-control" placeholder="Địa chỉ">
+                <small
+                  *ngIf="addNewForm.controls.aliases.controls[i].controls.address.touched&&addNewForm.controls.aliases.controls[i].controls.address.errors?.required"
+                  class="text-danger">Vui lòng nhập địa chỉ</small>
               </div>
               <div class="col">
-                <input formControlName="birthday" type="date" class="form-control" placeholder="Ngày sinh">
+                <input formControlName="birthday" type="date" class="form-control" placeholder="Ngày sinh" [max]="today"
+                       [min]="minday">
+                <small
+                  *ngIf="addNewForm.controls.aliases.controls[i].controls.birthday.touched&&addNewForm.controls.aliases.controls[i].controls.birthday.errors?.required"
+                  class="text-danger">Vui lòng chọn ngày sinh</small>
               </div>
               <div class="col">
                 <input formControlName="email" class="form-control" placeholder="Email">
+                <small
+                  *ngIf="addNewForm.controls.aliases.controls[i].controls.email.touched&&addNewForm.controls.aliases.controls[i].controls.email.errors?.required"
+                  class="text-danger">Vui Lòng Nhập Email</small>
+                <small
+                  *ngIf="addNewForm.controls.aliases.controls[i].controls.email.touched&&addNewForm.controls.aliases.controls[i].controls.email.errors?.pattern"
+                  class="text-danger">Email có định dạng abc@cdf.com</small>
               </div>
               <div class="col">
                 <input formControlName="phoneNumber" class="form-control" placeholder="Số điện thoại">
+                <small
+                  *ngIf="addNewForm.controls.aliases.controls[i].controls.phoneNumber.touched&&addNewForm.controls.aliases.controls[i].controls.phoneNumber.errors?.required"
+                  class="text-danger">Vui lòng nhập số điện thoại</small>
+                <small
+                  *ngIf="addNewForm.controls.aliases.controls[i].controls.phoneNumber.touched&&addNewForm.controls.aliases.controls[i].controls.phoneNumber.errors?.pattern"
+                  class="text-danger">Số điện thoại không tồn tại</small>
               </div>
+                           <div class="col-sm-1">
+                             <a (click)="clearAlias2(i)" class="btn" style="color: #fff;
+                  background-color: #dc3545;
+                  border-color: #dc3545;" >
+                               <span>Xóa</span></a>
+                           </div>
             </div>
           </div>
         </div>
 
 
-        <div class="clearfix">
-          <div class="hint-text">Hiển thị <b>{{size}}</b> trong <b>{{totalItems}}</b> mục</div>
+        <div class="clearfix" style="margin-top: 15px">
+          <div class="hint-text">Hiển thị trang <b>{{page+1}}/{{totalPage}}</b></div>
           <ul class="pagination">
             <li class="page-item " (click)="onFirstPage()"><a class="page-link">Trang Đầu</a></li>
             <li class="page-item" (click)="onBackPage()"><a class="page-link"><</a></li>

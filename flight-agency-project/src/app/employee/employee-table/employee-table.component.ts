@@ -14,10 +14,15 @@ import {finalize} from 'rxjs/operators';
 })
 export class EmployeeTableComponent implements OnInit {
   @ViewChild('epltable', {static: false}) epltable: ElementRef;
+  today = new Date();
+  // @ts-ignore
+  minday: string = new Date();
   employees: EmployeeDTO[];
   employee: EmployeeDTO;
   page = 0;
   size = 5;
+  message = '';
+  classNameMessage = '';
   valueSearch = '';
   totalPage = 1;
   totalItems = 1;
@@ -32,8 +37,9 @@ export class EmployeeTableComponent implements OnInit {
   addNewForm = this.fb.group({
     aliases: this.fb.array(
       [this.fb.group({
-        fullName: ['', [Validators.required, Validators.pattern(/^([A-Z])[a-z]+[[\ ][A-Z][a-z]+]*$/)]],
-        email: ['', [Validators.required, Validators.email]],
+        // tslint:disable-next-line:max-line-length
+        fullName: ['', [Validators.required, Validators.pattern(/^([A-Z])[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+[[\ ][A-Z][a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ]+]*$/)]],
+        email: ['', [Validators.required, Validators.pattern(/^[a-z][a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/)]],
         phoneNumber: ['', [Validators.required, Validators.pattern(/^(090|091|([\(][\+]84[\)]90)|([\(][\+]84[\)]91))[0-9]{7}$/)]],
         address: ['', [Validators.required]],
         birthday: ['', [Validators.required]],
@@ -46,7 +52,7 @@ export class EmployeeTableComponent implements OnInit {
   task: AngularFireUploadTask;
   downloadURL: Observable<string>;
   uploadProgress: Observable<number>;
-  url: string;
+  url = [];
   statusAdd = true;
 
   constructor(
@@ -57,6 +63,7 @@ export class EmployeeTableComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getTime();
     this.getAllEmployee(0, 5);
     this.searchEmployeeForm = this.fb.group(
       {
@@ -69,7 +76,7 @@ export class EmployeeTableComponent implements OnInit {
     this.addNewEmployeeForm = this.fb.group(
       {
         fullName: ['', [Validators.required, Validators.pattern(/^([A-Z])[a-z]+[[\ ][A-Z][a-z]+]*$/)]],
-        email: ['', [Validators.required, Validators.email]],
+        email: ['', [Validators.required, Validators.pattern(/^[a-z][a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/)]],
         phoneNumber: ['', [Validators.required, Validators.pattern(/^(090|091|([\(][\+]84[\)]90)|([\(][\+]84[\)]91))[0-9]{7}$/)]],
         address: ['', [Validators.required]],
         birthday: ['', [Validators.required]],
@@ -88,7 +95,7 @@ export class EmployeeTableComponent implements OnInit {
     this.task.snapshotChanges().pipe(
       finalize(() => {
         this.ref.getDownloadURL().subscribe(url => {
-          this.url = url; // <-- do what ever you want with the url..
+          this.url.push(url); // <-- do what ever you want with the url..
         });
       })
     ).subscribe();
@@ -96,6 +103,18 @@ export class EmployeeTableComponent implements OnInit {
 
   get aliases() {
     return this.addNewForm.get('aliases') as FormArray;
+  }
+
+  getTime() {
+    const dd = String(this.today.getDate()).padStart(2, '0');
+    const mm = String(this.today.getMonth() + 1).padStart(2, '0');
+    const yyyy = this.today.getFullYear();
+
+    // @ts-ignore
+    this.today = (yyyy - 18) + '-' + mm + '-' + dd;
+    console.log(this.today);
+    this.minday = (yyyy - 100) + '-' + mm + '-' + dd;
+    console.log(this.minday);
   }
 
   addAlias() {
@@ -118,6 +137,17 @@ export class EmployeeTableComponent implements OnInit {
   clearAlias() {
     // tslint:disable-next-line:triple-equals
     this.aliases.removeAt(this.aliases.length - 1);
+    delete this.url[this.url.length - 1];
+    // tslint:disable-next-line:triple-equals
+    if (this.aliases.length == 0) {
+      this.statusAdd = true;
+      this.getAllEmployee(0, 5);
+    }
+  }
+  clearAlias2(index) {
+    // tslint:disable-next-line:triple-equals
+    this.aliases.removeAt(index);
+    delete this.url[index];
     // tslint:disable-next-line:triple-equals
     if (this.aliases.length == 0) {
       this.getAllEmployee(0, 5);
@@ -131,6 +161,7 @@ export class EmployeeTableComponent implements OnInit {
     if (size == null) {
       size = 5;
     }
+    console.log(this.addNewForm.controls);
     this.employeeService.getAllEmployee(page, size).subscribe(data => {
         console.log(data);
         this.totalPage = data.totalPages;
@@ -145,6 +176,7 @@ export class EmployeeTableComponent implements OnInit {
     );
   }
 
+// in ra exccel
   exportToExcel() {
     const ws: xlsx.WorkSheet =
       xlsx.utils.table_to_sheet(this.epltable.nativeElement);
@@ -153,18 +185,20 @@ export class EmployeeTableComponent implements OnInit {
     xlsx.writeFile(wb, 'epltable.xlsx');
   }
 
+  /*
+    tìm kiếm employee
+  */
   searchEmployee() {
     this.searchObj = this.searchEmployeeForm.value;
-    console.log(this.searchObj);
     // tslint:disable-next-line:max-line-length
     this.employeeService.searchEmployees(this.searchObj.key, this.searchObj.value, this.page, this.size).subscribe(data => {
-        console.log('data trả về ' + data);
+        console.log(data);
         this.employees = data.body;
         this.totalPage = data.totalPages;
         this.page = data.currentPage;
         this.totalItems = data.totalItems;
       }, error => {
-        console.log('Get Data Thất Bại ');
+        console.log('Tìm kiếm Thất Bại ');
       }, () => {
         console.log('Search thành công ,Get Data Thành Công');
       }
@@ -172,18 +206,11 @@ export class EmployeeTableComponent implements OnInit {
   }
 
   onFirstPage() {
-    if (this.valueSearch != null) {
-      this.searchEmployee();
-    }
     this.page = 0;
     this.getAllEmployee(this.page, this.size);
   }
 
   onLastPage() {
-    if (this.valueSearch != null) {
-      this.page = this.totalPage - 1;
-      this.searchEmployee();
-    }
     this.page = this.totalPage - 1;
     this.getAllEmployee(this.page, this.size);
   }
@@ -191,9 +218,7 @@ export class EmployeeTableComponent implements OnInit {
   onBackPage() {
     // tslint:disable-next-line:triple-equals
     if (this.valueSearch != '') {
-      if (this.page > 0) {
-        this.page--;
-      }
+      this.page--;
       this.searchEmployee();
     }
     // tslint:disable-next-line:triple-equals
@@ -208,22 +233,27 @@ export class EmployeeTableComponent implements OnInit {
     if (this.valueSearch != '') {
       this.page++;
       this.searchEmployee();
+    } else {
+      // tslint:disable-next-line:triple-equals
+      if (this.page != this.totalPage - 1) {
+        this.page++;
+        this.getAllEmployee(this.page, this.size);
+      }
     }
-    // tslint:disable-next-line:triple-equals
-    if (this.page != this.totalPage - 1) {
-      this.page++;
-      this.getAllEmployee(this.page, this.size);
-    }
-
   }
 
   onSubmit() {
     console.warn(this.addNewForm.value);
     this.employees = this.addNewForm.value.aliases;
+    this.employees.forEach((value, index) => {
+      value.avatarImageUrl = this.url[index];
+    });
     this.employeeService.addNewEmployees(this.employees).subscribe(data => {
-      console.log('bắt đầu save ' + data);
+      console.log(data);
     }, error => {
-      console.log('Save Thất Bại ');
+      console.log(error.error.message);
+      this.message = error.error.message;
+      this.classNameMessage = 'alert alert-danger';
     }, () => {
       console.log('Save Thành Công');
       this.getAllEmployee(0, 5);
