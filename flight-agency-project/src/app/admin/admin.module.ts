@@ -11,11 +11,12 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CircleChartComponent } from './circle-chart/circle-chart.component';
 import { LineChartComponent } from './line-chart/line-chart.component';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
+import { PieChartComponent } from './pie-chart/pie-chart.component';
 
 
 
 @NgModule({
-  declarations: [FeedbackListComponent, ReportComponent, FeedbackContentDialogComponent, CircleChartComponent, LineChartComponent, BarChartComponent, LineChartComponent],
+  declarations: [FeedbackListComponent, ReportComponent, FeedbackContentDialogComponent, CircleChartComponent, LineChartComponent, BarChartComponent, LineChartComponent, PieChartComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,
@@ -24,6 +25,6 @@ import { BarChartComponent } from './bar-chart/bar-chart.component';
     FormsModule,
     ReactiveFormsModule,
   ],
-  entryComponents: [FeedbackContentDialogComponent, CircleChartComponent, LineChartComponent, BarChartComponent, LineChartComponent],
+  entryComponents: [FeedbackContentDialogComponent, CircleChartComponent, LineChartComponent, BarChartComponent, LineChartComponent, PieChartComponent],
 })
 export class AdminModule { }
