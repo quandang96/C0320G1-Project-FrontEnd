@@ -117,6 +117,6 @@ export class PromoEditComponent implements OnInit, AfterViewInit {
   }
 
   backToPromoList() {
-    this.router.navigateByUrl("/employee/promo-list");
+    this.router.navigateByUrl("/employee/promotion");
   }
 }

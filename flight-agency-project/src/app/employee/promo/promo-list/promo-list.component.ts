@@ -1,3 +1,4 @@
+import { Promo } from './../../../shared/models/promo';
 import { Component, OnInit } from '@angular/core';
 import { PromoService } from '../../../shared/services/promo.service';
 import { Airport } from '../../../shared/models/airport';
@@ -19,6 +20,8 @@ export class PromoListComponent implements OnInit {
 
   message = "";
   errorMessage = "";
+  deletedPromo : Promo;
+  promo: Promo[];
   private promoList: any;
   private airlineList: Branch[];
   private airportList: Airport[];
@@ -99,12 +102,25 @@ export class PromoListComponent implements OnInit {
   }
   deletePromo(id: number) {
     this.promoService.deletePromo(id).subscribe(
-      (data) => { }, error => { this.errorMessage = "Xóa thất bại" }, () => {
-        if (this.errorMessage.length == 0) {
-          this.message = "Xóa thành công";
-        }
-      }
+      (data) => { 
+        this.promo = this.promo.filter((s) => {
+          return s.id !== this.deletedPromo.id;
+        });
+        
+      }     
+      // , error => { this.errorMessage = "Xóa thất bại" }, () => {
+      //   if (this.errorMessage.length == 0) {
+      //     this.message = "Xóa thành công";
+      //   }
+      // }
     );
+  }
+  selectDeletedPromo(service: Promo) {
+    this.deletedPromo = service;
+    console.table(service);
+  }
+  reloadPage(){
+    this.ngOnInit();
   }
 
   //to valid
