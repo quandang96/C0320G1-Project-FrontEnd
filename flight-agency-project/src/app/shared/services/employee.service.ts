@@ -11,7 +11,7 @@ import { AbstractControl } from '@angular/forms';
 import { ɵNullViewportScroller } from '@angular/common';
 import { CustomerSearchDto } from '../models/dto/CustomerSearchDto';
 import { CustomerCheckinDto } from '../models/dto/CustomerCheckinDto';
-import { employeeDto } from '../models/dto/employeeDto';
+import {EmployeeDTO, employeeDto} from '../models/dto/employeeDto';
 
 
 
@@ -142,6 +142,19 @@ export class EmployeeService {
   // creator: Mậu
   changePassword(employee: employeeDto, id): Observable<employeeDto> {
     return this.http.put<employeeDto>(this.API_URL_EMPLOYEE + 'changePassword/' + id, JSON.stringify(employee), this.httpOptions);
+  }
+
+  getEmployeeEditById(id: number): Observable<EmployeeDTO> {
+    // @ts-ignore
+    return this.http.get(this.API_URL_EMPLOYEE + 'edit-employee/' + id, this.httpOptions);
+  }
+
+  update(employeeEditDto: EmployeeDTO, id: number): Observable<any> {
+    return this.http.put<EmployeeDTO>(this.API_URL_EMPLOYEE + 'edit-in-list/' + id, JSON.stringify(employeeEditDto), this.httpOptions);
+  }
+
+  deleteEmployee(id): Observable<any> {
+    return this.http.put(this.API_URL_EMPLOYEE + 'delete-in-list/' + id, this.httpOptions);
   }
 
 }
