@@ -1,8 +1,8 @@
 <div id="modal-content-wrapper" class="d-fex justify-content-center">
   <header id="modal-header">
-    <h1 id="modal-title" style="color: red">Xóa vé ! </h1>
+    <h1 id="modal-title" style="color: red;text-align: center">Xóa vé ! </h1>
   </header>
-  <section id="modal-body">
+  <section id="modal-body mt-2">
     <p class="mat-primary">
       Vé hãng : <span class="text-primary font-weight-bold ml-2">{{airline}}</span><br class="mt-2">
       Mã vé: <span class="text-primary font-weight-bold ml-4"> {{bookingCode}} </span><br class="mt-2">
@@ -13,6 +13,7 @@
   </section>
   <footer id="modal-footer" style="float: right">
     <button  mat-raised-button class="btn btn-primary mr-3" id="modal-cancel-button" mat-dialog-close>Hủy</button>
-    <button mat-raised-button class="btn btn-warning mr-3" id="modal-submit-button" mat-dialog-close (click)="delete()" >Xóa</button>
+    <button mat-raised-button class="btn btn-warning mr-3" id="modal-submit-button" mat-dialog-close (click)="delete(id)" >Xóa</button>
   </footer>
 </div>
+

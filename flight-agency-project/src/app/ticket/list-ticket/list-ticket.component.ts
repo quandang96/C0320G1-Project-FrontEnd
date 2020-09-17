@@ -6,6 +6,7 @@ import {DeleteTicketComponent} from '../delete-ticket/delete-ticket.component';
 import {AlterComponent} from '../alter/alter.component';
 import {Ticket} from '../../shared/models/Ticket';
 import {TicketServiceService} from '../../shared/services/ticket-service.service';
+import {EditTicketComponent} from '../edit-ticket/edit-ticket.component';
 
 @Component({
   selector: 'app-list-ticket',
@@ -15,7 +16,7 @@ import {TicketServiceService} from '../../shared/services/ticket-service.service
 })
 export class ListTicketComponent implements OnInit {
 
-  private tickets: Ticket[];
+  private tickets;
   private  totalPages ;
   private  pageNumber = 0;
   private formSearch: FormGroup;
@@ -34,7 +35,7 @@ export class ListTicketComponent implements OnInit {
     private ticketService: TicketServiceService,
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
-    private router: Router
+    private router: Router,
   ) {
   }
 
@@ -55,33 +56,6 @@ export class ListTicketComponent implements OnInit {
       price: ['', [Validators.required]],
       taxesAndFees: ['', [Validators.required]],
       airline: ['', [Validators.required]],
-      arrivalTime: ['', [Validators.required]],
-      typeTicket: ['', [Validators.required]],
-      chair: ['', [Validators.required]],
-      phone: ['', [Validators.required]],
-      address: ['', [Validators.required]],
-      typeCustomer: ['', [Validators.required]],
-      extraLuggage: ['', [Validators.required]],
-    });
-
-    this.formDeleteTicket = this.formBuilder.group({
-      id: ['', [Validators.required]],
-      name: ['', [Validators.required]],
-      departure: ['', [Validators.required]],
-      destination: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-      bookingCode: ['', [Validators.required]],
-      departureTime: ['', [Validators.required]],
-      price: ['', [Validators.required]],
-      taxesAndFees: ['', [Validators.required]],
-      airline: ['', [Validators.required]],
-      arrivalTime: ['', [Validators.required]],
-      typeTicket: ['', [Validators.required]],
-      chair: ['', [Validators.required]],
-      phone: ['', [Validators.required]],
-      address: ['', [Validators.required]],
-      typeCustomer: ['', [Validators.required]],
-      extraLuggage: ['', [Validators.required]],
     });
 
     this.ticketService.page( this.formSearch.controls.search.value, this.pageNumber ).subscribe(data => {
@@ -195,47 +169,65 @@ export class ListTicketComponent implements OnInit {
     this.searchBy = e.target.value;
   }
 
+//   edit(id) {
+//     this.ticketService.getTicket(id).subscribe(data => {
+//       this.formEditTicket.patchValue(data);
+//       this.totalMoney = data.price + data.taxesAndFees;
+//       this.formatMoney();
+//       this.flight = data.depature + ' - ' + data.destination;
+//       this.idEdit = data.id;
+//       this.name = data.name;
+//       this.email = data.email;
+// });
+//   }
+//
+//   submitEdit() {
+//     this.ticketService.updateTicket(this.idEdit, this.formEditTicket.value).subscribe((data: Ticket) => {
+//       // tslint:disable-next-line:triple-equals
+//       if (this.name == data.name && this.email == data.email ) {
+//         this.ngOnInit();
+//       } else { const dialogRef = this.dialog.open(AlterComponent, {
+//           width: '412px',
+//           height: '121px',
+//           data: {ticket: data},
+//           autoFocus: false
+//         });
+//                dialogRef.afterClosed().subscribe(result => {
+//           this.ngOnInit();
+//         });
+//       }
+//     });
+//   }
+
+  // delete(id) {
+  //   //   this.ticketService.getTicket(id).subscribe(data => {
+  //   //     this.formDeleteTicket.patchValue(data);
+  //   //     this.totalMoney = data.transaction.flightSchedule.price + data.transaction.price;
+  //   //     this.formatMoney();
+  //   //     console.log(this.totalMoney);
+  // tslint:disable-next-line:max-line-length
+  //   //     this.flight = data.transaction.flightSchedule.arrivalAirport.city + ' - ' + data.transaction.flightSchedule.departureAirport.city;
+  //   //     console.log(this.flight);
+  //   //     this.idDelete = data.id;
+  //   //   });
+  //   // }
+
   edit(id) {
     this.ticketService.getTicket(id).subscribe(data => {
-      this.formEditTicket.patchValue(data);
-      this.totalMoney = data.price + data.taxesAndFees;
-      this.formatMoney();
-      this.flight = data.depature + ' - ' + data.destination;
-      this.idEdit = data.id;
-      this.name = data.name;
-      this.email = data.email;
-});
-  }
+      const dialogRef = this.dialog.open(EditTicketComponent, {
+        width: '500px',
+        height: '460px',
+        data: {data1: data},
+        disableClose: false,
+      });
 
-  submitEdit() {
-    this.ticketService.updateTicket(this.idEdit, this.formEditTicket.value).subscribe((data: Ticket) => {
-      // tslint:disable-next-line:triple-equals
-      if (this.name == data.name && this.email == data.email ) {
+      dialogRef.afterClosed().subscribe(result => {
         this.ngOnInit();
-      } else { const dialogRef = this.dialog.open(AlterComponent, {
-          width: '412px',
-          height: '121px',
-          data: {ticket: data},
-          autoFocus: false
-        });
-               dialogRef.afterClosed().subscribe(result => {
-          this.ngOnInit();
-        });
-      }
+      });
     });
   }
 
   delete(id) {
-    this.ticketService.getTicket(id).subscribe(data => {
-      this.formDeleteTicket.patchValue(data);
-      this.totalMoney = data.price + data.taxesAndFees;
-      this.formatMoney();
-      this.flight = data.depature + ' - ' + data.destination;
-      this.idDelete = data.id;
-    });
-  }
-
-  submitDelete(id) {
     this.ticketService.getTicket(id).subscribe(data => {
     const dialogRef = this.dialog.open(DeleteTicketComponent, {
       width: '500px',
@@ -286,7 +278,7 @@ export class ListTicketComponent implements OnInit {
 
   getTotalMoney() {
     this.tickets.forEach(element => {
-      this.totalMoney = element.price + element.taxesAndFees;
+      this.totalMoney = element.transaction.flightSchedule.price + element.transaction.price;
       this.formatMoney();
       this.mapTotalMoney.set(element.id, this.totalMoney);
     });
