@@ -13,6 +13,9 @@ import { FlightSchedule } from 'src/app/shared/models/flight-schedule';
 import { EmployeeFlightSearchDTO } from '../../../shared/models/dto/employeeFlightSearchDTO';
 import { Transaction } from 'src/app/shared/models/transaction';
 
+declare let $: any;
+declare let Email: any;
+
 @Component({
   selector: 'app-book-ticket-step2',
   templateUrl: './book-ticket-step2.component.html',
@@ -38,30 +41,40 @@ export class BookTicketStep2Component implements OnInit {
   //Khai báo formArray
   childPassengers: FormArray;
   adultPassengers: FormArray;
-  check: Boolean = false;
+  check : Boolean = false;
+  deptPrice: number = 0;
+  arvPrice: number = 0;
 
-  constructor(private data: DataService,
-    private employeeService: EmployeeService,
-    private router: Router) { }
+  constructor(private data:DataService,
+              private employeeService:EmployeeService,
+              private router:Router) { }
 
   ngOnInit() {
-
     this.childPassengers = this.ticketForm.get('childPassengers') as FormArray;
     this.adultPassengers = this.ticketForm.get('adultPassengers') as FormArray;
-    this.data.currentMessage.subscribe(data => {
-      this.flightIds = data;
-      if (this.flightIds.length != 0) {
-        this.employeeService.findFlightById(this.flightIds[0]).subscribe(data => {
-          this.departureFlight = data;
-          if (this.flightIds.length != 1) {
-            this.employeeService.findFlightById(this.flightIds[1]).subscribe(data => {
+    this.data.currentMessage.subscribe(data=>{
+      this.flightIds=data;
+      if(this.flightIds.length!=0){
+        this.employeeService.findFlightById(this.flightIds[0]).subscribe(data=>{
+          this.departureFlight=data;
+           this.deptPrice = this.departureFlight.price*(this.flight.adult+this.flight.child*1)+(this.departureFlight.price*(this.flight.adult*1+this.flight.child*1*1))*10/100;
+           let luggagePrice = this.getTotalArvLuggagePrice()+this.getTotalDeptLuggagePrice();
+            this.totalPrice= this.deptPrice+luggagePrice; 
+           if(this.flightIds.length!=1){
+            this.employeeService.findFlightById(this.flightIds[1]).subscribe(data=>{
               this.arrivalFlight = data;
+              this.arvPrice= this.arrivalFlight.price*(this.flight.adult+this.flight.child*1)+(this.arrivalFlight.price*(this.flight.adult*1+this.flight.child*1*1))*10/100;
+              let luggagePrice = this.getTotalArvLuggagePrice()+this.getTotalDeptLuggagePrice();
+              this.totalPrice= this.deptPrice+this.arvPrice+luggagePrice;
             })
+           
           }
+          
         })
       }
     })
-  }
+   
+}
 
   //lặp số lượng
   counter(i: number) {
@@ -108,17 +121,12 @@ export class BookTicketStep2Component implements OnInit {
     return luggagePrice;
   }
 
-  //cập nhật totalPrice
-  changeTotalPrice() {
-    let deptPrice = this.ticketForm.get('otherDetails').get('deptPrice').value;
-    let arvPrice = this.ticketForm.get('otherDetails').get('arvPrice').value;
-    let luggagePrice = this.getTotalArvLuggagePrice() + this.getTotalDeptLuggagePrice();
-    this.totalPrice = Number.parseInt(deptPrice) + Number.parseInt(arvPrice) + luggagePrice;
+  changeLuggage(){
+        let luggagePrice = this.getTotalArvLuggagePrice()+this.getTotalDeptLuggagePrice();
+        this.totalPrice=this.arvPrice+this.deptPrice+luggagePrice;
   }
-
-
   //Lưu vé
-  async saveTicket() {
+  saveTicket(){
     this.passengers = [];
     this.transactions = [];
     //Lưu khách hàng
@@ -159,13 +167,13 @@ export class BookTicketStep2Component implements OnInit {
     //Chiều đi
     let createdTime = new DatePipe('vi-VN').transform(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", 'GMT+7');
     let due = new Date();
-    due.setHours(due.getHours() + 2);
+    due.setMinutes(due.getMinutes()+15); 
     let dueTime = new DatePipe('vi-VN').transform(due, "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", 'GMT+7');
     this.deptTransaction = {
       id: null,
       createdTime: createdTime,
       dueTime: dueTime,
-      price: this.arrivalFlight ? this.ticketForm.get('otherDetails').get('deptPrice').value * 1 + this.getTotalDeptLuggagePrice() : this.totalPrice,
+      price: this.arrivalFlight?this.deptPrice+this.getTotalDeptLuggagePrice() : this.totalPrice,
       status: "Chờ thanh toán",
       account: this.customer as Account,
       flightSchedule: this.departureFlight,
@@ -178,7 +186,7 @@ export class BookTicketStep2Component implements OnInit {
         id: null,
         createdTime: createdTime,
         dueTime: dueTime,
-        price: this.ticketForm.get('otherDetails').get('arvPrice').value * 1 + this.getTotalArvLuggagePrice(),
+        price: this.arvPrice + this.getTotalArvLuggagePrice(),
         status: "Chờ thanh toán",
         account: this.customer as Account,
         flightSchedule: this.arrivalFlight,
@@ -191,13 +199,25 @@ export class BookTicketStep2Component implements OnInit {
     }
     this.employeeService.saveTransactionAndPassenger(this.transactionPassengerDTO).subscribe(data => {
       this.saveTransactions = data;
-      if (this.check == true) {
-        for (let tran of this.saveTransactions) {
-          console.log(tran)
-          window.open("/employee/transaction/invoice/" + tran.id, "_blank");
+      if (this.check == true) {        
+        for(let tran of this.saveTransactions){
+          window.open("/employee/transaction/invoice/"+ tran.id,"_blank");
         }
-      }
-      window.location.href = "/employee/findFlight";
+      }else{
+        Email.send({
+          SecureToken : "86fe9a3e-aa53-41b1-a6fa-dab6c48f9c95",
+          To : this.saveTransactions[0].account.email,
+          From : "hungupindn@gmail.com",
+          Subject : "Vé máy bay C0320G1",
+          Body : "<h3>Cảm ơn bạn đã đặt vé tại phòng vé C0320G1.</h3><div> Xin vui lòng đăng nhập website và thanh toán số tiền "+this.saveTransactions[0].price+" VND cho mã chuyến bay:"
+          +this.saveTransactions[0].id +" Cảm ơn quý khách.</div>"
+          }).then(
+            $("#emailModal").modal("show")
+            
+          );
+      } 
+      setTimeout(function(){ window.location.href="/employee/findFlight"; },2000)
+      
     })
   }
 

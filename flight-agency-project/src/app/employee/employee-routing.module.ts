@@ -47,13 +47,6 @@ const routes: Routes = [
         }
       },
       { path: 'customer-checkin-list', component: EmployeeCustomerCheckinComponent },
-
-      {
-        path: "transaction/invoice/:id", component: InvoiceTicketComponent, canActivate: [RoleGuard],
-        data: {
-          expectedRole: 'ROLE_EMPLOYEE'
-        }
-      },
       {
         path: "bill-list", component: BillListComponent, canActivate: [RoleGuard],
         data: {
@@ -68,6 +61,18 @@ const routes: Routes = [
 
   {
     path: "bill-invoice", component: BillInvoiceComponent, canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'ROLE_EMPLOYEE'
+    }
+  },
+  {
+    path: "bookTicket", component: BookTicketComponent, canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'ROLE_EMPLOYEE'
+    }
+  },
+  {
+    path: "transaction/invoice/:id", component: InvoiceTicketComponent, canActivate: [RoleGuard],
     data: {
       expectedRole: 'ROLE_EMPLOYEE'
     }
