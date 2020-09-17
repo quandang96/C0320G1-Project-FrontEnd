@@ -113,22 +113,22 @@
                   <input type="text" class="form-control" formControlName="phoneNumber" value="{{employee.phoneNumber}}" placeholder="SĐT">
                 </td>
                 <td *ngIf="!checkEdit || employee.id!==flag">
-                  <button class="btn btn-warning" (click)="checkEditEmployee(employee.id)">
+                  <button style="color: #fff; background-color: #dc3545; border-color: #dc3545;margin-right: 10px" class="btn btn-warning" (click)="checkEditEmployee(employee.id)">
                     Sửa
                   </button>
                 </td>
                 <td *ngIf="!checkEdit || employee.id!==flag">
-                  <button class="btn btn-danger" (click)="deleteEmployee(employee.id)">
+                  <button style="color: #fff; background-color: #dc3545; border-color: #dc3545;margin-right: 10px" class="btn btn-danger" (click)="deleteEmployee(employee.id)">
                     Xóa
                   </button>
                 </td>
                 <td *ngIf="checkEdit && employee.id===flag">
-                  <button class="btn btn-primary" type="button"  (click)="editEmployee()"
-                          style="margin-right: 10px">Lưu
+                  <button style="color: #fff; background-color: #28a745; border-color: #28a745;margin-right: 10px" class="btn btn-primary" type="button"  (click)="editEmployee()"
+                          >Lưu
                   </button>
                 </td>
                 <td *ngIf="checkEdit && employee.id===flag">
-                  <button class="btn btn-danger" type="button" (click)="close()" style="margin-right: 10px">
+                  <button style="color: #fff; background-color: #007bff; border-color: #007bff;margin-right: 10px" class="btn btn-danger" type="button" (click)="close()" >
                     Thoát</button>
                 </td>
               </tr>
