@@ -1,6 +1,6 @@
 import { TokenStorageService } from 'src/app/shared/services/token-storage.service';
 import { SelectDto } from './../../shared/models/dto/SelectDto';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
 import { BillService } from './../../shared/services/bill.service';
 import { TransactionService } from 'src/app/shared/services/transaction.service';
 import { Component, OnInit } from '@angular/core';
@@ -25,7 +25,8 @@ export class PaidDealsComponent implements OnInit {
   private searchForm: FormGroup;
   private brands;
   private airports;
-  private list: Bill[] = []
+  private list: Bill[] = [];
+
 
   constructor(private router: Router,
     private billService: BillService,
@@ -40,7 +41,10 @@ export class PaidDealsComponent implements OnInit {
       brand: ['', [Validators.required]],
       departure: ['', [Validators.required]],
       arrival: ['', [Validators.required]],
+      taxCode: ['', [Validators.required]]
     })
+
+ 
     this.getPage(1);
     this.billService.getSelectDto().subscribe(data => {
       this.brands = data.brands

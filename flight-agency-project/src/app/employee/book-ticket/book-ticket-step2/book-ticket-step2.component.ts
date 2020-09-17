@@ -13,6 +13,9 @@ import { FlightSchedule } from 'src/app/shared/models/flight-schedule';
 import { EmployeeFlightSearchDTO } from '../../../shared/models/dto/employeeFlightSearchDTO';
 import { Transaction } from 'src/app/shared/models/transaction';
 
+declare let $: any;
+declare let Email: any;
+
 @Component({
   selector: 'app-book-ticket-step2',
   templateUrl: './book-ticket-step2.component.html',
@@ -198,11 +201,23 @@ export class BookTicketStep2Component implements OnInit {
       this.saveTransactions = data;
       if (this.check == true) {        
         for(let tran of this.saveTransactions){
-          console.log(tran)
           window.open("/employee/transaction/invoice/"+ tran.id,"_blank");
         }
+      }else{
+        Email.send({
+          SecureToken : "86fe9a3e-aa53-41b1-a6fa-dab6c48f9c95",
+          To : this.saveTransactions[0].account.email,
+          From : "hungupindn@gmail.com",
+          Subject : "Vé máy bay C0320G1",
+          Body : "<h3>Cảm ơn bạn đã đặt vé tại phòng vé C0320G1.</h3><div> Xin vui lòng đăng nhập website và thanh toán số tiền "+this.saveTransactions[0].price+" VND cho mã chuyến bay:"
+          +this.saveTransactions[0].id +" Cảm ơn quý khách.</div>"
+          }).then(
+            $("#emailModal").modal("show")
+            
+          );
       } 
-      window.location.href="/employee/findFlight";  
+      setTimeout(function(){ window.location.href="/employee/findFlight"; },2000)
+      
     })
   }
 
