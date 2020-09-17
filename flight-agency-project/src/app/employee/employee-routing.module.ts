@@ -82,7 +82,6 @@ const routes: Routes = [
 
   { path: '/table', component: EmployeeTableComponent },
   { path: 'promotion/promo-edit/:id', component: PromoEditComponent },
-  { path: "promotion", component: PromoListComponent },
 
 
 ];

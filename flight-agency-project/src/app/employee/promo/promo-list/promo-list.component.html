@@ -269,12 +269,12 @@
                                                     <div class="text-left">
                                                         <h6>{{promo.namePromo}}</h6>
                                                         <a title="" href="" class="btn-sm btn-outline-success"
-                                                            data-toggle="tooltip"> <i class="far fa-edit"></i>
+                                                            data-toggle="tooltip" [routerLink]="['promo-edit/' + promo.id]"><i class="far fa-edit"></i>
                                                             Sửa</a>
                                                         <a href="" class="btn-sm btn-outline-danger" data-toggle="modal"
-                                                            data-target="#delete"> <i class="far fa-trash-alt"></i>
+                                                            [attr.data-target]="'#delete'+ promo.id" (click)="selectDeletedPromo(promo)"> <i class="far fa-trash-alt"></i>
                                                             Xóa</a>
-                                                        <div class="modal fade" id="delete" tabindex="-1" role="dialog"
+                                                        <div class="modal fade" [id]="'delete'+ promo.id" tabindex="-1" role="dialog"
                                                             ari a-labelledby="exampleModalLongTitle" aria-hidden="true">
                                                             <div class="modal-dialog" role="document">
                                                                 <div class="modal-content">
@@ -331,7 +331,7 @@
                                                                         </button>
                                                                     </div>
                                                                     <div class="modal-body">
-                                                                        <div *ngIf="message!=''"
+                                                                        <!-- <div *ngIf="message!=''"
                                                                             class="alert alert-success p-2"
                                                                             role="alert"><i
                                                                                 class="fas fa-clipboard-check"></i>
@@ -341,6 +341,9 @@
                                                                             class="alert alert-danger p-2" role="alert">
                                                                             <i class="fas fa-clipboard-check"></i>
                                                                             {{errorMessage}}
+                                                                        </div> -->
+                                                                        <div class="alert alert-success p-2">
+                                                                            <i class="fas fa-clipboard-check"></i> Xóa thành công  
                                                                         </div>
                                                                     </div>
                                                                     <div class="modal-footer">
