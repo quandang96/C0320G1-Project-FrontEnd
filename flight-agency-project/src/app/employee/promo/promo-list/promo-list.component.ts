@@ -106,7 +106,11 @@ export class PromoListComponent implements OnInit {
         this.promo = this.promo.filter((s) => {
           return s.id !== this.deletedPromo.id;
         });
+        
       }
+
+      
+     
       // , error => { this.errorMessage = "Xóa thất bại" }, () => {
       //   if (this.errorMessage.length == 0) {
       //     this.message = "Xóa thành công";
@@ -117,6 +121,9 @@ export class PromoListComponent implements OnInit {
   selectDeletedPromo(service: Promo) {
     this.deletedPromo = service;
     console.table(service);
+  }
+  reloadPage(){
+    this.ngOnInit();
   }
 
   //to valid
