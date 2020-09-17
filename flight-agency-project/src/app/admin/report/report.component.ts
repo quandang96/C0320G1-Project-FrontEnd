@@ -42,7 +42,7 @@ export class ReportComponent implements OnInit {
         const dialogRef = this.dialog.open(CircleChartComponent, {
           height: '600px',
           width: '750px',
-          data: {data1: data, data2: data1, data3: data2, data4: data3},
+          data: {data1: data, data2: data1, data3: data2, data4: data3, data5: data4},
           disableClose: true
         });
 
@@ -54,7 +54,7 @@ export class ReportComponent implements OnInit {
         const dialogRef1 = this.dialog.open(LineChartComponent, {
           height: '600px',
           width: '750px',
-          data: {data1: data, data2: data1, data3: data2, data4: data3},
+          data: {data1: data, data2: data1, data3: data2, data4: data3, data5: data4},
           disableClose: true
         });
 
@@ -66,7 +66,7 @@ export class ReportComponent implements OnInit {
         const dialogRef2 = this.dialog.open(PieChartComponent, {
           height: '600px',
           width: '750px',
-          data: {data1: data, data2: data1, data3: data2, data4: data3},
+          data: {data1: data, data2: data1, data3: data2, data4: data3, data5: data4},
           disableClose: true
         });
 
