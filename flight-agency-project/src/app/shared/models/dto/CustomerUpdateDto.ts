@@ -6,6 +6,7 @@ export interface CustomerUpdateDto {
   'phoneNumber': string;
   'gender': string;
   'address': string;
-  'link_avatar': string ;
+  'avatarImageUrl': string ;
+  'rank': string ;
   'backendMessage': string[];
 }
