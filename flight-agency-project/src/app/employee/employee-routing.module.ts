@@ -55,7 +55,9 @@ const routes: Routes = [
       },
       { path: "add-passenger", component: AddPassengerComponent },
       { path: "list-passenger/update/:id", component: UpdatePassengerComponent },
-
+      { path: "promotion", component: PromoListComponent },
+      { path: "promotion/create", component: PromoCreateComponent },
+      { path: 'promotion/promo-edit/:id', component: PromoEditComponent },
     ],
   },
 
@@ -77,10 +79,6 @@ const routes: Routes = [
       expectedRole: 'ROLE_EMPLOYEE'
     }
   },
-  { path: "promotion", component: PromoListComponent },
-  { path: "promotion/create", component: PromoCreateComponent },
-  { path: 'promotion/promo-edit/:id', component: PromoEditComponent },
-  { path: "promotion", component: PromoListComponent },
   {
     path: "bookTicket", component: BookTicketComponent, canActivate: [RoleGuard],
     data: {
