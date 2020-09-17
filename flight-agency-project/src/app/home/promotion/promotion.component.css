@@ -67,14 +67,12 @@
 
 /* Style the tab content */
 .tabcontent {
-  display: none;
   padding: 6px 12px;
   border: 1px solid #ccc;
   border-top: none;
 }
 
 .tabcontent1 {
-  display: none;
   padding: 6px 12px;
   border: 1px solid #ccc;
   border-top: none;
@@ -119,6 +117,33 @@
 }
 .nodata {
   display: none;
+}
+
+.bg1 {
+  font-size: 24px !important;
+  font-family: Verdana, Geneva, sans-serif !important;
+  font-weight: normal;
+  font-style: italic;
+  height: 32px;
+  margin-bottom: 3px;
+  overflow: hidden;
+  display: block;
+  color: white !important;
+}
+
+.dropdown-item {
+  height: auto;
+  width: 600px;
+  margin: 0px;
+  padding: 0px;
+  color: black;
+  background: white;
+}
+
+.dropdown-menu {
+  position: absolute;
+  will-change: transform;
+
 }
 /*.display {*/
 /*  display: block;*/

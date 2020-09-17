@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { Feedback } from '../models/Feedback';
 import {FlightSchedule} from '../models/flight-schedule';
 import {FlightSearchDTO} from '../models/dto/flight-search-dto';
+import {Airport} from "../models/airport";
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,8 @@ export class PromoService {
   private base_url = 'http://localhost:8080/api/v1/promotion';
   // tslint:disable-next-line:variable-name
   private base1_url = 'http://localhost:8080/api/v1/flight-promotion';
+  // tslint:disable-next-line:variable-name
+  private airport_url = 'http://localhost:8080/api/v1/airport';
 
   httpOptions = {
     headers : new HttpHeaders({
@@ -47,7 +50,10 @@ export class PromoService {
     return this.http.get<FlightSchedule[]>(`${this.base_url}`, this.getTransactionDetailHttpOptions(departureDateTime));
   }
   searchFlightPromo(flightSearch: FlightSearchDTO): Observable<FlightSchedule[]> {
-  return this.http.post<FlightSchedule[]>(`${this.API_URL}`, flightSearch );
+  return this.http.post<FlightSchedule[]>(`${this.base1_url}`, flightSearch );
 }
+  getAllairport(): Observable<Airport[]> {
+    return this.http.get<Airport[]>(`${this.airport_url}`);
+  }
 
 }

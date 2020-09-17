@@ -9,35 +9,13 @@
             </div>
           </div>
           <div class="row col-xs-10 mt-md-2 ml-md-3 ">
-            <select class="form-control col-md-5">
-              <option>
-                Hồ Chí Minh, Việt Nam (SGN)
-              </option>
-              <option>
-                Đà Nẵng, Việt Nam (DNN)
-              </option>
-              <option>
-                Hà Nội, Việt Nam (HAN)
-              </option>
-            </select>
-
-            <span class="col-md-1 to-to"><i class="fas fa-long-arrow-alt-right" style="color: white;"></i></span>
-            <select class="form-control col-md-5">
-              <option>
-                Hà Nội, Việt Nam (HAN)
-              </option>
-              <option>
-                Hồ Chí Minh, Việt Nam (SGN)
-              </option>
-              <option>
-                Đà Nẵng, Việt Nam (DNN)
-              </option>
-            </select>
-
-            <h6 class="text-light col-md-12">Thứ 5, 27-08-2020</h6>
+            <h3 class="bg1" style=" height: 50px; width: 650px; margin-top: 20px">
+              {{listAirport[searchFormPromo.get('departureAirport').value]}} <img
+              src="https://d3dh07ymq581.cloudfront.net/images/flightdep.png"> {{listAirport[searchFormPromo.get('arrivalAirport').value]}}
+            </h3>
           </div>
         </div>
-        <div class="tab">
+        <div class="tab" id="dayWeek">
           <button class="tablinks" (click)="dayOfWeek(1)" onclick="openTabs(event, 'dayOfWeek1')" id="set1"></button>
           <button class="tablinks" (click)="dayOfWeek(2)" onclick="openTabs(event, 'dayOfWeek1')" id="set2"></button>
           <button class="tablinks" (click)="dayOfWeek(3)" onclick="openTabs(event, 'dayOfWeek1')" id="set3"></button>
@@ -47,14 +25,14 @@
           <button class="tablinks" (click)="dayOfWeek(7)" onclick="openTabs(event, 'dayOfWeek1')" id="set7"></button>
         </div>
 
-        <div id="dayOfWeek1" class="tabcontent" >
+        <div id="dayOfWeek1" class="tabcontent">
           <table class="table-sm">
             <thead class="no-border">
             <tr>
               <th>Hãng</th>
               <th>Mã chuyến bay</th>
               <th>Giờ khởi hành</th>
-              <th>Giờ đến nơi  </th>
+              <th>Giờ đến nơi</th>
               <th>Giá (VNĐ)</th>
               <th>Khuyến Mãi</th>
               <th>Chi tiết</th>
@@ -63,27 +41,68 @@
             </thead>
 
             <tbody>
-            <tr id="dep-row-0" *ngFor="let promo of promoList | async">
+            <tr class="selected" *ngFor="let promo of promoList | async ; index as i " id="select{{i+1}}">
               <td><img class="img-icon" width="80" height="50" src="{{branch[promo.branch.id]}}"></td>
               <td>{{promo.flightCode}}</td>
               <td>
-                {{promo.departureDateTime.slice(11, promo.departureDateTime.length)+' '+ promo.departureAirport.code}}<br>
+                {{promo.departureDateTime.slice(11, promo.departureDateTime.length) + ' ' + promo.departureAirport.code}}
+                <br>
                 {{promo.departureAirport.city}}
               </td>
               <td>
-                {{promo.arrivalDateTime.slice(11, promo.arrivalDateTime.length)+' '+ promo.arrivalAirport.code}}<br>
+                {{promo.arrivalDateTime.slice(11, promo.arrivalDateTime.length) + ' ' + promo.arrivalAirport.code}}<br>
                 {{promo.arrivalAirport.city}}
               </td>
               <td>
                 <span style="text-decoration-line	: line-through">{{promo.price | currency:'VND': 'symbol'}}</span><br>
-                <span style="color: red">{{promo.price-promo.price*promo.discount| currency:'VND': 'symbol'}}</span>
+                <span
+                  style="color: red">{{promo.price - (promo.price * promo.discount)| currency:'VND': 'symbol'}}</span>
 
 
               </td>
               <td class="sale">{{promo.discount * 100}}%</td>
-              <td><a id="btn-dep-detail-0" href="/">Xem chi tiết</a></td>
               <td>
-                <button id="dep-sel-0" type="button" class="btn btn-warning">Chọn</button>
+
+
+                <div class="btn-group">
+                  <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Xem chi tiết
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right" style=" top: -507px; left: -211px;">
+                    <div class="dropdown-item" type="button">
+                      <table style="width: 100% ">
+                        <tr style="background:  #4469B0 ; ">
+                          <td style="width: 30%">Chi tiết chuyến bay</td>
+                          <td style="width: 35%"></td>
+                          <td style="width: 35%"></td>
+                        </tr>
+
+                        <tr>
+                          <td>
+                            <img class="img-icon" width="80" height="50" src="{{branch[promo.branch.id]}}">
+                          </td>
+                          <td>
+                            <p>Khởi Hành từ  : {{promo.departureAirport.city}} - {{promo.departureAirport.code}}</p>
+                            <p>Sân bay : {{promo.departureAirport.name}}</p>
+                            <p>Cất cánh : {{promo.departureDateTime.slice(11, promo.departureDateTime.length)}}</p>
+                            <p>Ngày : {{promo.departureDateTime.slice(0, 10)}}</p>
+                          </td>
+                          <td>
+                            <p>Đến : {{promo.arrivalAirport.city}} - {{promo.arrivalAirport.code}}</p>
+                            <p>Sân bay : {{promo.arrivalAirport.name}}</p>
+                            <p>Cất cánh : {{promo.arrivalDateTime.slice(11, promo.arrivalDateTime.length)}}</p>
+                            <p>Ngày : {{promo.arrivalDateTime.slice(0, 10)}}</p>
+                          </td>
+                        </tr>
+
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+              </td>
+              <td>
+                <button  type="button" class="btn btn-warning">Chọn</button>
               </td>
             </tr>
             </tbody>
@@ -91,16 +110,9 @@
           <img src="../../../assets/no_data_found.jpg" class="nodata" id="nodata" style="width: 100%">
         </div>
 
-        <div id="dayOfWeek2" class="tabcontent">
-          <img src="../../../assets/nodata.gif" style="width: 100%">
-        </div>
-
-        <div id="dayOfWeek3" class="tabcontent">
-          <img src="../../../assets/nodata.gif" style="width: 100%">
-        </div>
       </div>
       <div>
-        <div style="display: none">
+        <div id="dayWeek1" style="display: none">
           <div class="row bg-color-custom">
             <div class="col-xs-2 border rounded-circle  m-md-2" style="padding: 0.7rem;">
               <div class="text-center align-middle p-md-2">
@@ -108,243 +120,99 @@
               </div>
             </div>
             <div class="row col-xs-10 mt-md-2 ml-md-3 ">
-              <select class="form-control col-md-5">
-                <option>
-                  Hồ Chí Minh, Việt Nam (SGN)
-                </option>
-                <option>
-                  Đà Nẵng, Việt Nam (DNN)
-                </option>
-                <option>
-                  Hà Nội, Việt Nam (HAN)
-                </option>
-              </select>
+              <h3 class="bg1" style=" height: 50px; width: 650px; margin-top: 20px">
+                {{listAirport[searchFormPromo.get('arrivalAirport').value]}}
+                <img src="https://d3dh07ymq581.cloudfront.net/images/flightdep.png">
+                {{listAirport[searchFormPromo.get('departureAirport').value]}}
+              </h3>
 
-              <span class="col-md-1 to-to"><i class="fas fa-long-arrow-alt-right" style="color: white;"></i></span>
-              <select class="form-control col-md-5">
-                <option>
-                  Hà Nội, Việt Nam (HAN)
-                </option>
-                <option>
-                  Hồ Chí Minh, Việt Nam (SGN)
-                </option>
-                <option>
-                  Đà Nẵng, Việt Nam (DNN)
-                </option>
-              </select>
-
-              <h6 class="text-light col-md-12">Thứ 5, 27-08-2020</h6>
             </div>
           </div>
+          <table class="table-sm">
+            <thead class="no-border">
+            <tr>
+              <th>Hãng</th>
+              <th>Mã chuyến bay</th>
+              <th>Giờ khởi hành</th>
+              <th>Giờ đến nơi</th>
+              <th>Giá (VNĐ)</th>
+              <th>Khuyến Mãi</th>
+              <th>Chi tiết</th>
+              <th></th>
+            </tr>
+            </thead>
 
-          <div class="tab" style="display: ">
-            <button class="tablinks1 active" onclick="openTabs1(event, 'ttday0')" id="set8"></button>
-            <button class="tablinks1" onclick="openTabs1(event, 'ttday1')" id="set9"></button>
-            <button class="tablinks1" onclick="openTabs1(event, 'ttday2')" id="set10"></button>
-            <button class="tablinks1" onclick="openTabs1(event, 'ttday3')" id="set11">
-              <span id="getday4">27/08/2020</span>
-              <span class="getday" id="day4">...</span>
-            </button>
-            <button class="tablinks1" onclick="openTabs1(event, 'ttday4')" id="set12">
-              <!--                    <span id="getday5">27/08/2020</span>-->
-              <!--                    <span class="getday" id="day5">...</span>-->
-            </button>
-            <button class="tablinks1" onclick="openTabs1(event, 'ttday5')" id="set13">
-              <!--                    <span id="getday6">27/08/2020</span>-->
-              <!--                    <span class="getday" id="day6">...</span>-->
-            </button>
-            <button class="tablinks1" onclick="openTabs1(event, 'ttday6')" id="set14">
-              <!--                    <span id="getday7">27/08/2020</span>-->
-              <!--                    <span class="getday" id="day7">...</span>-->
-            </button>
-          </div>
+            <tbody>
+            <tr *ngFor="let promo of promoList1 | async" >
+              <td><img class="img-icon" width="80" height="50" src="{{branch[promo.branch.id]}}"></td>
+              <td>{{promo.flightCode}}</td>
+              <td>
+                {{promo.departureDateTime.slice(11, promo.departureDateTime.length) + ' ' + promo.departureAirport.code}}
+                <br>
+                {{promo.departureAirport.city}}
+              </td>
+              <td>
+                {{promo.arrivalDateTime.slice(11, promo.arrivalDateTime.length) + ' ' + promo.arrivalAirport.code}}<br>
+                {{promo.arrivalAirport.city}}
+              </td>
+              <td>
+                <span style="text-decoration-line	: line-through">{{promo.price | currency:'VND': 'symbol'}}</span><br>
+                <span
+                  style="color: red">{{promo.price - (promo.price * promo.discount)| currency:'VND': 'symbol'}}</span>
 
-          <div id="ttday0" class="tabcontent1">
-            <table class="table">
-              <thead class="no-border">
-              <tr>
-                <th>Hãng</th>
-                <th>Mã chuyến bay</th>
-                <th>Giờ khởi hành</th>
-                <th>Giờ đến nơi</th>
-                <th>Giá (VNĐ)</th>
-                <th>Khuyến Mãi</th>
-                <th>Chi tiết</th>
-                <th></th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                <td>
-                  <img class="img-icon" width="80" height="50" src="../../../assets/branches-image/vietjet.png" alt="">
-                </td>
-                <td>VJ251</td>
-                <td>14:30</td>
-                <td>16:30</td>
-                <td>999.000</td>
-                <td class="sale">40%</td>
-                <td>
-                  <a href="/">Xem chi tiết</a>
-                </td>
-                <td>
-                  <button type="button" class="btn btn-warning">Chọn</button>
-                </td>
-              </tr>
 
-              <tr>
-                <td>
-                  <img class="img-icon" width="80" height="50" src="../../../assets/branches-image/jetstar.png" alt="">
-                </td>
-                <td>JS250</td>
-                <td>07:45</td>
-                <td>09:55</td>
-                <td>990.000</td>
-                <td class="sale">40%</td>
-                <td>
-                  <a href="/">Xem chi tiết</a>
-                </td>
-                <td>
-                  <button type="button" class="btn btn-warning">Chọn</button>
-                </td>
-              </tr>
+              </td>
+              <td class="sale">{{promo.discount * 100}}%</td>
+              <td>
 
-              <tr>
-                <td>
-                  <img class="img-icon" width="80" height="50" src="../../../assets/branches-image/bamboo.png" alt="">
-                </td>
-                <td>QH345</td>
-                <td>11:00</td>
-                <td>13:00</td>
-                <td>1.250.000</td>
-                <td class="sale">40%</td>
-                <td>
-                  <a href="/">Xem chi tiết</a>
-                </td>
-                <td>
-                  <button type="button" class="btn btn-warning">Chọn</button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <img class="img-icon" width="80" height="50" src="../../../assets/branches-image/bamboo.png" alt="">
-                </td>
-                <td>QH111</td>
-                <td>20:00</td>
-                <td>22:10</td>
-                <td>1.100.000</td>
-                <td class="sale">40%</td>
-                <td>
-                  <a href="/">Xem chi tiết</a>
-                </td>
-                <td>
-                  <button type="button" class="btn btn-warning">Chọn</button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <img class="img-icon" width="80" height="50" src="../../../assets/branches-image/vnairline.gif" alt="">
-                </td>
-                <td>VN518</td>
-                <td>10:00</td>
-                <td>12:00</td>
-                <td>1.690.000</td>
-                <td class="sale">40%</td>
-                <td>
-                  <a href="/">Xem chi tiết</a>
-                </td>
-                <td>
-                  <button type="button" class="btn btn-warning">Chọn</button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <img class="img-icon" width="80" height="50" src="../../../assets/branches-image/vnairline.gif" alt="">
-                </td>
-                <td>VN518</td>
-                <td>10:00</td>
-                <td>12:00</td>
-                <td>1.690.000</td>
-                <td class="sale">40%</td>
-                <td>
-                  <a href="/">Xem chi tiết</a>
-                </td>
-                <td>
-                  <button type="button" class="btn btn-warning">Chọn</button>
-                </td>
-              </tr>
 
-              <tr>
-                <td>
-                  <img class="img-icon" width="80" height="50" src="../../../assets/branches-image/vnairline.gif" alt="">
-                </td>
-                <td>VN518</td>
-                <td>10:00</td>
-                <td>12:00</td>
-                <td>1.690.000</td>
-                <td class="sale">40%</td>
-                <td>
-                  <a href="/">Xem chi tiết</a>
-                </td>
-                <td>
-                  <button type="button" class="btn btn-warning">Chọn</button>
-                </td>
-              </tr>
+                <div class="btn-group">
+                  <a class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Xem chi tiết
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right" style=" top: -507px; left: -211px;">
+                    <div class="dropdown-item" type="button">
+                      <table style="width: 100% ">
+                        <tr style="background:  #4469B0 ; ">
+                          <td style="width: 30%">Chi tiết chuyến bay</td>
+                          <td style="width: 35%"></td>
+                          <td style="width: 35%"></td>
+                        </tr>
 
-              <tr>
-                <td>
-                  <img class="img-icon" width="80" height="50" src="../../../assets/branches-image/vnairline.gif" alt="">
-                </td>
-                <td>VN518</td>
-                <td>10:00</td>
-                <td>12:00</td>
-                <td>1.690.000</td>
-                <td class="sale">40%</td>
-                <td>
-                  <a href="/">Xem chi tiết</a>
-                </td>
-                <td>
-                  <button type="button" class="btn btn-warning">Chọn</button>
-                </td>
-              </tr>
+                        <tr>
+                          <td>
+                            <img class="img-icon" width="80" height="50" src="{{branch[promo.branch.id]}}">
+                          </td>
+                          <td>
+                            <p>Khởi Hành từ  : {{promo.departureAirport.city}} - {{promo.departureAirport.code}}</p>
+                            <p>Sân bay : {{promo.departureAirport.name}}</p>
+                            <p>Cất cánh : {{promo.departureDateTime.slice(11, promo.departureDateTime.length)}}</p>
+                            <p>Ngày : {{promo.departureDateTime.slice(0, 10)}}</p>
+                          </td>
+                          <td>
+                            <p>Đến : {{promo.arrivalAirport.city}} - {{promo.arrivalAirport.code}}</p>
+                            <p>Sân bay : {{promo.arrivalAirport.name}}</p>
+                            <p>Cất cánh : {{promo.arrivalDateTime.slice(11, promo.arrivalDateTime.length)}}</p>
+                            <p>Ngày : {{promo.arrivalDateTime.slice(0, 10)}}</p>
+                          </td>
+                        </tr>
 
-              <tr>
-                <td>
-                  <img class="img-icon" width="80" height="50" src="../../../assets/branches-image/vnairline.gif" alt="">
-                </td>
-                <td>VN518</td>
-                <td>10:00</td>
-                <td>12:00</td>
-                <td>1.690.000</td>
-                <td class="sale">40%</td>
-                <td>
-                  <a href="/">Xem chi tiết</a>
-                </td>
-                <td>
-                  <button type="button" class="btn btn-warning">Chọn</button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <img class="img-icon" width="80" height="50" src="../../../assets/branches-image/vnairline.gif" alt="">
-                </td>
-                <td>VN518</td>
-                <td>10:00</td>
-                <td>12:00</td>
-                <td>1.690.000</td>
-                <td class="sale">40%</td>
-                <td>
-                  <a href="/">Xem chi tiết</a>
-                </td>
-                <td>
-                  <button type="button" class="btn btn-warning">Chọn</button>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-          </div>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+
+              </td>
+              <td>
+                <button type="button" class="btn btn-warning" (click)="selected(i) ">Chọn</button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+
+          <img src="../../../assets/no_data_found.jpg" class="nodata" id="nodata1" style="width: 100%">
+
         </div>
-
-
       </div>
 
       <!--      table Khứ hồi-->
@@ -354,7 +222,7 @@
 
     <!--        //menu-->
     <div class="col-md-4 menu-promotion">
-      <form class="menu ml-md-2"  [formGroup]="searchFormPromo" (ngSubmit)="promoSearch()">
+      <form class="menu ml-md-2" [formGroup]="searchFormPromo" (ngSubmit)="promoSearch()">
         <legend>Sắp xếp</legend>
         <div class="border border-white rounded p-md-2">
           <div class="form-check">
@@ -389,12 +257,12 @@
 
           <div class="form-check form-check-inline" style="margin-bottom: 10px">
             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"
-                   onclick="khuhoi()" checked>
+                   onclick="khuhoi()" checked (click)="roundTrip()">
             <label class="form-check-label" for="inlineRadio1">Khứ Hồi</label>
           </div>
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"
-                   onclick="motchieu()">
+                   onclick="motchieu()" (click)="oneWay()">
             <label class="form-check-label" for="inlineRadio2">Một chiều</label>
           </div>
 
@@ -406,10 +274,9 @@
               </label>
             </div>
             <select class="custom-select" id="inputGroupSelect01" formControlName="departureAirport">
-              <option selected="">Vui lòng chọn điểm đi....</option>
-              <option value="1">Đà Nẵng</option>
-              <option value="2">Sài Gòn</option>
-              <option value="3">Hà Nội</option>
+              <option selected="">Vui lòng chọn điểm đến....</option>
+              <option *ngFor="let airport of airport | async" value="{{airport.id}}">{{airport.city}} ({{airport.code}})
+              </option>
             </select>
           </div>
 
@@ -422,9 +289,9 @@
             </div>
             <select class="custom-select" id="inputGroupSelect02" formControlName="arrivalAirport">
               <option selected="">Vui lòng chọn điểm đến....</option>
-              <option value="1">Đà Nẵng</option>
-              <option value="2">Sài Gòn</option>
-              <option value="3">Hà Nội</option>
+              <option *ngFor="let airport of airport | async" value="{{airport.id}}">{{airport.city}} ({{airport.code}}
+                )
+              </option>
             </select>
           </div>
 
@@ -459,11 +326,9 @@
             </tr>
             <tr>
               <td>
-<!--               Em bé-->
+                <!--               Em bé-->
                 <select class="form-control custom-select" formControlName="babies">
-                  <option selected disabled>Chọn</option>
-                  <option>0</option>
-                  <option>1</option>
+                  <option [selected]="true">1</option>
                   <option>2</option>
                   <option>3</option>
                   <option>4</option>
@@ -471,7 +336,7 @@
                 </select>
               </td>
               <td>
-<!--                trẻ em-->
+                <!--                trẻ em-->
                 <select class="form-control custom-select" formControlName="children">
                   <option selected disabled>Chọn</option>
                   <option>0</option>
@@ -483,7 +348,7 @@
                 </select>
               </td>
               <td>
-<!--                người lớn-->
+                <!--                người lớn-->
                 <select class="form-control custom-select" formControlName="adults">
                   <option selected disabled>Chọn</option>
                   <option>0</option>

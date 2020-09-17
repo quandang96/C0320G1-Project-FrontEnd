@@ -12,6 +12,7 @@ export interface FlightSchedule{
     flightCode: string,
     flightCapacity: number,
     price: number,
-    status: string
+    status: string,
+    discount: number
     // transactions: Transaction[]
 }
