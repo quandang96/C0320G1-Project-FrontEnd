@@ -36,8 +36,9 @@ export class BillListComponent implements OnInit {
     });
   }
 
-  openDialogViewBills(): void {
-    this.getBillId()
+  openDialogViewBills(id): void {
+    // this.getBillId()
+    this.billId = id
     const dialogRef = this.dialog.open(BillInvoiceComponent, {
       width: '800px',
       data: {billList: this.billsList, billId : this.billId}
