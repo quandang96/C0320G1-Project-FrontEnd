@@ -107,10 +107,7 @@ export class PromoListComponent implements OnInit {
           return s.id !== this.deletedPromo.id;
         });
         
-      }
-
-      
-     
+      }     
       // , error => { this.errorMessage = "Xóa thất bại" }, () => {
       //   if (this.errorMessage.length == 0) {
       //     this.message = "Xóa thành công";
