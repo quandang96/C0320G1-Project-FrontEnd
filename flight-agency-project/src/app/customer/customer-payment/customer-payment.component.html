@@ -51,14 +51,13 @@
 </div>
 
 <!-- The Modal -->
-<div class="modal fade" id="confirmDeleteModal">
+<div class="modal fade" id="confirmDeleteModal" data-backdrop="static" data-keyboard="false" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
 
       <!-- Modal Header -->
       <div class="modal-header">
         <h4 class="modal-title">Cảnh báo</h4>
-        <button class="close" data-dismiss="modal" type="button">&times;</button>
       </div>
 
       <!-- Modal body -->
@@ -76,3 +75,41 @@
     </div>
   </div>
 </div>
+
+<!-- The Modal -->
+<div class="modal fade" id="paymentSuccess" data-backdrop="static" data-keyboard="false" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Thanh toán thành công</h4>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="row mx-0">
+          <div class="col-auto">
+            <div class="mb-2">Mã giao dịch:</div>
+            <div class="mb-2">Người chuyển tiền:</div>
+            <div>Số tiền:</div>
+          </div>
+          <div class="col px-0">
+            <div class="mb-2">{{paymentDetail?.id}}</div>
+            <div class="mb-2">{{paymentDetail?.payer?.name?.surname}} {{paymentDetail?.payer?.name?.given_name}}</div>
+            <div>{{paymentDetail?.amount?.value | number}} {{paymentDetail?.amount?.currency_code}}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button class="btn btn-secondary btn-sm" data-dismiss="modal" type="button" (click)="paymentOK()">Trở về
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<button data-toggle="modal" data-target="#paymentSuccess" id="paymentSuccessMessage" style="display: none"></button>
