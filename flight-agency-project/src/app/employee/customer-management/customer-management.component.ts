@@ -4,8 +4,7 @@ import {CustomerServiceService} from '../../shared/services/customer-service.ser
 import {map, tap} from 'rxjs/operators';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
-import {log} from 'util';
-
+declare var $: any;
 
 @Component({
   selector: 'app-customer-management',
@@ -20,6 +19,7 @@ export class CustomerManagementComponent implements OnInit {
   stt: number[];
   isEmpty = false;
   formSearch: FormGroup;
+   message = '';
 
 
 
@@ -34,17 +34,16 @@ export class CustomerManagementComponent implements OnInit {
     });
     // this.getPage(1);
     this.getPage(1);
+
   }
 
   search() {
     this.getPage(1);
   }
 
-  getPage(page : number) {
-    this.customerList = this.customerService.getPage_2(page - 1,this.formSearch.value.key, this.formSearch.value.value).pipe(
+  getPage(page: number) {
+    this.customerList = this.customerService.getPage_2(page , this.formSearch.value.key, this.formSearch.value.value).pipe(
       tap(res => {
-
-
         this.totalElements = res.totalElements;
         this.pageSize = res.size;
         this.currentPage = page;
@@ -55,6 +54,13 @@ export class CustomerManagementComponent implements OnInit {
         for (let i = firstIndex; i <= lastIndeex; i++) {
           this.stt.push(i);
         }
+        if (this.totalElements <1) {
+          this.message = 'Không tìm thấy thông tin khách hàng khớp với tìm kiếm !';
+          $("table").hide();
+        }else {
+          $("table").show();
+          this.message = '';
+        }
 
         this.isEmpty = false;
         if (res.content.length === 0) {
@@ -63,13 +69,9 @@ export class CustomerManagementComponent implements OnInit {
       }, error => {
         console.log(error);
       }),
-      map(res => {
-        console.log(res.content);
-        return res.content;
-      }),
+      map(res => res.content),
     );
   }
-
 
 
 }

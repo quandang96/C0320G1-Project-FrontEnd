@@ -48,18 +48,6 @@ const routes: Routes = [
       },
       { path: 'customer-checkin-list', component: EmployeeCustomerCheckinComponent },
       {
-        path: "bookTicket", component: BookTicketComponent, canActivate: [RoleGuard],
-        data: {
-          expectedRole: 'ROLE_EMPLOYEE'
-        }
-      },
-      {
-        path: "transaction/invoice/:id", component: InvoiceTicketComponent, canActivate: [RoleGuard],
-        data: {
-          expectedRole: 'ROLE_EMPLOYEE'
-        }
-      },
-      {
         path: "bill-list", component: BillListComponent, canActivate: [RoleGuard],
         data: {
           expectedRole: 'ROLE_EMPLOYEE'
@@ -67,7 +55,9 @@ const routes: Routes = [
       },
       { path: "add-passenger", component: AddPassengerComponent },
       { path: "list-passenger/update/:id", component: UpdatePassengerComponent },
-
+      { path: "promotion", component: PromoListComponent },
+      { path: "promotion/create", component: PromoCreateComponent },
+      { path: 'promotion/promo-edit/:id', component: PromoEditComponent },
     ],
   },
 
@@ -77,13 +67,24 @@ const routes: Routes = [
       expectedRole: 'ROLE_EMPLOYEE'
     }
   },
-  { path: "promotion", component: PromoListComponent },
-  { path: "promotion/create", component: PromoCreateComponent },
-
-  { path: '/table', component: EmployeeTableComponent },
-  { path: 'promotion/promo-edit/:id', component: PromoEditComponent },
-  { path: "promotion", component: PromoListComponent },
-
+  {
+    path: "bookTicket", component: BookTicketComponent, canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'ROLE_EMPLOYEE'
+    }
+  },
+  {
+    path: "transaction/invoice/:id", component: InvoiceTicketComponent, canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'ROLE_EMPLOYEE'
+    }
+  },
+  {
+    path: "bookTicket", component: BookTicketComponent, canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'ROLE_EMPLOYEE'
+    }
+  },
 
 ];
 

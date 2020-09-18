@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CustomerUpdateDto } from '../models/dto/CustomerUpdateDto';
-import { AbstractControl } from '@angular/forms';
+import {AbstractControl, FormControl, ValidationErrors, ValidatorFn} from '@angular/forms';
 import { CustomerChangePassDto } from '../models/dto/CustomerChangePassDto';
 import { TransactionDetailDTO } from '../models/dto/TransactionDetailDTO';
 
@@ -76,7 +76,31 @@ export class CustomerService {
     return (chooseDate - currentDate >= 0) ?
       { chooseDateGreaterThanCurrentDate: true } : null;
   }
-
+  checkAge: ValidatorFn = (control: FormControl): ValidationErrors | null => {
+    const birthday = new Date(control.value);
+    const timeBirth: number = birthday.getTime();
+    const now = new Date().getTime();
+    if (((now - timeBirth) / 365.25 / 24 / 60 / 60 / 1000) < 18) {
+      return {checkAge: true};
+    }
+    return null;
+  }
+  validPhoneNumber: ValidatorFn = (control: FormControl): ValidationErrors | null => {
+    const phoneRegex = /^0[35789]\d{8}$/;
+    const characterRegex = /^[^\d]+$/;
+    // tslint:disable-next-line:variable-name
+    const _phoneNumber: string = control.value;
+    if (_phoneNumber === '') {
+      return null;
+    }
+    if (characterRegex.test(_phoneNumber)) {
+      return {alphabel: true};
+    }
+    if (!phoneRegex.test(_phoneNumber)) {
+      return {format: true};
+    }
+    return null;
+  }
 
 
   // Thành Long

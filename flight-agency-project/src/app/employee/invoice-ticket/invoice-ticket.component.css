@@ -59,11 +59,13 @@ input[type=checkbox] {
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
   }
   @media print {
+    
     .printPageButton {
       display: none;
     }
     body {-webkit-print-color-adjust: exact;}
-    
+   
+
   }
   @media (min-width: 768px){
     .seven-cols .col-md-1,

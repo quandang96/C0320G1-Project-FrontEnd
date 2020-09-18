@@ -14,6 +14,7 @@ export class BookTicketComponent implements OnInit {
   flight = {} as EmployeeFlightSearchDTO;
   ticketForm: FormGroup;
   
+  
 
   constructor(private router: Router,
               private employeeService: EmployeeService) {
@@ -30,8 +31,6 @@ export class BookTicketComponent implements OnInit {
       childPassengers : new FormArray(this.returnChildFormGroupList()),
       otherDetails: new FormGroup({
         emailCheck: new FormControl(''),
-        deptPrice: new FormControl(0,[Validators.required,Validators.min(0)]),
-        arvPrice: new FormControl(0,[Validators.required,Validators.min(0)]),
         totalPrice: new FormControl(0)
       })
   })

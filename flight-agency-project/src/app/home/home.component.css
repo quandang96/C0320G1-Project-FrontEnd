@@ -366,6 +366,11 @@ hr {
 .ghichu2 {
   margin-top: -15px;
 }
+.ghichu4 {
+  margin-top: -15px;
+  justify-content: center;
+  display: flex;
+}
 .ghichu3 {
   margin-top: -15px;
   padding-left: 48px;

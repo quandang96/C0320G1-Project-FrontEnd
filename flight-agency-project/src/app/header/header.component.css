@@ -12,12 +12,17 @@
   border: #4469B0;
 }
 .btn-1:hover,
-.btn-outline-primary:focus
+.btn-outline-primary:active
 .btn-outline-primary:default{
   background-color:white;
   border: 2px solid #4469B0;
   color: #4469B0;
   transform: none !important;
+}
+
+.btn-outline-primary:focus{
+  outline:0 !important;
+  box-shadow: none !important
 }
 
 .border-list{
