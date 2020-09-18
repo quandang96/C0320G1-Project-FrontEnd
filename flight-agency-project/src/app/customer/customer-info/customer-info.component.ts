@@ -102,28 +102,25 @@ export class CustomerInfoComponent implements OnInit {
           fileRef.getDownloadURL().subscribe(url => {
             this.customer.avatarImageUrl = url;
             console.log(this.customer.avatarImageUrl );
+            this.customerService.updateCustomer(this.customer, this.customer.id).subscribe(data => {
+
+              this.backendMessages = data.backendMessage;
+            }, error => {
+              this.errorMessage = 'Cập nhật tài khoản thất bại';
+            }, () => {
+              if (this.backendMessages.length === 0) {
+                $('#editPopup').modal('hide');
+                console.log(this.customer);
+                this.message = 'Thông tin tài khoản của bạn đã được cập nhật';
+              }
+              this.ngOnInit();
+              this.saveTodos();
+            })
           });
         })
       ).subscribe();
     }
-    // if (this.imgSrc !== null) {
-    //   console.log(this.imgSrc);
-    //   this.customer.avatarImageUrl = this.imgSrc ;
-    // }
-    this.customerService.updateCustomer(this.customer, this.customer.id).subscribe(data => {
 
-      this.backendMessages = data.backendMessage;
-    }, error => {
-      this.errorMessage = 'Cập nhật tài khoản thất bại';
-    }, () => {
-      if (this.backendMessages.length === 0) {
-        $('#editPopup').modal('hide');
-        console.log(this.customer);
-        this.message = 'Thông tin tài khoản của bạn đã được cập nhật';
-      }
-      this.ngOnInit();
-      this.saveTodos();
-    })
   }
   submit() {
 
