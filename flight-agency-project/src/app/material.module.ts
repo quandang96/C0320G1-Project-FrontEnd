@@ -13,13 +13,10 @@ import { CommonModule } from '@angular/common';
     MatFormFieldModule,
     MatNativeDateModule,
     MatInputModule,
-    MatDialogModule,
+    MatStepperModule,
     MatFormFieldModule,
-    MatNativeDateModule,
-    MatInputModule,
     CommonModule,
     MatButtonModule,
-    MatDatepickerModule,
     MatDialogModule
   ],
   exports: [
@@ -27,14 +24,10 @@ import { CommonModule } from '@angular/common';
     MatFormFieldModule,
     MatNativeDateModule,
     MatInputModule,
-    MatDialogModule,
     MatStepperModule,
     MatFormFieldModule,
-    MatNativeDateModule,
-    MatInputModule,
     CommonModule,
     MatButtonModule,
-    MatDatepickerModule,
     MatDialogModule
   ]
 })

@@ -34,9 +34,6 @@ import { CustomerService } from '../shared/services/customer.service';
     NgxPayPalModule,
     CommonModule,
     CustomerRoutingModule,
-
-
-
   ],
   providers: [CustomerService],
   bootstrap: []

@@ -12,8 +12,9 @@
             </div>
             <div class="col-sm-8">
               <a [hidden]="statusAdd" style="color: #fff;
-    background-color: #dc3545;
-    border-color: #dc3545;" (click)="clearAlias()" class="btn btn-danger"><i class="material-icons">layers_clear</i>
+              background-color: #dc3545;
+              border-color: #dc3545;" 
+              (click)="clearAlias()" class="btn btn-danger"><i class="material-icons">layers_clear</i>
                 <span>Xóa dòng</span></a>
               <button [hidden]="statusAdd"
                       style="color: #fff;
@@ -21,9 +22,9 @@
                         border-color: #28a745;" class="btn btn-success" type="submit"><i class="material-icons">save</i>Lưu
                 Thay Đổi
               </button>
-              <a style="    color: #212529;
-    background-color: #ffc107;
-    border-color: #ffc107;" (click)="exportToExcel()" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i>
+              <a style="color: #212529;
+              background-color: #ffc107;
+              border-color: #ffc107;" (click)="exportToExcel()" class="btn btn-secondary"><i class="material-icons">&#xE24D;</i>
                 <span>Export to Excel</span></a>
               <a (click)="addAlias()" class="btn btn-primary"><i class="material-icons">add</i>
                 <span>Thêm Nhân Viên</span></a>

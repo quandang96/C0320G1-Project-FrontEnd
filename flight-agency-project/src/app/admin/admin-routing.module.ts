@@ -32,10 +32,13 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  
   imports: [
     RouterModule.forChild(routes),
     EmployeeModule
   ],
-  exports: [RouterModule]
+  exports: [
+    RouterModule
+  ]
 })
 export class AdminRoutingModule { }

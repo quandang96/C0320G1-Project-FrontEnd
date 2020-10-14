@@ -74,7 +74,7 @@ registerLocaleData(localVi);
     AngularFireDatabaseModule
   ],
   exports : [
-    EmployeeTableComponent
+    // EmployeeTableComponent
   ],
   entryComponents: [BillFindComponent]
 

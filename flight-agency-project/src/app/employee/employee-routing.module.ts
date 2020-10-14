@@ -1,3 +1,5 @@
+import { CustomerPaymentComponent } from './../customer/customer-payment/customer-payment.component';
+import { CustomerModule } from './../customer/customer.module';
 import { InvoiceTicketComponent } from './invoice-ticket/invoice-ticket.component';
 import { FindFlightComponent } from './find-flight/find-flight.component';
 import { BookTicketComponent } from './book-ticket/book-ticket.component';
@@ -22,36 +24,28 @@ import { PromoEditComponent } from './promo/promo-edit/promo-edit.component';
 
 const routes: Routes = [
   {
-    path: '', component: EmployeeHomeComponent,
+    path: '', component: EmployeeHomeComponent, 
+    canActivate: [RoleGuard],
+    data: {
+      expectedRole: 'ROLE_EMPLOYEE'
+    },
     children: [
       // creator Trương Khánh Mậu
       {
-        path: 'employeeInfo', component: EmployeeInformationComponent, canActivate: [RoleGuard],
-        data: {
-          expectedRole: 'ROLE_EMPLOYEE'
-        }
+        path: 'employeeInfo', component: EmployeeInformationComponent
       },
       {
-        path: 'management', component: CustomerManagementComponent, canActivate: [RoleGuard],
-        data: {
-          expectedRole: 'ROLE_EMPLOYEE'
-        }
+        path: 'management', component: CustomerManagementComponent
       },
       {
         path: 'tickets', loadChildren: () => import('../ticket/ticket.module').then(mod => mod.TicketModule)
       },
       {
-        path: "findFlight", component: FindFlightComponent, canActivate: [RoleGuard],
-        data: {
-          expectedRole: 'ROLE_EMPLOYEE'
-        }
+        path: "findFlight", component: FindFlightComponent
       },
       { path: 'customer-checkin-list', component: EmployeeCustomerCheckinComponent },
       {
-        path: "bill-list", component: BillListComponent, canActivate: [RoleGuard],
-        data: {
-          expectedRole: 'ROLE_EMPLOYEE'
-        }
+        path: "bill-list", component: BillListComponent
       },
       { path: "add-passenger", component: AddPassengerComponent },
       { path: "list-passenger/update/:id", component: UpdatePassengerComponent },
@@ -89,7 +83,10 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [
+    RouterModule.forChild(routes),
+    CustomerModule
+  ],
   exports: [RouterModule],
   declarations: []
 })

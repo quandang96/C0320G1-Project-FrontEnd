@@ -85,7 +85,9 @@ export class HomeComponent implements OnInit {
       children: [0, [Validators.required]],
       adults: [1, [Validators.required]]
     }, {validators : [this.checkDepartureAirportAndArrivalAirport, this.checkAdultsAndBabies, this.checkAdultsAndChildren,
-      this.checkSelectDepartureDate, this.checkSelectArrivalDate, this.checkDepartureDateAndArrivalDate]});
+      this.checkSelectDepartureDate, this.checkSelectArrivalDate,
+      //  this.checkDepartureDateAndArrivalDate
+      ]});
   }
 
   // D-Bach
